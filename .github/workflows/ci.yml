@@ -1,0 +1,41 @@
+name: React Native CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  eslint:
+    name: Run Eslint Scanning
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache Node Modules
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache-
+
+      - name: Install ESLint
+        run: |
+          npm install eslint@8.56.0
+          npm install eslint-plugin-react-native@4.1.0
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+
+      - name: Run ESLint
+        run: npx eslint .
+          --config .eslintrc.json
+          --ext .js,.jsx,.ts,.tsx
+
+  ticketValidation:
+    uses: Group-Expense-Manager/common-ci-cd/.github/workflows/jira.yml@main
