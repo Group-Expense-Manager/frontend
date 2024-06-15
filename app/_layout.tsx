@@ -1,4 +1,3 @@
-import { useReactQueryDevTools } from '@dev-plugins/react-query';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
@@ -7,15 +6,9 @@ import { useEffect } from 'react';
 import { AuthProvider } from '@/context/AuthContext';
 const client = new QueryClient();
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+const RootLayout = () => {
   const [fontsLoaded, error] = useFonts({
     'Sora-Bold': require('../assets/fonts/Sora-Bold.ttf'),
     'Sora-ExtraBold': require('../assets/fonts/Sora-ExtraBold.ttf'),
@@ -43,12 +36,6 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  useReactQueryDevTools(client);
-
   return (
     <QueryClientProvider client={client}>
       <AuthProvider>
@@ -60,4 +47,6 @@ function RootLayoutNav() {
       </AuthProvider>
     </QueryClientProvider>
   );
-}
+};
+
+export default RootLayout;

@@ -1,7 +1,7 @@
+import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { router } from 'expo-router';
 import { useContext } from 'react';
-import { useMutation } from 'react-query';
 
 import { API_URL } from '@/context/AuthContext';
 import { VerificationContext } from '@/context/VerificationContext';
