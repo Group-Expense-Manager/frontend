@@ -1,6 +1,7 @@
+import { Redirect } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
-const TabLayout = () => {
+const AuthLayout = () => {
   return (
     <>
       {/*<Stack>*/}
@@ -23,4 +24,4 @@ const TabLayout = () => {
   );
 };
 
-export default TabLayout;
+export default AuthLayout;
