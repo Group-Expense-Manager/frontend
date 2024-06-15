@@ -4,10 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { View, Text, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useAuth } from '@/hooks/AuthContext';
-
 import 'intl-pluralrules';
 import './i18n';
+import { useAuth } from '@/hooks/UseAuth';
 
 const Welcome = () => {
   const { authState } = useAuth();

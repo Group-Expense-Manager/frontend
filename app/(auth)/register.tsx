@@ -1,31 +1,18 @@
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, Text, Button, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { useAuth } from '@/hooks/AuthContext';
+import { useAuth } from '@/hooks/UseAuth';
 
 export default function Register() {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { onLogin, onRegister } = useAuth();
-
-  const login = async () => {
-    const result = await onLogin!(email, password);
-    if (result && result.error) {
-      alert(result.msg);
-    }
-  };
-
+  const { onRegister } = useAuth();
   const register = async () => {
-    const result = await onRegister!(email, password);
-    if (result && result.error) {
-      alert(result.msg);
-    } else {
-      login();
-    }
+    await onRegister!(email, password);
   };
 
   return (
