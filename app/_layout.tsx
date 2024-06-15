@@ -1,12 +1,21 @@
+import { useReactQueryDevTools } from '@dev-plugins/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 
 import { AuthProvider } from '@/context/AuthContext';
+const client = new QueryClient();
 
+export {
+  // Catch any errors thrown by the Layout component.
+  ErrorBoundary,
+} from 'expo-router';
+
+// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-const RootLayout = () => {
+export default function RootLayout() {
   const [fontsLoaded, error] = useFonts({
     'Sora-Bold': require('../assets/fonts/Sora-Bold.ttf'),
     'Sora-ExtraBold': require('../assets/fonts/Sora-ExtraBold.ttf'),
@@ -34,15 +43,21 @@ const RootLayout = () => {
     return null;
   }
 
-  return (
-    <AuthProvider>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-      </Stack>
-    </AuthProvider>
-  );
-};
+  return <RootLayoutNav />;
+}
 
-export default RootLayout;
+function RootLayoutNav() {
+  useReactQueryDevTools(client);
+
+  return (
+    <QueryClientProvider client={client}>
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+        </Stack>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
+}

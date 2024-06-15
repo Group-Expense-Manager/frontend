@@ -10,15 +10,20 @@ import { useAuth } from '@/hooks/UseAuth';
 export default function Verify() {
   const { t } = useTranslation();
   const [code, setCode] = useState('');
-  const { onVerify } = useAuth();
+  // const { onVerify } = useAuth();
   const { verificationProps } = useContext(VerificationContext);
   const verify = async () => {
-    await onVerify!(verificationProps.email, verificationProps.code);
+    console.log('tu');
+    // const result = await onVerify!(verificationProps.email, code);
+    console.log(verificationProps.email);
+    console.log(verificationProps.email);
+    console.log(verificationProps.email);
   };
 
   return (
     <SafeAreaView className="w-full flex-1 justify-center">
       <Text className=" text-center font-bold">{t('Login')}</Text>
+      <Text className=" text-center font-bold">{verificationProps.email}</Text>
       <TextInput
         placeholder="Code"
         secureTextEntry
