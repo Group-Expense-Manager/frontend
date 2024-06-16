@@ -20,7 +20,7 @@ function useVerify(email: string, code: string) {
         { email, code },
         {
           headers: {
-            host: 'web.authenticator.com',
+            host: 'gem.web.authenticator.com',
             'content-type': 'application/vnd.gem.internal.v1+json',
           },
         },
@@ -32,7 +32,7 @@ function useVerify(email: string, code: string) {
         authenticated: true,
       });
       SecureStore.setItem(TOKEN_KEY, response.data);
-      router.replace('/you');
+      router.replace('/groups');
     },
   });
 }

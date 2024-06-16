@@ -20,7 +20,7 @@ function useLogout() {
         token: null,
         authenticated: false,
       });
-      router.push('/login');
+      router.replace('/login');
     },
   });
 }

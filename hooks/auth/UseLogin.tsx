@@ -19,7 +19,7 @@ function useLogin(email: string, password: string) {
         { email, password },
         {
           headers: {
-            host: 'web.authenticator.com',
+            host: 'gem.web.authenticator.com',
             'content-type': 'application/vnd.gem.internal.v1+json',
           },
         },
@@ -38,7 +38,7 @@ function useLogin(email: string, password: string) {
         authenticated: true,
       });
       SecureStore.setItem(TOKEN_KEY, token);
-      router.replace('/you');
+      router.replace('/groups');
     },
   });
 }

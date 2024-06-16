@@ -10,6 +10,16 @@
   "Password": "Hasło",
   "Code": "Kod",
   "Don't have an account?": "Nie masz konta?",
-  "Already have an account?": "Masz już konto?"
+  "Already have an account?": "Masz już konto?",
+  "You don't belong to any group!": "Nie należysz do żadnej grupy!",
+  "Create new group": "Utwórz nową grupę",
+  "Join existing group": "Dołącz do istniejącej grupy",
+  "Group name": "Nazwa grupy",
+  "Next": "Dalej",
+  "Cancel": "Anuluj",
+  "Back": "Cofnij",
+  "Create group": "Utwórz grupę",
+  "Base currencies": "Waluty podstawowe",
+  "Acceptance required": "Wymagana akceptacja"
 
 }

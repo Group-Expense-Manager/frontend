@@ -11,7 +11,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, handlePress, isLoadi
     <TouchableOpacity
       onPress={handlePress}
       activeOpacity={0.7}
-      className={`bg-primary-base rounded-[32px] h-[48px] flex flex-row justify-center items-center ${
+      className={`bg-primary-base rounded-[32px] h-[48px] w-full flex flex-row justify-center items-center ${
         isLoading ? 'opacity-50' : ''
       }`}
       disabled={isLoading}>

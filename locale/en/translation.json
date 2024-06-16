@@ -10,6 +10,16 @@
   "Password": "Password",
   "Code": "Code",
   "Don't have an account?": "Don't have an account?",
-  "Already have an account?": "Already have an account?"
+  "Already have an account?": "Already have an account?",
+  "You don't belong to any group!": "You don't belong to any group!",
+  "Create new group": "Create new group",
+  "Join existing group": "Join existing group",
+  "Group name": "Group name",
+  "Next": "Next",
+  "Cancel": "Cancel",
+  "Back": "Back",
+  "Create group": "Create group",
+  "Base currencies": "Base currencies",
+  "Acceptance required": "Acceptance required"
 
 }
