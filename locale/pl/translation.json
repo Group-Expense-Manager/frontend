@@ -1,4 +1,15 @@
 {
   "Register": "Zarejestruj",
-  "Login": "Zaloguj"
+  "Login": "Zaloguj",
+  "Verify": "Zweryfikuj",
+  "Reports": "Raporty",
+  "Groups": "Grupy",
+  "Alignments": "Wyrównania",
+  "You": "Ty",
+  "Email": "Email",
+  "Password": "Hasło",
+  "Code": "Kod",
+  "Don't have an account?": "Nie masz konta?",
+  "Already have an account?": "Masz już konto?"
+
 }

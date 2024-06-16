@@ -22,18 +22,18 @@ export default function Register() {
     <SafeAreaView className="w-full flex-1 justify-center">
       <Text className=" text-center font-bold">{t('Register')}</Text>
       <TextInput
-        placeholder="Email"
+        placeholder={t('Email')}
         onChangeText={(text: string) => setEmail(text)}
         value={email}
       />
       <TextInput
-        placeholder="Password"
+        placeholder={t('Password')}
         secureTextEntry
         onChangeText={(text: string) => setPassword(text)}
         value={password}
       />
-      <Button onPress={handleRegister} title="Register" />
-      <Button onPress={() => router.push('/(auth)/login')} title="Already have an account?" />
+      <Button onPress={handleRegister} title={t('Register')} />
+      <Button onPress={() => router.push('/(auth)/login')} title={t('Already have an account?')} />
     </SafeAreaView>
   );
 }

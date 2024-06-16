@@ -3,10 +3,11 @@ import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useContext } from 'react';
 
-import { AuthContext, TOKEN_KEY } from '@/context/AuthContext';
+import { TOKEN_KEY } from '@/constants/Storage';
+import { GlobalContext } from '@/context/GlobalContext';
 
 function useLogout() {
-  const { setAuthState } = useContext(AuthContext);
+  const { setAuthState } = useContext(GlobalContext);
   return useMutation({
     mutationFn: async () => {
       await SecureStore.deleteItemAsync(TOKEN_KEY);

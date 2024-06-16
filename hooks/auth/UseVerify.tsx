@@ -4,13 +4,15 @@ import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useContext } from 'react';
 
-import { API_URL, AuthContext, TOKEN_KEY } from '@/context/AuthContext';
+import { API_URL } from '@/constants/Api';
+import { TOKEN_KEY } from '@/constants/Storage';
+import { GlobalContext } from '@/context/GlobalContext';
 
 function useVerify(email: string, code: string) {
   console.log(email);
   console.log(code);
 
-  const { setAuthState } = useContext(AuthContext);
+  const { setAuthState } = useContext(GlobalContext);
   return useMutation({
     mutationFn: () => {
       return axios.post(
@@ -30,7 +32,7 @@ function useVerify(email: string, code: string) {
         authenticated: true,
       });
       SecureStore.setItem(TOKEN_KEY, response.data);
-      router.push('/homef');
+      router.replace('/you');
     },
   });
 }

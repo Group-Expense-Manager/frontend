@@ -1,4 +1,15 @@
 {
   "Register": "Register",
-  "Login": "Login"
+  "Login": "Login",
+  "Verify": "Verify",
+  "Reports": "Reports",
+  "Groups": "Groups",
+  "Alignments": "Alignments",
+  "You": "You",
+  "Email": "Email",
+  "Password": "Password",
+  "Code": "Code",
+  "Don't have an account?": "Don't have an account?",
+  "Already have an account?": "Already have an account?"
+
 }

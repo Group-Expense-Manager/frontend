@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Text, Button, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AuthContext } from '@/context/AuthContext';
+import { GlobalContext } from '@/context/GlobalContext';
 import { VerificationContext } from '@/context/VerificationContext';
 import useLogin from '@/hooks/auth/UseLogin';
 import useRegister from '@/hooks/auth/UseRegister';
@@ -22,18 +22,18 @@ export default function Login() {
     <SafeAreaView className="w-full flex-1 justify-center">
       <Text className=" text-center font-bold">{t('Login')}</Text>
       <TextInput
-        placeholder="Email"
+        placeholder={t('Email')}
         onChangeText={(text: string) => setEmail(text)}
         value={email}
       />
       <TextInput
-        placeholder="Password"
+        placeholder={t('Password')}
         secureTextEntry
         onChangeText={(text: string) => setPassword(text)}
         value={password}
       />
-      <Button onPress={login} title="Sign in" />
-      <Button onPress={() => router.push('/(auth)/register')} title="Don't have account?" />
+      <Button onPress={login} title={t('Login')} />
+      <Button onPress={() => router.push('/(auth)/register')} title={t("Don't have an account?")} />
     </SafeAreaView>
   );
 }

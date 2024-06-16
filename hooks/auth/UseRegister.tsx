@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { router } from 'expo-router';
 import { useContext } from 'react';
 
-import { API_URL } from '@/context/AuthContext';
+import { API_URL } from '@/constants/Api';
 import { VerificationContext } from '@/context/VerificationContext';
 
 function useRegister(email: string, password: string) {
@@ -21,14 +21,7 @@ function useRegister(email: string, password: string) {
         },
       );
     },
-    onError: (error: AxiosError) => {
-      if (error.response?.status === 403) {
-        // Handle 403 Forbidden
-        // router.push('/verify'); // Navigate to '/verify' route
-      }
-    },
     onSuccess: () => {
-      // Handle 201 Created
       setVerificationProps({ email, code: '' });
       router.push('/verify');
     },
