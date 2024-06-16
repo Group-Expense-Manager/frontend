@@ -3,33 +3,21 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { TabIcon } from '@/components';
+import theme from '@/constants/Colors';
 import { CreditCardIcon, FileAttachmentIcon, GroupIcon, UserIcon } from '@/constants/Icon';
-// import { GroupsProvider } from '@/context/GroupsContext';
 
 const TabLayout = () => {
-  // return (
-  //   <Stack>
-  //     <Stack.Screen
-  //       name="homef"
-  //       options={{
-  //         headerShown: false,
-  //       }}
-  //     />
-  //   </Stack>
-  // );
   const { t } = useTranslation();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#FFA001',
-        tabBarInactiveTintColor: '#CDCDE0',
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: '#161622',
-          borderTopWidth: 1,
-          borderTopColor: '#232533',
-          height: 84,
+          backgroundColor: theme.sky.lightest,
+          borderTopWidth: 0,
+          borderTopColor: theme.sky.lightest,
+          height: 92,
         },
       }}>
       <Tabs.Screen
@@ -37,9 +25,9 @@ const TabLayout = () => {
         options={{
           title: t('Reports'),
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="Reports">
-              <FileAttachmentIcon />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="Reports" focused={focused}>
+              <FileAttachmentIcon width="24px" height="24px" />
             </TabIcon>
           ),
         }}
@@ -49,9 +37,9 @@ const TabLayout = () => {
         options={{
           title: t('Groups'),
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="Groups">
-              <GroupIcon />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="Groups" focused={focused}>
+              <GroupIcon width="24px" height="24px" />
             </TabIcon>
           ),
         }}
@@ -62,9 +50,9 @@ const TabLayout = () => {
         options={{
           title: t('Alignments'),
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="Alignments">
-              <CreditCardIcon />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="Alignments" focused={focused}>
+              <CreditCardIcon width="24px" height="24px" />
             </TabIcon>
           ),
         }}
@@ -74,9 +62,9 @@ const TabLayout = () => {
         options={{
           title: t('You'),
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon name="You">
-              <UserIcon />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="You" focused={focused}>
+              <UserIcon width="24px" height="24px" />
             </TabIcon>
           ),
         }}
