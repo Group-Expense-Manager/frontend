@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import React, { createContext, FC, ReactNode, useContext, useEffect, useState } from 'react';
 
-const TOKEN_KEY = 'my-jwt';
+export const TOKEN_KEY = 'my-jwt';
 export const API_URL = 'http://192.168.55.13';
 
 interface AuthState {

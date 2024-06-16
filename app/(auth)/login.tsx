@@ -6,16 +6,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AuthContext } from '@/context/AuthContext';
 import { VerificationContext } from '@/context/VerificationContext';
-import { useAuth } from '@/hooks/UseAuth';
+import useLogin from '@/hooks/auth/UseLogin';
+import useRegister from '@/hooks/auth/UseRegister';
 
 export default function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { onLogin } = useContext(AuthContext);
+  const { mutate, isSuccess, isError, error, data } = useLogin(email, password);
 
   const login = async () => {
-    await onLogin!(email, password);
+    mutate();
   };
   return (
     <SafeAreaView className="w-full flex-1 justify-center">

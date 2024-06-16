@@ -12,7 +12,7 @@ export default function Register() {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { mutate, isLoading, isError, error } = useRegister(email, password);
+  const { mutate, isError, error } = useRegister(email, password);
 
   const handleRegister = () => {
     mutate();
