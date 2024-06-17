@@ -33,7 +33,7 @@ const ExpenseCreationLayout = () => {
           }}
         />
         <Stack.Screen
-          name="expense-value"
+          name="expense-cost"
           options={{
             headerShown: false,
           }}

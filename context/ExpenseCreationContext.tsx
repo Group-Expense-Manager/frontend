@@ -10,7 +10,7 @@ export interface ExpenseCreationProps {
   title: string;
   cost: number;
   baseCurrency: string;
-  targetCurrency: string;
+  targetCurrency: string | undefined;
   expenseDate: Date;
   expenseParticipants: ExpenseParticipant[];
   message: string | undefined;

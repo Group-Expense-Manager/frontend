@@ -12,7 +12,7 @@ export default function Groups() {
   const { status, data, error, isFetching } = useGroups();
   const [currentGroupId, setCurrentGroupId] = useState<string | null>(null);
   const [groups, setGroups] = useState<Group[]>([]);
-  const { data: expenseData, status: expenseStatus } = useExpenses(currentGroupId);
+  const { data: expensesData, status: expensesStatus } = useExpenses(currentGroupId);
 
   function getNameById(id: string, items: Group[]): string | undefined {
     const item = items.find((item) => item.groupId === id);
@@ -29,8 +29,8 @@ export default function Groups() {
   }, [data]);
 
   useEffect(() => {
-    console.log(expenseStatus);
-  }, [expenseStatus]);
+    console.log(expensesStatus);
+  }, [expensesStatus]);
 
   return (
     <SafeAreaView className="flex-1 h-full justify-center">
@@ -51,12 +51,14 @@ export default function Groups() {
       ) : (
         <>
           <Text className="text-title1">{getNameById(currentGroupId!, groups)}</Text>
-          {expenseStatus === 'pending' ? (
+          {expensesStatus === 'pending' ? (
             <Text>Loading Expenses...</Text>
-          ) : expenseStatus === 'error' ? (
+          ) : expensesStatus === 'error' ? (
             <Text>No expenses</Text>
+          ) : expensesData?.expenses.length == 0 ? (
+            <Text>{t('No expenses')}</Text>
           ) : (
-            <Text>No expenses</Text>
+            <Text>{JSON.stringify(expensesData?.expenses)}</Text>
           )}
         </>
       )}

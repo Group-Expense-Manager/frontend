@@ -27,13 +27,13 @@ function useExpenses(groupId: string | null) {
   const { authState } = useContext(GlobalContext);
   return useQuery({
     queryKey: [`expenses?groupId=${groupId}`],
-    queryFn: async (): Promise<Groups> => {
+    queryFn: async (): Promise<Expenses> => {
       console.log('groupId', groupId);
 
       const { data } = await axios.get(`${API_URL}/external/expenses?groupId=${groupId}`, {
         headers: {
-          host: 'gem.web.group-expense.com',
-          'content-type': 'application/vnd.gem.internal.v1+json',
+          host: 'gem.web.expense-manager.com',
+          accept: 'application/vnd.gem.internal.v1+json',
           authorization: `Bearer ${authState.token}`,
         },
       });
@@ -41,28 +41,6 @@ function useExpenses(groupId: string | null) {
     },
     enabled: !!groupId,
   });
-  //   const mutation = useMutation({
-  //     mutationFn: (groupId: string) => {
-  //       return axios.get(`${API_URL}/external/expenses?groupId=${groupId}`, {
-  //         headers: {
-  //           host: 'gem.web.expense-manager.com',
-  //           'content-type': 'application/vnd.gem.internal.v1+json',
-  //           authorization: `Bearer ${authState.token}`,
-  //         },
-  //       });
-  //     },
-  //     onSuccess: (response: AxiosResponse) => {
-  //       console.log(JSON.stringify(response?.data));
-  //     },
-  //     onError: (error: AxiosError) => {
-  //       console.log(error.response?.status);
-  //       console.log(JSON.stringify(error.response?.data));
-  //     },
-  //   });
-  //
-  //   return (groupId: string) => {
-  //     return mutation.mutate(groupId);
-  //   };
 }
 
 export default useExpenses;
