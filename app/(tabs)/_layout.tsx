@@ -2,9 +2,15 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { TabIcon } from '@/components';
+import { TabIcon, TopTabButton, TopTabIcon } from '@/components';
 import theme from '@/constants/Colors';
-import { CreditCardIcon, FileAttachmentIcon, GroupIcon, UserIcon } from '@/constants/Icon';
+import {
+  CreditCardIcon,
+  FileAttachmentIcon,
+  GroupIcon,
+  PlusIcon,
+  UserIcon,
+} from '@/constants/Icon';
 import { GroupProvider } from '@/context/GroupContext';
 
 const TabLayout = () => {
@@ -52,10 +58,13 @@ const TabLayout = () => {
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (
-              <TabIcon name="" focused={focused}>
-                <GroupIcon className=" relative -top-10" width="24px" height="24px" />
-              </TabIcon>
+              <TopTabIcon focused={focused}>
+                <PlusIcon width="24px" height="24px" />
+              </TopTabIcon>
             ),
+            tabBarButton: (props) => {
+              return <TopTabButton {...props} />;
+            },
           }}
         />
 

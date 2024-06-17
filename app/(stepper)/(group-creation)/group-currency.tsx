@@ -25,6 +25,12 @@ export default function GroupCurrency() {
     });
   }, [selectedCurrency]);
 
+  function mapToSelectList(currencies: Currency[]) {
+    return currencies.map((obj) => ({
+      key: obj.code,
+      value: obj.code,
+    }));
+  }
   return (
     <SafeAreaView className="flex-1 justify-center">
       {isFetching ? (

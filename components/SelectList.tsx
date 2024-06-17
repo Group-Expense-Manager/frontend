@@ -114,8 +114,8 @@ const SelectList: React.FC<SelectListProps> = ({ setSelected, data, name }) => {
                       style={[styles.option]}
                       key={index}
                       onPress={() => {
-                        setSelected(value);
-                        setSelectedVal(key);
+                        setSelected(key);
+                        setSelectedVal(value);
                         slideUp();
                         setTimeout(() => {
                           setFilteredData(data);
