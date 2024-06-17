@@ -40,7 +40,7 @@ export default function GroupAccept() {
       <Button title={t('Create group')} onPress={handleCreateGroup(groupCreationProps)} />
       <Button
         title={t('Back')}
-        onPress={() => router.replace('(stepper)/(group-creation)/group-currency')}
+        onPress={() => router.navigate('(stepper)/(group-creation)/group-currency')}
       />
     </SafeAreaView>
   );
