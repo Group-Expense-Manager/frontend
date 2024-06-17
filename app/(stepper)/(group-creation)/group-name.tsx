@@ -30,7 +30,7 @@ export default function GroupName() {
         title={t('Next')}
         onPress={() => router.push('(stepper)/(group-creation)/group-currency')}
       />
-      <Button title={t('Cancel')} onPress={() => router.replace('(tabs)/groups')} />
+      <Button title={t('Cancel')} onPress={() => router.navigate('(tabs)/groups')} />
     </SafeAreaView>
   );
 }

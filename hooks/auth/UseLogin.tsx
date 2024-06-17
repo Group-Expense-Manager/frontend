@@ -26,9 +26,13 @@ function useLogin(email: string, password: string) {
       );
     },
     onError: (error: AxiosError) => {
+      console.log(error.response?.status);
+      console.log(JSON.stringify(error.response?.data));
       if (error.response?.status === 403) {
         setVerificationProps({ email, code: '' });
         router.push('/verify');
+      } else if (error.response?.status === 400) {
+        alert('Niepoprawny email lub hasło!');
       }
     },
     onSuccess: (response: AxiosResponse<string>) => {

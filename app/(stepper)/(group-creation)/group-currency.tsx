@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Text, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { SelectList } from '@/components';
 import { GroupCreationContext } from '@/context/GroupCreationContext';
 import useRegister from '@/hooks/auth/UseRegister';
 import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
@@ -32,7 +33,12 @@ export default function GroupCurrency() {
           <Text className="text-center">
             {t('Base currencies')} {JSON.stringify(data?.currencies)}
           </Text>
-
+          <SelectList
+            name={t('Base currencies')}
+            setSelected={setSelectedItems}
+            data={data!.currencies}
+            key="code"
+          />
           <Button
             title={t('Next')}
             onPress={() => router.push('(stepper)/(group-creation)/group-accept')}

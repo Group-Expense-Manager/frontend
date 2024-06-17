@@ -8,41 +8,37 @@ import { API_URL } from '@/constants/Api';
 import { TOKEN_KEY } from '@/constants/Storage';
 import { GlobalContext } from '@/context/GlobalContext';
 
-function useVerify(email: string, code: string) {
-  console.log(email);
-  console.log(code);
-
-  const { setAuthState } = useContext(GlobalContext);
+function useJoinGroup(code: string) {
+  const { authState } = useContext(GlobalContext);
   return useMutation({
     mutationFn: () => {
+      console.log(`joining ${code}`);
+      console.log(`Bearer ${authState.token}`);
       return axios.post(
-        `${API_URL}/open/verify`,
-        { email, code },
+        `${API_URL}/external/groups/join/${code}`,
+        {},
         {
           headers: {
-            host: 'gem.web.authenticator.com',
+            host: 'gem.web.group-manager.com',
             'content-type': 'application/vnd.gem.internal.v1+json',
+            accept: 'application/vnd.gem.internal.v1+json',
+            authorization: `Bearer ${authState.token}`,
           },
         },
       );
     },
     onSuccess: (response: AxiosResponse<string>) => {
-      setAuthState({
-        token: response.data,
-        authenticated: true,
-      });
       SecureStore.setItem(TOKEN_KEY, response.data);
       router.replace('/groups');
     },
-
     onError: (error: AxiosError) => {
       console.log(error.response?.status);
       console.log(JSON.stringify(error.response?.data));
-      if (error.response?.status === 400) {
-        alert('Niepoprawny kod');
+      if (error.response?.status === 404) {
+        alert('Błędny kod');
       }
     },
   });
 }
 
-export default useVerify;
+export default useJoinGroup;

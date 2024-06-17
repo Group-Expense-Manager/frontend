@@ -25,6 +25,15 @@ function useRegister(email: string, password: string) {
       setVerificationProps({ email, code: '' });
       router.push('/verify');
     },
+    onError: (error: AxiosError) => {
+      console.log(error.response?.status);
+      console.log(JSON.stringify(error.response?.data));
+      if (error.response?.status === 409) {
+        alert('Email zajęty!');
+      } else if (error.response?.status === 400) {
+        alert('Niepoprawny format emaila bądź hasła');
+      }
+    },
   });
 }
 
