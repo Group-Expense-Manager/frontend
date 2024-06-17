@@ -1,7 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { GlobalProvider } from '@/context/GlobalContext';
 const client = new QueryClient();
@@ -39,13 +41,17 @@ const RootLayout = () => {
   return (
     <QueryClientProvider client={client}>
       <GlobalProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
-          <Stack.Screen name="(popover)" options={{ headerShown: false }} />
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-        </Stack>
+        <PaperProvider>
+          <SafeAreaProvider>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
+              <Stack.Screen name="(popover)" options={{ headerShown: false }} />
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+            </Stack>
+          </SafeAreaProvider>
+        </PaperProvider>
       </GlobalProvider>
     </QueryClientProvider>
   );

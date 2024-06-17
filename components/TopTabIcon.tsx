@@ -1,15 +1,14 @@
 import React, { ReactElement } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import theme from '@/constants/Colors';
 
 interface TopTabIconProps {
   focused: boolean;
-  name: string;
   children: ReactElement;
 }
 
-export const TopTabIcon: React.FC<TopTabIconProps> = ({ focused, name, children }) => {
+export const TopTabIcon: React.FC<TopTabIconProps> = ({ focused, children }) => {
   const clonedIcon = React.cloneElement(children, {
     width: 40,
     height: 40,

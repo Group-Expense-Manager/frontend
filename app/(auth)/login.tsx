@@ -1,39 +1,63 @@
 import { router } from 'expo-router';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, Button, TextInput } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View } from 'react-native';
 
-import { GlobalContext } from '@/context/GlobalContext';
-import { VerificationContext } from '@/context/VerificationContext';
+import { CustomButton, CustomTextInput } from '@/components';
+import SafeView from '@/components/SafeView';
+import { LogoIcon } from '@/constants/Icon';
 import useLogin from '@/hooks/auth/UseLogin';
-import useRegister from '@/hooks/auth/UseRegister';
 
 export default function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { mutate, isSuccess, isError, error, data } = useLogin(email, password);
+  const { mutate } = useLogin(email, password);
 
   const login = async () => {
     mutate();
   };
+
   return (
-    <SafeAreaView className="w-full flex-1 justify-center">
-      <Text className=" text-center font-bold">{t('Login')}</Text>
-      <TextInput
-        placeholder={t('Email')}
-        onChangeText={(text: string) => setEmail(text)}
-        value={email}
-      />
-      <TextInput
-        placeholder={t('Password')}
-        secureTextEntry
-        onChangeText={(text: string) => setPassword(text)}
-        value={password}
-      />
-      <Button onPress={login} title={t('Login')} />
-      <Button onPress={() => router.push('/(auth)/register')} title={t("Don't have an account?")} />
-    </SafeAreaView>
+    <SafeView>
+      <ScrollView
+        contentContainerStyle={{
+          height: '100%',
+        }}>
+        <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
+          <View className="w-full flex justify-center items-center">
+            <LogoIcon width="150px" height="150px" />
+          </View>
+          <View className="py-[32px] w-full flex flex-col space-y-[32px]">
+            <View>
+              <CustomTextInput
+                label={t('Email')}
+                onChangeText={(text: string) => setEmail(text)}
+                value={email}
+              />
+            </View>
+            <View>
+              <CustomTextInput
+                label={t('Password')}
+                secureTextEntry
+                onChangeText={(text: string) => setPassword(text)}
+                value={password}
+              />
+            </View>
+          </View>
+          <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
+            <View className="w-full">
+              <CustomButton onPress={login} title={t('Login')} />
+            </View>
+            <View className="w-full">
+              <CustomButton
+                onPress={() => router.push('/(auth)/register')}
+                title={t("Don't have an account?")}
+              />
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeView>
   );
 }
