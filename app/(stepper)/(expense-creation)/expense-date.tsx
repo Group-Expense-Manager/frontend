@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, ScrollView, TextInput, View } from 'react-native';
 import { DatePickerInput } from 'react-native-paper-dates';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CustomButton, CustomTextInput } from '@/components';
 import SafeView from '@/components/SafeView';
