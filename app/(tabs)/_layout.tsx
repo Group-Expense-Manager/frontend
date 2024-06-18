@@ -1,6 +1,9 @@
 import { Tabs } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { TabIcon, TopTabButton, TopTabIcon } from '@/components';
 import theme from '@/constants/Colors';
@@ -18,81 +21,94 @@ const TabLayout = () => {
 
   return (
     <GroupProvider>
-      <Tabs
-        screenOptions={{
-          tabBarShowLabel: false,
-          tabBarStyle: {
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.sky.lightest }}>
+        <Tabs
+          sceneContainerStyle={{
             backgroundColor: theme.sky.lightest,
-            borderTopWidth: 0,
-            borderTopColor: theme.sky.lightest,
-            height: 92,
-          },
-        }}>
-        <Tabs.Screen
-          name="reports"
-          options={{
-            title: t('Reports'),
-            headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <TabIcon name={t('Reports')} focused={focused}>
-                <FileAttachmentIcon width="24px" height="24px" />
-              </TabIcon>
-            ),
           }}
-        />
-        <Tabs.Screen
-          name="groups"
-          options={{
-            title: t('Groups'),
+          screenOptions={{
             headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <TabIcon name={t('Groups')} focused={focused}>
-                <GroupIcon width="24px" height="24px" />
-              </TabIcon>
-            ),
-          }}
-        />
-
-        <Tabs.Screen
-          name="create"
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <TopTabIcon focused={focused}>
-                <PlusIcon width="24px" height="24px" />
-              </TopTabIcon>
-            ),
-            tabBarButton: (props) => {
-              return <TopTabButton {...props} />;
+            headerBackgroundContainerStyle: {
+              backgroundColor: theme.sky.lightest,
+              shadowColor: 'transparent',
             },
-          }}
-        />
+            headerShadowVisible: false,
+            tabBarShowLabel: false,
+            tabBarStyle: {
+              shadowColor: 'transparent',
+              backgroundColor: theme.sky.lightest,
+              borderTopWidth: 2,
+              borderTopColor: theme.sky.lighter,
+              height: 92,
+            },
+          }}>
+          <Tabs.Screen
+            name="reports"
+            options={{
+              title: t('Reports'),
+              headerShown: false,
+              tabBarIcon: ({ focused }) => (
+                <TabIcon name={t('Reports')} focused={focused}>
+                  <FileAttachmentIcon width="24px" height="24px" />
+                </TabIcon>
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="groups"
+            options={{
+              title: t('Groups'),
+              headerShown: false,
+              tabBarIcon: ({ focused }) => (
+                <TabIcon name={t('Groups')} focused={focused}>
+                  <GroupIcon width="24px" height="24px" />
+                </TabIcon>
+              ),
+            }}
+          />
 
-        <Tabs.Screen
-          name="alignments"
-          options={{
-            title: t('Alignments'),
-            headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <TabIcon name={t('Alignments')} focused={focused}>
-                <CreditCardIcon width="24px" height="24px" />
-              </TabIcon>
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="you"
-          options={{
-            title: t('You'),
-            headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <TabIcon name={t('You')} focused={focused}>
-                <UserIcon width="24px" height="24px" />
-              </TabIcon>
-            ),
-          }}
-        />
-      </Tabs>
+          <Tabs.Screen
+            name="create"
+            options={{
+              headerShown: false,
+              tabBarButton: (props) => {
+                return <TopTabButton {...props} />;
+              },
+              tabBarIcon: ({ focused }) => (
+                <TopTabIcon focused={focused}>
+                  <PlusIcon width="24px" height="24px" />
+                </TopTabIcon>
+              ),
+            }}
+          />
+
+          <Tabs.Screen
+            name="alignments"
+            options={{
+              title: t('Alignments'),
+              headerShown: false,
+              tabBarIcon: ({ focused }) => (
+                <TabIcon name={t('Alignments')} focused={focused}>
+                  <CreditCardIcon width="24px" height="24px" />
+                </TabIcon>
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="you"
+            options={{
+              title: t('You'),
+              headerShown: false,
+              tabBarIcon: ({ focused }) => (
+                <TabIcon name={t('You')} focused={focused}>
+                  <UserIcon width="24px" height="24px" />
+                </TabIcon>
+              ),
+            }}
+          />
+        </Tabs>
+      </SafeAreaView>
+      <StatusBar translucent />
     </GroupProvider>
   );
 };

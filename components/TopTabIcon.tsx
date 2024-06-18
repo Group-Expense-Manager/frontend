@@ -19,7 +19,7 @@ export const TopTabIcon: React.FC<TopTabIconProps> = ({ focused, children }) => 
     : 'bg-sky-lightest border-sky-dark';
   return (
     <View
-      className={`flex items-center justify-center top-[-48px] rounded-[25px] w-[50px] h-[50px] border-[3px] border-e-2 ${backgroundColor}`}>
+      className={`flex items-center justify-center top-[-38px] rounded-[25px] w-[50px] h-[50px] border-[3px] border-e-2 ${backgroundColor}`}>
       {clonedIcon}
     </View>
   );
