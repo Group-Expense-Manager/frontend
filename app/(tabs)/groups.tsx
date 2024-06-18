@@ -15,7 +15,11 @@ export default function Groups() {
   const { status, data, error, isFetching } = useGroups();
   const [currentGroupId, setCurrentGroupId] = useState<string | null>(null);
   const [groups, setGroups] = useState<Group[]>([]);
-  const { data: expensesData, status: expensesStatus } = useExpenses(currentGroupId);
+  const {
+    data: expensesData,
+    status: expensesStatus,
+    isFetching: isFetchingExpenses,
+  } = useExpenses(currentGroupId);
   const { currentGroupId: cgid, setCurrentGroupId: setCgid } = useContext(GlobalContext);
 
   function getNameById(id: string, items: Group[]): string | undefined {
@@ -66,10 +70,8 @@ export default function Groups() {
       ) : (
         <>
           <Text className="text-title1">{getNameById(currentGroupId!, groups)}</Text>
-          {expensesStatus === 'pending' ? (
+          {isFetchingExpenses ? (
             <Text>Loading Expenses...</Text>
-          ) : expensesStatus === 'error' ? (
-            <Text>No expenses</Text>
           ) : expensesData?.expenses.length === 0 ? (
             <Text>{t('No expenses')}</Text>
           ) : (

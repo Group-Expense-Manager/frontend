@@ -9,7 +9,6 @@ import { GroupCreationProps } from '@/context/GroupCreationContext';
 
 function useGroupCreation(): (groupCreationProps: GroupCreationProps) => void {
   const { authState } = useContext(GlobalContext);
-  console.log('hel');
 
   const mutation = useMutation({
     mutationFn: (groupCreationProps: GroupCreationProps) => {

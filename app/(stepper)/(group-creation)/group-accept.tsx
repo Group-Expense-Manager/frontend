@@ -23,7 +23,6 @@ export default function GroupAccept() {
   const createGroup = useGroupCreation();
 
   const handleCreateGroup = (groupCreationProps: GroupCreationProps) => {
-    console.log('titaj');
     return () => {
       createGroup(groupCreationProps);
     };
