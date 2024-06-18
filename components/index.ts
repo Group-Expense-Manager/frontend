@@ -7,8 +7,10 @@ import TabButton from './TabButton';
 import TabIcon from './TabIcon';
 import TopTabButton from './TopTabButton';
 import TopTabIcon from './TopTabIcon';
+import TouchableExpense from './TouchableExpense';
 
 export {
+  TouchableExpense,
   CustomButton,
   Loader,
   TabIcon,

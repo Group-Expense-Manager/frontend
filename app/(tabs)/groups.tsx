@@ -1,15 +1,14 @@
 import { router } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, Text, View } from 'react-native';
 
-import { CustomButton } from '@/components';
+import { CustomButton, TouchableExpense } from '@/components';
 import SafeView from '@/components/SafeView';
 import { GlobalContext } from '@/context/GlobalContext';
-import { GroupContext } from '@/context/GroupContext';
 import useExpenses from '@/hooks/expense/UseExpenses';
 import useGroups, { Group } from '@/hooks/group/UseGroups';
+
 export default function Groups() {
   const { t } = useTranslation();
   const { status, data, error, isFetching } = useGroups();
@@ -75,15 +74,18 @@ export default function Groups() {
           ) : expensesData?.expenses.length === 0 ? (
             <Text>{t('No expenses')}</Text>
           ) : (
-            <ScrollView className="mt-10">
+            <ScrollView className="mt-10 flex flex-col space-y-[10px]">
               {expensesData?.expenses.map((expense) => (
-                <TouchableOpacity
-                  onPress={() => router.push(`expenses/${expense.expenseId}`)}
-                  key={expense.expenseId}
-                  className="border p-5 flex-row justify-between">
-                  <Text>{expense.title}</Text>
-                  <Text>Status: {expense.status}</Text>
-                </TouchableOpacity>
+                <View>
+                  <TouchableExpense
+                    key={expense.expenseId}
+                    title={expense.title}
+                    date={expense.expenseDate}
+                    value={`${expense.cost} ${expense.baseCurrency}`}
+                    onPress={() => router.push(`expenses/${expense.expenseId}`)}
+                    author={expense.creatorId}
+                  />
+                </View>
               ))}
             </ScrollView>
           )}

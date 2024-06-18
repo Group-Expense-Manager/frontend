@@ -13,7 +13,7 @@ export type ExpenseListElement = {
   baseCurrency: string;
   status: string;
   participantIds: string[];
-  expenseDate: Date;
+  expenseDate: string;
 };
 
 export type Expenses = {
