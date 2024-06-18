@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 
+import { CustomTextInput } from '@/components/index';
+
 interface ParticipantProps {
   data: {
     participantId: string;
@@ -22,8 +24,11 @@ const Participant: React.FC<ParticipantProps> = ({ data, updateCost }) => {
 
   return (
     <View style={styles.participantContainer}>
-      <Text style={styles.label}> {getUserName(data.participantId)}</Text>
-      <TextInput value={String(data.participantCost)} onChangeText={handleCostChange} />
+      <CustomTextInput
+        label={getUserName(data.participantId)}
+        onChangeText={handleCostChange}
+        value={String(data.participantCost)}
+      />
     </View>
   );
 };
