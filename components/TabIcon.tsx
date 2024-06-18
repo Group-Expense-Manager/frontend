@@ -16,7 +16,7 @@ export const TabIcon: React.FC<TabIconProps> = ({ focused, name, children }) => 
     stroke: focused ? theme.primary.base : theme.sky.dark,
   });
   return (
-    <View className="flex items-center justify-center ">
+    <View className="flex items-center justify-center">
       {clonedIcon}
       <Text
         className={

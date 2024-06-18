@@ -1,11 +1,11 @@
+import * as NavigationBar from 'expo-navigation-bar';
 import { Tabs } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { TabIcon, TopTabButton, TopTabIcon } from '@/components';
+import { TabButton, TabIcon, TopTabButton, TopTabIcon } from '@/components';
 import theme from '@/constants/Colors';
 import {
   CreditCardIcon,
@@ -19,6 +19,9 @@ import { GroupProvider } from '@/context/GroupContext';
 const TabLayout = () => {
   const { t } = useTranslation();
 
+  NavigationBar.setPositionAsync('relative');
+  NavigationBar.setBackgroundColorAsync(theme.sky.lightest);
+
   return (
     <GroupProvider>
       <SafeAreaView style={{ flex: 1, backgroundColor: theme.sky.lightest }}>
@@ -27,25 +30,21 @@ const TabLayout = () => {
             backgroundColor: theme.sky.lightest,
           }}
           screenOptions={{
-            headerShown: false,
-            headerBackgroundContainerStyle: {
-              backgroundColor: theme.sky.lightest,
-              shadowColor: 'transparent',
-            },
-            headerShadowVisible: false,
             tabBarShowLabel: false,
             tabBarStyle: {
-              shadowColor: 'transparent',
               backgroundColor: theme.sky.lightest,
               borderTopWidth: 2,
               borderTopColor: theme.sky.lighter,
-              height: 92,
+              height: 96,
             },
           }}>
           <Tabs.Screen
             name="reports"
             options={{
               title: t('Reports'),
+              tabBarButton: (props) => {
+                return <TabButton {...props} />;
+              },
               headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <TabIcon name={t('Reports')} focused={focused}>
@@ -58,6 +57,9 @@ const TabLayout = () => {
             name="groups"
             options={{
               title: t('Groups'),
+              tabBarButton: (props) => {
+                return <TabButton {...props} />;
+              },
               headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <TabIcon name={t('Groups')} focused={focused}>
@@ -86,6 +88,9 @@ const TabLayout = () => {
             name="alignments"
             options={{
               title: t('Alignments'),
+              tabBarButton: (props) => {
+                return <TabButton {...props} />;
+              },
               headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <TabIcon name={t('Alignments')} focused={focused}>
@@ -98,6 +103,9 @@ const TabLayout = () => {
             name="you"
             options={{
               title: t('You'),
+              tabBarButton: (props) => {
+                return <TabButton {...props} />;
+              },
               headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <TabIcon name={t('You')} focused={focused}>
@@ -108,7 +116,7 @@ const TabLayout = () => {
           />
         </Tabs>
       </SafeAreaView>
-      <StatusBar translucent />
+      <StatusBar />
     </GroupProvider>
   );
 };

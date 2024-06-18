@@ -4,12 +4,14 @@ import React, { ReactElement } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import theme from '@/constants/Colors';
+
 interface SafeViewProps {
   children: ReactElement;
 }
 const SafeView: React.FC<SafeViewProps> = ({ children }) => {
   NavigationBar.setPositionAsync('absolute');
-  NavigationBar.setBackgroundColorAsync('#ffffff00');
+  NavigationBar.setBackgroundColorAsync(theme.sky.lightest);
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
