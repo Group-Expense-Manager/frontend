@@ -18,8 +18,6 @@ import { GroupProvider } from '@/context/GroupContext';
 
 const TabLayout = () => {
   const { t } = useTranslation();
-
-  NavigationBar.setPositionAsync('relative');
   NavigationBar.setBackgroundColorAsync(theme.sky.lightest);
 
   return (

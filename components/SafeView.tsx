@@ -10,7 +10,6 @@ interface SafeViewProps {
   children: ReactElement;
 }
 const SafeView: React.FC<SafeViewProps> = ({ children }) => {
-  NavigationBar.setPositionAsync('absolute');
   NavigationBar.setBackgroundColorAsync(theme.sky.lightest);
   return (
     <>
