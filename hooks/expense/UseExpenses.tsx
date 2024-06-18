@@ -1,12 +1,9 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import axios, { AxiosError, AxiosResponse } from 'axios';
-import { router } from 'expo-router';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { useContext } from 'react';
 
 import { API_URL } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
-import { GroupContext } from '@/context/GroupContext';
-import { Groups } from '@/hooks/group/UseGroups';
 
 export type ExpenseListElement = {
   expenseId: string;

@@ -9,6 +9,7 @@ import { GroupCreationProps } from '@/context/GroupCreationContext';
 
 function useGroupCreation(): (groupCreationProps: GroupCreationProps) => void {
   const { authState } = useContext(GlobalContext);
+  console.log('hel');
 
   const mutation = useMutation({
     mutationFn: (groupCreationProps: GroupCreationProps) => {
@@ -26,6 +27,7 @@ function useGroupCreation(): (groupCreationProps: GroupCreationProps) => void {
       router.replace('/(tabs)/groups');
     },
     onError: (error: AxiosError) => {
+      alert('Niepoprawne dane');
       console.log(error.response?.status);
       console.log(JSON.stringify(error.response?.data));
     },

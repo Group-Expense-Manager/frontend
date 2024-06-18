@@ -38,7 +38,7 @@ export default function ExpenseTitle() {
         onPress={() => router.navigate('(stepper)/(expense-creation)/expense-date')}
       />
       <Button
-        title={t('Cancel')}
+        title={t('Back')}
         onPress={() => router.navigate('(stepper)/(expense-creation)/expense-group')}
       />
     </SafeAreaView>

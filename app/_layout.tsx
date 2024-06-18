@@ -6,6 +6,7 @@ import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { GlobalProvider } from '@/context/GlobalContext';
+import { GroupProvider } from '@/context/GroupContext';
 const client = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
@@ -41,17 +42,20 @@ const RootLayout = () => {
   return (
     <QueryClientProvider client={client}>
       <GlobalProvider>
-        <PaperProvider>
-          <SafeAreaProvider>
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
-              <Stack.Screen name="(popover)" options={{ headerShown: false }} />
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-            </Stack>
-          </SafeAreaProvider>
-        </PaperProvider>
+        <GroupProvider>
+          <PaperProvider>
+            <SafeAreaProvider>
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
+                <Stack.Screen name="(popover)" options={{ headerShown: false }} />
+                <Stack.Screen name="expenses" options={{ headerShown: false }} />
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+              </Stack>
+            </SafeAreaProvider>
+          </PaperProvider>
+        </GroupProvider>
       </GlobalProvider>
     </QueryClientProvider>
   );

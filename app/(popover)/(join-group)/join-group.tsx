@@ -1,9 +1,12 @@
 import { router } from 'expo-router';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, Button, TextInput } from 'react-native';
+import { Text, Button, TextInput, View, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { CustomButton, CustomTextInput } from '@/components';
+import SafeView from '@/components/SafeView';
+import { LogoIcon } from '@/constants/Icon';
 import { VerificationContext } from '@/context/VerificationContext';
 import useVerify from '@/hooks/auth/UseVerify';
 import useJoinGroup from '@/hooks/group/UseJoinGroup';
@@ -18,16 +21,43 @@ export default function JoinGroup() {
   };
 
   return (
-    <SafeAreaView className="w-full flex-1 justify-center">
-      <Text className=" text-center font-bold">{t('Join group')}</Text>
-      <TextInput
-        placeholder={t('Code')}
-        secureTextEntry
-        onChangeText={(text: string) => setCode(text)}
-        value={code}
-      />
-      <Button onPress={handleJoinGroup} title={t('Join')} />
-      <Button onPress={router.back} title={t('Cancel')} />
-    </SafeAreaView>
+    <SafeView>
+      {/*<Text className=" text-center font-bold">{t('Join group')}</Text>*/}
+      {/*<TextInput*/}
+      {/*  placeholder={t('Code')}*/}
+      {/*  secureTextEntry*/}
+      {/*  onChangeText={(text: string) => setCode(text)}*/}
+      {/*  value={code}*/}
+      {/*/>*/}
+      {/*<Button onPress={handleJoinGroup} title={t('Join')} />*/}
+      {/*<Button onPress={router.back} title={t('Cancel')} />*/}
+      <ScrollView
+        contentContainerStyle={{
+          height: '100%',
+        }}>
+        <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
+          <View className="w-full flex justify-center items-center">
+            <LogoIcon width="150px" height="150px" />
+          </View>
+          <View className="py-[32px] w-full flex flex-col space-y-[32px]">
+            <View>
+              <CustomTextInput
+                label={t('Code')}
+                onChangeText={(text: string) => setCode(text)}
+                value={code}
+              />
+            </View>
+          </View>
+          <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
+            <View className="w-full">
+              <CustomButton onPress={handleJoinGroup} title={t('Join')} />
+            </View>
+            <View className="w-full">
+              <CustomButton onPress={() => router.back()} title={t('Cancel')} />
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeView>
   );
 }

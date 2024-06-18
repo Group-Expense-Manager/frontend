@@ -1,6 +1,7 @@
 {
   "Register": "Register",
   "Login": "Login",
+  "Logout": "Logout",
   "Verify": "Verify",
   "Reports": "Reports",
   "Groups": "Groups",
@@ -22,6 +23,17 @@
   "Base currencies": "Base currencies",
   "Acceptance required": "Acceptance required",
   "Join group": "Join group",
-  "Join": "Join"
+  "Join": "Join",
+  "Add new expense": "Add new expense",
+  "Select group" : "Select group",
+  "Expense name": "Expense name",
+  "Expense date": "Expense date",
+  "Select currency": "Select currency",
+  "Expense cost": "Expense cost",
+  "Select participants": "Select participants",
+  "Cost division": "Cost division",
+  "Comment": "Comment",
+  "Create expense": "Create expense"
+
 
 }

@@ -1,6 +1,8 @@
 {
   "Register": "Zarejestruj",
   "Login": "Zaloguj",
+  "Logout": "Wyloguj",
+
   "Verify": "Zweryfikuj",
   "Reports": "Raporty",
   "Groups": "Grupy",
@@ -22,6 +24,16 @@
   "Base currencies": "Waluty podstawowe",
   "Acceptance required": "Wymagana akceptacja",
   "Join group": "Dołącz do grupy",
-  "Join": "Dołącz"
+  "Join": "Dołącz",
+  "Add new expense": "Dodaj nowy wydatek",
+  "Select group" : "Wybierz grupę",
+  "Expense name": "Nazwa wydatku",
+  "Expense date": "Data wydatku",
+  "Select currency": "Wybierz walutę",
+  "Expense cost": "Koszt wydatku",
+  "Select participants": "Wybierz członków wydatku",
+  "Cost division": "Podział wydatku",
+  "Comment": "Komentarz",
+  "Create expense": "Stwórz wydatek"
 
 }

@@ -2,7 +2,6 @@ import { Stack } from 'expo-router';
 import React from 'react';
 
 import { ExpenseCreationProvider } from '@/context/ExpenseCreationContext';
-import { GroupCreationProvider } from '@/context/GroupCreationContext';
 
 const ExpenseCreationLayout = () => {
   return (
@@ -45,7 +44,7 @@ const ExpenseCreationLayout = () => {
           }}
         />
         <Stack.Screen
-          name="expense-devision"
+          name="expense-cost-division"
           options={{
             headerShown: false,
           }}

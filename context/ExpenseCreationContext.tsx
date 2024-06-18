@@ -27,7 +27,7 @@ const defaultExpenseCreationProps: ExpenseCreationProps = {
   title: '',
   cost: 0,
   baseCurrency: '',
-  targetCurrency: '',
+  targetCurrency: undefined,
   expenseDate: new Date(1),
   expenseParticipants: [],
   message: undefined,

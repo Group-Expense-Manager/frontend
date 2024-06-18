@@ -1,7 +1,11 @@
+import { router } from 'expo-router';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Text } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { CustomButton } from '@/components';
+import SafeView from '@/components/SafeView';
 import useLogout from '@/hooks/auth/UseLogout';
 
 export default function You() {
@@ -11,9 +15,12 @@ export default function You() {
     mutate();
   };
   return (
-    <SafeAreaView className="flex-1 justify-center">
-      <Text className="text-center">{t('You')}</Text>
-      <Button title="Logout" onPress={handleLogout} />
-    </SafeAreaView>
+    <SafeView>
+      <View className="py-[200px] w-full flex flex-col justify-center ">
+        <View className="w-full">
+          <CustomButton onPress={handleLogout} title={t('Logout')} />
+        </View>
+      </View>
+    </SafeView>
   );
 }
