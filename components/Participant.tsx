@@ -16,15 +16,8 @@ const Participant: React.FC<ParticipantProps> = ({ data, updateCost }) => {
 
   const names = ['Jakub', 'Jan', 'Paweł', 'Anna', 'Marcin', 'Kamil', 'Zofia', 'Piotr', 'Marta'];
 
-  function getUserName(userId: string) {
-    return names[hashCode(userId) % names.length];
-  }
-
-  function hashCode(str: string) {
-    return str.split('').reduce(function (a, b) {
-      a = (a << 5) - a + b.charCodeAt(0);
-      return a & a;
-    }, 0);
+  function getUserName(id: string) {
+    return names[id.charCodeAt(0) % names.length];
   }
 
   return (

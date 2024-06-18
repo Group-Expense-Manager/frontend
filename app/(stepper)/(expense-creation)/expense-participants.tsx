@@ -25,16 +25,10 @@ export default function ExpenseParticipants() {
     return [];
   }
 
-  function hashCode(str: string) {
-    return str.split('').reduce(function (a, b) {
-      a = (a << 5) - a + b.charCodeAt(0);
-      return a & a;
-    }, 0);
-  }
   const names = ['Jakub', 'Jan', 'Paweł', 'Anna', 'Marcin', 'Kamil', 'Zofia', 'Piotr', 'Marta'];
 
-  function getUserName(userId: string) {
-    return names[hashCode(userId) % names.length];
+  function getUserName(id: string) {
+    return names[id.charCodeAt(0) % names.length];
   }
 
   useEffect(() => {
