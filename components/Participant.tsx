@@ -13,7 +13,7 @@ interface ParticipantProps {
 
 const Participant: React.FC<ParticipantProps> = ({ data, updateCost }) => {
   const handleCostChange = (value: string) => {
-    updateCost(data.participantId, value);
+    updateCost(data.participantId, value.replace(/[^0-9.]/g, ''));
   };
 
   const names = ['Jakub', 'Jan', 'Paweł', 'Anna', 'Marcin', 'Kamil', 'Zofia', 'Piotr', 'Marta'];

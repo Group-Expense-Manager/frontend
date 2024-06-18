@@ -35,9 +35,6 @@ export default function ExpenseCostDivision() {
       prev.map((p) => (p.participantId === id ? { ...p, participantCost: cost } : p)),
     );
   };
-  const save = () => {
-    console.log(participants);
-  };
 
   function mapToExpenseParticipants(participants: Participant[]): ExpenseParticipant[] {
     return participants.map((p) => ({

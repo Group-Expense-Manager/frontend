@@ -11,14 +11,18 @@ import { ExpenseCreationContext } from '@/context/ExpenseCreationContext';
 export default function ExpenseCost() {
   const { t } = useTranslation();
   const { expenseCreationProps, setExpenseCreationProps } = useContext(ExpenseCreationContext);
-  const [expenseCost, setExpenseCost] = useState<number>(0);
+  const [expenseCost, setExpenseCost] = useState<string>('');
+
+  function onChanged(text: string) {
+    setExpenseCost(text.replace(/[^0-9.]/g, ''));
+  }
 
   useEffect(() => {
     console.log(expenseCost);
     setExpenseCreationProps({
       groupId: expenseCreationProps.groupId,
       title: expenseCreationProps.title,
-      cost: expenseCost,
+      cost: Number(expenseCost),
       baseCurrency: expenseCreationProps.baseCurrency,
       targetCurrency: expenseCreationProps.targetCurrency,
       expenseDate: expenseCreationProps.expenseDate,
@@ -42,7 +46,7 @@ export default function ExpenseCost() {
             <View>
               <CustomTextInput
                 label={t('Expense cost')}
-                onChangeText={(text) => setExpenseCost(Number(text))}
+                onChangeText={(text) => onChanged(text)}
                 value={expenseCost.toString()}
               />
             </View>
