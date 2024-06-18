@@ -5,6 +5,8 @@ import { View, Text, ScrollView } from 'react-native';
 
 import 'intl-pluralrules';
 import './i18n';
+import { pl, registerTranslation } from 'react-native-paper-dates';
+
 import { CustomButton, Loader } from '@/components';
 import SafeView from '@/components/SafeView';
 import { LogoIcon } from '@/constants/Icon';
@@ -15,6 +17,7 @@ const Welcome = () => {
   const { loading, authState } = useContext(GlobalContext);
   if (!loading && authState.authenticated) return <Redirect href="/(tabs)/groups" />;
 
+  registerTranslation('pl', pl);
   return (
     <SafeView>
       <>
