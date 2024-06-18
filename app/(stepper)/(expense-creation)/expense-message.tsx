@@ -18,9 +18,7 @@ export default function ExpenseTitle() {
   const createExpense = useExpenseCreation();
 
   const handleCreateExpense = (expenseCreationProps: ExpenseCreationProps) => {
-    return (event: GestureResponderEvent) => {
-      createExpense(expenseCreationProps);
-    };
+    createExpense(expenseCreationProps);
   };
 
   useEffect(() => {
