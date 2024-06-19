@@ -27,10 +27,40 @@ export default function ExpenseParticipants() {
     return [];
   }
 
-  const names = ['Jakub', 'Jan', 'Paweł', 'Anna', 'Marcin', 'Kamil', 'Zofia', 'Piotr', 'Marta'];
+  const names = [
+    'Jakub',
+    'Jan',
+    'Paweł',
+    'Anna',
+    'Marcin',
+    'Kamil',
+    'Zofia',
+    'Piotr',
+    'Marta',
+    'Adam',
+    'Artur',
+    'Dominik',
+    'Emil',
+    'Filip',
+    'Grzegorz',
+    'Hubert',
+    'Krzysztof',
+    'Łukasz',
+    'Mikołaj',
+    'Agnieszka',
+    'Barbara',
+    'Dorota',
+    'Ewa',
+    'Gabriela',
+    'Halina',
+    'Irena',
+    'Jadwiga',
+    'Katarzyna',
+    'Lidia',
+  ];
 
   function getUserName(id: string) {
-    return names[id.charCodeAt(0) % names.length];
+    return names[(id.charCodeAt(0) + id.charCodeAt(1)) % names.length];
   }
 
   useEffect(() => {

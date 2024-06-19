@@ -76,7 +76,7 @@ export default function Groups() {
           ) : (
             <ScrollView className="mt-10 flex flex-col space-y-[10px]">
               {expensesData?.expenses.map((expense) => (
-                <View>
+                <View key={expense.expenseId}>
                   <TouchableExpense
                     key={expense.expenseId}
                     title={expense.title}
