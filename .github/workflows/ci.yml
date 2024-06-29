@@ -34,7 +34,7 @@ jobs:
 
       - name: Run ESLint
         run: npx eslint .
-          --config .eslintrc.json
+          --config .eslintrc.js
           --ext .js,.jsx,.ts,.tsx
 
   ticketValidation:
