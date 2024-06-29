@@ -1,58 +1,65 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { SplashScreen, Stack } from 'expo-router';
+import React, { useEffect } from 'react';
+import { PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { useColorScheme } from '@/components/useColorScheme';
+import { GlobalProvider } from '@/context/GlobalContext';
+import { GroupProvider } from '@/context/GroupContext';
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+const client = new QueryClient();
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
+const RootLayout = () => {
+  const [fontsLoaded, error] = useFonts({
+    'Sora-Bold': require('../assets/fonts/Sora-Bold.ttf'),
+    'Sora-ExtraBold': require('../assets/fonts/Sora-ExtraBold.ttf'),
+    'Sora-ExtraLight': require('../assets/fonts/Sora-ExtraLight.ttf'),
+    'Sora-Light': require('../assets/fonts/Sora-Light.ttf'),
+    'Sora-Medium': require('../assets/fonts/Sora-Medium.ttf'),
+    'Sora-Regular': require('../assets/fonts/Sora-Regular.ttf'),
+    'Sora-SemiBold': require('../assets/fonts/Sora-SemiBold.ttf'),
+    'Sora-Thin': require('../assets/fonts/Sora-Thin.ttf'),
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
-  }, [error]);
 
-  useEffect(() => {
-    if (loaded) {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded, error]);
 
-  if (!loaded) {
+  if (!fontsLoaded) {
     return null;
   }
 
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  if (!fontsLoaded && !error) {
+    return null;
+  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <QueryClientProvider client={client}>
+      <GlobalProvider>
+        <GroupProvider>
+          <PaperProvider>
+            <SafeAreaProvider>
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
+                <Stack.Screen name="(popover)" options={{ headerShown: false }} />
+                <Stack.Screen name="expenses" options={{ headerShown: false }} />
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+              </Stack>
+            </SafeAreaProvider>
+          </PaperProvider>
+        </GroupProvider>
+      </GlobalProvider>
+    </QueryClientProvider>
   );
-}
+};
+
+export default RootLayout;
