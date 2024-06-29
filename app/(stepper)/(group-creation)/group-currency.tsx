@@ -1,10 +1,9 @@
 import { router } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View } from 'react-native';
 
-import { CustomButton, CustomTextInput, SelectList } from '@/components';
+import { CustomButton, SelectList } from '@/components';
 import SafeView from '@/components/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { GroupCreationContext } from '@/context/GroupCreationContext';
@@ -12,7 +11,7 @@ import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableC
 
 export default function GroupCurrency() {
   const { t } = useTranslation();
-  const { status, data, error, isFetching } = useAvailableCurrencies();
+  const { data } = useAvailableCurrencies();
   const [selectedCurrency, setSelectedCurrency] = useState<string>('');
   const { groupCreationProps, setGroupCreationProps } = useContext(GroupCreationContext);
 
@@ -35,6 +34,7 @@ export default function GroupCurrency() {
       value: obj.code,
     }));
   }
+
   return (
     <SafeView>
       <ScrollView

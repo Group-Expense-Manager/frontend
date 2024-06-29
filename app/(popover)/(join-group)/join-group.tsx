@@ -1,20 +1,17 @@
 import { router } from 'expo-router';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, Button, TextInput, View, ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View } from 'react-native';
 
 import { CustomButton, CustomTextInput } from '@/components';
 import SafeView from '@/components/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { VerificationContext } from '@/context/VerificationContext';
-import useVerify from '@/hooks/auth/UseVerify';
 import useJoinGroup from '@/hooks/group/UseJoinGroup';
 
 export default function JoinGroup() {
   const { t } = useTranslation();
   const [code, setCode] = useState('');
-  const { mutate, isError, error } = useJoinGroup(code);
+  const { mutate } = useJoinGroup(code);
 
   const handleJoinGroup = async () => {
     mutate();

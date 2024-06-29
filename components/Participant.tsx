@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { CustomTextInput } from '@/components/index';
 

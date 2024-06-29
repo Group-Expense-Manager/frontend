@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { router } from 'expo-router';
 import { useContext } from 'react';
 

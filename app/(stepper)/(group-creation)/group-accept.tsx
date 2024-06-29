@@ -1,10 +1,9 @@
 import { router } from 'expo-router';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, GestureResponderEvent, ScrollView, Switch, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, Switch, Text, View } from 'react-native';
 
-import { CustomButton, CustomTextInput } from '@/components';
+import { CustomButton } from '@/components';
 import SafeView from '@/components/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { GroupCreationContext, GroupCreationProps } from '@/context/GroupCreationContext';

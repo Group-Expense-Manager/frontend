@@ -1,19 +1,15 @@
 import { useLocalSearchParams } from 'expo-router';
 import { useContext, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { GlobalContext } from '@/context/GlobalContext';
-import { GroupContext } from '@/context/GroupContext';
 import useExpense, { ExpenseParticipant } from '@/hooks/expense/UseExpense';
-import useExpenses from '@/hooks/expense/UseExpenses';
 
 export default function Expense() {
-  const { t } = useTranslation();
   const { id } = useLocalSearchParams();
-  const { authState, currentGroupId } = useContext(GlobalContext);
-  const { data, status, isFetching } = useExpense(id as string, currentGroupId);
+  const { currentGroupId } = useContext(GlobalContext);
+  const { data, isFetching } = useExpense(id as string, currentGroupId);
 
   useEffect(() => {
     console.log(`current group id: ${currentGroupId}`);

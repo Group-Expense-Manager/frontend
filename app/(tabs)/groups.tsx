@@ -11,7 +11,7 @@ import useGroups, { Group } from '@/hooks/group/UseGroups';
 
 export default function Groups() {
   const { t } = useTranslation();
-  const { status, data, error, isFetching } = useGroups();
+  const { data, isFetching } = useGroups();
   const [currentGroupId, setCurrentGroupId] = useState<string | null>(null);
   const [groups, setGroups] = useState<Group[]>([]);
   const {

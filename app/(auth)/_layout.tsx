@@ -1,5 +1,4 @@
-import { Redirect, Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { Stack } from 'expo-router';
 
 import { VerificationProvider } from '@/context/VerificationContext';
 

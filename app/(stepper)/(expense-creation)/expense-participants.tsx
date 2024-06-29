@@ -1,22 +1,21 @@
 import { router } from 'expo-router';
-import exp from 'node:constants';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ScrollView, TextInput, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View } from 'react-native';
 
-import { CustomButton, CustomTextInput, SelectList } from '@/components';
+import { CustomButton } from '@/components';
 import MultipleSelectList from '@/components/MultipleSelectList';
 import SafeView from '@/components/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { ExpenseCreationContext, ExpenseParticipant } from '@/context/ExpenseCreationContext';
-import useGroup, { Currency, Member } from '@/hooks/group/UseGroup';
+import useGroup, { Member } from '@/hooks/group/UseGroup';
 
 export default function ExpenseParticipants() {
   const { t } = useTranslation();
   const { expenseCreationProps, setExpenseCreationProps } = useContext(ExpenseCreationContext);
-  const { data, error, isFetching } = useGroup(expenseCreationProps.groupId);
+  const { data } = useGroup(expenseCreationProps.groupId);
   const [selectedParticipantsIds, setSelectedParticipantsIds] = useState<string[]>([]);
+
   function mapToSelectList() {
     if (data) {
       return data.members.map((member: Member) => ({

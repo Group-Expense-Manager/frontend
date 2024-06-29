@@ -1,16 +1,15 @@
 import { Redirect, router } from 'expo-router';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, Text, ScrollView } from 'react-native';
-
-import 'intl-pluralrules';
-import './i18n';
+import { ScrollView, Text, View } from 'react-native';
 import { pl, registerTranslation } from 'react-native-paper-dates';
 
 import { CustomButton, Loader } from '@/components';
 import SafeView from '@/components/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
+import 'intl-pluralrules';
+import './i18n';
 
 const Welcome = () => {
   const { t } = useTranslation();

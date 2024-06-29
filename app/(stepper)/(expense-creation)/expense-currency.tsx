@@ -1,11 +1,9 @@
 import { router } from 'expo-router';
-import exp from 'node:constants';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ScrollView, TextInput, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, View } from 'react-native';
 
-import { CustomButton, CustomTextInput, SelectList } from '@/components';
+import { CustomButton, SelectList } from '@/components';
 import SafeView from '@/components/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { ExpenseCreationContext } from '@/context/ExpenseCreationContext';
@@ -14,8 +12,9 @@ import useGroup, { Currency } from '@/hooks/group/UseGroup';
 export default function ExpenseCurrency() {
   const { t } = useTranslation();
   const { expenseCreationProps, setExpenseCreationProps } = useContext(ExpenseCreationContext);
-  const { status, data, error, isFetching } = useGroup(expenseCreationProps.groupId);
+  const { data } = useGroup(expenseCreationProps.groupId);
   const [selectedCurrency, setSelectedCurrency] = useState<string>('');
+
   function mapToSelectList() {
     if (data) {
       return data.groupCurrencies.map((currency: Currency) => ({

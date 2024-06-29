@@ -6,6 +6,7 @@ interface CustomButtonProps {
   onPress: () => void;
   isLoading?: boolean;
 }
+
 const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, isLoading }) => {
   return (
     <View>

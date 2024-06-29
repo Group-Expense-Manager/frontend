@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { CustomButton, CustomTextInput } from '@/components';
 import SafeView from '@/components/SafeView';

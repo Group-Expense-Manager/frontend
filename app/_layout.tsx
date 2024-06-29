@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { GlobalProvider } from '@/context/GlobalContext';
 import { GroupProvider } from '@/context/GroupContext';
+
 const client = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();

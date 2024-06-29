@@ -13,6 +13,7 @@ interface CustomTextInputProps {
   error?: boolean;
   onChangeText?: (text: string) => void;
 }
+
 const CustomTextInput: React.FC<CustomTextInputProps> = ({
   value = '',
   label = '',

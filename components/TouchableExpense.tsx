@@ -12,6 +12,7 @@ interface TouchableExpenseProps {
   date: string;
   onPress: () => void;
 }
+
 const TouchableExpense: React.FC<TouchableExpenseProps> = ({
   title,
   value,

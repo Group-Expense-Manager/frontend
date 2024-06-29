@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator, Dimensions, Platform } from 'react-native';
+import { ActivityIndicator, Dimensions, Platform, View } from 'react-native';
 
 interface LoaderProps {
   isLoading?: boolean;

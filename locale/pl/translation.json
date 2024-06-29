@@ -2,7 +2,6 @@
   "Register": "Zarejestruj",
   "Login": "Zaloguj",
   "Logout": "Wyloguj",
-
   "Verify": "Zweryfikuj",
   "Reports": "Raporty",
   "Groups": "Grupy",
@@ -26,7 +25,7 @@
   "Join group": "Dołącz do grupy",
   "Join": "Dołącz",
   "Add new expense": "Dodaj nowy wydatek",
-  "Select group" : "Wybierz grupę",
+  "Select group": "Wybierz grupę",
   "Expense name": "Nazwa wydatku",
   "Expense date": "Data wydatku",
   "Select currency": "Wybierz walutę",

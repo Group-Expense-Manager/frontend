@@ -12,7 +12,7 @@ import useGroups, { Group } from '@/hooks/group/UseGroups';
 export default function ExpenseGroup() {
   const { t } = useTranslation();
   const { expenseCreationProps, setExpenseCreationProps } = useContext(ExpenseCreationContext);
-  const { status, data, error, isFetching } = useGroups();
+  const { data } = useGroups();
   const [selectedGroupId, setSelectedGroupId] = useState<string>('');
 
   function mapToSelectList() {
