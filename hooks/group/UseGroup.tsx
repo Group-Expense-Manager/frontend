@@ -36,8 +36,6 @@ function useGroup(groupId: string | null) {
           authorization: `Bearer ${authState.token}`,
         },
       });
-      console.log(`got group data for id ${groupId}`);
-
       return data;
     },
     enabled: !!groupId,

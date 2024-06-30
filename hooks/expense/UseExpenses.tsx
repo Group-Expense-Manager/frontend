@@ -25,8 +25,6 @@ function useExpenses(groupId: string | null) {
   return useQuery({
     queryKey: [`expenses?groupId=${groupId}`],
     queryFn: async (): Promise<Expenses> => {
-      console.log('groupId', groupId);
-
       const { data } = await axios.get(`${API_URL}/external/expenses?groupId=${groupId}`, {
         headers: {
           host: 'gem.web.expense-manager.com',

@@ -49,7 +49,6 @@ function useExpense(expenseId: string, groupId: string) {
           },
         },
       );
-      console.log(`got expense data for id ${expenseId}`);
 
       return data;
     },

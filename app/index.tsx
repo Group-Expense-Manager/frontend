@@ -5,7 +5,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { pl, registerTranslation } from 'react-native-paper-dates';
 
 import { CustomButton, Loader } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import 'intl-pluralrules';

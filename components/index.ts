@@ -1,13 +1,14 @@
-import CustomButton from './CustomButton';
-import CustomTextInput from './CustomTextInput';
-import Loader from './Loader';
-import MultipleSelectList from './MultipleSelectList';
-import SelectList from './SelectList';
-import TabButton from './TabButton';
-import TabIcon from './TabIcon';
-import TopTabButton from './TopTabButton';
-import TopTabIcon from './TopTabIcon';
-import TouchableExpense from './TouchableExpense';
+import TouchableExpense from './modules/expense/TouchableExpense';
+
+import CustomButton from '@/components/ui/button/CustomButton';
+import TabButton from '@/components/ui/button/TabButton';
+import Loader from '@/components/ui/loader/Loader';
+import MultipleSelectList from '@/components/ui/select-list/MultipleSelectList';
+import SelectList from '@/components/ui/select-list/SelectList';
+import TabIcon from '@/components/ui/tab/TabIcon';
+import TopTabButton from '@/components/ui/tab/TopTabButton';
+import TopTabIcon from '@/components/ui/tab/TopTabIcon';
+import CustomTextInput from '@/components/ui/text-input/CustomTextInput';
 
 export {
   TouchableExpense,

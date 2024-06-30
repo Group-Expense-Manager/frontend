@@ -39,7 +39,6 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     const loadToken = async () => {
       const token = await SecureStore.getItemAsync(TOKEN_KEY);
-      console.log('stored:', token);
       if (token) {
         setAuthState({
           token,

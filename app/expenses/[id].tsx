@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -10,16 +10,6 @@ export default function Expense() {
   const { id } = useLocalSearchParams();
   const { currentGroupId } = useContext(GlobalContext);
   const { data, isFetching } = useExpense(id as string, currentGroupId);
-
-  useEffect(() => {
-    console.log(`current group id: ${currentGroupId}`);
-  }, [currentGroupId]);
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
 
   const renderParticipant = ({ item }: { item: ExpenseParticipant }) => (
     <View>
@@ -50,7 +40,6 @@ export default function Expense() {
           <Text className="font-bold">Status History</Text>
           {data?.statusHistory.map((history, index) => (
             <View key={index}>
-              {/*{history.createdAt && <Text>Created At: {history.createdAt.toDateString()}</Text>}*/}
               {history.expenseAction && <Text>Action: {history.expenseAction}</Text>}
               {history.comment && <Text>Comment: {history.comment}</Text>}
             </View>

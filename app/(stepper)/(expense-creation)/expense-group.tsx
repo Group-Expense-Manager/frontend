@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton, SelectList } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { ExpenseCreationContext } from '@/context/ExpenseCreationContext';
+import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
 import useGroups, { Group } from '@/hooks/group/UseGroups';
 
 export default function ExpenseGroup() {
