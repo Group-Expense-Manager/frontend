@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
-import Participant from '@/components/Participant';
-import SafeView from '@/components/SafeView';
+import Participant from '@/components/modules/participant/Participant';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { ExpenseCreationContext, ExpenseParticipant } from '@/context/ExpenseCreationContext';
+import {
+  ExpenseCreationContext,
+  ExpenseParticipant,
+} from '@/context/expense/ExpenseCreationContext';
 
 export default function ExpenseCostDivision() {
   const { t } = useTranslation();

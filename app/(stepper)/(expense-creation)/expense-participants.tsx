@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
-import MultipleSelectList from '@/components/MultipleSelectList';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
+import MultipleSelectList from '@/components/ui/select-list/MultipleSelectList';
 import { LogoIcon } from '@/constants/Icon';
-import { ExpenseCreationContext, ExpenseParticipant } from '@/context/ExpenseCreationContext';
+import {
+  ExpenseCreationContext,
+  ExpenseParticipant,
+} from '@/context/expense/ExpenseCreationContext';
 import useGroup, { Member } from '@/hooks/group/UseGroup';
 
 export default function ExpenseParticipants() {

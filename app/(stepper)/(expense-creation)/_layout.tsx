@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 
-import { ExpenseCreationProvider } from '@/context/ExpenseCreationContext';
+import { ExpenseCreationProvider } from '@/context/expense/ExpenseCreationContext';
 
 const ExpenseCreationLayout = () => {
   return (

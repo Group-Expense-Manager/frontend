@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 
-import { GroupCreationProvider } from '@/context/GroupCreationContext';
+import { GroupCreationProvider } from '@/context/group/GroupCreationContext';
 
 const GroupCreationLayout = () => {
   return (

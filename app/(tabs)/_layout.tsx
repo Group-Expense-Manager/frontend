@@ -14,7 +14,7 @@ import {
   PlusIcon,
   UserIcon,
 } from '@/constants/Icon';
-import { GroupProvider } from '@/context/GroupContext';
+import { GroupProvider } from '@/context/group/GroupContext';
 
 const TabLayout = () => {
   const { t } = useTranslation();

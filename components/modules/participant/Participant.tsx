@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { CustomTextInput } from '@/components/index';
+import { CustomTextInput } from '@/components';
 
 interface ParticipantProps {
   data: {
