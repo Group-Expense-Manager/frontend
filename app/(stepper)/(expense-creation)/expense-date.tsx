@@ -5,9 +5,9 @@ import { ScrollView, View } from 'react-native';
 import { DatePickerInput } from 'react-native-paper-dates';
 
 import { CustomButton } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { ExpenseCreationContext } from '@/context/ExpenseCreationContext';
+import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
 
 export default function ExpenseDate() {
   const { t } = useTranslation();

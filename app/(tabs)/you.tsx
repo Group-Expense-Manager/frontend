@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { CustomButton } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import useLogout from '@/hooks/auth/UseLogout';
 
 export default function You() {

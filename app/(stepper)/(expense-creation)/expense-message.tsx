@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton, CustomTextInput } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { ExpenseCreationContext, ExpenseCreationProps } from '@/context/ExpenseCreationContext';
+import {
+  ExpenseCreationContext,
+  ExpenseCreationProps,
+} from '@/context/expense/ExpenseCreationContext';
 import useExpenseCreation from '@/hooks/expense/UseExpenseCreation';
 
 export default function ExpenseTitle() {
@@ -21,7 +24,6 @@ export default function ExpenseTitle() {
   };
 
   useEffect(() => {
-    console.log(expenseMessage);
     setExpenseCreationProps({
       groupId: expenseCreationProps.groupId,
       title: expenseCreationProps.title,

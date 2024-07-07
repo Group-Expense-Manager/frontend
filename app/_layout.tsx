@@ -6,7 +6,7 @@ import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { GlobalProvider } from '@/context/GlobalContext';
-import { GroupProvider } from '@/context/GroupContext';
+import { GroupProvider } from '@/context/group/GroupContext';
 
 const client = new QueryClient();
 

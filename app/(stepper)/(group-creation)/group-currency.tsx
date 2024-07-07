@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton, SelectList } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { GroupCreationContext } from '@/context/GroupCreationContext';
+import { GroupCreationContext } from '@/context/group/GroupCreationContext';
 import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 
 export default function GroupCurrency() {
@@ -16,7 +16,6 @@ export default function GroupCurrency() {
   const { groupCreationProps, setGroupCreationProps } = useContext(GroupCreationContext);
 
   useEffect(() => {
-    console.log(selectedCurrency);
     setGroupCreationProps({
       name: groupCreationProps.name,
       acceptRequired: groupCreationProps.acceptRequired,

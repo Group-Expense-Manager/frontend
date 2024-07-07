@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton, CustomTextInput } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { GroupCreationContext } from '@/context/GroupCreationContext';
+import { GroupCreationContext } from '@/context/group/GroupCreationContext';
 
 export default function GroupName() {
   const { t } = useTranslation();

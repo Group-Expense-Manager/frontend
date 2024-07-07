@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton, CustomTextInput } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import useJoinGroup from '@/hooks/group/UseJoinGroup';
 
@@ -19,15 +19,6 @@ export default function JoinGroup() {
 
   return (
     <SafeView>
-      {/*<Text className=" text-center font-bold">{t('Join group')}</Text>*/}
-      {/*<TextInput*/}
-      {/*  placeholder={t('Code')}*/}
-      {/*  secureTextEntry*/}
-      {/*  onChangeText={(text: string) => setCode(text)}*/}
-      {/*  value={code}*/}
-      {/*/>*/}
-      {/*<Button onPress={handleJoinGroup} title={t('Join')} />*/}
-      {/*<Button onPress={router.back} title={t('Cancel')} />*/}
       <ScrollView
         contentContainerStyle={{
           height: '100%',

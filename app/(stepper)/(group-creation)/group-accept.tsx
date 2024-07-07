@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, Switch, Text, View } from 'react-native';
 
 import { CustomButton } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { GroupCreationContext, GroupCreationProps } from '@/context/GroupCreationContext';
+import { GroupCreationContext, GroupCreationProps } from '@/context/group/GroupCreationContext';
 import useGroupCreation from '@/hooks/group/UseGroupCreation';
 
 export default function GroupAccept() {

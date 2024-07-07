@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton, CustomTextInput } from '@/components';
-import SafeView from '@/components/SafeView';
+import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
-import { VerificationContext } from '@/context/VerificationContext';
+import { VerificationContext } from '@/context/verification/VerificationContext';
 import useVerify from '@/hooks/auth/UseVerify';
 
 export default function Verify() {

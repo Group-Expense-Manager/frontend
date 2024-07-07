@@ -12,8 +12,6 @@ function useJoinGroup(code: string) {
   const { authState } = useContext(GlobalContext);
   return useMutation({
     mutationFn: () => {
-      console.log(`joining ${code}`);
-      console.log(`Bearer ${authState.token}`);
       return axios.post(
         `${API_URL}/external/groups/join/${code}`,
         {},
@@ -32,10 +30,10 @@ function useJoinGroup(code: string) {
       router.replace('/groups');
     },
     onError: (error: AxiosError) => {
-      console.log(error.response?.status);
-      console.log(JSON.stringify(error.response?.data));
       if (error.response?.status === 404) {
-        alert('Błędny kod');
+        alert('Błędny kod 404');
+      } else {
+        alert(`Niepoprawne dane ${error.response?.status}`);
       }
     },
   });

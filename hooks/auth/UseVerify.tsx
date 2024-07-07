@@ -9,9 +9,6 @@ import { TOKEN_KEY } from '@/constants/Storage';
 import { GlobalContext } from '@/context/GlobalContext';
 
 function useVerify(email: string, code: string) {
-  console.log(email);
-  console.log(code);
-
   const { setAuthState } = useContext(GlobalContext);
   return useMutation({
     mutationFn: () => {
@@ -36,8 +33,6 @@ function useVerify(email: string, code: string) {
     },
 
     onError: (error: AxiosError) => {
-      console.log(error.response?.status);
-      console.log(JSON.stringify(error.response?.data));
       if (error.response?.status === 400) {
         alert('Niepoprawny kod');
       }

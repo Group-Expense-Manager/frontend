@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 
-import { VerificationProvider } from '@/context/VerificationContext';
+import { VerificationProvider } from '@/context/verification/VerificationContext';
 
 const AuthLayout = () => {
   return (
@@ -26,8 +26,6 @@ const AuthLayout = () => {
         />
       </Stack>
     </VerificationProvider>
-
-    // <StatusBar backgroundColor="#161622" style="light" />
   );
 };
 
