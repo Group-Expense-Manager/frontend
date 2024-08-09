@@ -4,30 +4,31 @@ import { router } from 'expo-router';
 import { useContext } from 'react';
 
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
-import { VerificationContext } from '@/context/auth/VerificationContext';
+import { GlobalContext } from '@/context/GlobalContext';
 
-export default function useRegister(username: string, email: string, password: string) {
-  const { verificationProps, setVerificationProps } = useContext(VerificationContext);
+export default function useChangePassword(oldPassword: string, newPassword: string) {
+  const { authState } = useContext(GlobalContext);
   return useMutation({
     mutationFn: () => {
-      return axios.post(
-        `${API_URL}${PATHS.OPEN}/register`,
-        { username, email, password },
+      return axios.put(
+        `${API_URL}${PATHS.EXTERNAL}/change-password`,
+        { oldPassword, newPassword },
         {
           headers: {
             host: HOST.AUTHENTICATOR,
             'content-type': APPLICATION_JSON_INTERNAL_VER_1,
+            authorization: `Bearer ${authState.token}`,
           },
         },
       );
     },
     onSuccess: () => {
-      setVerificationProps({ ...verificationProps, email });
-      router.push('verify-popover');
+      router.push('password-changed-successfully-modal');
     },
+
     onError: (error: AxiosError) => {
-      if (error.response?.status === 409) {
-        router.push('email-address-taken-modal');
+      if (error.response?.status === 400) {
+        router.push('wrong-old-password-modal');
       } else {
         router.push('error-modal');
       }

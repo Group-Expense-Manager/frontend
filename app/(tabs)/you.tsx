@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -14,9 +15,15 @@ export default function You() {
   };
   return (
     <SafeView>
-      <View className="py-[200px] w-full flex flex-col justify-center ">
+      <View className="py-[32px] w-full h-full flex flex-col justify-between items-center space-y-[32px]">
         <View className="w-full">
-          <CustomButton onPress={handleLogout} title={t('Logout')} />
+          <CustomButton
+            onPress={() => router.push('change-password-old')}
+            title={t('Change password')}
+          />
+        </View>
+        <View className="w-full">
+          <CustomButton onPress={handleLogout} title={t('Logout')} type="reversed" />
         </View>
       </View>
     </SafeView>
