@@ -15,7 +15,7 @@ interface CustomTextInputProps {
 }
 
 const CustomTextInput: React.FC<CustomTextInputProps> = ({
-  value = '',
+  value,
   label = '',
   placeholder = '',
   disabled = false,

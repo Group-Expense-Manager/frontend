@@ -4,40 +4,44 @@ import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useContext } from 'react';
 
-import { API_URL } from '@/constants/Api';
-import { TOKEN_KEY } from '@/constants/Storage';
+import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
+import { TOKEN_KEY, USER_KEY } from '@/constants/Storage';
 import { GlobalContext } from '@/context/GlobalContext';
 
-function useVerify(email: string, code: string) {
+export default function useVerify(email: string, code: string) {
   const { setAuthState } = useContext(GlobalContext);
   return useMutation({
     mutationFn: () => {
       return axios.post(
-        `${API_URL}/open/verify`,
+        `${API_URL}${PATHS.OPEN}/verify`,
         { email, code },
         {
           headers: {
-            host: 'gem.web.authenticator.com',
-            'content-type': 'application/vnd.gem.internal.v1+json',
+            host: HOST.AUTHENTICATOR,
+            'content-type': APPLICATION_JSON_INTERNAL_VER_1,
           },
         },
       );
     },
-    onSuccess: (response: AxiosResponse<string>) => {
+    onSuccess: (response: AxiosResponse<VerifyResponse>) => {
       setAuthState({
-        token: response.data,
+        userId: response.data.userId,
+        token: response.data.token,
         authenticated: true,
       });
-      SecureStore.setItem(TOKEN_KEY, response.data);
+      SecureStore.setItem(USER_KEY, response.data.userId);
+      SecureStore.setItem(TOKEN_KEY, response.data.token);
       router.replace('/groups');
     },
 
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) {
-        alert('Niepoprawny kod');
+      if (error.response?.status !== 400) {
+        router.push('error-modal');
       }
     },
   });
 }
-
-export default useVerify;
+interface VerifyResponse {
+  userId: string;
+  token: string;
+}

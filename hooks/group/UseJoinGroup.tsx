@@ -25,8 +25,7 @@ function useJoinGroup(code: string) {
         },
       );
     },
-    onSuccess: (response: AxiosResponse<string>) => {
-      SecureStore.setItem(TOKEN_KEY, response.data);
+    onSuccess: () => {
       router.replace('/groups');
     },
     onError: (error: AxiosError) => {
