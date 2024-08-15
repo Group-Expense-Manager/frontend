@@ -66,15 +66,13 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({
   }
 
   return (
-    <View className="flex-1 justify-center items-center">
-      <TouchableOpacity
-        onPress={toggleSwitch}
-        className={`flex-row ${thumbPosition} items-center px-[2px] w-[56px] h-[32px]  rounded-[32px] ${trackColor()}
+    <TouchableOpacity
+      onPress={toggleSwitch}
+      className={`flex-row ${thumbPosition} items-center px-[2px] w-[56px] h-[32px]  rounded-[32px] ${trackColor()}
         ${hasBorder ? `border ${borderColor}` : ''}
         `}>
-        <View className={`w-[28px] h-[28px]  rounded-[14px] ${thumbColor()}`} />
-      </TouchableOpacity>
-    </View>
+      <View className={`w-[28px] h-[28px]  rounded-[14px] ${thumbColor()}`} />
+    </TouchableOpacity>
   );
 };
 
