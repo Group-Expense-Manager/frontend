@@ -70,7 +70,7 @@ const VerificationPopover: React.FC<CustomDecisionPopoverProps> = ({
               <CustomButton onPress={onPress} title={buttonTitle} disabled={disabled} />
             </View>
             <View className="w-full">
-              <CustomButton onPress={secondOnPress} title={secondButtonTitle} type="reversed" />
+              <CustomButton onPress={secondOnPress} title={secondButtonTitle} type="outlined" />
             </View>
           </View>
         </View>

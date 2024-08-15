@@ -73,7 +73,7 @@ export default function ChangePasswordNew() {
               <CustomButton
                 onPress={() => router.navigate('change-password-new')}
                 title={t('Back')}
-                type="reversed"
+                type="outlined"
               />
             </View>
           </View>

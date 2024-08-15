@@ -71,7 +71,7 @@ export default function Login() {
                   router.push('register-username');
                 }}
                 title={t("Don't have an account?")}
-                type="reversed"
+                type="outlined"
               />
             </View>
           </View>

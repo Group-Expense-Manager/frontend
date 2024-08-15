@@ -23,7 +23,7 @@ export default function You() {
           />
         </View>
         <View className="w-full">
-          <CustomButton onPress={handleLogout} title={t('Logout')} type="reversed" />
+          <CustomButton onPress={handleLogout} title={t('Logout')} type="outlined" />
         </View>
       </View>
     </SafeView>

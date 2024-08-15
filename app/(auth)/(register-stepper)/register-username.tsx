@@ -69,7 +69,7 @@ export default function RegisterUsername() {
               <CustomButton
                 onPress={() => router.navigate('login')}
                 title={t('Already have an account?')}
-                type="reversed"
+                type="outlined"
               />
             </View>
           </View>

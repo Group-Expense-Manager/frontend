@@ -57,7 +57,7 @@ export default function RegisterEmail() {
               <CustomButton
                 onPress={() => router.navigate('register-username')}
                 title={t('Back')}
-                type="reversed"
+                type="outlined"
               />
             </View>
           </View>

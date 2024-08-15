@@ -48,7 +48,7 @@ export default function ChangePasswordOld() {
               <CustomButton
                 onPress={() => router.navigate('you')}
                 title={t('Cancel')}
-                type="reversed"
+                type="outlined"
               />
             </View>
           </View>
