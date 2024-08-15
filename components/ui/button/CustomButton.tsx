@@ -1,56 +1,98 @@
-import React from 'react';
+import { useColorScheme } from 'nativewind';
+import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
   disabled?: boolean;
-  type?: 'primary' | 'reversed';
+  type?: 'primary' | 'outlined';
+  size?: 'block' | 'small' | 'large';
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   title,
   onPress,
-  disabled,
+  disabled = false,
   type = 'primary',
+  size = 'block',
 }) => {
-  const backgroundColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
-    if (disabled) {
-      if (type === 'primary') return 'bg-sky-light';
-      return 'bg-sky-lightest';
-    }
-    if (type === 'primary') return 'bg-primary-base';
-    return 'bg-sky-lightest';
-  };
+  const { colorScheme } = useColorScheme();
+  const [pressed, setPressed] = useState(false);
+  const state: 'default' | 'pressed' | 'disabled' = disabled
+    ? 'disabled'
+    : pressed
+      ? 'pressed'
+      : 'default';
 
-  const borderColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
-    if (disabled) {
-      return 'border-sky-light';
+  function backgroundColor(): string {
+    switch (type) {
+      case 'primary':
+        switch (state) {
+          case 'pressed':
+            return 'bg-primary-dark';
+          case 'disabled':
+            return colorScheme === 'light' ? 'bg-sky-light' : 'bg-ink-dark';
+          default:
+            return 'bg-primary-base';
+        }
+      case 'outlined':
+        return colorScheme === 'light' ? 'bg-sky-latest' : 'bg-ink-darkest';
     }
-    return 'border-primary-base';
-  };
+  }
 
-  const textColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
-    if (disabled) {
-      if (type === 'primary') return 'text-sky-dark';
-      return 'text-sky-light';
+  function borderColor(): string {
+    switch (type) {
+      case 'primary':
+        return '';
+      case 'outlined':
+        switch (state) {
+          case 'pressed':
+            return colorScheme === 'light' ? 'border-primary-dark' : 'border-primary-base';
+          case 'disabled':
+            return colorScheme === 'light' ? 'border-sky-base' : 'border-ink-base';
+          default:
+            return colorScheme === 'light' ? 'border-primary-base' : 'border-primary-light';
+        }
     }
-    if (type === 'primary') return 'text-sky-lightest';
-    return 'text-primary-base';
-  };
+  }
 
+  function textColor(): string {
+    switch (type) {
+      case 'primary':
+        switch (state) {
+          case 'disabled':
+            return colorScheme === 'light' ? 'text-sky-dark' : 'text-ink-light';
+          default:
+            return 'text-sky-lightest';
+        }
+      case 'outlined':
+        switch (state) {
+          case 'pressed':
+            return colorScheme === 'light' ? 'text-primary-dark' : 'text-primary-base';
+          case 'disabled':
+            return colorScheme === 'light' ? 'text-sky-base' : 'text-ink-base';
+          default:
+            return colorScheme === 'light' ? 'text-primary-base' : 'text-primary-light';
+        }
+    }
+  }
   return (
-    <View>
+    <View className={`${size === 'block' ? 'w-full' : ''}`}>
       <TouchableOpacity
         onPress={onPress}
+        onPressIn={() => setPressed(true)}
+        onPressOut={() => setPressed(false)}
         activeOpacity={0.7}
         className={`
-          bg-primary-base border-primary-base border-2 rounded-[32px] h-[48px] w-full flex flex-row justify-center items-center 
-          ${backgroundColor(type, disabled)}
-          ${borderColor(type, disabled)}
+           ${type === 'outlined' ? 'border-2' : ''} 
+           ${size === 'large' ? 'px-8 h-12' : size === 'small' ? 'px-4 h-8' : 'h-12'} 
+           rounded-[32px]  w-full justify-center items-center 
+          ${backgroundColor()}
+          ${borderColor()}
         `}
         disabled={disabled}>
-        <Text className={`${textColor(type, disabled)} font-semibold`}>{title}</Text>
+        <Text className={`${textColor()} font-medium text-regular`}>{title}</Text>
       </TouchableOpacity>
     </View>
   );

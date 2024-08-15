@@ -78,7 +78,7 @@ export default function Register() {
               <CustomButton
                 onPress={() => router.navigate('/register-password')}
                 title={t('Back')}
-                type="reversed"
+                type="outlined"
               />
             </View>
           </View>

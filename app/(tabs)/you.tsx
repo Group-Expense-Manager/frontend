@@ -21,7 +21,7 @@ export default function You() {
           />
         </View>
         <View className="w-full">
-          <CustomButton onPress={() => logout()} title={t('Logout')} type="reversed" />
+          <CustomButton onPress={() => logout()} title={t('Logout')} type="outlined" />
         </View>
       </View>
     </SafeView>
