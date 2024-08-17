@@ -5,6 +5,7 @@ import { BackHandler, ScrollView, View } from 'react-native';
 
 import { CustomButton, CustomTextInput, Loader } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
+import { ButtonType } from '@/components/ui/button/CustomButton';
 import CustomLinkTextInput from '@/components/ui/text-input/CustomLinkTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import useLogin from '@/hooks/auth/UseLogin';
@@ -71,7 +72,7 @@ export default function Login() {
                   router.push('register-username');
                 }}
                 title={t("Don't have an account?")}
-                type="outlined"
+                type={ButtonType.OUTLINED}
               />
             </View>
           </View>

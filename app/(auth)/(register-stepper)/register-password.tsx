@@ -5,6 +5,7 @@ import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
+import { ButtonType } from '@/components/ui/button/CustomButton';
 import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { RegistrationContext } from '@/context/auth/RegistrationContext';
@@ -85,7 +86,7 @@ export default function RegisterPassword() {
               <CustomButton
                 onPress={() => router.navigate('register-email')}
                 title={t('Back')}
-                type="outlined"
+                type={ButtonType.OUTLINED}
               />
             </View>
           </View>

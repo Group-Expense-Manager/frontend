@@ -1,92 +1,88 @@
-import { useColorScheme } from 'nativewind';
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+
+import { Availability } from '@/util/Availability';
 
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
   disabled?: boolean;
-  type?: 'primary' | 'outlined';
-  size?: 'block' | 'small' | 'large';
+  type?: ButtonType;
+  size?: ButtonSize;
+}
+
+export enum ButtonType {
+  PRIMARY = 'PRIMARY',
+  OUTLINED = 'OUTLINED',
+}
+
+export enum ButtonSize {
+  SMALL = 'SMALL',
+  LARGE = 'LARGE',
+  BLOCK = 'BLOCK',
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   title,
   onPress,
   disabled = false,
-  type = 'primary',
-  size = 'block',
+  type = ButtonType.PRIMARY,
+  size = ButtonSize.BLOCK,
 }) => {
-  const { colorScheme } = useColorScheme();
-  const [pressed, setPressed] = useState(false);
-  const state: 'default' | 'pressed' | 'disabled' = disabled
-    ? 'disabled'
-    : pressed
-      ? 'pressed'
-      : 'default';
-
   function backgroundColor(): string {
-    switch (type) {
-      case 'primary':
-        switch (state) {
-          case 'pressed':
-            return 'bg-primary-dark';
-          case 'disabled':
-            return colorScheme === 'light' ? 'bg-sky-light' : 'bg-ink-dark';
-          default:
-            return 'bg-primary-base';
-        }
-      case 'outlined':
-        return colorScheme === 'light' ? 'bg-sky-latest' : 'bg-ink-darkest';
+    const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
+
+    switch (disabledType) {
+      case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
+        return 'bg-sky-light dark:bg-ink-dark';
+      case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
+        return 'bg-sky-latest dark:bg-ink-darkest';
+      case `${Availability.ENABLED}-${ButtonType.PRIMARY}`:
+        return 'bg-primary-base';
+      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
+        return 'bg-sky-latest dark:bg-ink-darkest';
+      default:
+        return '';
     }
   }
 
   function borderColor(): string {
-    switch (type) {
-      case 'primary':
+    const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
+
+    switch (disabledType) {
+      case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
+        return 'border-sky-base dark:border-ink-base';
+      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
+        return 'border-primary-base dark:border-primary-light';
+      default:
         return '';
-      case 'outlined':
-        switch (state) {
-          case 'pressed':
-            return colorScheme === 'light' ? 'border-primary-dark' : 'border-primary-base';
-          case 'disabled':
-            return colorScheme === 'light' ? 'border-sky-base' : 'border-ink-base';
-          default:
-            return colorScheme === 'light' ? 'border-primary-base' : 'border-primary-light';
-        }
     }
   }
 
   function textColor(): string {
-    switch (type) {
-      case 'primary':
-        switch (state) {
-          case 'disabled':
-            return colorScheme === 'light' ? 'text-sky-dark' : 'text-ink-light';
-          default:
-            return 'text-sky-lightest';
-        }
-      case 'outlined':
-        switch (state) {
-          case 'pressed':
-            return colorScheme === 'light' ? 'text-primary-dark' : 'text-primary-base';
-          case 'disabled':
-            return colorScheme === 'light' ? 'text-sky-base' : 'text-ink-base';
-          default:
-            return colorScheme === 'light' ? 'text-primary-base' : 'text-primary-light';
-        }
+    const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
+
+    switch (disabledType) {
+      case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
+        return 'text-sky-dark dark:text-ink-light';
+      case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
+        return 'text-sky-base dark:text-ink-base';
+      case `${Availability.ENABLED}-${ButtonType.PRIMARY}`:
+        return 'text-sky-lightest';
+      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
+        return 'text-primary-base dark:text-primary-light';
+      default:
+        return '';
     }
   }
   return (
-    <View className={`${size === 'block' ? 'w-full' : ''}`}>
+    <View className={`${size === ButtonSize.BLOCK ? 'w-full' : ''}`}>
       <TouchableOpacity
         onPress={onPress}
-        onPressIn={() => setPressed(true)}
-        onPressOut={() => setPressed(false)}
         activeOpacity={0.7}
         className={`
-           ${type === 'outlined' ? 'border-2' : ''} 
-           ${size === 'large' ? 'px-8 h-12' : size === 'small' ? 'px-4 h-8' : 'h-12'} 
+           ${type === ButtonType.OUTLINED ? 'border-2' : ''} 
+           ${size === ButtonSize.LARGE ? 'px-8 h-12' : size === ButtonSize.SMALL ? 'px-4 h-8' : 'h-12'} 
            rounded-[32px]  w-full justify-center items-center 
           ${backgroundColor()}
           ${borderColor()}
