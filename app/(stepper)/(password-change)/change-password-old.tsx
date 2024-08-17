@@ -5,6 +5,7 @@ import { ScrollView, View } from 'react-native';
 
 import { CustomButton, CustomTextInput } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
+import { ButtonType } from '@/components/ui/button/CustomButton';
 import { LogoIcon } from '@/constants/Icon';
 import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';
 import { ButtonType } from '@/util/ButtonType';

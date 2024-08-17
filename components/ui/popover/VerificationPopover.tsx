@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Text, View } from 'react-native';
 
 import { CustomButton, CustomTextInput, Loader } from '@/components';
+import { ButtonType } from '@/components/ui/button/CustomButton';
 import CustomValidatedLinkTextInput from '@/components/ui/text-input/CustomValidatedLinkTextInput';
 import { ButtonType } from '@/util/ButtonType';
 
