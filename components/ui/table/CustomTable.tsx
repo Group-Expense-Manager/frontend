@@ -1,4 +1,3 @@
-import { useColorScheme } from 'nativewind';
 import React from 'react';
 import { View, Text } from 'react-native';
 
@@ -19,9 +18,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
   defaultValue = true,
   onValueChange = () => {},
 }) => {
-  const { colorScheme } = useColorScheme();
-  const titleColor = colorScheme === 'dark' ? 'text-sky-lightest' : 'text-ink-darkest';
-  const captionColor = colorScheme === 'dark' ? 'text-sky-dark' : 'text-ink-lighter';
+  const titleColor = 'text-ink-darkest dark:text-sky-lightest';
+  const captionColor = 'text-ink-lighter dark:text-sky-dark';
 
   return (
     <View className="w-full flex-row items-center justify-between h-16 px-6">
