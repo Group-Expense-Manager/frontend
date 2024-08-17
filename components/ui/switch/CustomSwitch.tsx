@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
+import { Availability } from '@/util/Availability';
+
 interface CustomSwitchProps {
   disabled?: boolean;
   defaultValue?: boolean;
   onValueChange?: () => void;
-}
-
-enum Availability {
-  ENABLED = 'ENABLED',
-  DISABLED = 'DISABLED',
 }
 
 enum SwitchState {
