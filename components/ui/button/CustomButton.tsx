@@ -29,9 +29,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   type = ButtonType.PRIMARY,
   size = ButtonSize.BLOCK,
 }) => {
-  function backgroundColor(): string {
-    const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
+  const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
 
+  function backgroundColor(): string {
     switch (disabledType) {
       case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
         return 'bg-sky-light dark:bg-ink-dark';
@@ -47,8 +47,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   }
 
   function borderColor(): string {
-    const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
-
     switch (disabledType) {
       case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
         return 'border-sky-base dark:border-ink-base';
@@ -60,8 +58,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   }
 
   function textColor(): string {
-    const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
-
     switch (disabledType) {
       case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
         return 'text-sky-dark dark:text-ink-light';
