@@ -5,8 +5,8 @@ import { View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
-import { ButtonType } from '@/components/ui/button/CustomButton';
 import useLogout from '@/hooks/auth/UseLogout';
+import { ButtonType } from '@/util/ButtonType';
 
 export default function You() {
   const { t } = useTranslation();
