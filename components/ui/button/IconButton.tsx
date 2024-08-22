@@ -11,7 +11,7 @@ interface IconButtonProps {
   disabled?: boolean;
   type?: ButtonType;
   size?: ButtonSize;
-  children: ReactElement;
+  icon: ReactElement;
 }
 
 export enum ButtonSize {
@@ -24,12 +24,12 @@ const IconButton: React.FC<IconButtonProps> = ({
   disabled = false,
   type = ButtonType.PRIMARY,
   size = ButtonSize.LARGE,
-  children,
+  icon,
 }) => {
   const { colorScheme } = useColorScheme();
   const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
 
-  const clonedIcon = React.cloneElement(children, {
+  const clonedIcon = React.cloneElement(icon, {
     width: 24,
     height: 24,
     stroke: iconColor(),
