@@ -1,6 +1,7 @@
 import CheckIcon from '../assets/icons/check.svg';
 import ChevronDownIcon from '../assets/icons/chevron-down.svg';
 import CreditCardIcon from '../assets/icons/credit-card-02.svg';
+import EditIcon from '../assets/icons/edit-02.svg';
 import FileAttachmentIcon from '../assets/icons/file-attachment-04.svg';
 import LogoIcon from '../assets/icons/logo.svg';
 import PlusCircleIcon from '../assets/icons/plus-circle.svg';
@@ -26,4 +27,5 @@ export {
   SearchIcon,
   ChevronDownIcon,
   CloseIcon,
+  EditIcon,
 };
