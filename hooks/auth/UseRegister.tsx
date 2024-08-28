@@ -29,7 +29,7 @@ export default function useRegister(username: string, email: string, password: s
       if (error.response?.status === 409) {
         router.push('email-address-taken-modal');
       } else {
-        router.push('error-modal');
+        router.push('(auth)/(modal)/error-modal');
       }
     },
   });

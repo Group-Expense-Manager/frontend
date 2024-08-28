@@ -25,7 +25,7 @@ export default function useSendVerificationEmail(email: string) {
       if (error.response?.status === 429) {
         router.push('verification-email-already-sent-modal');
       } else {
-        router.push('error-modal');
+        router.push('(auth)/(modal)/error-modal');
       }
     },
   });

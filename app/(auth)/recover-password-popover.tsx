@@ -11,7 +11,7 @@ export default function RecoverPasswordPopover() {
   const navigation = useNavigation();
 
   const { mutate, isPending } = useRecoverPassword(passwordRecoveryEmail);
-  const isConfirmButtonDisabled = passwordRecoveryEmail.length === 0;
+  const isConfirmButtonDisabled = passwordRecoveryEmail.trim().length === 0;
   useEffect(() => {
     navigation.setOptions({ presentation: 'transparentModal' });
   }, [navigation]);

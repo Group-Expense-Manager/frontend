@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import CustomPopover from '@/components/ui/popover/CustomPopover';
 
-export default function ErrorModal() {
+export default function ErrorPopover() {
   const { t } = useTranslation();
   const navigation = useNavigation();
 

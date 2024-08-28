@@ -30,7 +30,7 @@ export default function useChangePassword(oldPassword: string, newPassword: stri
       if (error.response?.status === 400) {
         router.push('wrong-old-password-modal');
       } else {
-        router.push('error-modal');
+        router.push('(stepper)/(password-change)/(modal)/error-modal');
       }
     },
   });

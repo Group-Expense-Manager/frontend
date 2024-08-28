@@ -26,7 +26,7 @@ export default function useRecoverPassword(email: string) {
       if (error.response?.status === 404 || error.response?.status === 429) {
         router.replace('password-recovery-email-sent-modal');
       } else {
-        router.replace('error-modal');
+        router.replace('(auth)/(modal)/error-modal');
       }
     },
   });

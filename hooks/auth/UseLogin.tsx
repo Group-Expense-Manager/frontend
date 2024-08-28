@@ -33,7 +33,7 @@ export default function useLogin(email: string, password: string) {
       } else if (error.response?.status === 400) {
         router.push('wrong-credentials-modal');
       } else {
-        router.push('error-modal');
+        router.push('(auth)/(modal)/error-modal');
       }
     },
     onSuccess: (response: AxiosResponse<LoginResponse>) => {

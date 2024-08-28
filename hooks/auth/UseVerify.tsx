@@ -36,7 +36,7 @@ export default function useVerify(email: string, code: string) {
 
     onError: (error: AxiosError) => {
       if (error.response?.status !== 400) {
-        router.push('error-modal');
+        router.push('(auth)/(modal)/error-modal');
       }
     },
   });
