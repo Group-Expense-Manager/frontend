@@ -9,10 +9,8 @@ import useLogout from '@/hooks/auth/UseLogout';
 
 export default function You() {
   const { t } = useTranslation();
-  const { mutate } = useLogout();
-  const handleLogout = () => {
-    mutate();
-  };
+  const { mutate: logout } = useLogout();
+
   return (
     <SafeView>
       <View className="py-[32px] w-full h-full flex flex-col justify-between items-center space-y-[32px]">
@@ -23,7 +21,7 @@ export default function You() {
           />
         </View>
         <View className="w-full">
-          <CustomButton onPress={handleLogout} title={t('Logout')} type="reversed" />
+          <CustomButton onPress={() => logout()} title={t('Logout')} type="reversed" />
         </View>
       </View>
     </SafeView>

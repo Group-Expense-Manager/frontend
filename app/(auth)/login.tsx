@@ -13,14 +13,14 @@ export default function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { mutate, isPending } = useLogin(email, password);
+  const { mutate: login, isPending: isLoginPending } = useLogin(email, password);
 
   const isLoginButtonDisabled = email.length === 0 || password.length === 0;
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => isPending);
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => isLoginPending);
     return () => backHandler.remove();
-  }, [isPending]);
+  }, [isLoginPending]);
 
   return (
     <SafeView>
@@ -28,7 +28,7 @@ export default function Login() {
         contentContainerStyle={{
           height: '100%',
         }}>
-        <Loader isLoading={isPending} />
+        <Loader isLoading={isLoginPending} />
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full">
             <View className="w-full flex justify-center items-center">
@@ -58,7 +58,7 @@ export default function Login() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => mutate()}
+                onPress={() => login()}
                 title={t('Login')}
                 disabled={isLoginButtonDisabled}
               />

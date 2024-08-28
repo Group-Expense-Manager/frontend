@@ -10,7 +10,8 @@ export default function RecoverPasswordPopover() {
   const [passwordRecoveryEmail, setPasswordRecoveryEmail] = useState('');
   const navigation = useNavigation();
 
-  const { mutate, isPending } = useRecoverPassword(passwordRecoveryEmail);
+  const { mutate: recoverPassword, isPending: isPasswordRecoveryPending } =
+    useRecoverPassword(passwordRecoveryEmail);
   const isConfirmButtonDisabled = passwordRecoveryEmail.trim().length === 0;
   useEffect(() => {
     navigation.setOptions({ presentation: 'transparentModal' });
@@ -21,7 +22,7 @@ export default function RecoverPasswordPopover() {
       description={t('Password reset - description')}
       buttonTitle={t('Confirm')}
       onPress={() => {
-        mutate();
+        recoverPassword();
       }}
       label={t('Email')}
       secondButtonTitle={t('Cancel')}
@@ -29,7 +30,7 @@ export default function RecoverPasswordPopover() {
         router.navigate('login');
       }}
       onChangeText={(text) => setPasswordRecoveryEmail(text)}
-      isPending={isPending}
+      isPending={isPasswordRecoveryPending}
       disabled={isConfirmButtonDisabled}
     />
   );

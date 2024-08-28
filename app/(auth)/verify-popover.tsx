@@ -12,11 +12,14 @@ export default function VerifyPopover() {
   const navigation = useNavigation();
   const { verificationProps, setVerificationProps } = useContext(VerificationContext);
   const [error, setError] = useState(false);
-  const { mutate, isPending, isError } = useVerify(verificationProps.email, verificationProps.code);
+  const {
+    mutate: verify,
+    isPending: isVerificationPending,
+    isError,
+  } = useVerify(verificationProps.email, verificationProps.code);
 
-  const { mutate: mutate2, isPending: isPending2 } = useSendVerificationEmail(
-    verificationProps.email,
-  );
+  const { mutate: sendVerificationEmail, isPending: isEmailSendingPending } =
+    useSendVerificationEmail(verificationProps.email);
 
   useEffect(() => {
     setError(false);
@@ -39,7 +42,7 @@ export default function VerifyPopover() {
       description={t('Verify account - description')}
       buttonTitle={t('Confirm')}
       onPress={() => {
-        mutate();
+        verify();
       }}
       label={t('Code')}
       secondButtonTitle={t('Cancel')}
@@ -49,10 +52,10 @@ export default function VerifyPopover() {
       }}
       linkLabel={t('Send verification email again')}
       onLinkPress={() => {
-        mutate2();
+        sendVerificationEmail();
       }}
       onChangeText={(text) => setVerificationProps({ ...verificationProps, code: text })}
-      isPending={isPending || isPending2}
+      isPending={isVerificationPending || isEmailSendingPending}
       disabled={isConfirmButtonDisabled || error}
       error={error}
       errorText={t('Incorrect verification code')}

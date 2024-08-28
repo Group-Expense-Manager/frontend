@@ -14,15 +14,18 @@ import { Validator } from '@/util/Validator';
 export default function ChangePasswordNew() {
   const { t } = useTranslation();
   const { passwordChangeProps, setPasswordChangeProps } = useContext(PasswordChangeContext);
-  const { mutate, isPending } = useChangePassword(
+  const { mutate: changePassword, isPending: isPasswordChangePending } = useChangePassword(
     passwordChangeProps.oldPassword,
     passwordChangeProps.newPassword,
   );
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => isPending);
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => isPasswordChangePending,
+    );
     return () => backHandler.remove();
-  }, [isPending]);
+  }, [isPasswordChangePending]);
 
   const validator = new Validator([
     {
@@ -42,7 +45,7 @@ export default function ChangePasswordNew() {
         contentContainerStyle={{
           height: '100%',
         }}>
-        <Loader isLoading={isPending} />
+        <Loader isLoading={isPasswordChangePending} />
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full">
             <View className="w-full flex justify-center items-center">
@@ -64,7 +67,7 @@ export default function ChangePasswordNew() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => mutate()}
+                onPress={() => changePassword()}
                 title={t('Change password')}
                 disabled={isChangePasswordButtonDisabled}
               />

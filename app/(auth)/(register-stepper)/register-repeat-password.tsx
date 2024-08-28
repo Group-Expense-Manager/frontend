@@ -15,7 +15,7 @@ export default function Register() {
   const { t } = useTranslation();
   const { registrationProps, setRegistrationProps } = useContext(RegistrationContext);
 
-  const { mutate, isPending } = useRegister(
+  const { mutate: register, isPending: isRegistrationPending } = useRegister(
     registrationProps.username,
     registrationProps.email,
     registrationProps.password,
@@ -34,9 +34,12 @@ export default function Register() {
     validator.validate(registrationProps.repeatedPassword).length !== 0;
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => isPending);
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => isRegistrationPending,
+    );
     return () => backHandler.remove();
-  }, [isPending]);
+  }, [isRegistrationPending]);
 
   return (
     <SafeView>
@@ -44,7 +47,7 @@ export default function Register() {
         contentContainerStyle={{
           height: '100%',
         }}>
-        <Loader isLoading={isPending} />
+        <Loader isLoading={isRegistrationPending} />
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full">
             <View className="w-full flex justify-center items-center">
@@ -66,7 +69,7 @@ export default function Register() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => mutate()}
+                onPress={() => register()}
                 title={t('Register')}
                 disabled={isRegisterButtonDisabled}
               />
