@@ -18,7 +18,7 @@ export default function Login() {
   const isLoginButtonDisabled = email.length === 0 || password.length === 0;
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true);
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => isPending);
     return () => backHandler.remove();
   }, [isPending]);
 

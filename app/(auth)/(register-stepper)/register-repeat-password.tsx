@@ -34,7 +34,7 @@ export default function Register() {
     validator.validate(registrationProps.repeatedPassword).length !== 0;
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true);
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => isPending);
     return () => backHandler.remove();
   }, [isPending]);
 

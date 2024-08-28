@@ -20,7 +20,7 @@ export default function ChangePasswordNew() {
   );
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => true);
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => isPending);
     return () => backHandler.remove();
   }, [isPending]);
 
