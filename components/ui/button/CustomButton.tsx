@@ -1,27 +1,56 @@
 import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
-  isLoading?: boolean;
+  disabled?: boolean;
+  type?: 'primary' | 'reversed';
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ title, onPress, isLoading }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({
+  title,
+  onPress,
+  disabled,
+  type = 'primary',
+}) => {
+  const backgroundColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
+    if (disabled) {
+      if (type === 'primary') return 'bg-sky-light';
+      return 'bg-sky-lightest';
+    }
+    if (type === 'primary') return 'bg-primary-base';
+    return 'bg-sky-lightest';
+  };
+
+  const borderColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
+    if (disabled) {
+      return 'border-sky-light';
+    }
+    return 'border-primary-base';
+  };
+
+  const textColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
+    if (disabled) {
+      if (type === 'primary') return 'text-sky-dark';
+      return 'text-sky-light';
+    }
+    if (type === 'primary') return 'text-sky-lightest';
+    return 'text-primary-base';
+  };
+
   return (
     <View>
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.7}
-        className={`bg-primary-base rounded-[32px] h-[48px] w-full flex flex-row justify-center items-center ${
-          isLoading ? 'opacity-50' : ''
-        }`}
-        disabled={isLoading}>
-        <Text className="font-color text-sky-lightest font-semibold">{title}</Text>
-
-        {isLoading && (
-          <ActivityIndicator animating={isLoading} color="#E3E5E5" size="small" className="ml-2" />
-        )}
+        className={`
+          bg-primary-base border-primary-base border-2 rounded-[32px] h-[48px] w-full flex flex-row justify-center items-center 
+          ${backgroundColor(type, disabled)}
+          ${borderColor(type, disabled)}
+        `}
+        disabled={disabled}>
+        <Text className={`${textColor(type, disabled)} font-semibold`}>{title}</Text>
       </TouchableOpacity>
     </View>
   );

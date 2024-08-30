@@ -38,7 +38,7 @@ const Welcome = () => {
             </View>
             <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-8">
               <View className="h-fit w-full">
-                <CustomButton title={t('Next')} onPress={() => router.push('/(auth)/login')} />
+                <CustomButton title={t('Next')} onPress={() => router.replace('/(auth)/login')} />
               </View>
             </View>
           </View>

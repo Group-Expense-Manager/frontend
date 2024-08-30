@@ -1,32 +1,16 @@
 import { Stack } from 'expo-router';
+import React from 'react';
 
-import { VerificationProvider } from '@/context/verification/VerificationContext';
+import { VerificationProvider } from '@/context/auth/VerificationContext';
 
-const AuthLayout = () => {
+export default function AuthLayout() {
   return (
     <VerificationProvider>
-      <Stack>
-        <Stack.Screen
-          name="login"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="register"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="verify"
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      />
     </VerificationProvider>
   );
-};
-
-export default AuthLayout;
+}

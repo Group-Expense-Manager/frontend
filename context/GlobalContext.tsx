@@ -1,14 +1,16 @@
 import * as SecureStore from 'expo-secure-store';
 import React, { createContext, FC, ReactNode, useEffect, useState } from 'react';
 
-import { TOKEN_KEY } from '@/constants/Storage';
+import { TOKEN_KEY, USER_KEY } from '@/constants/Storage';
 
 interface AuthState {
+  userId: string | null;
   token: string | null;
   authenticated: boolean;
 }
 
 const defaultAuthState: AuthState = {
+  userId: null,
   token: null,
   authenticated: false,
 };
@@ -39,8 +41,10 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     const loadToken = async () => {
       const token = await SecureStore.getItemAsync(TOKEN_KEY);
-      if (token) {
+      const userId = await SecureStore.getItemAsync(USER_KEY);
+      if (token && userId) {
         setAuthState({
+          userId,
           token,
           authenticated: true,
         });
