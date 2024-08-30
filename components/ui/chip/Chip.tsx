@@ -3,6 +3,7 @@ import { Text, TouchableOpacity } from 'react-native';
 
 import CustomImage from '@/components/ui/image/CustomImage';
 import { ChipChevronDownIcon, ChipFilterLinesIcon, ChipXIcon } from '@/constants/Icon';
+import { IconSize } from '@/util/IconSize';
 
 interface ChipProps {
   text: string;
@@ -20,11 +21,11 @@ const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, imageUri })
   function getIcon(): ReactElement | null {
     switch (type) {
       case 'remove':
-        return <ChipXIcon />;
+        return <ChipXIcon width={IconSize.TINY} height={IconSize.TINY} />;
       case 'select':
-        return <ChipChevronDownIcon />;
+        return <ChipChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />;
       case 'filter':
-        return <ChipFilterLinesIcon />;
+        return <ChipFilterLinesIcon width={IconSize.TINY} height={IconSize.TINY} />;
       default:
         return null;
     }
