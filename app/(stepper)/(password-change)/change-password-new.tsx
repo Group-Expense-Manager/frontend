@@ -5,6 +5,7 @@ import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
+import { ButtonType } from '@/components/ui/button/CustomButton';
 import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';
@@ -84,7 +85,7 @@ export default function ChangePasswordNew() {
               <CustomButton
                 onPress={() => router.navigate('change-password-old')}
                 title={t('Back')}
-                type="reversed"
+                type={ButtonType.OUTLINED}
               />
             </View>
           </View>

@@ -5,6 +5,7 @@ import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
+import { ButtonType } from '@/components/ui/button/CustomButton';
 import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { RegistrationContext } from '@/context/auth/RegistrationContext';
@@ -69,7 +70,7 @@ export default function RegisterUsername() {
               <CustomButton
                 onPress={() => router.navigate('login')}
                 title={t('Already have an account?')}
-                type="reversed"
+                type={ButtonType.OUTLINED}
               />
             </View>
           </View>

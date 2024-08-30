@@ -1,56 +1,90 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import { Availability } from '@/util/Availability';
+
 interface CustomButtonProps {
   title: string;
   onPress: () => void;
   disabled?: boolean;
-  type?: 'primary' | 'reversed';
+  type?: ButtonType;
+  size?: ButtonSize;
+}
+
+export enum ButtonType {
+  PRIMARY = 'PRIMARY',
+  OUTLINED = 'OUTLINED',
+}
+
+export enum ButtonSize {
+  SMALL = 'SMALL',
+  LARGE = 'LARGE',
+  BLOCK = 'BLOCK',
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
   title,
   onPress,
-  disabled,
-  type = 'primary',
+  disabled = false,
+  type = ButtonType.PRIMARY,
+  size = ButtonSize.BLOCK,
 }) => {
-  const backgroundColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
-    if (disabled) {
-      if (type === 'primary') return 'bg-sky-light';
-      return 'bg-sky-lightest';
-    }
-    if (type === 'primary') return 'bg-primary-base';
-    return 'bg-sky-lightest';
-  };
+  const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
 
-  const borderColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
-    if (disabled) {
-      return 'border-sky-light';
+  function backgroundColor(): string {
+    switch (disabledType) {
+      case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
+        return 'bg-sky-light dark:bg-ink-dark';
+      case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
+        return 'bg-sky-latest dark:bg-ink-darkest';
+      case `${Availability.ENABLED}-${ButtonType.PRIMARY}`:
+        return 'bg-primary-base';
+      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
+        return 'bg-sky-latest dark:bg-ink-darkest';
+      default:
+        return '';
     }
-    return 'border-primary-base';
-  };
+  }
 
-  const textColor = function (type: 'primary' | 'reversed', disabled?: boolean): string {
-    if (disabled) {
-      if (type === 'primary') return 'text-sky-dark';
-      return 'text-sky-light';
+  function borderColor(): string {
+    switch (disabledType) {
+      case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
+        return 'border-sky-base dark:border-ink-base';
+      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
+        return 'border-primary-base dark:border-primary-light';
+      default:
+        return '';
     }
-    if (type === 'primary') return 'text-sky-lightest';
-    return 'text-primary-base';
-  };
+  }
 
+  function textColor(): string {
+    switch (disabledType) {
+      case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
+        return 'text-sky-dark dark:text-ink-light';
+      case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
+        return 'text-sky-base dark:text-ink-base';
+      case `${Availability.ENABLED}-${ButtonType.PRIMARY}`:
+        return 'text-sky-lightest';
+      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
+        return 'text-primary-base dark:text-primary-light';
+      default:
+        return '';
+    }
+  }
   return (
-    <View>
+    <View className={`${size === ButtonSize.BLOCK ? 'w-full' : ''}`}>
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.7}
         className={`
-          bg-primary-base border-primary-base border-2 rounded-[32px] h-[48px] w-full flex flex-row justify-center items-center 
-          ${backgroundColor(type, disabled)}
-          ${borderColor(type, disabled)}
+           ${type === ButtonType.OUTLINED ? 'border-2' : ''} 
+           ${size === ButtonSize.LARGE ? 'px-8 h-12' : size === ButtonSize.SMALL ? 'px-4 h-8' : 'h-12'} 
+           rounded-[32px]  w-full justify-center items-center 
+          ${backgroundColor()}
+          ${borderColor()}
         `}
         disabled={disabled}>
-        <Text className={`${textColor(type, disabled)} font-semibold`}>{title}</Text>
+        <Text className={`${textColor()} font-medium text-regular`}>{title}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Text, View } from 'react-native';
 
 import { CustomButton, CustomTextInput, Loader } from '@/components';
+import { ButtonType } from '@/components/ui/button/CustomButton';
 import CustomLinkTextInput from '@/components/ui/text-input/CustomLinkTextInput';
 
 interface CustomDecisionPopoverProps {
@@ -64,7 +65,11 @@ const CustomDecisionPopover: React.FC<CustomDecisionPopoverProps> = ({
               <CustomButton onPress={onPress} title={buttonTitle} disabled={disabled} />
             </View>
             <View className="w-full">
-              <CustomButton onPress={secondOnPress} title={secondButtonTitle} type="reversed" />
+              <CustomButton
+                onPress={secondOnPress}
+                title={secondButtonTitle}
+                type={ButtonType.OUTLINED}
+              />
             </View>
           </View>
         </View>
