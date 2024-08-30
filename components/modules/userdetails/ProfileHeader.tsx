@@ -12,7 +12,7 @@ interface ProfileHeaderProps {
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ imageUri, name = null, username }) => {
   return (
     <View className="flex-row w-full justify-start px-3 space-x-3">
-      <CustomImage imageUri={imageUri} size={70} />
+      <CustomImage imageUri={imageUri} size="large" />
       <View className="items-start justify-center flex-1">
         <Text
           numberOfLines={1}

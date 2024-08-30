@@ -13,7 +13,7 @@ interface ProfilePictureEditionProps {
 const ProfilePictureEdition: React.FC<ProfilePictureEditionProps> = ({ imageUri, onPress }) => {
   return (
     <View>
-      <CustomImage imageUri={imageUri} size={150} />
+      <CustomImage imageUri={imageUri} size="colossal" />
       <View className="absolute bottom-0 right-0">
         <IconButton onPress={onPress} icon={<EditIcon />} />
       </View>

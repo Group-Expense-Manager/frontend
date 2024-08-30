@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 
 interface CustomImageProps {
   imageUri: string;
-  size: 'tiny' | 'small' | 'medium' | 'large' | number;
+  size: 'tiny' | 'small' | 'medium' | 'large' | 'colossal';
 }
 
 const CustomImage: React.FC<CustomImageProps> = ({ imageUri, size = 'large' }) => {
@@ -14,11 +14,11 @@ const CustomImage: React.FC<CustomImageProps> = ({ imageUri, size = 'large' }) =
       case 'small':
         return 32;
       case 'medium':
-        return 40;
+        return 50;
       case 'large':
-        return 64;
-      default:
-        return size;
+        return 70;
+      case 'colossal':
+        return 150;
     }
   }
   const sizeInPx = getSizeInPx();
