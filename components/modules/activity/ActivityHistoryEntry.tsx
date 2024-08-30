@@ -41,7 +41,7 @@ const ActivityHistoryEntry: React.FC<ActivityHistoryEntryProps> = ({
   return (
     <View className={`p-[10px] w-full ${flexRow}`}>
       <View className="justify-end">
-        <CustomImage imageUri={imageUri} size="medium" />
+        <CustomImage imageUri={imageUri} size="small" />
       </View>
       <View className="w-[10px]" />
       <View className={`flex-col ${items} flex-1`}>
