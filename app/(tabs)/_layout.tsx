@@ -46,7 +46,7 @@ const TabLayout = () => {
               headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <TabIcon name={t('Reports')} focused={focused}>
-                  <FileAttachmentIcon width="24px" height="24px" />
+                  <FileAttachmentIcon />
                 </TabIcon>
               ),
             }}
@@ -61,7 +61,7 @@ const TabLayout = () => {
               headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <TabIcon name={t('Groups')} focused={focused}>
-                  <GroupIcon width="24px" height="24px" />
+                  <GroupIcon />
                 </TabIcon>
               ),
             }}
@@ -76,7 +76,7 @@ const TabLayout = () => {
               },
               tabBarIcon: ({ focused }) => (
                 <TopTabIcon focused={focused}>
-                  <PlusIcon width="24px" height="24px" />
+                  <PlusIcon />
                 </TopTabIcon>
               ),
             }}
@@ -92,7 +92,7 @@ const TabLayout = () => {
               headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <TabIcon name={t('Alignments')} focused={focused}>
-                  <CreditCardIcon width="24px" height="24px" />
+                  <CreditCardIcon />
                 </TabIcon>
               ),
             }}
@@ -107,7 +107,7 @@ const TabLayout = () => {
               headerShown: false,
               tabBarIcon: ({ focused }) => (
                 <TabIcon name={t('You')} focused={focused}>
-                  <UserIcon width="24px" height="24px" />
+                  <UserIcon />
                 </TabIcon>
               ),
             }}

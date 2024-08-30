@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import theme from '@/constants/Colors';
 import { UserIcon, XCircleIcon } from '@/constants/Icon';
+import { IconSize } from '@/util/IconSize';
 
 interface TouchableExpenseProps {
   key: string;
@@ -29,7 +30,7 @@ const TouchableExpense: React.FC<TouchableExpenseProps> = ({
         <View className="flex flex-row justify-between">
           <View className="flex flex-row">
             <Text className="font-bold text-large text-ink-darkest pr-[5px]">{title}</Text>
-            <XCircleIcon stroke={theme.red.base} width="24px" height="24px" />
+            <XCircleIcon stroke={theme.red.base} width={IconSize.SMALL} height={IconSize.SMALL} />
           </View>
           <View>
             <Text className="font-normal text-large text-ink-darkest">{value}</Text>
@@ -40,9 +41,9 @@ const TouchableExpense: React.FC<TouchableExpenseProps> = ({
         </View>
         <View className="flex flex-row justify-between">
           <View className="flex flex-row space-x-[5px]">
-            <UserIcon width="24px" height="24px" />
-            <UserIcon width="24px" height="24px" />
-            <UserIcon width="24px" height="24px" />
+            <UserIcon width={IconSize.SMALL} height={IconSize.SMALL} />
+            <UserIcon width={IconSize.SMALL} height={IconSize.SMALL} />
+            <UserIcon width={IconSize.SMALL} height={IconSize.SMALL} />
           </View>
           <View>
             <Text className="font-normal text-small text-ink-darkest">

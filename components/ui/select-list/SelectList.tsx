@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import { ChevronDownIcon, CloseIcon, SearchIcon } from '@/constants/Icon';
+import { IconSize } from '@/util/IconSize';
 
 interface SelectListProps {
   name: string;
@@ -55,7 +56,7 @@ const SelectList: React.FC<SelectListProps> = ({ setSelected, data, name }) => {
       {dropdown ? (
         <View style={[styles.wrapper]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-            <SearchIcon width={20} height={20} />
+            <SearchIcon width={IconSize.TINY} height={IconSize.TINY} />
             <TextInput
               placeholder={t('Search')}
               onChangeText={(val) => {
@@ -69,7 +70,7 @@ const SelectList: React.FC<SelectListProps> = ({ setSelected, data, name }) => {
               style={[{ padding: 0, height: 20, flex: 1 }]}
             />
             <TouchableOpacity onPress={() => slideUp()}>
-              <CloseIcon width={20} height={20} />
+              <CloseIcon width={IconSize.TINY} height={IconSize.TINY} />
             </TouchableOpacity>
           </View>
         </View>
@@ -85,7 +86,7 @@ const SelectList: React.FC<SelectListProps> = ({ setSelected, data, name }) => {
             }
           }}>
           <Text>{selectedVal === '' ? t(name) : selectedVal}</Text>
-          <ChevronDownIcon width={20} height={20} />
+          <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />
         </TouchableOpacity>
       )}
 

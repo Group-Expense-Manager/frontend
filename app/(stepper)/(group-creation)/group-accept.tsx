@@ -8,6 +8,7 @@ import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { GroupCreationContext, GroupCreationProps } from '@/context/group/GroupCreationContext';
 import useGroupCreation from '@/hooks/group/UseGroupCreation';
+import { IconSize } from '@/util/IconSize';
 
 export default function GroupAccept() {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ export default function GroupAccept() {
         }}>
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full flex justify-center items-center">
-            <LogoIcon width="150px" height="150px" />
+            <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
           </View>
           <View className="py-[32px] w-full flex flex-col space-y-[32px]">
             <View className=" w-full  flex flex-row justify-between items-center">

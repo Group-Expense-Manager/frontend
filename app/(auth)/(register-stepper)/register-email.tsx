@@ -9,6 +9,7 @@ import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidated
 import { LogoIcon } from '@/constants/Icon';
 import { RegistrationContext } from '@/context/auth/RegistrationContext';
 import { ButtonType } from '@/util/ButtonType';
+import { IconSize } from '@/util/IconSize';
 import { Validator } from '@/util/Validator';
 
 export default function RegisterEmail() {
@@ -32,7 +33,7 @@ export default function RegisterEmail() {
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full">
             <View className="w-full flex justify-center items-center">
-              <LogoIcon width="150px" height="150px" />
+              <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
               <CustomValidatedTextInput
