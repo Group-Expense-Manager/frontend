@@ -8,10 +8,9 @@ interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = ({ title, type }) => {
   const textSize = type === 'normal' ? 'text-title2' : 'text-title3';
-  const paddingX = type === 'normal' ? 'px-6' : '';
-  const paddingY = type === 'normal' ? 'px-3' : '';
+  const padding = type === 'normal' ? 'px-6 py-3' : '';
   return (
-    <View className={`${paddingX} ${paddingY} w-full`}>
+    <View className={`${padding} w-full`}>
       <Text className={`${textSize} text-ink-darkest dark:text-sky-lightest`}>{title}</Text>
     </View>
   );
