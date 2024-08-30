@@ -1,31 +1,39 @@
-import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
+import React, { ReactElement } from 'react';
+import { TouchableOpacity } from 'react-native';
 
+import theme from '@/constants/Colors';
 import { Availability } from '@/util/Availability';
 import { ButtonType } from '@/util/ButtonType';
 
-interface CustomButtonProps {
-  title: string;
+interface IconButtonProps {
   onPress: () => void;
   disabled?: boolean;
   type?: ButtonType;
   size?: ButtonSize;
+  icon: ReactElement;
 }
 
 export enum ButtonSize {
   SMALL = 'SMALL',
   LARGE = 'LARGE',
-  BLOCK = 'BLOCK',
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({
-  title,
+const IconButton: React.FC<IconButtonProps> = ({
   onPress,
   disabled = false,
   type = ButtonType.PRIMARY,
-  size = ButtonSize.BLOCK,
+  size = ButtonSize.LARGE,
+  icon,
 }) => {
+  const { colorScheme } = useColorScheme();
   const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
+
+  const clonedIcon = React.cloneElement(icon, {
+    width: 24,
+    height: 24,
+    stroke: iconColor(),
+  });
 
   function backgroundColor(): string {
     switch (disabledType) {
@@ -53,37 +61,35 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     }
   }
 
-  function textColor(): string {
+  function iconColor(): string {
     switch (disabledType) {
       case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
-        return 'text-sky-dark dark:text-ink-light';
+        return colorScheme === 'light' ? theme.sky.dark : theme.ink.light;
       case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
-        return 'text-sky-base dark:text-ink-base';
+        return colorScheme === 'light' ? theme.sky.base : theme.ink.base;
       case `${Availability.ENABLED}-${ButtonType.PRIMARY}`:
-        return 'text-sky-lightest';
+        return theme.sky.lightest;
       case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
-        return 'text-primary-base dark:text-primary-light';
+        return colorScheme === 'light' ? theme.primary.base : theme.primary.light;
       default:
         return '';
     }
   }
   return (
-    <View className={`${size === ButtonSize.BLOCK ? 'w-full' : ''}`}>
-      <TouchableOpacity
-        onPress={onPress}
-        activeOpacity={0.7}
-        className={`
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.7}
+      className={`
            ${type === ButtonType.OUTLINED ? 'border-2' : ''} 
-           ${size === ButtonSize.LARGE ? 'px-8 h-12' : size === ButtonSize.SMALL ? 'px-4 h-8' : 'h-12'} 
-           rounded-[32px]  w-full justify-center items-center 
+           ${size === ButtonSize.LARGE ? 'h-12 w-12' : 'h-8 w-8'} 
+           rounded-[32px] justify-center items-center 
           ${backgroundColor()}
           ${borderColor()}
         `}
-        disabled={disabled}>
-        <Text className={`${textColor()} font-medium text-regular`}>{title}</Text>
-      </TouchableOpacity>
-    </View>
+      disabled={disabled}>
+      {clonedIcon}
+    </TouchableOpacity>
   );
 };
 
-export default CustomButton;
+export default IconButton;
