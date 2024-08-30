@@ -12,10 +12,10 @@ interface ChipProps {
 }
 
 const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, imageUri }) => {
-  const rightPadding =
-    imageUri === undefined ? (type === 'normal' ? 4 : 3) : type === 'normal' ? 3 : 2;
-  const leftPadding = imageUri === undefined ? 4 : 1;
-  const borderRadius = imageUri === undefined ? 8 : 16;
+  const paddingRight =
+    imageUri === undefined ? (type === 'normal' ? 16 : 12) : type === 'normal' ? 12 : 8;
+  const paddingLeft = imageUri === undefined ? 16 : 4;
+  const borderRadius = imageUri === undefined ? 'rounded-lg' : 'rounded-2xl';
 
   function getIcon(): ReactElement | null {
     switch (type) {
@@ -34,7 +34,8 @@ const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, imageUri })
     <TouchableOpacity
       activeOpacity={1}
       onPress={onPress}
-      className={`h-8 rounded-[${borderRadius}px] space-x-2 flex-row items-center justify-center pl-${leftPadding} pr-${rightPadding} bg-primary-lightest dark:bg-ink-dark`}>
+      style={{ paddingLeft, paddingRight }}
+      className={`h-8 ${borderRadius} space-x-2 flex-row items-center justify-center  bg-primary-lightest dark:bg-ink-dark`}>
       {imageUri && <CustomImage imageUri={imageUri} size="tiny" />}
       <Text
         numberOfLines={1}
