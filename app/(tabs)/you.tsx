@@ -5,7 +5,6 @@ import { View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
-import CustomHeader from '@/components/ui/header/CustomHeader';
 import useLogout from '@/hooks/auth/UseLogout';
 import { ButtonType } from '@/util/ButtonType';
 
@@ -25,7 +24,6 @@ export default function You() {
         <View className="w-full">
           <CustomButton onPress={() => logout()} title={t('Logout')} type={ButtonType.OUTLINED} />
         </View>
-        <CustomHeader title="HJHO" />
       </View>
     </SafeView>
   );

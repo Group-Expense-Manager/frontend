@@ -13,10 +13,9 @@ interface ChipProps {
 }
 
 const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, imageUri }) => {
-  const paddingRight =
-    imageUri === undefined ? (type === 'normal' ? 16 : 12) : type === 'normal' ? 12 : 8;
-  const paddingLeft = imageUri === undefined ? 16 : 4;
-  const borderRadius = imageUri === undefined ? 'rounded-lg' : 'rounded-2xl';
+  const paddingRight = imageUri! ? (type === 'normal' ? 12 : 8) : type === 'normal' ? 16 : 12;
+  const paddingLeft = imageUri! ? 4 : 16;
+  const borderRadius = imageUri! ? 'rounded-2xl' : 'rounded-lg';
 
   function getIcon(): ReactElement | null {
     switch (type) {
