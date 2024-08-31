@@ -1,3 +1,4 @@
+import ArrowLeftIcon from '../assets/icons/arrow-left.svg';
 import CheckIcon from '../assets/icons/check.svg';
 import ChevronDownIcon from '../assets/icons/chevron-down.svg';
 import CreditCardIcon from '../assets/icons/credit-card-02.svg';
@@ -12,7 +13,6 @@ import UserIcon from '../assets/icons/user-circle.svg';
 import GroupIcon from '../assets/icons/users-03.svg';
 import XCircleIcon from '../assets/icons/x-circle.svg';
 import CloseIcon from '../assets/icons/x-close.svg';
-
 export {
   XCircleIcon,
   PlusIcon,
@@ -28,4 +28,5 @@ export {
   ChevronDownIcon,
   CloseIcon,
   EditIcon,
+  ArrowLeftIcon,
 };

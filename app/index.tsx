@@ -10,6 +10,7 @@ import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import 'intl-pluralrules';
 import './i18n';
+import { IconSize } from '@/util/IconSize';
 
 const Welcome = () => {
   const { t } = useTranslation();
@@ -27,7 +28,7 @@ const Welcome = () => {
           }}>
           <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
             <View className="w-full flex justify-center items-center">
-              <LogoIcon width="150px" height="150px" />
+              <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex justify-center items-center h-fit">
               <Text className="text-title3 text-ink-darkest font-bold text-center">

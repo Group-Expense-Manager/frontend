@@ -10,6 +10,7 @@ import { LogoIcon } from '@/constants/Icon';
 import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';
 import useChangePassword from '@/hooks/auth/UseChangePassword';
 import { ButtonType } from '@/util/ButtonType';
+import { IconSize } from '@/util/IconSize';
 import { Validator } from '@/util/Validator';
 
 export default function ChangePasswordNew() {
@@ -50,7 +51,7 @@ export default function ChangePasswordNew() {
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full">
             <View className="w-full flex justify-center items-center">
-              <LogoIcon width="150px" height="150px" />
+              <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
               <CustomValidatedTextInput

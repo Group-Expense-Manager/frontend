@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import { CheckIcon, ChevronDownIcon, CloseIcon, SearchIcon } from '@/constants/Icon';
+import { IconSize } from '@/util/IconSize';
 
 interface MultipleSelectListProps {
   name: string;
@@ -63,7 +64,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
       {dropdown ? (
         <View style={[styles.wrapper]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
-            <SearchIcon width={20} height={20} />
+            <SearchIcon width={IconSize.TINY} height={IconSize.TINY} />
             <TextInput
               placeholder={t('Search')}
               onChangeText={(val) => {
@@ -80,7 +81,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
               onPress={() => {
                 slideUp();
               }}>
-              <CloseIcon width={20} height={20} />
+              <CloseIcon width={IconSize.TINY} height={IconSize.TINY} />
             </TouchableOpacity>
           </View>
         </View>
@@ -131,7 +132,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
             }
           }}>
           <Text>{selectedVal === '' ? t(name) : selectedVal}</Text>
-          <ChevronDownIcon width={20} height={20} />
+          <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />
         </TouchableOpacity>
       )}
 
@@ -204,7 +205,9 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
                               alignItems: 'center',
                             },
                           ]}>
-                          {selectedVal?.includes(value) ? <CheckIcon width={8} height={8} /> : null}
+                          {selectedVal?.includes(value) ? (
+                            <CheckIcon width={IconSize.VERY_TINY} height={IconSize.VERY_TINY} />
+                          ) : null}
                         </View>
                         <Text>{value}</Text>
                       </TouchableOpacity>

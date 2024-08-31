@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import theme from '@/constants/Colors';
 import { Availability } from '@/util/Availability';
 import { ButtonType } from '@/util/ButtonType';
+import { IconSize } from '@/util/IconSize';
 
 interface IconButtonProps {
   onPress: () => void;
@@ -30,8 +31,8 @@ const IconButton: React.FC<IconButtonProps> = ({
   const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
 
   const clonedIcon = React.cloneElement(icon, {
-    width: 24,
-    height: 24,
+    width: IconSize.SMALL,
+    height: IconSize.SMALL,
     stroke: iconColor(),
   });
 

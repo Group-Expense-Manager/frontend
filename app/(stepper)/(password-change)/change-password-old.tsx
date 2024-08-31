@@ -8,6 +8,7 @@ import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';
 import { ButtonType } from '@/util/ButtonType';
+import { IconSize } from '@/util/IconSize';
 
 export default function ChangePasswordOld() {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export default function ChangePasswordOld() {
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full">
             <View className="w-full flex justify-center items-center">
-              <LogoIcon width="150px" height="150px" />
+              <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
               <CustomTextInput

@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { View } from 'react-native';
 
 import theme from '@/constants/Colors';
+import { IconSize } from '@/util/IconSize';
 
 interface TopTabIconProps {
   focused: boolean;
@@ -10,8 +11,8 @@ interface TopTabIconProps {
 
 export const TopTabIcon: React.FC<TopTabIconProps> = ({ focused, children }) => {
   const clonedIcon = React.cloneElement(children, {
-    width: 40,
-    height: 40,
+    width: IconSize.MEDIUM,
+    height: IconSize.MEDIUM,
     stroke: focused ? theme.sky.lightest : theme.sky.dark,
   });
   const backgroundColor = focused
