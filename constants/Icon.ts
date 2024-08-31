@@ -1,6 +1,9 @@
 import ArrowLeftIcon from '../assets/icons/arrow-left.svg';
 import CheckIcon from '../assets/icons/check.svg';
 import ChevronDownIcon from '../assets/icons/chevron-down.svg';
+import ChipChevronDownIcon from '../assets/icons/chip/chip-chevron-down.svg';
+import ChipFilterLinesIcon from '../assets/icons/chip/chip-filter-lines.svg';
+import ChipXIcon from '../assets/icons/chip/chip-x.svg';
 import CreditCardIcon from '../assets/icons/credit-card-02.svg';
 import EditIcon from '../assets/icons/edit-02.svg';
 import FileAttachmentIcon from '../assets/icons/file-attachment-04.svg';
@@ -13,6 +16,7 @@ import UserIcon from '../assets/icons/user-circle.svg';
 import GroupIcon from '../assets/icons/users-03.svg';
 import XCircleIcon from '../assets/icons/x-circle.svg';
 import CloseIcon from '../assets/icons/x-close.svg';
+
 export {
   XCircleIcon,
   PlusIcon,
@@ -27,6 +31,9 @@ export {
   SearchIcon,
   ChevronDownIcon,
   CloseIcon,
+  ChipChevronDownIcon,
+  ChipFilterLinesIcon,
+  ChipXIcon,
   EditIcon,
   ArrowLeftIcon,
 };

@@ -27,7 +27,6 @@ const CustomImage: React.FC<CustomImageProps> = ({ imageUri, size = 'large' }) =
       width={sizeInPx}
       height={sizeInPx}
       borderRadius={sizeInPx / 2}
-      resizeMode="contain"
       source={{ uri: imageUri }}
     />
   );
