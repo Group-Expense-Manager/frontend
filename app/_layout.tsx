@@ -54,6 +54,11 @@ const RootLayout = () => {
                 <Stack.Screen name="(popover)" options={{ headerShown: false }} />
                 <Stack.Screen name="expenses" options={{ headerShown: false }} />
                 <Stack.Screen name="index" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="loading-user-data"
+                  options={{ headerShown: false, animation: 'none' }}
+                />
+                <Stack.Screen name="welcome" options={{ headerShown: false }} />
               </Stack>
             </SafeAreaProvider>
           </PaperProvider>

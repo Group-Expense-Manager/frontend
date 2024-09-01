@@ -44,7 +44,7 @@ export default function useLogin(email: string, password: string) {
       });
       SecureStore.setItem(USER_KEY, response.data.userId);
       SecureStore.setItem(TOKEN_KEY, response.data.token);
-      router.replace('/groups');
+      router.replace('/loading-user-data');
     },
   });
 }
