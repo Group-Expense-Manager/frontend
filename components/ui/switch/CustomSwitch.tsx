@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import { Availability } from '@/util/Availability';
 
 interface CustomSwitchProps {
   disabled?: boolean;
-  defaultValue?: boolean;
-  onValueChange?: () => void;
+  value: boolean;
+  onValueChange: () => void;
 }
 
 enum SwitchState {
@@ -14,25 +14,18 @@ enum SwitchState {
   OFF = 'OFF',
 }
 
-const CustomSwitch: React.FC<CustomSwitchProps> = ({
-  disabled = false,
-  defaultValue = true,
-  onValueChange = () => {},
-}) => {
-  const [isOn, setIsOn] = useState(defaultValue);
-
-  const thumbPosition = isOn ? 'justify-end' : 'justify-start';
-  const hasBorder = !isOn && disabled;
+const CustomSwitch: React.FC<CustomSwitchProps> = ({ disabled = false, value, onValueChange }) => {
+  const thumbPosition = value ? 'justify-end' : 'justify-start';
+  const hasBorder = !value && disabled;
 
   function toggleSwitch() {
     if (!disabled) {
-      setIsOn(!isOn);
       onValueChange();
     }
   }
 
   function thumbColor(): string {
-    const disabledOn = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${isOn ? SwitchState.ON : SwitchState.OFF}`;
+    const disabledOn = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? SwitchState.ON : SwitchState.OFF}`;
 
     switch (disabledOn) {
       case `${Availability.DISABLED}-${SwitchState.ON}`:
@@ -49,7 +42,7 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({
   }
 
   function trackColor(): string {
-    const disabledOn = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${isOn ? SwitchState.ON : SwitchState.OFF}`;
+    const disabledOn = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? SwitchState.ON : SwitchState.OFF}`;
 
     switch (disabledOn) {
       case `${Availability.DISABLED}-${SwitchState.ON}`:

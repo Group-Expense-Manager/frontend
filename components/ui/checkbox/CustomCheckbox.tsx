@@ -1,5 +1,5 @@
 import { useColorScheme } from 'nativewind';
-import React, { useState } from 'react';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
 import theme from '@/constants/Colors';
@@ -9,8 +9,8 @@ import { IconSize } from '@/util/IconSize';
 
 interface CustomCheckboxProps {
   disabled?: boolean;
-  defaultValue?: boolean;
-  onValueChange?: () => void;
+  value: boolean;
+  onValueChange: () => void;
 }
 
 enum CheckboxState {
@@ -20,21 +20,19 @@ enum CheckboxState {
 
 const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   disabled = false,
-  defaultValue = true,
-  onValueChange = () => {},
+  value,
+  onValueChange,
 }) => {
-  const [isChecked, setIsChecked] = useState(defaultValue);
   const { colorScheme } = useColorScheme();
 
   function toggleCheckbox() {
     if (!disabled) {
-      setIsChecked(!isChecked);
       onValueChange();
     }
   }
 
   function backgroundColor(): string {
-    const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${isChecked ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
+    const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
 
     switch (disabledChecked) {
       case `${Availability.DISABLED}-${CheckboxState.CHECKED}`:
@@ -46,7 +44,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
     }
   }
   function iconColor(): string {
-    const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${isChecked ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
+    const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
 
     switch (disabledChecked) {
       case `${Availability.DISABLED}-${CheckboxState.CHECKED}`:
@@ -59,7 +57,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   }
 
   function border(): string {
-    const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${isChecked ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
+    const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
 
     switch (disabledChecked) {
       case `${Availability.ENABLED}-${CheckboxState.UNCHECKED}`:

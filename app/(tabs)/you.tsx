@@ -14,14 +14,19 @@ export default function You() {
 
   return (
     <SafeView>
-      <View className="py-[32px] w-full h-full flex flex-col justify-between items-center space-y-[32px]">
-        <View className="w-full">
-          <CustomButton
-            onPress={() => router.push('change-password-old')}
-            title={t('Change password')}
-          />
+      <View className="py-[32px] w-full h-full flex flex-col justify-between items-center ">
+        <View className="w-full space-y-[34px]">
+          <View className="w-full">
+            <CustomButton
+              onPress={() => router.push('change-password-old')}
+              title={t('Change password')}
+            />
+          </View>
+          <View className="w-full">
+            <CustomButton onPress={() => router.push('preferences')} title={t('Preferences')} />
+          </View>
         </View>
-        <View className="w-full">
+        <View className="w-full my-[34px]">
           <CustomButton onPress={() => logout()} title={t('Logout')} type={ButtonType.OUTLINED} />
         </View>
       </View>

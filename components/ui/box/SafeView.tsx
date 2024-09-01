@@ -15,7 +15,7 @@ const SafeView: React.FC<SafeViewProps> = ({ children }) => {
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
-        <View className="bg-sky-lightest h-full p-[32px]">{children}</View>
+        <View className="bg-sky-lightest dark:bg-ink-darkest h-full px-[32px]">{children}</View>
       </SafeAreaView>
       <StatusBar translucent />
     </>
