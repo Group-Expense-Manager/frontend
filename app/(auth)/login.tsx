@@ -70,7 +70,7 @@ export default function Login() {
                 onPress={() => {
                   setEmail('');
                   setPassword('');
-                  router.push('register-username');
+                  router.push('/register-username');
                 }}
                 title={t("Don't have an account?")}
                 type={ButtonType.OUTLINED}
