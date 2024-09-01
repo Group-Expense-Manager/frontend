@@ -45,12 +45,12 @@ export default function GroupName() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('(stepper)/(group-creation)/group-currency')}
+                onPress={() => router.navigate('/(stepper)/(group-creation)/group-currency')}
                 title={t('Next')}
               />
             </View>
             <View className="w-full">
-              <CustomButton onPress={() => router.navigate('(tabs)/groups')} title={t('Cancel')} />
+              <CustomButton onPress={() => router.navigate('/(tabs)/groups')} title={t('Cancel')} />
             </View>
           </View>
         </View>

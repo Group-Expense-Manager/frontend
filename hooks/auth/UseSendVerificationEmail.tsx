@@ -19,13 +19,13 @@ export default function useSendVerificationEmail(email: string) {
       );
     },
     onSuccess: () => {
-      router.push('verification-email-sent-modal');
+      router.push('/verification-email-sent-modal');
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 429) {
-        router.push('verification-email-already-sent-modal');
+        router.push('/verification-email-already-sent-modal');
       } else {
-        router.push('(auth)/(modal)/error-modal');
+        router.push('/(auth)/(modal)/error-modal');
       }
     },
   });

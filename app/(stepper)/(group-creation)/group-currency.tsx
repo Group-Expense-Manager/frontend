@@ -58,13 +58,13 @@ export default function GroupCurrency() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('(stepper)/(group-creation)/group-accept')}
+                onPress={() => router.navigate('/(stepper)/(group-creation)/group-accept')}
                 title={t('Next')}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('(stepper)/(group-creation)/group-name')}
+                onPress={() => router.navigate('/(stepper)/(group-creation)/group-name')}
                 title={t('Back')}
               />
             </View>

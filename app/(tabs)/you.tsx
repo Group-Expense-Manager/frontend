@@ -17,7 +17,7 @@ export default function You() {
       <View className="py-[32px] w-full h-full flex flex-col justify-between items-center space-y-[32px]">
         <View className="w-full">
           <CustomButton
-            onPress={() => router.push('change-password-old')}
+            onPress={() => router.push('/change-password-old')}
             title={t('Change password')}
           />
         </View>

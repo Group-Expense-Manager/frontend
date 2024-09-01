@@ -50,14 +50,14 @@ export default function RegisterEmail() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.push('register-password')}
+                onPress={() => router.push('/register-password')}
                 title={t('Next')}
                 disabled={isNextButtonDisabled}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('register-username')}
+                onPress={() => router.navigate('/register-username')}
                 title={t('Back')}
                 type={ButtonType.OUTLINED}
               />

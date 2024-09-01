@@ -62,14 +62,14 @@ export default function RegisterUsername() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.push('register-email')}
+                onPress={() => router.push('/register-email')}
                 title={t('Next')}
                 disabled={isNextButtonDisabled}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('login')}
+                onPress={() => router.navigate('/login')}
                 title={t('Already have an account?')}
                 type={ButtonType.OUTLINED}
               />

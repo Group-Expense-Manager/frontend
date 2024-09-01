@@ -13,7 +13,7 @@ export default function Create() {
       <View className="py-[200px] w-full flex flex-col justify-center ">
         <View className="w-full">
           <CustomButton
-            onPress={() => router.navigate('(stepper)/(expense-creation)/expense-group')}
+            onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-group')}
             title={t('Add new expense')}
           />
         </View>

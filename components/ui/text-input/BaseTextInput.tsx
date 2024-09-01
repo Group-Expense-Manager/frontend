@@ -1,66 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  Keyboard,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from 'react-native';
+import { useColorScheme } from 'nativewind';
+import React, { useEffect, useRef, useState } from 'react';
+import { TextInput, Keyboard } from 'react-native';
 
+import BaseInput from '@/components/ui/text-input/BaseInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
+import theme from '@/constants/Colors';
 
-interface CustomTextInputProps2 {
+interface BaseTextInputProps {
   valueType: 'text' | 'number' | 'password' | 'multiline' | 'email' | 'phone';
-  disabled: boolean;
-  errorMessage: string;
+  disabled?: boolean;
+  errorMessage?: string;
   linkLabel?: LinkLabelProps;
-  value: string;
+  startValue?: string;
   label: string;
-  placeholder?: string;
+  placeholder: string;
   onChangeText?: (text: string) => void;
-  leftSection?: React.ReactNode;
-  rightSection?: React.ReactNode;
 }
 
-const getBorderStyle = (errorMessage: string, isFocused: boolean) => {
-  let borderStyle = 'h-14 flex justify-center w-full rounded-lg dark:bg-ink-dark';
-  switch (true) {
-    case !!errorMessage:
-      borderStyle += ' border-red-base border-2 dark:border-red-dark';
-      break;
-    case isFocused:
-      borderStyle += ' border-primary-base border-2';
-      break;
+const getInputKeyboardType = (valueType: string) => {
+  switch (valueType) {
+    case 'number':
+      return 'numeric';
+    case 'email':
+      return 'email-address';
+    case 'phone':
+      return 'phone-pad';
     default:
-      borderStyle += ' border-sky-base border dark:border-ink-dark';
-      break;
+      return 'default';
   }
-  return borderStyle;
-};
-
-const LinkLabel: React.FC<LinkLabelProps> = ({ label, onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress} className="flex-1 justify-center">
-      <Text
-        numberOfLines={1}
-        ellipsizeMode="tail"
-        className="text-primary-base font-light text-small text-right text-decoration-line: underline">
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-const ErrorLabel: React.FC<{ errorMessage: string }> = ({ errorMessage }) => {
-  return (
-    <Text
-      numberOfLines={1}
-      ellipsizeMode="tail"
-      className="flex-1 text-red-base text-small font-light text-left">
-      {errorMessage}
-    </Text>
-  );
 };
 
 const foldStringUntil11Digits = (input: string): string => {
@@ -77,31 +44,53 @@ const foldStringUntil11Digits = (input: string): string => {
     }
   }
 
-  console.log(result);
   return result;
 };
 
-const BaseTextInput: React.FC<CustomTextInputProps2> = ({
-  valueType = 'number',
+const getInputStyle = (isDisabled: boolean) => {
+  let inputStyle = 'text-regular font-bold';
+  switch (true) {
+    case isDisabled:
+      inputStyle += ' text-sky-dark dark:text-ink-lightest';
+      break;
+    default:
+      inputStyle += ' text-ink-darkest dark:text-sky-lightest';
+      break;
+  }
+  return inputStyle;
+};
+
+const getPlaceholderColor = (colorScheme: string) => {
+  return colorScheme === 'light' ? theme.ink.lighter : theme.sky.dark;
+};
+
+const BaseTextInput: React.FC<BaseTextInputProps> = ({
+  valueType,
   disabled = false,
   errorMessage = '',
-  linkLabel = undefined,
-  value = '',
-  label = '',
+  linkLabel,
+  startValue = '',
+  label,
   placeholder = '',
-  onChangeText,
-  leftSection,
-  rightSection,
+  onChangeText = () => {},
 }) => {
+  const { colorScheme } = useColorScheme();
   const [isFocused, setIsFocused] = useState(false);
-  const [textInputValue, setTextInputValue] = useState(value);
+  const [textInputValue, setTextInputValue] = useState(startValue);
+  const textInputRef = useRef<TextInput>(null);
 
   const handleFocus = () => !disabled && setIsFocused(true);
-  const handleBlur = () => !textInputValue && setIsFocused(false);
+  const handleBlur = () => setIsFocused(false);
+
+  const handlePress = () => {
+    if (!disabled) {
+      setIsFocused(true);
+      textInputRef.current?.focus();
+    }
+  };
 
   const handleChangeText = (text: string) => {
     let processedText: string;
-
     switch (valueType) {
       case 'multiline':
         processedText = text.replace(/\s+/g, ' ').trimStart();
@@ -125,8 +114,6 @@ const BaseTextInput: React.FC<CustomTextInputProps2> = ({
     onChangeText?.(processedText);
   };
 
-  const handlePress = () => !disabled && setIsFocused(true);
-
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
       if (!textInputValue) setIsFocused(false);
@@ -134,57 +121,38 @@ const BaseTextInput: React.FC<CustomTextInputProps2> = ({
     return () => keyboardDidHideListener.remove();
   }, [textInputValue]);
 
-  const getLabelFontSize = () => {
-    return isFocused || !!textInputValue ? 'text-tiny' : 'text-regular';
-  };
-
-  const getInputKeyboardType = () => {
-    switch (valueType) {
-      case 'number':
-        return 'numeric';
-      case 'email':
-        return 'email-address';
-      case 'phone':
-        return 'phone-pad';
-      default:
-        return 'default';
-    }
+  const getInputComponent = () => {
+    return (
+      (!!textInputValue || isFocused) && (
+        <TextInput
+          ref={textInputRef}
+          placeholderTextColor={getPlaceholderColor(colorScheme)}
+          placeholder={placeholder}
+          value={textInputValue}
+          onChangeText={handleChangeText}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          keyboardType={getInputKeyboardType(valueType)}
+          secureTextEntry={valueType === 'password'}
+          editable={!disabled}
+          className={getInputStyle(disabled)}
+          autoFocus
+        />
+      )
+    );
   };
 
   return (
-    <View className={`p-4 w-full h-24 ${disabled ? 'opacity-50' : ''}`}>
-      <TouchableWithoutFeedback onPress={handlePress}>
-        <View className={getBorderStyle(errorMessage, isFocused)}>
-          {!leftSection && (
-            <View className="flex p-2 items-center justify-center">{leftSection}</View>
-          )}
-          <View className="p-2">
-            <Text className={`text-left ${getLabelFontSize()} font-regular`}>{label}</Text>
-            {(!!textInputValue || isFocused) && (
-              <TextInput
-                placeholder={placeholder}
-                value={textInputValue}
-                onChangeText={handleChangeText}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                keyboardType={getInputKeyboardType()}
-                secureTextEntry={valueType === 'password'}
-                editable={!disabled}
-                className="text-regular font-bold"
-                autoFocus
-              />
-            )}
-          </View>
-          {!rightSection && (
-            <View className="flex p-2 items-center justify-center">{rightSection}</View>
-          )}
-        </View>
-      </TouchableWithoutFeedback>
-      <View className="flex justify-between items-center flex-row p-2">
-        {!!errorMessage && <ErrorLabel errorMessage={errorMessage} />}
-        {!!linkLabel && <LinkLabel label={linkLabel.label} onPress={linkLabel.onPress} />}
-      </View>
-    </View>
+    <BaseInput
+      disabled={disabled}
+      isFocused={isFocused}
+      setIsFocused={setIsFocused}
+      label={label}
+      errorMessage={errorMessage}
+      middleSection={getInputComponent()}
+      linkLabel={linkLabel}
+      handlePress={handlePress}
+    />
   );
 };
 

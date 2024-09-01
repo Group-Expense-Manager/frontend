@@ -55,13 +55,15 @@ export default function ExpenseCost() {
             <View className="w-full">
               <CustomButton
                 title={t('Next')}
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-participants')}
+                onPress={() =>
+                  router.navigate('/(stepper)/(expense-creation)/expense-participants')
+                }
               />
             </View>
             <View className="w-full">
               <CustomButton
                 title={t('Back')}
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-currency')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-currency')}
               />
             </View>
           </View>

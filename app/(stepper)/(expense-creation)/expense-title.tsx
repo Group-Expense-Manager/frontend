@@ -50,13 +50,13 @@ export default function ExpenseTitle() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-date')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-date')}
                 title={t('Next')}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-group')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-group')}
                 title={t('Back')}
               />
             </View>

@@ -48,7 +48,7 @@ export default function VerifyPopover() {
       secondButtonTitle={t('Cancel')}
       secondOnPress={() => {
         setVerificationProps({ email: '', code: '' });
-        router.navigate('login');
+        router.navigate('/login');
       }}
       linkLabel={t('Send verification email again')}
       onLinkPress={() => {

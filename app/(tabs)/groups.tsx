@@ -40,13 +40,13 @@ export default function Groups() {
           <View className="py-[200px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.push('(stepper)/(group-creation)/group-name')}
+                onPress={() => router.push('/(stepper)/(group-creation)/group-name')}
                 title={t('Create new group')}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.push('(popover)/(join-group)/join-group')}
+                onPress={() => router.push('/(popover)/(join-group)/join-group')}
                 title={t('Join existing group')}
               />
             </View>
@@ -68,7 +68,7 @@ export default function Groups() {
                     title={expense.title}
                     date={expense.expenseDate}
                     value={`${expense.cost} ${expense.baseCurrency}`}
-                    onPress={() => router.push(`expenses/${expense.expenseId}`)}
+                    onPress={() => router.push(`/expenses/${expense.expenseId}`)}
                     author={expense.creatorId}
                   />
                 </View>

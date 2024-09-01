@@ -23,14 +23,14 @@ export default function useChangePassword(oldPassword: string, newPassword: stri
       );
     },
     onSuccess: () => {
-      router.push('password-changed-successfully-modal');
+      router.push('/password-changed-successfully-modal');
     },
 
     onError: (error: AxiosError) => {
       if (error.response?.status === 400) {
-        router.push('wrong-old-password-modal');
+        router.push('/wrong-old-password-modal');
       } else {
-        router.push('(stepper)/(password-change)/(modal)/error-modal');
+        router.push('/(stepper)/(password-change)/(modal)/error-modal');
       }
     },
   });

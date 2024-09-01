@@ -78,14 +78,14 @@ export default function RegisterPassword() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('register-repeat-password')}
+                onPress={() => router.navigate('/register-repeat-password')}
                 title={t('Next')}
                 disabled={isNextButtonDisabled}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('register-email')}
+                onPress={() => router.navigate('/register-email')}
                 title={t('Back')}
                 type={ButtonType.OUTLINED}
               />

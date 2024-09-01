@@ -64,13 +64,13 @@ export default function ExpenseCurrency() {
             <View className="w-full">
               <CustomButton
                 title={t('Next')}
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-cost')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-cost')}
               />
             </View>
             <View className="w-full">
               <CustomButton
                 title={t('Back')}
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-date')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-date')}
               />
             </View>
           </View>

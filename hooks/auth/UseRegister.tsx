@@ -23,13 +23,13 @@ export default function useRegister(username: string, email: string, password: s
     },
     onSuccess: () => {
       setVerificationProps({ ...verificationProps, email });
-      router.push('verify-popover');
+      router.push('/verify-popover');
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 409) {
-        router.push('email-address-taken-modal');
+        router.push('/email-address-taken-modal');
       } else {
-        router.push('(auth)/(modal)/error-modal');
+        router.push('/(auth)/(modal)/error-modal');
       }
     },
   });
