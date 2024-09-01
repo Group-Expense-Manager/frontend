@@ -11,16 +11,14 @@ interface TopTabIconProps {
 
 export const TopTabIcon: React.FC<TopTabIconProps> = ({ focused, children }) => {
   const clonedIcon = React.cloneElement(children, {
-    width: IconSize.MEDIUM,
-    height: IconSize.MEDIUM,
-    stroke: focused ? theme.sky.lightest : theme.sky.dark,
+    width: IconSize.SMALL,
+    height: IconSize.SMALL,
+    stroke: theme.sky.lightest,
   });
-  const backgroundColor = focused
-    ? 'bg-primary-base border-primary-base'
-    : 'bg-sky-lightest border-sky-dark';
+  const backgroundColor = focused ? 'bg-primary-dark' : 'bg-primary-base';
   return (
     <View
-      className={`flex items-center justify-center top-[-48px] rounded-[25px] w-[50px] h-[50px] border-[3px] border-e-2 ${backgroundColor}`}>
+      className={`flex items-center justify-center top-[-30px] rounded-[24px] w-[48px] h-[48px] ${backgroundColor}`}>
       {clonedIcon}
     </View>
   );

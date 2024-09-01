@@ -73,7 +73,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         onPress={onPress}
         activeOpacity={0.7}
         className={`
-           ${type === ButtonType.OUTLINED ? 'border-2' : ''} 
+           ${type === ButtonType.OUTLINED ? 'border' : ''} 
            ${size === ButtonSize.LARGE ? 'px-8 h-12' : size === ButtonSize.SMALL ? 'px-4 h-8' : 'h-12'} 
            rounded-[32px]  w-full justify-center items-center 
           ${backgroundColor()}

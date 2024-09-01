@@ -1,10 +1,14 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useColorScheme } from 'nativewind';
 import React, { useEffect } from 'react';
+import { View } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import theme from '@/constants/Colors';
 import { GlobalProvider } from '@/context/GlobalContext';
 import { GroupProvider } from '@/context/group/GroupContext';
 
@@ -23,6 +27,8 @@ const RootLayout = () => {
     'Sora-SemiBold': require('../assets/fonts/Sora-SemiBold.ttf'),
     'Sora-Thin': require('../assets/fonts/Sora-Thin.ttf'),
   });
+
+  const { colorScheme } = useColorScheme();
 
   useEffect(() => {
     if (error) throw error;
@@ -46,20 +52,26 @@ const RootLayout = () => {
         <GroupProvider>
           <PaperProvider>
             <SafeAreaProvider>
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                <Stack.Screen name="(you)" options={{ headerShown: false }} />
-                <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
-                <Stack.Screen name="(popover)" options={{ headerShown: false }} />
-                <Stack.Screen name="expenses" options={{ headerShown: false }} />
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="loading-user-data"
-                  options={{ headerShown: false, animation: 'none' }}
+              <View style={{ flex: 1 }}>
+                <StatusBar
+                  backgroundColor={colorScheme === 'light' ? theme.sky.lightest : theme.ink.darkest}
+                  style={colorScheme === 'light' ? 'dark' : 'light'}
                 />
-                <Stack.Screen name="welcome" options={{ headerShown: false }} />
-              </Stack>
+                <Stack>
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                  <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                  <Stack.Screen name="(you)" options={{ headerShown: false }} />
+                  <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
+                  <Stack.Screen name="(popover)" options={{ headerShown: false }} />
+                  <Stack.Screen name="expenses" options={{ headerShown: false }} />
+                  <Stack.Screen name="index" options={{ headerShown: false }} />
+                  <Stack.Screen
+                    name="loading-user-data"
+                    options={{ headerShown: false, animation: 'none' }}
+                  />
+                  <Stack.Screen name="welcome" options={{ headerShown: false }} />
+                </Stack>
+              </View>
             </SafeAreaProvider>
           </PaperProvider>
         </GroupProvider>
