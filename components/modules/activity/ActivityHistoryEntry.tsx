@@ -2,13 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
-import CustomImage from '@/components/ui/image/CustomImage';
+import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 
 interface ActivityHistoryEntryProps {
   activityAction: 'created' | 'updated' | 'deleted' | 'accepted' | 'rejected';
   activityType: 'expense' | 'payment';
   position: 'left' | 'right';
-  imageUri: string;
+  image: ImageBase64;
   username: string;
   date: Date;
   message?: string;
@@ -18,7 +18,7 @@ const ActivityHistoryEntry: React.FC<ActivityHistoryEntryProps> = ({
   activityAction,
   activityType,
   position,
-  imageUri,
+  image,
   username,
   date,
   message,
@@ -41,7 +41,7 @@ const ActivityHistoryEntry: React.FC<ActivityHistoryEntryProps> = ({
   return (
     <View className={`p-[10px] w-full ${flexRow}`}>
       <View className="justify-end">
-        <CustomImage imageUri={imageUri} size="small" />
+        <CustomImage image={image} size="small" />
       </View>
       <View className="w-[10px]" />
       <View className={`flex-col ${items} flex-1`}>

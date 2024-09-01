@@ -1,12 +1,16 @@
 import React from 'react';
 import { Image } from 'react-native';
 
+export type ImageBase64 = {
+  uri: string;
+};
+
 interface CustomImageProps {
-  imageUri: string;
+  image: ImageBase64;
   size: 'tiny' | 'small' | 'medium' | 'large' | 'colossal';
 }
 
-const CustomImage: React.FC<CustomImageProps> = ({ imageUri, size = 'large' }) => {
+const CustomImage: React.FC<CustomImageProps> = ({ image, size = 'large' }) => {
   function getSizeInPx(): number {
     switch (size) {
       case 'tiny':
@@ -22,14 +26,7 @@ const CustomImage: React.FC<CustomImageProps> = ({ imageUri, size = 'large' }) =
     }
   }
   const sizeInPx = getSizeInPx();
-  return (
-    <Image
-      width={sizeInPx}
-      height={sizeInPx}
-      borderRadius={sizeInPx / 2}
-      source={{ uri: imageUri }}
-    />
-  );
+  return <Image width={sizeInPx} height={sizeInPx} borderRadius={sizeInPx / 2} source={image} />;
 };
 
 export default CustomImage;

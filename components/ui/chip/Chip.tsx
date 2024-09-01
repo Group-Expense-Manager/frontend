@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-import CustomImage from '@/components/ui/image/CustomImage';
+import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { ChipChevronDownIcon, ChipFilterLinesIcon, ChipXIcon } from '@/constants/Icon';
 import { IconSize } from '@/util/IconSize';
 
@@ -9,13 +9,13 @@ interface ChipProps {
   text: string;
   type: 'normal' | 'remove' | 'select' | 'filter';
   onPress?: () => void;
-  imageUri?: string;
+  image?: ImageBase64;
 }
 
-const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, imageUri }) => {
-  const paddingRight = imageUri! ? (type === 'normal' ? 12 : 8) : type === 'normal' ? 16 : 12;
-  const paddingLeft = imageUri! ? 4 : 16;
-  const borderRadius = imageUri! ? 'rounded-2xl' : 'rounded-lg';
+const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, image }) => {
+  const paddingRight = image! ? (type === 'normal' ? 12 : 8) : type === 'normal' ? 16 : 12;
+  const paddingLeft = image! ? 4 : 16;
+  const borderRadius = image! ? 'rounded-2xl' : 'rounded-lg';
 
   function getIcon(): ReactElement | null {
     switch (type) {
@@ -36,7 +36,7 @@ const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, imageUri })
       onPress={onPress}
       style={{ paddingLeft, paddingRight }}
       className={`h-8 ${borderRadius} space-x-2 flex-row items-center justify-center  bg-primary-lightest dark:bg-ink-dark`}>
-      {imageUri && <CustomImage imageUri={imageUri} size="tiny" />}
+      {image && <CustomImage image={image} size="tiny" />}
       <Text
         numberOfLines={1}
         ellipsizeMode="tail"
