@@ -47,13 +47,13 @@ export type UserDetails = {
 };
 
 interface UserData {
-  currentGroupId: string;
+  currentGroupId?: string;
   userDetails: UserDetails;
   profilePicture: ImageBase64;
 }
 
 export const defaultUserData: UserData = {
-  currentGroupId: '',
+  currentGroupId: undefined,
   userDetails: {
     id: '',
     username: '',

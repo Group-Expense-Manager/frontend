@@ -19,7 +19,7 @@ export default function LoadingScreen() {
 
   useEffect(() => {
     if (userDetailsStatus === 'success' && profilePictureStatus === 'success') {
-      setUserData({ currentGroupId: '', userDetails, profilePicture });
+      setUserData({ userDetails, profilePicture });
       router.replace('/groups');
     }
   }, [userDetailsStatus, profilePictureStatus]);

@@ -8,22 +8,10 @@ import ProfileHeader from '@/components/modules/userdetails/ProfileHeader';
 import SafeView from '@/components/ui/box/SafeView';
 import { GlobalContext } from '@/context/GlobalContext';
 import { ButtonType } from '@/util/ButtonType';
-
+import { getName } from '@/util/GetName';
 export default function You() {
   const { t } = useTranslation();
   const { userData } = useContext(GlobalContext);
-
-  function getName() {
-    if (userData.userDetails.firstName! && userData.userDetails.lastName!) {
-      return `${userData.userDetails.firstName} ${userData.userDetails.lastName}`;
-    } else if (userData.userDetails.firstName!) {
-      return userData.userDetails.firstName;
-    } else if (userData.userDetails.lastName!) {
-      return userData.userDetails.lastName;
-    } else {
-      return undefined;
-    }
-  }
 
   return (
     <SafeView>
@@ -32,7 +20,7 @@ export default function You() {
           <ProfileHeader
             image={userData.profilePicture}
             username={userData.userDetails.username}
-            name={getName()}
+            name={getName(userData.userDetails.firstName, userData.userDetails.lastName)}
           />
           <View className="w-full">
             <CustomButton onPress={() => {}} title={t('Edit profile')} />
