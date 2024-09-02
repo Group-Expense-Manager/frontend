@@ -1,19 +1,23 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
-interface LinkLabelProps {
-  errorMessage: string;
+interface ErrorLabelsProps {
+  errorMessages: string[];
 }
 
-const LinkLabel: React.FC<LinkLabelProps> = ({ errorMessage = '' }) => {
+const ErrorLabels: React.FC<ErrorLabelsProps> = ({ errorMessages = [] }) => {
   return (
-    <Text
-      numberOfLines={1}
-      ellipsizeMode="tail"
-      className="flex-1 text-red-base text-small font-light text-left">
-      {errorMessage}
-    </Text>
+    <View className="flex-1 justify-start items-start w-full h-full space-y-px">
+      {errorMessages.map((message, index) => (
+        <Text
+          key={index}
+          ellipsizeMode="tail"
+          className="w-full text-red-base text-small font-light text-left h-auto">
+          {message}
+        </Text>
+      ))}
+    </View>
   );
 };
 
-export default LinkLabel;
+export default ErrorLabels;

@@ -7,45 +7,19 @@ import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
 import theme from '@/constants/Colors';
 
 interface BaseTextInputProps {
-  valueType: 'text' | 'number' | 'password' | 'multiline' | 'email' | 'phone';
+  keyboardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad';
+  processText?: (text: string) => string;
+  secured?: boolean;
   disabled?: boolean;
-  errorMessage?: string;
+  errorMessages?: string[];
   linkLabel?: LinkLabelProps;
-  startValue?: string;
   label: string;
   placeholder: string;
+  value?: string;
   onChangeText?: (text: string) => void;
+  leftSection?: React.ReactNode;
+  rightSection?: React.ReactNode;
 }
-
-const getInputKeyboardType = (valueType: string) => {
-  switch (valueType) {
-    case 'number':
-      return 'numeric';
-    case 'email':
-      return 'email-address';
-    case 'phone':
-      return 'phone-pad';
-    default:
-      return 'default';
-  }
-};
-
-const foldStringUntil11Digits = (input: string): string => {
-  let digitCount = 0;
-  let result = '';
-
-  for (const char of input) {
-    if (/\d/.test(char)) {
-      digitCount++;
-    }
-    result += char;
-    if (digitCount >= 11) {
-      break;
-    }
-  }
-
-  return result;
-};
 
 const getInputStyle = (isDisabled: boolean) => {
   let inputStyle = 'text-regular font-bold';
@@ -65,18 +39,21 @@ const getPlaceholderColor = (colorScheme: string) => {
 };
 
 const BaseTextInput: React.FC<BaseTextInputProps> = ({
-  valueType,
+  keyboardType = 'default',
+  processText = (text) => text,
+  secured = false,
   disabled = false,
-  errorMessage = '',
+  errorMessages = [],
   linkLabel,
-  startValue = '',
   label,
   placeholder = '',
+  value = '',
   onChangeText = () => {},
+  leftSection,
+  rightSection,
 }) => {
   const { colorScheme } = useColorScheme();
   const [isFocused, setIsFocused] = useState(false);
-  const [textInputValue, setTextInputValue] = useState(startValue);
   const textInputRef = useRef<TextInput>(null);
 
   const handleFocus = () => !disabled && setIsFocused(true);
@@ -90,50 +67,30 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
   };
 
   const handleChangeText = (text: string) => {
-    let processedText: string;
-    switch (valueType) {
-      case 'multiline':
-        processedText = text.replace(/\s+/g, ' ').trimStart();
-        break;
-      case 'number':
-        processedText = text.replace(/[^0-9.,]/g, '');
-        break;
-      case 'phone': {
-        const cleanedText = text
-          .trimStart()
-          .replace(/\s+/g, ' ')
-          .replace(/[^0-9 +]/g, '');
-        processedText = foldStringUntil11Digits(cleanedText);
-        break;
-      }
-      default:
-        processedText = text.trim();
-        break;
-    }
-    setTextInputValue(processedText);
+    const processedText = processText(text);
     onChangeText?.(processedText);
   };
 
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      if (!textInputValue) setIsFocused(false);
+      if (!value) setIsFocused(false);
     });
     return () => keyboardDidHideListener.remove();
-  }, [textInputValue]);
+  }, [value]);
 
   const getInputComponent = () => {
     return (
-      (!!textInputValue || isFocused) && (
+      (!!value || isFocused) && (
         <TextInput
           ref={textInputRef}
           placeholderTextColor={getPlaceholderColor(colorScheme)}
           placeholder={placeholder}
-          value={textInputValue}
+          value={value}
           onChangeText={handleChangeText}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          keyboardType={getInputKeyboardType(valueType)}
-          secureTextEntry={valueType === 'password'}
+          keyboardType={keyboardType}
+          secureTextEntry={secured}
           editable={!disabled}
           className={getInputStyle(disabled)}
           autoFocus
@@ -148,10 +105,12 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
       isFocused={isFocused}
       setIsFocused={setIsFocused}
       label={label}
-      errorMessage={errorMessage}
-      middleSection={getInputComponent()}
+      errorMessages={errorMessages}
       linkLabel={linkLabel}
       handlePress={handlePress}
+      middleSection={getInputComponent()}
+      leftSection={leftSection}
+      rightSection={rightSection}
     />
   );
 };
