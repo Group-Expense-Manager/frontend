@@ -19,7 +19,7 @@ const defaultAuthState: AuthState = {
 
 interface Preferences {
   mode: 'light' | 'dark' | 'system';
-  language: 'pl' | 'en';
+  language: string;
 }
 
 const defaultPreferences: Preferences = {
@@ -64,15 +64,12 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const mode: 'light' | 'dark' | 'system' =
         rawMode === 'light' || rawMode === 'dark' || rawMode === 'system' ? rawMode : 'system';
 
-      const language: 'pl' | 'en' =
-        rawLanguage === 'pl' || rawLanguage === 'en' ? rawLanguage : 'en';
-
-      await i18n.changeLanguage(language);
+      await i18n.changeLanguage(rawLanguage ? rawLanguage : undefined);
       setColorScheme(mode);
 
       setPreferences({
         mode,
-        language,
+        language: i18n.language,
       });
     };
     const loadToken = async () => {

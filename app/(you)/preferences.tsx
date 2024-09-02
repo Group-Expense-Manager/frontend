@@ -68,11 +68,10 @@ export default function Preferences() {
     hasPageBeenRendered.current['preferences'] = true;
   }, [preferences.mode]);
 
-  async function setLanguage(rawLanguage: string) {
-    const language: 'pl' | 'en' = rawLanguage === 'pl' || rawLanguage === 'en' ? rawLanguage : 'en';
-    preferences.language = language;
+  async function setLanguage(language: string) {
     await i18n.changeLanguage(language);
-    SecureStore.setItem(LANGUAGE_KEY, language);
+    preferences.language = i18n.language;
+    SecureStore.setItem(LANGUAGE_KEY, i18n.language);
   }
 
   return (
