@@ -4,7 +4,7 @@ import BaseTextInput from '@/components/ui/text-input/BaseTextInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
 
 const handleChangeText = (text: string) => {
-  return text.replace(/[^0-9.,]/g, '');
+  return text.replace(/[^0-9,]/g, '');
 };
 
 interface NumericTextInputProps {
