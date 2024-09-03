@@ -38,6 +38,15 @@ const getPlaceholderColor = (colorScheme: string) => {
   return colorScheme === 'light' ? theme.ink.lighter : theme.sky.dark;
 };
 
+const getCursorColor = (isError: boolean) => {
+  switch (true) {
+    case isError:
+      return theme.red.base;
+    default:
+      return theme.primary.base;
+  }
+};
+
 const BaseTextInput: React.FC<BaseTextInputProps> = ({
   keyboardType = 'default',
   processText = (text) => text,
@@ -73,7 +82,7 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
 
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      if (!value) setIsFocused(false);
+      setIsFocused(false);
     });
     return () => keyboardDidHideListener.remove();
   }, [value]);
@@ -89,10 +98,12 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
           onChangeText={handleChangeText}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onPress={handlePress}
           keyboardType={keyboardType}
           secureTextEntry={secured}
           editable={!disabled}
           className={getInputStyle(disabled)}
+          cursorColor={getCursorColor(!!errorMessages.length)}
           autoFocus
         />
       )

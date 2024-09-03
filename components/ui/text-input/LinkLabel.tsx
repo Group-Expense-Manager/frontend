@@ -1,10 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
-interface LinkLabelProps {
-  label: string;
-  onPress: () => void;
-}
+import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
 
 const LinkLabel: React.FC<LinkLabelProps> = ({ label = '', onPress = () => {} }) => {
   return (

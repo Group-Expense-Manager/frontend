@@ -11,7 +11,7 @@ interface EmailTextInputProps {
   disabled?: boolean;
   errorMessages?: string[];
   linkLabel?: LinkLabelProps;
-  startValue?: string;
+  value?: string;
   label: string;
   placeholder: string;
   onChangeText?: (text: string) => void;
@@ -21,7 +21,7 @@ const EmailTextInput: React.FC<EmailTextInputProps> = ({
   disabled = false,
   errorMessages = [],
   linkLabel,
-  startValue = '',
+  value = '',
   label,
   placeholder = '',
   onChangeText = () => {},
@@ -34,7 +34,7 @@ const EmailTextInput: React.FC<EmailTextInputProps> = ({
       disabled={disabled}
       errorMessages={errorMessages}
       linkLabel={linkLabel}
-      value={startValue}
+      value={value}
       label={label}
       placeholder={placeholder}
       onChangeText={onChangeText}

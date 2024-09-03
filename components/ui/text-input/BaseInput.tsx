@@ -30,7 +30,7 @@ const getLabelStyle = (isFocused: boolean, middleSectionExist: boolean, disabled
     case disabled:
       labelStyle += ' dark:text-ink-lighter';
       break;
-    case isFocused || !middleSectionExist:
+    case isFocused || middleSectionExist:
       labelStyle += ' text-tiny';
       break;
     default:
