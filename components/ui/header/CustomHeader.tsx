@@ -17,7 +17,7 @@ interface CustomHeaderProps {
 const CustomHeader: React.FC<CustomHeaderProps> = ({ title, rightIcon, onRightIconPress }) => {
   const { colorScheme } = useColorScheme();
   return (
-    <View className="flex-row w-full h-24 justify-between items-center px-[20px] bg-sky-lightest dark:bg-ink-darkest">
+    <View className="flex-row w-full h-24 justify-between items-center bg-sky-lightest dark:bg-ink-darkest">
       <TouchableOpacity onPress={() => router.back()}>
         <ArrowLeftIcon
           width={IconSize.LARGE}

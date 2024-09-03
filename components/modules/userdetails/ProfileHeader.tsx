@@ -1,18 +1,18 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import CustomImage from '@/components/ui/image/CustomImage';
+import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 
 interface ProfileHeaderProps {
-  imageUri: string;
+  image: ImageBase64;
   name?: string;
   username: string;
 }
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ imageUri, name = null, username }) => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({ image, name = null, username }) => {
   return (
     <View className="flex-row w-full justify-start px-3 space-x-3">
-      <CustomImage imageUri={imageUri} size="large" />
+      <CustomImage image={image} size="large" />
       <View className="items-start justify-center flex-1">
         <Text
           numberOfLines={1}

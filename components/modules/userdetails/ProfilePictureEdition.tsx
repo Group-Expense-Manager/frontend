@@ -2,18 +2,18 @@ import React from 'react';
 import { View } from 'react-native';
 
 import IconButton from '@/components/ui/button/IconButton';
-import CustomImage from '@/components/ui/image/CustomImage';
+import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { EditIcon } from '@/constants/Icon';
 
 interface ProfilePictureEditionProps {
-  imageUri: string;
+  image: ImageBase64;
   onPress: () => void;
 }
 
-const ProfilePictureEdition: React.FC<ProfilePictureEditionProps> = ({ imageUri, onPress }) => {
+const ProfilePictureEdition: React.FC<ProfilePictureEditionProps> = ({ image, onPress }) => {
   return (
     <View>
-      <CustomImage imageUri={imageUri} size="colossal" />
+      <CustomImage image={image} size="colossal" />
       <View className="absolute bottom-0 right-0">
         <IconButton onPress={onPress} icon={<EditIcon />} />
       </View>

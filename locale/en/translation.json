@@ -79,13 +79,20 @@
   "Password must contain at least 1 special character from: \"@#$%^&+=!\"": "Password must contain at least 1 special character from: \"@#$%^&+=!\"",
   "Password must contain at least 1 digit": "Password must contain at least 1 digit",
   "Passwords don't match": "Passwords don't match",
-
   "expense": "expense",
   "payment": "payment",
   "created": "created",
   "updated": "updated",
   "deleted": "deleted",
   "accepted": "accepted",
-  "rejected": "rejected"
+  "rejected": "rejected",
+  "Preferences": "Preferences",
+  "Use system theme": "Use system theme",
+  "Dark mode": "Dark mode",
+  "Language": "Language",
+  "Polish": "Polish",
+  "English": "English",
+  "Edit profile" : "Edit profile"
+
 
 }

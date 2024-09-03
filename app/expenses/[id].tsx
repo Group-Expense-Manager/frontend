@@ -8,8 +8,8 @@ import useExpense, { ExpenseParticipant } from '@/hooks/expense/UseExpense';
 
 export default function Expense() {
   const { id } = useLocalSearchParams();
-  const { currentGroupId } = useContext(GlobalContext);
-  const { data, isFetching } = useExpense(id as string, currentGroupId);
+  const { userData } = useContext(GlobalContext);
+  const { data, isFetching } = useExpense(id as string, userData.currentGroupId);
 
   const renderParticipant = ({ item }: { item: ExpenseParticipant }) => (
     <View>

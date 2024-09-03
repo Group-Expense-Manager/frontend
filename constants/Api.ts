@@ -2,6 +2,8 @@ export const API_URL = 'http://192.168.0.101';
 
 export const HOST = {
   AUTHENTICATOR: 'gem.web.authenticator.com',
+  USER_DETAILS_MANAGER: 'gem.web.user-details-manager.com',
+  ATTACHMENT_STORE: 'gem.web.attachment-store.com',
 };
 
 export const PATHS = {

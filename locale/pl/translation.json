@@ -81,12 +81,19 @@
   "Password must contain at least 1 special character from: \"@#$%^&+=!\"": "Hasło musi zawierać conajmniej 1 specjalny znak z: \"@#$%^&+=!\"",
   "Password must contain at least 1 digit": "Hasło musi zawierać conajmniej 1 cyfre",
   "Passwords don't match": "Hasła się różnią",
-
   "expense": "wydatek",
   "payment": "płatność",
   "created": "utworzono",
   "updated": "zmieniono",
   "deleted": "usunięto",
   "accepted": "zatwierdzono",
-  "rejected": "odrzucono"
+  "rejected": "odrzucono",
+  "Preferences": "Preferencje",
+  "Use system theme": "Użyj motywu systemowego",
+  "Dark mode": "Tryb ciemny",
+  "Language": "Język",
+  "Polish": "Polski",
+  "English": "Angielski",
+  "Edit profile" : "Edytuj profil"
+
 }
