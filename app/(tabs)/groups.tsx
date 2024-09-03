@@ -15,7 +15,7 @@ export default function Groups() {
   const [currentGroupId, setCurrentGroupId] = useState<string | null>(null);
   const [groups, setGroups] = useState<Group[]>([]);
   const { data: expensesData, isFetching: isFetchingExpenses } = useExpenses(currentGroupId);
-  const { setCurrentGroupId: setCgid } = useContext(GlobalContext);
+  const { userData, setUserData } = useContext(GlobalContext);
 
   function getNameById(id: string, items: Group[]): string | undefined {
     const item = items.find((item) => item.groupId === id);
@@ -25,7 +25,7 @@ export default function Groups() {
   useEffect(() => {
     if (data && data.groups.length > 0) {
       setGroups(data.groups);
-      setCgid(data.groups[0].groupId);
+      setUserData({ ...userData, currentGroupId: data.groups[0].groupId });
       setCurrentGroupId(data.groups[0].groupId);
     }
   }, [data]);

@@ -4,10 +4,10 @@ import * as SecureStore from 'expo-secure-store';
 import { useContext } from 'react';
 
 import { TOKEN_KEY, USER_KEY } from '@/constants/Storage';
-import { GlobalContext } from '@/context/GlobalContext';
+import { defaultUserData, GlobalContext } from '@/context/GlobalContext';
 
 export default function useLogout() {
-  const { setAuthState, setCurrentGroupId } = useContext(GlobalContext);
+  const { setAuthState, setUserData } = useContext(GlobalContext);
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
@@ -19,7 +19,7 @@ export default function useLogout() {
         token: null,
         authenticated: false,
       });
-      setCurrentGroupId('');
+      setUserData(defaultUserData);
     },
     onError: (error: Error) => {
       console.error('Logout failed', error);
