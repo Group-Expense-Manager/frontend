@@ -15,6 +15,9 @@ interface SingleTextInputProps {
   label: string;
   placeholder?: string;
   onChangeText?: (text: string) => void;
+  autoFocus?: boolean;
+  onBlur?: () => void;
+  showErrors?: boolean;
 }
 
 const SingleTextInput: React.FC<SingleTextInputProps> = ({
@@ -25,6 +28,9 @@ const SingleTextInput: React.FC<SingleTextInputProps> = ({
   label,
   placeholder = '',
   onChangeText = () => {},
+  autoFocus = false,
+  onBlur = () => {},
+  showErrors = false,
 }) => {
   return (
     <BaseTextInput
@@ -38,6 +44,9 @@ const SingleTextInput: React.FC<SingleTextInputProps> = ({
       label={label}
       placeholder={placeholder}
       onChangeText={onChangeText}
+      autoFocus={autoFocus}
+      onBlur={onBlur}
+      showErrors={showErrors}
     />
   );
 };

@@ -15,6 +15,9 @@ interface NumericTextInputProps {
   label: string;
   placeholder?: string;
   onChangeText?: (text: string) => void;
+  autoFocus?: boolean;
+  onBlur?: () => void;
+  showErrors?: boolean;
 }
 
 const NumericTextInput: React.FC<NumericTextInputProps> = ({
@@ -25,6 +28,9 @@ const NumericTextInput: React.FC<NumericTextInputProps> = ({
   label,
   placeholder = '',
   onChangeText = () => {},
+  autoFocus = false,
+  onBlur = () => {},
+  showErrors = false,
 }) => {
   return (
     <BaseTextInput
@@ -38,6 +44,9 @@ const NumericTextInput: React.FC<NumericTextInputProps> = ({
       label={label}
       placeholder={placeholder}
       onChangeText={onChangeText}
+      autoFocus={autoFocus}
+      onBlur={onBlur}
+      showErrors={showErrors}
     />
   );
 };

@@ -15,6 +15,9 @@ interface PasswordTextInputProps {
   label: string;
   placeholder?: string;
   onChangeText?: (text: string) => void;
+  autoFocus?: boolean;
+  onBlur?: () => void;
+  showErrors?: boolean;
 }
 
 const PasswordTextInput: React.FC<PasswordTextInputProps> = ({
@@ -25,6 +28,9 @@ const PasswordTextInput: React.FC<PasswordTextInputProps> = ({
   label,
   placeholder = '',
   onChangeText = () => {},
+  autoFocus = false,
+  onBlur = () => {},
+  showErrors = false,
 }) => {
   return (
     <BaseTextInput
@@ -38,6 +44,9 @@ const PasswordTextInput: React.FC<PasswordTextInputProps> = ({
       label={label}
       placeholder={placeholder}
       onChangeText={onChangeText}
+      autoFocus={autoFocus}
+      onBlur={onBlur}
+      showErrors={showErrors}
     />
   );
 };

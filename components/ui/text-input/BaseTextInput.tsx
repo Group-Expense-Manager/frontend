@@ -19,6 +19,9 @@ interface BaseTextInputProps {
   onChangeText?: (text: string) => void;
   leftSection?: React.ReactNode;
   rightSection?: React.ReactNode;
+  autoFocus: boolean;
+  onBlur: () => void;
+  showErrors: boolean;
 }
 
 const getInputStyle = (isDisabled: boolean) => {
@@ -60,13 +63,19 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
   onChangeText = () => {},
   leftSection,
   rightSection,
+  autoFocus,
+  onBlur,
+  showErrors,
 }) => {
   const { colorScheme } = useColorScheme();
   const [isFocused, setIsFocused] = useState(false);
   const textInputRef = useRef<TextInput>(null);
 
   const handleFocus = () => !disabled && setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
+  const handleBlur = () => {
+    setIsFocused(false);
+    onBlur();
+  };
 
   const handlePress = () => {
     if (!disabled) {
@@ -83,6 +92,7 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
       setIsFocused(false);
+      onBlur();
     });
     return () => keyboardDidHideListener.remove();
   }, [value]);
@@ -103,9 +113,9 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
           secureTextEntry={secured}
           editable={!disabled}
           className={getInputStyle(disabled)}
-          cursorColor={getSelectedColor(!!errorMessages.length)}
-          selectionColor={getSelectedColor(!!errorMessages.length)}
-          autoFocus
+          cursorColor={getSelectedColor(!!errorMessages.length || showErrors)}
+          selectionColor={getSelectedColor(!!errorMessages.length || showErrors)}
+          autoFocus={autoFocus || isFocused}
         />
       )
     );
@@ -123,6 +133,7 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
       middleSection={getInputComponent()}
       leftSection={leftSection}
       rightSection={rightSection}
+      showErrors={showErrors}
     />
   );
 };

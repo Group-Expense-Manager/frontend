@@ -51,6 +51,7 @@ interface BaseInputProps {
   rightSection?: React.ReactNode;
   middleSection?: React.ReactNode;
   handlePress?: () => void;
+  showErrors: boolean;
 }
 
 const BaseInput: React.FC<BaseInputProps> = ({
@@ -64,6 +65,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
   rightSection,
   middleSection,
   handlePress = () => {},
+  showErrors,
 }) => {
   const handleTouchable = () => {
     if (!disabled) {
@@ -73,9 +75,9 @@ const BaseInput: React.FC<BaseInputProps> = ({
   };
 
   return (
-    <View className="p-4 w-full">
+    <View className="w-full">
       <TouchableWithoutFeedback onPress={handleTouchable}>
-        <View className={getBorderStyle(!!errorMessages.length, isFocused, disabled)}>
+        <View className={getBorderStyle(!!errorMessages.length || showErrors, isFocused, disabled)}>
           {!!leftSection && (
             <View className="flex p-2 items-center justify-center">{leftSection}</View>
           )}
@@ -88,10 +90,12 @@ const BaseInput: React.FC<BaseInputProps> = ({
           )}
         </View>
       </TouchableWithoutFeedback>
-      <View className="flex justify-between items-center flex-row p-2">
-        {!!errorMessages.length && <ErrorLabels errorMessages={errorMessages} />}
-        {!!linkLabel && <LinkLabel label={linkLabel.label} onPress={linkLabel.onPress} />}
-      </View>
+      {(!!errorMessages.length || !!linkLabel) && (
+        <View className="flex justify-between items-center flex-row p-2">
+          {!!errorMessages.length && <ErrorLabels errorMessages={errorMessages} />}
+          {!!linkLabel && <LinkLabel label={linkLabel.label} onPress={linkLabel.onPress} />}
+        </View>
+      )}
     </View>
   );
 };
