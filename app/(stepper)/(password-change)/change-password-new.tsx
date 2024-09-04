@@ -77,14 +77,14 @@ export default function ChangePasswordNew() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('change-password-new-repeat')}
+                onPress={() => router.navigate('/change-password-new-repeat')}
                 title={t('Next')}
                 disabled={isNextButtonDisabled}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('change-password-old')}
+                onPress={() => router.navigate('/change-password-old')}
                 title={t('Back')}
                 type={ButtonType.OUTLINED}
               />

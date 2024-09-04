@@ -70,7 +70,7 @@ export default function ExpenseTitle() {
               <CustomButton
                 title={t('Back')}
                 onPress={() =>
-                  router.navigate('(stepper)/(expense-creation)/expense-cost-division')
+                  router.navigate('/(stepper)/(expense-creation)/expense-cost-division')
                 }
               />
             </View>

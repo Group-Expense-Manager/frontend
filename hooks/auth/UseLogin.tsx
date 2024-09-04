@@ -29,11 +29,11 @@ export default function useLogin(email: string, password: string) {
     onError: (error: AxiosError) => {
       if (error.response?.status === 403) {
         setVerificationProps({ ...verificationProps, email });
-        router.push('verify-popover');
+        router.push('/verify-popover');
       } else if (error.response?.status === 400) {
-        router.push('wrong-credentials-modal');
+        router.push('/wrong-credentials-modal');
       } else {
-        router.push('(auth)/(modal)/error-modal');
+        router.push('/(auth)/(modal)/error-modal');
       }
     },
     onSuccess: (response: AxiosResponse<LoginResponse>) => {

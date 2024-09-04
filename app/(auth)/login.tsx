@@ -51,7 +51,7 @@ export default function Login() {
                   onChangeText={(text: string) => setPassword(text)}
                   value={password}
                   linkLabel={t('Forgot password?')}
-                  onPress={() => router.push('recover-password-popover')}
+                  onPress={() => router.push('/recover-password-popover')}
                 />
               </View>
             </View>
@@ -70,7 +70,7 @@ export default function Login() {
                 onPress={() => {
                   setEmail('');
                   setPassword('');
-                  router.push('register-username');
+                  router.push('/register-username');
                 }}
                 title={t("Don't have an account?")}
                 type={ButtonType.OUTLINED}

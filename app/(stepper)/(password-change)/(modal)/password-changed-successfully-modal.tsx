@@ -16,7 +16,7 @@ export default function PasswordChangedSuccessfullyModal() {
       title={t('Success')}
       description={t('Password changed successfully')}
       buttonTitle={t('OK')}
-      onPress={() => router.navigate('you')}
+      onPress={() => router.navigate('/you')}
     />
   );
 }

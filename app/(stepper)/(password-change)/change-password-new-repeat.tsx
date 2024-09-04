@@ -76,7 +76,7 @@ export default function ChangePasswordNew() {
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('change-password-new')}
+                onPress={() => router.navigate('/change-password-new')}
                 title={t('Back')}
                 type={ButtonType.OUTLINED}
               />

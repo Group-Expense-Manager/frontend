@@ -41,14 +41,14 @@ export default function ChangePasswordOld() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('change-password-new')}
+                onPress={() => router.navigate('/change-password-new')}
                 title={t('Next')}
                 disabled={isNextButtonDisabled}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('you')}
+                onPress={() => router.navigate('/you')}
                 title={t('Cancel')}
                 type={ButtonType.OUTLINED}
               />

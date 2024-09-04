@@ -27,12 +27,12 @@ export default function You() {
           </View>
           <View className="w-full">
             <CustomButton
-              onPress={() => router.push('change-password-old')}
+              onPress={() => router.push('/change-password-old')}
               title={t('Change password')}
             />
           </View>
           <View className="w-full">
-            <CustomButton onPress={() => router.push('preferences')} title={t('Preferences')} />
+            <CustomButton onPress={() => router.push('/preferences')} title={t('Preferences')} />
           </View>
         </View>
         <View className="w-full my-[34px]">

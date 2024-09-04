@@ -19,14 +19,14 @@ export default function useRecoverPassword(email: string) {
       );
     },
     onSuccess: () => {
-      router.replace('password-recovery-email-sent-modal');
+      router.replace('/password-recovery-email-sent-modal');
     },
 
     onError: (error: AxiosError) => {
       if (error.response?.status === 404 || error.response?.status === 429) {
-        router.replace('password-recovery-email-sent-modal');
+        router.replace('/password-recovery-email-sent-modal');
       } else {
-        router.replace('(auth)/(modal)/error-modal');
+        router.replace('/(auth)/(modal)/error-modal');
       }
     },
   });

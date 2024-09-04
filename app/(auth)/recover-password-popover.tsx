@@ -27,7 +27,7 @@ export default function RecoverPasswordPopover() {
       label={t('Email')}
       secondButtonTitle={t('Cancel')}
       secondOnPress={() => {
-        router.navigate('login');
+        router.navigate('/login');
       }}
       onChangeText={(text) => setPasswordRecoveryEmail(text)}
       isPending={isPasswordRecoveryPending}

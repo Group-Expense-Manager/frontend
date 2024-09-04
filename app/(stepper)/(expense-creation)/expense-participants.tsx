@@ -75,14 +75,14 @@ export default function ExpenseParticipants() {
         baseCurrency: expenseCreationProps.baseCurrency,
         targetCurrency: expenseCreationProps.targetCurrency,
         expenseDate: expenseCreationProps.expenseDate,
-        expenseParticipants: mapToExpenseParticipants(selectedParticipantsIds),
+        expenseParticipants: mapToExpenseParticipants(),
         message: expenseCreationProps.message,
         attachmentId: expenseCreationProps.attachmentId,
       });
     }
   }, [selectedParticipantsIds]);
 
-  function mapToExpenseParticipants(ids: string[]): ExpenseParticipant[] {
+  function mapToExpenseParticipants(): ExpenseParticipant[] {
     return selectedParticipantsIds.map((id) => ({
       participantId: id,
       participantCost: 0,
@@ -114,14 +114,14 @@ export default function ExpenseParticipants() {
               <CustomButton
                 title={t('Next')}
                 onPress={() =>
-                  router.navigate('(stepper)/(expense-creation)/expense-cost-division')
+                  router.navigate('/(stepper)/(expense-creation)/expense-cost-division')
                 }
               />
             </View>
             <View className="w-full">
               <CustomButton
                 title={t('Back')}
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-cost')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-cost')}
               />
             </View>
           </View>

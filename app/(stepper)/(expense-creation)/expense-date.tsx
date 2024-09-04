@@ -57,13 +57,13 @@ export default function ExpenseDate() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-currency')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-currency')}
                 title={t('Next')}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-title')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-title')}
                 title={t('Back')}
               />
             </View>

@@ -1,11 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { router } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
 import { useContext } from 'react';
 
 import { API_URL } from '@/constants/Api';
-import { TOKEN_KEY } from '@/constants/Storage';
 import { GlobalContext } from '@/context/GlobalContext';
 
 function useJoinGroup(code: string) {

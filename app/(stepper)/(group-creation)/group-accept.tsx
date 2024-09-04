@@ -61,7 +61,7 @@ export default function GroupAccept() {
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('(stepper)/(group-creation)/group-currency')}
+                onPress={() => router.navigate('/(stepper)/(group-creation)/group-currency')}
                 title={t('Back')}
               />
             </View>

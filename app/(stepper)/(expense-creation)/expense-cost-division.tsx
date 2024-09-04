@@ -85,13 +85,15 @@ export default function ExpenseCostDivision() {
             <View className="w-full">
               <CustomButton
                 title={t('Next')}
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-message')}
+                onPress={() => router.navigate('/(stepper)/(expense-creation)/expense-message')}
               />
             </View>
             <View className="w-full">
               <CustomButton
                 title={t('Back')}
-                onPress={() => router.navigate('(stepper)/(expense-creation)/expense-participants')}
+                onPress={() =>
+                  router.navigate('/(stepper)/(expense-creation)/expense-participants')
+                }
               />
             </View>
           </View>
