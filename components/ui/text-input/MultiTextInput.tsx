@@ -13,7 +13,7 @@ interface MultiTextInputProps {
   linkLabel?: LinkLabelProps;
   value?: string;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   onChangeText?: (text: string) => void;
 }
 

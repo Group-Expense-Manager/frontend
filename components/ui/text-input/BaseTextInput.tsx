@@ -14,7 +14,7 @@ interface BaseTextInputProps {
   errorMessages?: string[];
   linkLabel?: LinkLabelProps;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   value?: string;
   onChangeText?: (text: string) => void;
   leftSection?: React.ReactNode;
@@ -38,7 +38,7 @@ const getPlaceholderColor = (colorScheme: string) => {
   return colorScheme === 'light' ? theme.ink.lighter : theme.sky.dark;
 };
 
-const getCursorColor = (isError: boolean) => {
+const getSelectedColor = (isError: boolean) => {
   switch (true) {
     case isError:
       return theme.red.base;
@@ -103,7 +103,8 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
           secureTextEntry={secured}
           editable={!disabled}
           className={getInputStyle(disabled)}
-          cursorColor={getCursorColor(!!errorMessages.length)}
+          cursorColor={getSelectedColor(!!errorMessages.length)}
+          selectionColor={getSelectedColor(!!errorMessages.length)}
           autoFocus
         />
       )
