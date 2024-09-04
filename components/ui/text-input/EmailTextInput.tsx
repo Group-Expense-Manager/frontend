@@ -15,6 +15,9 @@ interface EmailTextInputProps {
   label: string;
   placeholder: string;
   onChangeText?: (text: string) => void;
+  autoFocus?: boolean;
+  onBlur?: () => void;
+  showErrors?: boolean;
 }
 
 const EmailTextInput: React.FC<EmailTextInputProps> = ({
@@ -25,6 +28,9 @@ const EmailTextInput: React.FC<EmailTextInputProps> = ({
   label,
   placeholder = '',
   onChangeText = () => {},
+  autoFocus = false,
+  onBlur = () => {},
+  showErrors = false,
 }) => {
   return (
     <BaseTextInput
@@ -38,6 +44,9 @@ const EmailTextInput: React.FC<EmailTextInputProps> = ({
       label={label}
       placeholder={placeholder}
       onChangeText={onChangeText}
+      autoFocus={autoFocus}
+      onBlur={onBlur}
+      showErrors={showErrors}
     />
   );
 };
