@@ -10,15 +10,21 @@ import { IconSize } from '@/util/IconSize';
 
 interface CustomHeaderProps {
   title: string;
+  onLeftIconPress?: () => void;
   rightIcon?: ReactElement;
   onRightIconPress?: () => void;
 }
 
-const CustomHeader: React.FC<CustomHeaderProps> = ({ title, rightIcon, onRightIconPress }) => {
+const CustomHeader: React.FC<CustomHeaderProps> = ({
+  title,
+  onLeftIconPress = () => router.back(),
+  rightIcon,
+  onRightIconPress,
+}) => {
   const { colorScheme } = useColorScheme();
   return (
-    <View className="flex-row w-full h-24 justify-between items-center bg-sky-lightest dark:bg-ink-darkest">
-      <TouchableOpacity onPress={() => router.back()}>
+    <View className="flex-row w-full h-24 justify-between items-center px-[20px] bg-sky-lightest dark:bg-ink-darkest">
+      <TouchableOpacity onPress={onLeftIconPress}>
         <ArrowLeftIcon
           width={IconSize.LARGE}
           height={IconSize.LARGE}
