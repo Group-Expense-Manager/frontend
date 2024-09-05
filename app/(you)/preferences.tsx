@@ -1,3 +1,4 @@
+import { useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import i18n from 'i18next';
 import { useColorScheme } from 'nativewind';
@@ -6,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { SelectList } from '@/components';
-import SafeView from '@/components/ui/box/SafeView';
+import Box from '@/components/ui/box/Box';
 import CustomCheckbox from '@/components/ui/checkbox/CustomCheckbox';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomSwitch from '@/components/ui/switch/CustomSwitch';
@@ -20,6 +21,15 @@ export default function Preferences() {
   const { preferences, setPreferences } = useContext(GlobalContext);
   const [isSwitchOn, setSwitchOn] = useState(colorScheme === 'dark');
   const [isCheckboxChecked, setCheckboxChecked] = useState(preferences.mode === 'system');
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      header: () => <CustomHeader title={t('Preferences')} />,
+    });
+  }, [navigation, t('Preferences')]);
 
   const hasPageBeenRendered = useRef({
     checkbox: false,
@@ -75,33 +85,30 @@ export default function Preferences() {
   }
 
   return (
-    <SafeView>
-      <>
-        <CustomHeader title={t('Preferences')} />
-        <View className="py-[32px] w-full flex flex-col items-center ">
-          <CustomTable title={t('Use system theme')}>
-            <CustomCheckbox
-              value={isCheckboxChecked}
-              onValueChange={() => setCheckboxChecked(!isCheckboxChecked)}
-            />
-          </CustomTable>
-          <CustomTable title={t('Dark mode')}>
-            <CustomSwitch
-              disabled={preferences.mode === 'system'}
-              value={isSwitchOn}
-              onValueChange={() => setSwitchOn(!isSwitchOn)}
-            />
-          </CustomTable>
-          <SelectList
-            name={t('Language')}
-            setSelected={setLanguage}
-            data={[
-              { key: 'en', value: `${t('English')}` },
-              { key: 'pl', value: `${t('Polish')}` },
-            ]}
+    <Box>
+      <View className="py-[32px] w-full flex flex-col items-center ">
+        <CustomTable title={t('Use system theme')}>
+          <CustomCheckbox
+            value={isCheckboxChecked}
+            onValueChange={() => setCheckboxChecked(!isCheckboxChecked)}
           />
-        </View>
-      </>
-    </SafeView>
+        </CustomTable>
+        <CustomTable title={t('Dark mode')}>
+          <CustomSwitch
+            disabled={preferences.mode === 'system'}
+            value={isSwitchOn}
+            onValueChange={() => setSwitchOn(!isSwitchOn)}
+          />
+        </CustomTable>
+        <SelectList
+          name={t('Language')}
+          setSelected={setLanguage}
+          data={[
+            { key: 'en', value: `${t('English')}` },
+            { key: 'pl', value: `${t('Polish')}` },
+          ]}
+        />
+      </View>
+    </Box>
   );
 }
