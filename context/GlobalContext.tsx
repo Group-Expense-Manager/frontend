@@ -28,11 +28,11 @@ const defaultPreferences: Preferences = {
   language: 'pl',
 };
 
-enum PaymentMethod {
-  CASH,
-  BANK_TRANSFER,
-  MOBILE_PAYMENT,
-  NONE,
+export enum PaymentMethod {
+  CASH = 'CASH',
+  BANK_TRANSFER = 'BANK_TRANSFER',
+  MOBILE_PAYMENT = 'MOBILE_PAYMENT',
+  NONE = 'NONE',
 }
 
 export type UserDetails = {
