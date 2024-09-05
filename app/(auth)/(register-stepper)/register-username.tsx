@@ -26,7 +26,7 @@ export default function RegisterUsername() {
       rule(arg: string) {
         return arg.length <= 20;
       },
-      errorMessage: t('Username must contain at most 20 characters'),
+      errorMessage: t('Username may contain at most 20 characters'),
     },
     {
       rule: /^[a-zA-Z0-9_.+-]+$/,
