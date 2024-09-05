@@ -99,7 +99,7 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
 
   const getInputComponent = () => {
     return (
-      (!!value || isFocused) && (
+      (!!value || isFocused || autoFocus) && (
         <TextInput
           ref={textInputRef}
           placeholderTextColor={getPlaceholderColor(colorScheme)}

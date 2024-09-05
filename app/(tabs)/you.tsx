@@ -23,7 +23,7 @@ export default function You() {
             name={getName(userData.userDetails.firstName, userData.userDetails.lastName)}
           />
           <View className="w-full">
-            <CustomButton onPress={() => {}} title={t('Edit profile')} />
+            <CustomButton onPress={() => router.push('/edit-profile')} title={t('Edit profile')} />
           </View>
           <View className="w-full">
             <CustomButton
