@@ -118,5 +118,9 @@
   "Last name can only contain only letters, apostrophes, spaces, or hyphens": "Last name can only contain only letters, apostrophes, spaces, or hyphens",
   "Last name must start with capital letter": "Last name must start with capital letter",
   "Invalid phone number format": "Invalid phone number format",
-  "Invalid Bank account number format": "Invalid Bank account number format"
+  "Invalid Bank account number format": "Invalid Bank account number format",
+  "Image Too Large": "Image Too Large",
+  "Image Too Large - description": "The uploaded image exceeds the maximum allowed file size. Please choose a smaller image or reduce its size before uploading",
+  "Unsupported File Format": "Unsupported File Format",
+  "Unsupported File Format - description": "The uploaded file is in a format that is not supported. Please choose a file in one of the allowed formats, such as JPG, JPEG, PNG or BMP."
 }

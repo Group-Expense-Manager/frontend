@@ -7,7 +7,7 @@ import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constan
 import { GlobalContext, UserDetails } from '@/context/GlobalContext';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 
-export default function useUpdateUserDetails() {
+export default function useUpdateUserDetails(inParallel: boolean = false) {
   const { authState, userData, setUserData } = useContext(GlobalContext);
   const { profileUpdate } = useContext(ProfileUpdateContext);
   return useMutation({
@@ -33,10 +33,14 @@ export default function useUpdateUserDetails() {
         attachmentId: userData.userDetails.attachmentId,
       };
       setUserData({ ...userData, userDetails: updatedUserDetails });
-      router.back();
+      if (!inParallel) {
+        router.back();
+      }
     },
     onError: () => {
-      router.push('/(you)/(modal)/error-modal');
+      if (!inParallel) {
+        router.push('/(you)/(modal)/error-modal');
+      }
     },
   });
 }

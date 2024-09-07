@@ -1,5 +1,6 @@
+import * as ImagePicker from 'expo-image-picker';
 import { router, useNavigation } from 'expo-router';
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, TouchableOpacity, View } from 'react-native';
 
@@ -13,14 +14,67 @@ import NumericTextInput from '@/components/ui/text-input/NumericTextInput';
 import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
 import { GlobalContext } from '@/context/GlobalContext';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
+import useUpdateProfilePicture from '@/hooks/attachment/UseUpdateProfilePicture';
 import useUpdateUserDetails from '@/hooks/userdetails/UseUpdateUserDetails';
+import { handleImageChoice } from '@/util/HandleImageChoice';
 
 export default function EditProfile() {
   const { t } = useTranslation();
   const { userData } = useContext(GlobalContext);
-  const { profileUpdate } = useContext(ProfileUpdateContext);
+  const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
   const navigation = useNavigation();
-  const { mutate: update, isPending: isUpdatePending } = useUpdateUserDetails();
+
+  const [bothRunning, setBothRunning] = useState(false);
+  const {
+    mutate: updateUserDetails,
+    isPending: isUpdatedUserDetailsPending,
+    isSuccess: isUpdatedUserDetailsSuccess,
+    isError: isUpdatedUserDetailsError,
+  } = useUpdateUserDetails(bothRunning);
+  const {
+    mutate: updateProfilePicture,
+    isPending: isUpdatedProfilePicturePending,
+    isSuccess: isUpdatedProfilePictureSuccess,
+    isError: isUpdatedProfilePictureError,
+  } = useUpdateProfilePicture(bothRunning);
+
+  useEffect(() => {
+    if (isUpdatedUserDetailsSuccess && isUpdatedProfilePictureSuccess) {
+      router.back();
+    }
+  }, [isUpdatedUserDetailsSuccess, isUpdatedProfilePictureSuccess]);
+
+  useEffect(() => {
+    if (isUpdatedUserDetailsError || isUpdatedProfilePictureError) {
+      console.log(true);
+      router.push('/(you)/(modal)/error-modal');
+    }
+  }, [isUpdatedUserDetailsError, isUpdatedProfilePictureError]);
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+      base64: true,
+    });
+
+    if (!result.canceled) {
+      handleImageChoice(
+        result.assets[0],
+        () => router.push('/unsupported-file-format-modal'),
+        () => router.push('/image-too-large-modal'),
+        () =>
+          setProfileUpdate({
+            ...profileUpdate,
+            profilePicture: {
+              imageUri: `data:${result.assets[0].mimeType};base64,${result.assets[0].base64}`,
+            },
+          }),
+      );
+    }
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -30,7 +84,7 @@ export default function EditProfile() {
         <CustomHeader
           title={t('Profile edition')}
           onLeftIconPress={() => {
-            if (isUpdatePending) {
+            if (isUpdatedUserDetailsPending || isUpdatedProfilePicturePending) {
               return;
             }
             if (dataChanged()) {
@@ -42,10 +96,16 @@ export default function EditProfile() {
         />
       ),
     });
-  }, [navigation, profileUpdate, userData, isUpdatePending]);
+  }, [
+    navigation,
+    profileUpdate,
+    userData,
+    isUpdatedUserDetailsPending,
+    isUpdatedProfilePicturePending,
+  ]);
 
   function handleBackClick() {
-    if (isUpdatePending) {
+    if (isUpdatedUserDetailsPending || isUpdatedProfilePicturePending) {
       return true;
     }
     if (dataChanged()) {
@@ -57,9 +117,13 @@ export default function EditProfile() {
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackClick);
     return () => backHandler.remove();
-  }, [profileUpdate, userData, isUpdatePending]);
+  }, [profileUpdate, userData, isUpdatedUserDetailsPending, isUpdatedProfilePicturePending]);
 
   function dataChanged(): boolean {
+    return userDetailsChanged() || profilePictureChanged();
+  }
+
+  function userDetailsChanged(): boolean {
     return (
       userData.userDetails.username !== profileUpdate.userDetails.username ||
       userData.userDetails.firstName !== profileUpdate.userDetails.firstName ||
@@ -67,9 +131,12 @@ export default function EditProfile() {
       userData.userDetails.phoneNumber !== profileUpdate.userDetails.phoneNumber ||
       userData.userDetails.bankAccountNumber !== profileUpdate.userDetails.bankAccountNumber ||
       userData.userDetails.preferredPaymentMethod !==
-        profileUpdate.userDetails.preferredPaymentMethod ||
-      userData.profilePicture.uri !== profileUpdate.profilePicture.imageUri
+        profileUpdate.userDetails.preferredPaymentMethod
     );
+  }
+
+  function profilePictureChanged(): boolean {
+    return userData.profilePicture.uri !== profileUpdate.profilePicture.imageUri;
   }
 
   function dataIsValid(): boolean {
@@ -82,14 +149,31 @@ export default function EditProfile() {
     );
   }
 
+  function handleSave() {
+    if (userDetailsChanged() && profilePictureChanged()) {
+      setBothRunning(true);
+      updateUserDetails();
+      updateProfilePicture();
+    } else if (userDetailsChanged()) {
+      setBothRunning(false);
+      updateUserDetails();
+    } else if (profilePictureChanged()) {
+      setBothRunning(false);
+      updateProfilePicture();
+    }
+  }
+
   return (
     <Box>
       <View className="w-full h-full flex-col">
-        <Loader isLoading={isUpdatePending} hasViewHeader />
+        <Loader
+          isLoading={isUpdatedUserDetailsPending || isUpdatedProfilePicturePending}
+          hasViewHeader
+        />
         <View className="w-full flex-col space-y-[28px]">
           <ProfilePictureEdition
             image={{ uri: profileUpdate.profilePicture.imageUri }}
-            onPress={() => {}}
+            onPress={pickImage}
           />
           <View className=" w-full flex-col space-y-[12px]">
             <TouchableOpacity onPress={() => router.push('/edit-profile-username')}>
@@ -151,7 +235,7 @@ export default function EditProfile() {
           <View className="flex-1 justify-center">
             <CustomButton
               title={t('Save changes')}
-              onPress={() => update()}
+              onPress={() => handleSave()}
               disabled={!dataIsValid()}
             />
           </View>

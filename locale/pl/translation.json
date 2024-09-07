@@ -120,7 +120,12 @@
   "Last name can only contain only letters, apostrophes, spaces, or hyphens": "Nazwisko może zawierać tylko litery, apostrofy, spacje lub myślniki",
   "Last name must start with capital letter": "Nazwisko musi zaczynać się od wielkiej litery",
   "Invalid phone number format": "Nieprawidłowy format numeru telefonu",
-  "Invalid Bank account number format": "Nieprawidłowy format numeru konta bankowego"
+  "Invalid Bank account number format": "Nieprawidłowy format numeru konta bankowego",
+  "Image Too Large": "Obraz jest za duży",
+  "Image Too Large - description": "Przesłany obraz przekracza maksymalny dozwolony rozmiar pliku. Proszę wybierz mniejszy obraz lub zmniejsz jego rozmiar przed przesłaniem.",
+  "Unsupported File Format": "Nieobsługiwany format pliku",
+  "Unsupported File Format - description": "Przesłany plik jest w formacie, który nie jest obsługiwany. Proszę wybierz plik w jednym z dozwolonych formatów, np. JPG, JPEG, PNG lub BMP."
+
 
 
 }
