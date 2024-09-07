@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React, { useContext, useState } from 'react';
 import { Text } from 'react-native';
 
@@ -52,7 +53,7 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
       data,
       onSelect,
     });
-    // router.navigate('/(utils)/select-menu-list');
+    router.navigate('/(utils)/(select)/single');
   };
 
   return (

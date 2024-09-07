@@ -11,6 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import theme from '@/constants/Colors';
 import { GlobalProvider } from '@/context/GlobalContext';
 import { GroupProvider } from '@/context/group/GroupContext';
+import { SelectInputProvider } from '@/context/utils/SelectInputContext';
 
 const client = new QueryClient();
 
@@ -49,33 +50,37 @@ const RootLayout = () => {
   return (
     <QueryClientProvider client={client}>
       <GlobalProvider>
-        <GroupProvider>
-          <PaperProvider>
-            <SafeAreaProvider>
-              <View style={{ flex: 1 }}>
-                <StatusBar
-                  backgroundColor={colorScheme === 'light' ? theme.sky.lightest : theme.ink.darkest}
-                  style={colorScheme === 'light' ? 'dark' : 'light'}
-                />
-                <Stack>
-                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                  <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                  <Stack.Screen name="(you)" options={{ headerShown: false }} />
-                  <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
-                  <Stack.Screen name="(popover)" options={{ headerShown: false }} />
-                  <Stack.Screen name="(utils)" options={{ headerShown: false }} />
-                  <Stack.Screen name="expenses" options={{ headerShown: false }} />
-                  <Stack.Screen name="index" options={{ headerShown: false }} />
-                  <Stack.Screen
-                    name="loading-user-data"
-                    options={{ headerShown: false, animation: 'none' }}
+        <SelectInputProvider>
+          <GroupProvider>
+            <PaperProvider>
+              <SafeAreaProvider>
+                <View style={{ flex: 1 }}>
+                  <StatusBar
+                    backgroundColor={
+                      colorScheme === 'light' ? theme.sky.lightest : theme.ink.darkest
+                    }
+                    style={colorScheme === 'light' ? 'dark' : 'light'}
                   />
-                  <Stack.Screen name="welcome" options={{ headerShown: false }} />
-                </Stack>
-              </View>
-            </SafeAreaProvider>
-          </PaperProvider>
-        </GroupProvider>
+                  <Stack>
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(you)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(popover)" options={{ headerShown: false }} />
+                    <Stack.Screen name="(utils)" options={{ headerShown: false }} />
+                    <Stack.Screen name="expenses" options={{ headerShown: false }} />
+                    <Stack.Screen name="index" options={{ headerShown: false }} />
+                    <Stack.Screen
+                      name="loading-user-data"
+                      options={{ headerShown: false, animation: 'none' }}
+                    />
+                    <Stack.Screen name="welcome" options={{ headerShown: false }} />
+                  </Stack>
+                </View>
+              </SafeAreaProvider>
+            </PaperProvider>
+          </GroupProvider>
+        </SelectInputProvider>
       </GlobalProvider>
     </QueryClientProvider>
   );
