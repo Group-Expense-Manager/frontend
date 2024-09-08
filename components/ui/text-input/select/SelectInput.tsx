@@ -1,8 +1,7 @@
 import { router } from 'expo-router';
 import React, { useContext, useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 
-import CustomRadioButton from '@/components/ui/radio-button/CustomRadioButton';
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
 import { ChevronDownIcon } from '@/constants/Icon';
@@ -52,19 +51,6 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
 
   const getDownArrowIcon = () => {
     return <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />;
-  };
-
-  const constructRow = <T,>(item: SelectInputData<T>, selected: boolean) => {
-    return (
-      <View className="flex-row items-center justify-between">
-        <Text className="text-regular text-ink-darkest dark:text-sky-lightest font-regular text-left">
-          {item.name}
-        </Text>
-        <View className="ml-2 items-center justify-center">
-          <CustomRadioButton value={selected} />
-        </View>
-      </View>
-    );
   };
 
   const handleSelect = (item: any) => {
