@@ -5,7 +5,7 @@ import { BackHandler, ScrollView, View } from 'react-native';
 
 import { CustomButton, Loader } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
-import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
+import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { RegistrationContext } from '@/context/auth/RegistrationContext';
 import useRegister from '@/hooks/auth/UseRegister';
@@ -56,14 +56,17 @@ export default function Register() {
               <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
-              <CustomValidatedTextInput
+              <PasswordTextInput
                 label={t('Repeat password')}
-                secureTextEntry
                 onChangeText={(text: string) =>
                   setRegistrationProps({ ...registrationProps, repeatedPassword: text })
                 }
                 value={registrationProps.repeatedPassword}
-                validator={validator}
+                errorMessages={
+                  registrationProps.password === ''
+                    ? []
+                    : validator.validate(registrationProps.password)
+                }
               />
             </View>
           </View>

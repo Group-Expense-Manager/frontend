@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
 
 import { CustomButton, Loader } from '@/components';
-import SafeView from '@/components/ui/box/SafeView';
-import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
+import Box from '@/components/ui/box/Box';
+import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';
 import useChangePassword from '@/hooks/auth/UseChangePassword';
@@ -42,7 +42,7 @@ export default function ChangePasswordNew() {
     validator.validate(passwordChangeProps.repeatedNewPassword).length !== 0;
 
   return (
-    <SafeView>
+    <Box>
       <ScrollView
         contentContainerStyle={{
           height: '100%',
@@ -54,14 +54,17 @@ export default function ChangePasswordNew() {
               <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
-              <CustomValidatedTextInput
-                value={passwordChangeProps.repeatedNewPassword}
+              <PasswordTextInput
                 label={t('Repeat new password')}
-                secureTextEntry
                 onChangeText={(text: string) =>
                   setPasswordChangeProps({ ...passwordChangeProps, repeatedNewPassword: text })
                 }
-                validator={validator}
+                value={passwordChangeProps.repeatedNewPassword}
+                errorMessages={
+                  passwordChangeProps.repeatedNewPassword === ''
+                    ? []
+                    : validator.validate(passwordChangeProps.repeatedNewPassword)
+                }
               />
             </View>
           </View>
@@ -84,6 +87,6 @@ export default function ChangePasswordNew() {
           </View>
         </View>
       </ScrollView>
-    </SafeView>
+    </Box>
   );
 }

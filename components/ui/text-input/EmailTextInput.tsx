@@ -7,13 +7,13 @@ const handleChangeText = (text: string) => {
   return text.trim();
 };
 
-interface EmailTextInputProps {
+export interface EmailTextInputProps {
   disabled?: boolean;
   errorMessages?: string[];
   linkLabel?: LinkLabelProps;
   value?: string;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   onChangeText?: (text: string) => void;
   autoFocus?: boolean;
   onBlur?: () => void;

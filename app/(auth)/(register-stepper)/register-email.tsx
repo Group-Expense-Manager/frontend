@@ -5,7 +5,7 @@ import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
-import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
+import EmailTextInput from '@/components/ui/text-input/EmailTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { RegistrationContext } from '@/context/auth/RegistrationContext';
 import { ButtonType } from '@/util/ButtonType';
@@ -36,13 +36,15 @@ export default function RegisterEmail() {
               <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
-              <CustomValidatedTextInput
+              <EmailTextInput
                 label={t('Email')}
                 onChangeText={(text: string) =>
                   setRegistrationProps({ ...registrationProps, email: text })
                 }
                 value={registrationProps.email}
-                validator={validator}
+                errorMessages={
+                  registrationProps.email === '' ? [] : validator.validate(registrationProps.email)
+                }
               />
             </View>
           </View>

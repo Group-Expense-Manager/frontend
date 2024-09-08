@@ -7,7 +7,7 @@ const handleChangeText = (text: string) => {
   return text.trim();
 };
 
-interface SingleTextInputProps {
+export interface SingleTextInputProps {
   disabled?: boolean;
   errorMessages?: string[];
   linkLabel?: LinkLabelProps;

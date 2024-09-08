@@ -24,7 +24,7 @@ const Welcome = () => {
               <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex justify-center items-center h-fit">
-              <Text className="text-title3 text-ink-darkest font-bold text-center">
+              <Text className="text-title3 text-ink-darkest dark:text-sky-lightest font-bold text-center">
                 {t('Welcome to best')} {'\n'}
                 {t('Group Expense Manager')} {'\n'}
                 <Text className="text-primary-base">{t('GEM')}</Text>
