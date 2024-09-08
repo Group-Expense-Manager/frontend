@@ -98,7 +98,9 @@ const TabLayout = () => {
             headerShown: false,
             tabBarIcon: ({ focused }) => (
               <TabIcon name={t('You')} focused={focused}>
-                <Image source={userData.profilePicture} />
+                <Image
+                  source={userData.profilePicture.uri === '' ? undefined : userData.profilePicture}
+                />
               </TabIcon>
             ),
           }}
