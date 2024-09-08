@@ -10,7 +10,6 @@ import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInput
 import { IconSize } from '@/util/IconSize';
 
 interface SelectInputProps<T> {
-  data: SelectInputData<T>[];
   onSelect: (value: T) => void;
   onPress: () => void;
   disabled?: boolean;
@@ -18,7 +17,7 @@ interface SelectInputProps<T> {
   linkLabel?: LinkLabelProps;
   label: string;
   value?: SelectInputData<T>;
-  showErrors: boolean;
+  showErrors?: boolean;
 }
 
 const getInputStyle = (isDisabled: boolean) => {
@@ -35,7 +34,6 @@ const getInputStyle = (isDisabled: boolean) => {
 };
 
 const SelectInput: React.FC<SelectInputProps<any>> = ({
-  data = [],
   onSelect = () => {},
   onPress = () => {},
   disabled = false,
@@ -43,7 +41,7 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
   linkLabel,
   label,
   value,
-  showErrors,
+  showErrors = false,
 }) => {
   const { setSelectInputProps } = useContext(SelectInputContext);
   const [isFocused, setIsFocused] = useState(false);
@@ -77,10 +75,7 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
 
   const handlePress = () => {
     setSelectInputProps({
-      title: label,
-      data,
       onSelect: handleSelect,
-      createRow: constructRow,
       selectedData: value ? [value] : [],
     });
     onPress();
