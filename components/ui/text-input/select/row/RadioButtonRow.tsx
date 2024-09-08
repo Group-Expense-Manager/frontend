@@ -15,7 +15,7 @@ const SelectInput: React.FC<RadioButtonRowProps<any>> = ({ item, selected }) => 
       <Text className="text-regular text-ink-darkest dark:text-sky-lightest font-regular text-left">
         {item.name}
       </Text>
-      <View className="ml-2 items-center justify-center">
+      <View className="items-center justify-center">
         <CustomRadioButton value={selected} />
       </View>
     </View>
