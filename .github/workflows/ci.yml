@@ -12,33 +12,28 @@ jobs:
     permissions:
       contents: read
       security-events: write
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'  # Specify the version of Node.js
 
       - name: Cache Node Modules
         id: cache-npm
         uses: actions/cache@v3
         with:
-          path: '**/node_modules'
-          key: ${{ runner.OS }}-npm-${{ hashFiles('**/package-lock.json', '**/package.json') }}
+          path: |
+            **/node_modules
+          key: ${{ runner.OS }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.OS }}-npm-
+            ${{ runner.OS }}-npm-cache-
 
       - name: Install Dependencies
         run: |
-          npm install --legacy-peer-deps
+          npm ci --legacy-peer-deps
         if: steps.cache-npm.outputs.cache-hit != 'true'
 
       - name: Run ESLint
         run: |
-          npx eslint . --config .eslintrc.js --ext .js,.jsx,.ts,.tsx
+          npx eslint . --ext .js,.jsx,.ts,.tsx --config .eslintrc.js
 
   ticketValidation:
     uses: Group-Expense-Manager/common-ci-cd/.github/workflows/jira.yml@main
