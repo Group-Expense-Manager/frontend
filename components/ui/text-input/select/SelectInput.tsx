@@ -1,14 +1,18 @@
 import { router } from 'expo-router';
 import React, { useContext, useState } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
+import CustomRadioButton from '@/components/ui/radio-button/CustomRadioButton';
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
+import { ChevronDownIcon } from '@/constants/Icon';
 import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
+import { IconSize } from '@/util/IconSize';
 
 interface SelectInputProps<T> {
   data: SelectInputData<T>[];
   onSelect: (value: T) => void;
+  onPress: () => void;
   disabled?: boolean;
   errorMessages?: string[];
   linkLabel?: LinkLabelProps;
@@ -33,6 +37,7 @@ const getInputStyle = (isDisabled: boolean) => {
 const SelectInput: React.FC<SelectInputProps<any>> = ({
   data = [],
   onSelect = () => {},
+  onPress = () => {},
   disabled = false,
   errorMessages = [],
   linkLabel,
@@ -40,20 +45,45 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
   value,
   showErrors,
 }) => {
-  const { selectInputProps, setSelectInputProps } = useContext(SelectInputContext);
+  const { setSelectInputProps } = useContext(SelectInputContext);
   const [isFocused, setIsFocused] = useState(false);
 
   const getValueLabel = () => {
     return !!value && <Text className={getInputStyle(disabled)}>{value.name}</Text>;
   };
 
+  const getDownArrowIcon = () => {
+    return <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />;
+  };
+
+  const constructRow = <T,>(item: SelectInputData<T>, selected: boolean) => {
+    return (
+      <View className="flex-row items-center justify-between">
+        <Text className="text-regular text-ink-darkest dark:text-sky-lightest font-regular text-left">
+          {item.name}
+        </Text>
+        <View className="ml-2 items-center justify-center">
+          <CustomRadioButton value={selected} />
+        </View>
+      </View>
+    );
+  };
+
+  const handleSelect = (item: any) => {
+    onSelect(item);
+    router.back();
+    setIsFocused(false);
+  };
+
   const handlePress = () => {
     setSelectInputProps({
       title: label,
       data,
-      onSelect,
+      onSelect: handleSelect,
+      createRow: constructRow,
+      selectedData: value ? [value] : [],
     });
-    router.navigate('/(utils)/(select)/single');
+    onPress();
   };
 
   return (
@@ -66,6 +96,7 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
       linkLabel={linkLabel}
       handlePress={handlePress}
       middleSection={getValueLabel()}
+      rightSection={getDownArrowIcon()}
       showErrors={showErrors}
     />
   );

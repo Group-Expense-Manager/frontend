@@ -77,16 +77,17 @@ const BaseInput: React.FC<BaseInputProps> = ({
   return (
     <View className="w-full">
       <TouchableWithoutFeedback onPress={handleTouchable}>
-        <View className={getBorderStyle(!!errorMessages.length || showErrors, isFocused, disabled)}>
+        <View
+          className={`${getBorderStyle(!!errorMessages.length || showErrors, isFocused, disabled)} flex flex-row`}>
           {!!leftSection && (
-            <View className="flex p-2 items-center justify-center">{leftSection}</View>
+            <View className="flex p-2 items-start justify-center flex-2">{leftSection}</View>
           )}
-          <View className="p-2">
+          <View className="p-2 flex-1">
             <Text className={getLabelStyle(isFocused, !!middleSection, disabled)}>{label}</Text>
             {middleSection}
           </View>
           {!!rightSection && (
-            <View className="flex p-2 items-center justify-center">{rightSection}</View>
+            <View className="flex p-2 items-end justify-center flex-2">{rightSection}</View>
           )}
         </View>
       </TouchableWithoutFeedback>

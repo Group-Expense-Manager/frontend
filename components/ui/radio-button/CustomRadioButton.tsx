@@ -1,22 +1,13 @@
-import { useColorScheme } from 'nativewind';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
-
-import theme from '@/constants/Colors';
+import { View } from 'react-native';
 
 interface CustomCheckboxProps {
   disabled?: boolean;
-  value: boolean;
-  onValueChange: () => void;
+  value?: boolean;
+  onValueChange?: () => void;
 }
 
-const CustomRadioButton: React.FC<CustomCheckboxProps> = ({
-  disabled = false,
-  value,
-  onValueChange,
-}) => {
-  const { colorScheme } = useColorScheme();
-
+const CustomRadioButton: React.FC<CustomCheckboxProps> = ({ disabled = false, value = false }) => {
   const getInnerCircleClass = () => {
     switch (true) {
       case value && disabled:
@@ -50,19 +41,11 @@ const CustomRadioButton: React.FC<CustomCheckboxProps> = ({
     }
   };
 
-  const toggleCheckbox = () => {
-    if (!disabled) {
-      onValueChange();
-    }
-  };
-
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={toggleCheckbox}
+    <View
       className={`w-6 h-6 items-center justify-center rounded-full ${getOuterCircleClass()} ${getBorderClass()}`}>
       {value && <View className={`w-2 h-2 rounded-full ${getInnerCircleClass()}`} />}
-    </TouchableOpacity>
+    </View>
   );
 };
 

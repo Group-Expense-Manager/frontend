@@ -4,6 +4,7 @@ export interface SelectInputProps<T> {
   title: string;
   data: SelectInputData<T>[];
   selectedData: SelectInputData<T>[];
+  createRow: (item: SelectInputData<T>, selected: boolean) => ReactNode;
   onSelect: (value: T) => void;
 }
 
@@ -20,6 +21,7 @@ interface SelectInputContextProps<T> {
 const defaultSelectInputProps: SelectInputProps<any> = {
   title: '',
   data: [],
+  createRow: () => <></>,
   selectedData: [],
   onSelect: () => {},
 };
