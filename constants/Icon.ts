@@ -4,6 +4,9 @@ import ChevronDownIcon from '../assets/icons/chevron-down.svg';
 import ChipChevronDownIcon from '../assets/icons/chip/chip-chevron-down.svg';
 import ChipFilterLinesIcon from '../assets/icons/chip/chip-filter-lines.svg';
 import ChipXIcon from '../assets/icons/chip/chip-x.svg';
+import BankNoteIcon from '../assets/icons/create/bank-note-01.svg';
+import FileIcon from '../assets/icons/create/file-06.svg';
+import ScalesIcon from '../assets/icons/create/scales-01.svg';
 import CreditCardIcon from '../assets/icons/credit-card-02.svg';
 import EditIcon from '../assets/icons/edit-02.svg';
 import FileAttachmentIcon from '../assets/icons/file-attachment-04.svg';
@@ -36,4 +39,7 @@ export {
   ChipXIcon,
   EditIcon,
   ArrowLeftIcon,
+  BankNoteIcon,
+  FileIcon,
+  ScalesIcon,
 };

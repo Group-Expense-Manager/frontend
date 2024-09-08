@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useContext } from 'react';
 
-import { API_URL } from '@/constants/Api';
+import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
 
 export type Group = {
@@ -19,12 +19,12 @@ function useGroups() {
   const { authState } = useContext(GlobalContext);
 
   return useQuery({
-    queryKey: ['groups'],
+    queryKey: ['/groups'],
     queryFn: async (): Promise<Groups> => {
-      const { data } = await axios.get(`${API_URL}/external/groups`, {
+      const { data } = await axios.get(`${API_URL}${PATHS.EXTERNAL}/groups`, {
         headers: {
-          host: 'gem.web.group-manager.com',
-          accept: 'application/vnd.gem.internal.v1+json',
+          host: HOST.GROUP_MANAGER,
+          accept: APPLICATION_JSON_INTERNAL_VER_1,
           authorization: `Bearer ${authState.token}`,
         },
       });
