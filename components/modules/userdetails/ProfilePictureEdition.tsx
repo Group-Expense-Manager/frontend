@@ -12,7 +12,7 @@ interface ProfilePictureEditionProps {
 
 const ProfilePictureEdition: React.FC<ProfilePictureEditionProps> = ({ image, onPress }) => {
   return (
-    <View>
+    <View className="flex-col items-start self-center">
       <CustomImage image={image} size="colossal" />
       <View className="absolute bottom-0 right-0">
         <IconButton onPress={onPress} icon={<EditIcon />} />

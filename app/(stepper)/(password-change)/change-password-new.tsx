@@ -26,7 +26,7 @@ export default function ChangePasswordNew() {
       rule(arg: string) {
         return arg.length <= 30;
       },
-      errorMessage: t('Password must contain at most 30 characters'),
+      errorMessage: t('Password may contain at most 30 characters'),
     },
     {
       rule: /^(?=.*[a-z]).+$/,

@@ -1,4 +1,4 @@
-export const API_URL = 'http://192.168.0.101';
+export const API_URL = 'http://192.168.55.13';
 
 export const HOST = {
   AUTHENTICATOR: 'gem.web.authenticator.com',

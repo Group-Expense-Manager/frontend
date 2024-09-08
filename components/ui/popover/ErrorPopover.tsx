@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import CustomPopover from '@/components/ui/popover/CustomPopover';
 
-export default function ErrorPopover() {
+interface ErrorPopoverProps {
+  onPress?: () => void;
+}
+
+const ErrorPopover: React.FC<ErrorPopoverProps> = ({ onPress = () => router.back() }) => {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -16,7 +20,9 @@ export default function ErrorPopover() {
       title={t('Oops something went wrong')}
       description={t('Oops something went wrong - description')}
       buttonTitle={t('OK')}
-      onPress={() => router.back()}
+      onPress={onPress}
     />
   );
-}
+};
+
+export default ErrorPopover;

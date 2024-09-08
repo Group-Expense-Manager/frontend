@@ -26,7 +26,11 @@ const CustomImage: React.FC<CustomImageProps> = ({ image, size = 'large' }) => {
     }
   }
   const sizeInPx = getSizeInPx();
-  return <Image width={sizeInPx} height={sizeInPx} borderRadius={sizeInPx / 2} source={image} />;
+  return (
+    image.uri && (
+      <Image width={sizeInPx} height={sizeInPx} borderRadius={sizeInPx / 2} source={image} />
+    )
+  );
 };
 
 export default CustomImage;
