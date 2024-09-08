@@ -101,23 +101,31 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const loadPreferences = async () => {
-      const rawMode = await SecureStore.getItemAsync(MODE_KEY);
-      const rawLanguage = await SecureStore.getItemAsync(LANGUAGE_KEY);
-
+      const rawMode = await SecureStore.getItemAsync(MODE_KEY).catch(() => {
+        return null;
+      });
+      const rawLanguage = await SecureStore.getItemAsync(LANGUAGE_KEY).catch(() => {
+        return null;
+      });
       const mode: 'light' | 'dark' | 'system' =
         rawMode === 'light' || rawMode === 'dark' || rawMode === 'system' ? rawMode : 'system';
 
-      await i18n.changeLanguage(rawLanguage ? rawLanguage : undefined);
+      if (rawLanguage) {
+        await i18n.changeLanguage(rawLanguage);
+      }
       setColorScheme(mode);
-
       setPreferences({
         mode,
         language: i18n.language,
       });
     };
     const loadToken = async () => {
-      const token = await SecureStore.getItemAsync(TOKEN_KEY);
-      const userId = await SecureStore.getItemAsync(USER_KEY);
+      const token = await SecureStore.getItemAsync(TOKEN_KEY).catch(() => {
+        return null;
+      });
+      const userId = await SecureStore.getItemAsync(USER_KEY).catch(() => {
+        return null;
+      });
       if (token && userId) {
         setAuthState({
           userId,
