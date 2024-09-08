@@ -5,7 +5,7 @@ import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
-import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
+import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { RegistrationContext } from '@/context/auth/RegistrationContext';
 import { ButtonType } from '@/util/ButtonType';
@@ -27,7 +27,7 @@ export default function RegisterPassword() {
       rule(arg: string) {
         return arg.length <= 30;
       },
-      errorMessage: t('Password must contain at most 30 characters'),
+      errorMessage: t('Password may contain at most 30 characters'),
     },
     {
       rule: /^(?=.*[a-z]).+$/,
@@ -63,14 +63,17 @@ export default function RegisterPassword() {
               <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
-              <CustomValidatedTextInput
+              <PasswordTextInput
                 label={t('Password')}
-                secureTextEntry
                 onChangeText={(text: string) =>
                   setRegistrationProps({ ...registrationProps, password: text })
                 }
                 value={registrationProps.password}
-                validator={validator}
+                errorMessages={
+                  registrationProps.password === ''
+                    ? []
+                    : validator.validate(registrationProps.password)
+                }
               />
             </View>
           </View>

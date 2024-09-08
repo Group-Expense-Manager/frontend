@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
 
-import { CustomButton, CustomTextInput, Loader } from '@/components';
+import { CustomButton, Loader } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
-import CustomLinkTextInput from '@/components/ui/text-input/CustomLinkTextInput';
+import EmailTextInput from '@/components/ui/text-input/EmailTextInput';
+import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import useLogin from '@/hooks/auth/UseLogin';
 import { ButtonType } from '@/util/ButtonType';
@@ -38,20 +39,21 @@ export default function Login() {
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
               <View>
-                <CustomTextInput
+                <EmailTextInput
                   label={t('Email')}
                   onChangeText={(text: string) => setEmail(text)}
                   value={email}
                 />
               </View>
               <View>
-                <CustomLinkTextInput
+                <PasswordTextInput
                   label={t('Password')}
-                  secureTextEntry
                   onChangeText={(text: string) => setPassword(text)}
                   value={password}
-                  linkLabel={t('Forgot password?')}
-                  onPress={() => router.push('/recover-password-popover')}
+                  linkLabel={{
+                    label: t('Forgot password?'),
+                    onPress: () => router.push('/recover-password-modal'),
+                  }}
                 />
               </View>
             </View>

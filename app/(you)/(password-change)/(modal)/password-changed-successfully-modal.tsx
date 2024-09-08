@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import SingleButtonPopover from '@/components/ui/popover/SingleButtonPopover';
 
-export default function WrongCodeModal() {
+export default function PasswordChangedSuccessfullyModal() {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -13,11 +13,11 @@ export default function WrongCodeModal() {
   }, [navigation]);
   return (
     <SingleButtonPopover
-      title={t('Incorrect verification code')}
-      description={t('Incorrect verification code - description')}
+      title={t('Success')}
+      description={t('Password changed successfully')}
       buttonProps={{
         title: t('OK'),
-        onPress: () => router.back(),
+        onPress: () => router.navigate('/you'),
       }}
     />
   );

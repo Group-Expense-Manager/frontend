@@ -23,7 +23,7 @@ export default function useRegister(username: string, email: string, password: s
     },
     onSuccess: () => {
       setVerificationProps({ ...verificationProps, email });
-      router.push('/verify-popover');
+      router.push('/verify-modal');
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 409) {

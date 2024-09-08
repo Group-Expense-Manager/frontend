@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
-import SafeView from '@/components/ui/box/SafeView';
-import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
+import Box from '@/components/ui/box/Box';
+import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';
 import { ButtonType } from '@/util/ButtonType';
@@ -26,7 +26,7 @@ export default function ChangePasswordNew() {
       rule(arg: string) {
         return arg.length <= 30;
       },
-      errorMessage: t('Password must contain at most 30 characters'),
+      errorMessage: t('Password may contain at most 30 characters'),
     },
     {
       rule: /^(?=.*[a-z]).+$/,
@@ -51,7 +51,7 @@ export default function ChangePasswordNew() {
   const isNextButtonDisabled = validator.validate(passwordChangeProps.newPassword).length !== 0;
 
   return (
-    <SafeView>
+    <Box>
       <ScrollView
         contentContainerStyle={{
           height: '100%',
@@ -62,14 +62,17 @@ export default function ChangePasswordNew() {
               <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
-              <CustomValidatedTextInput
-                value={passwordChangeProps.newPassword}
-                label={t('New password')}
-                secureTextEntry
+              <PasswordTextInput
+                label={t('New Password')}
                 onChangeText={(text: string) =>
                   setPasswordChangeProps({ ...passwordChangeProps, newPassword: text })
                 }
-                validator={validator}
+                value={passwordChangeProps.newPassword}
+                errorMessages={
+                  passwordChangeProps.newPassword === ''
+                    ? []
+                    : validator.validate(passwordChangeProps.newPassword)
+                }
               />
             </View>
           </View>
@@ -92,6 +95,6 @@ export default function ChangePasswordNew() {
           </View>
         </View>
       </ScrollView>
-    </SafeView>
+    </Box>
   );
 }

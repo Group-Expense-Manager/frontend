@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import SingleButtonPopover from '@/components/ui/popover/SingleButtonPopover';
 
-export default function WrongCodeModal() {
+export default function UnsupportedFileFormat() {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -13,8 +13,8 @@ export default function WrongCodeModal() {
   }, [navigation]);
   return (
     <SingleButtonPopover
-      title={t('Incorrect verification code')}
-      description={t('Incorrect verification code - description')}
+      title={t('Unsupported File Format')}
+      description={t('Unsupported File Format - description')}
       buttonProps={{
         title: t('OK'),
         onPress: () => router.back(),

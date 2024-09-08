@@ -5,7 +5,7 @@ import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
-import CustomValidatedTextInput from '@/components/ui/text-input/CustomValidatedTextInput';
+import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { RegistrationContext } from '@/context/auth/RegistrationContext';
 import { ButtonType } from '@/util/ButtonType';
@@ -26,7 +26,7 @@ export default function RegisterUsername() {
       rule(arg: string) {
         return arg.length <= 20;
       },
-      errorMessage: t('Username must contain at most 20 characters'),
+      errorMessage: t('Username may contain at most 20 characters'),
     },
     {
       rule: /^[a-zA-Z0-9_.+-]+$/,
@@ -48,13 +48,17 @@ export default function RegisterUsername() {
               <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
-              <CustomValidatedTextInput
+              <SingleTextInput
                 label={t('Username')}
                 onChangeText={(text: string) =>
                   setRegistrationProps({ ...registrationProps, username: text })
                 }
                 value={registrationProps.username}
-                validator={validator}
+                errorMessages={
+                  registrationProps.username === ''
+                    ? []
+                    : validator.validate(registrationProps.username)
+                }
               />
             </View>
           </View>

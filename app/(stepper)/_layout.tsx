@@ -6,7 +6,6 @@ const StepperLayout = () => {
     <Stack>
       <Stack.Screen name="(group-creation)" options={{ headerShown: false }} />
       <Stack.Screen name="(expense-creation)" options={{ headerShown: false }} />
-      <Stack.Screen name="(password-change)" options={{ headerShown: false }} />
     </Stack>
   );
 };

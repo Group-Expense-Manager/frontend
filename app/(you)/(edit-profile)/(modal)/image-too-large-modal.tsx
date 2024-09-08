@@ -2,9 +2,9 @@ import { router, useNavigation } from 'expo-router';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CustomPopover from '@/components/ui/popover/CustomPopover';
+import SingleButtonPopover from '@/components/ui/popover/SingleButtonPopover';
 
-export default function PasswordChangedSuccessfullyModal() {
+export default function ImageTooLarge() {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -12,11 +12,13 @@ export default function PasswordChangedSuccessfullyModal() {
     navigation.setOptions({ presentation: 'transparentModal' });
   }, [navigation]);
   return (
-    <CustomPopover
-      title={t('Success')}
-      description={t('Password changed successfully')}
-      buttonTitle={t('OK')}
-      onPress={() => router.navigate('/you')}
+    <SingleButtonPopover
+      title={t('Image Too Large')}
+      description={t('Image Too Large - description')}
+      buttonProps={{
+        title: t('OK'),
+        onPress: () => router.back(),
+      }}
     />
   );
 }

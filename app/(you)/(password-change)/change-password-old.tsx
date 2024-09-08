@@ -3,8 +3,9 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
-import { CustomButton, CustomTextInput } from '@/components';
-import SafeView from '@/components/ui/box/SafeView';
+import { CustomButton } from '@/components';
+import Box from '@/components/ui/box/Box';
+import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';
 import { ButtonType } from '@/util/ButtonType';
@@ -16,7 +17,7 @@ export default function ChangePasswordOld() {
   const isNextButtonDisabled = passwordChangeProps.oldPassword.length === 0;
 
   return (
-    <SafeView>
+    <Box>
       <ScrollView
         contentContainerStyle={{
           height: '100%',
@@ -27,13 +28,12 @@ export default function ChangePasswordOld() {
               <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
             </View>
             <View className="py-[32px] w-full flex flex-col space-y-[32px]">
-              <CustomTextInput
-                value={passwordChangeProps.oldPassword}
+              <PasswordTextInput
                 label={t('Old password')}
-                secureTextEntry
                 onChangeText={(text: string) =>
                   setPasswordChangeProps({ ...passwordChangeProps, oldPassword: text })
                 }
+                value={passwordChangeProps.oldPassword}
               />
             </View>
           </View>
@@ -56,6 +56,6 @@ export default function ChangePasswordOld() {
           </View>
         </View>
       </ScrollView>
-    </SafeView>
+    </Box>
   );
 }

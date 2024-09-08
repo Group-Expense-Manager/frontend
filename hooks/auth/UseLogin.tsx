@@ -29,7 +29,7 @@ export default function useLogin(email: string, password: string) {
     onError: (error: AxiosError) => {
       if (error.response?.status === 403) {
         setVerificationProps({ ...verificationProps, email });
-        router.push('/verify-popover');
+        router.push('/verify-modal');
       } else if (error.response?.status === 400) {
         router.push('/wrong-credentials-modal');
       } else {

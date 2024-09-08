@@ -3,12 +3,12 @@ import { ActivityIndicator, Dimensions, Platform, View } from 'react-native';
 
 interface LoaderProps {
   isLoading?: boolean;
+  hasViewHeader?: boolean;
 }
 
-const Loader: React.FC<LoaderProps> = ({ isLoading }) => {
+const Loader: React.FC<LoaderProps> = ({ isLoading = false, hasViewHeader = false }) => {
   const osName = Platform.OS;
-  const screenHeight = Dimensions.get('screen').height;
-
+  const screenHeight = Dimensions.get('window').height - (hasViewHeader ? 96 : 0); // height of header;
   if (!isLoading) return null;
 
   return (

@@ -2,12 +2,13 @@ import { router, useNavigation } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import VerificationPopover from '@/components/ui/popover/VerificationPopover';
+import SingleTextInputPopover from '@/components/ui/popover/SingleTextInputPopover';
 import { VerificationContext } from '@/context/auth/VerificationContext';
 import useSendVerificationEmail from '@/hooks/auth/UseSendVerificationEmail';
 import useVerify from '@/hooks/auth/UseVerify';
+import { ButtonType } from '@/util/ButtonType';
 
-export default function VerifyPopover() {
+export default function VerifyModal() {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { verificationProps, setVerificationProps } = useContext(VerificationContext);
@@ -37,28 +38,37 @@ export default function VerifyPopover() {
     navigation.setOptions({ presentation: 'transparentModal' });
   }, [navigation]);
   return (
-    <VerificationPopover
+    <SingleTextInputPopover
       title={t('Verify account')}
       description={t('Verify account - description')}
-      buttonTitle={t('Confirm')}
-      onPress={() => {
-        verify();
+      singleTextInputProps={{
+        label: t('Code'),
+        value: verificationProps.code,
+        linkLabel: {
+          label: t('Send verification email again'),
+          onPress: () => {
+            sendVerificationEmail();
+          },
+        },
+        onChangeText: (text) => setVerificationProps({ ...verificationProps, code: text }),
+        errorMessages: error ? [t('Incorrect verification code')] : [],
       }}
-      label={t('Code')}
-      secondButtonTitle={t('Cancel')}
-      secondOnPress={() => {
-        setVerificationProps({ email: '', code: '' });
-        router.navigate('/login');
+      firstButtonProps={{
+        title: t('Confirm'),
+        onPress: () => {
+          verify();
+        },
+        disabled: isConfirmButtonDisabled || error,
       }}
-      linkLabel={t('Send verification email again')}
-      onLinkPress={() => {
-        sendVerificationEmail();
+      secondButtonProps={{
+        title: t('Cancel'),
+        onPress: () => {
+          setVerificationProps({ email: '', code: '' });
+          router.navigate('/login');
+        },
+        type: ButtonType.OUTLINED,
       }}
-      onChangeText={(text) => setVerificationProps({ ...verificationProps, code: text })}
-      isPending={isVerificationPending || isEmailSendingPending}
-      disabled={isConfirmButtonDisabled || error}
-      error={error}
-      errorText={t('Incorrect verification code')}
+      isLoading={isVerificationPending || isEmailSendingPending}
     />
   );
 }
