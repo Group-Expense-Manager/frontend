@@ -8,8 +8,7 @@ interface LoaderProps {
 
 const Loader: React.FC<LoaderProps> = ({ isLoading = false, hasViewHeader = false }) => {
   const osName = Platform.OS;
-  const screenHeight = Dimensions.get('window').height - (hasViewHeader ? 192 : 0); // height of header * 2;
-
+  const screenHeight = Dimensions.get('window').height - (hasViewHeader ? 96 : 0); // height of header;
   if (!isLoading) return null;
 
   return (

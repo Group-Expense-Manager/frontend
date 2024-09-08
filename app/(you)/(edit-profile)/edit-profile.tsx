@@ -87,7 +87,7 @@ export default function EditProfile() {
               return;
             }
             if (dataChanged()) {
-              router.push('/exit-without-saving-popover');
+              router.push('/(edit-profile)/(modal)/exit-without-saving-modal');
             } else {
               router.back();
             }
@@ -108,7 +108,7 @@ export default function EditProfile() {
       return true;
     }
     if (dataChanged()) {
-      router.push('/exit-without-saving-popover');
+      router.push('/exit-without-saving-modal');
       return true;
     }
     return false;

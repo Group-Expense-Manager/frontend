@@ -2,7 +2,7 @@ import { router, useNavigation } from 'expo-router';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import CustomPopover from '@/components/ui/popover/CustomPopover';
+import SingleButtonPopover from '@/components/ui/popover/SingleButtonPopover';
 
 export default function PasswordChangedSuccessfullyModal() {
   const { t } = useTranslation();
@@ -12,11 +12,13 @@ export default function PasswordChangedSuccessfullyModal() {
     navigation.setOptions({ presentation: 'transparentModal' });
   }, [navigation]);
   return (
-    <CustomPopover
+    <SingleButtonPopover
       title={t('Success')}
       description={t('Password changed successfully')}
-      buttonTitle={t('OK')}
-      onPress={() => router.navigate('/you')}
+      buttonProps={{
+        title: t('OK'),
+        onPress: () => router.navigate('/you'),
+      }}
     />
   );
 }

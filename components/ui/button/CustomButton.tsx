@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Availability } from '@/util/Availability';
 import { ButtonType } from '@/util/ButtonType';
 
-interface CustomButtonProps {
+export interface CustomButtonProps {
   title: string;
   onPress: () => void;
   disabled?: boolean;
@@ -35,8 +35,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         return 'bg-sky-latest dark:bg-ink-darkest';
       case `${Availability.ENABLED}-${ButtonType.PRIMARY}`:
         return 'bg-primary-base';
-      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
-        return 'bg-sky-latest dark:bg-ink-darkest';
       default:
         return '';
     }
