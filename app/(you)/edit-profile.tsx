@@ -46,7 +46,6 @@ export default function EditProfile() {
 
   useEffect(() => {
     if (isUpdatedUserDetailsError || isUpdatedProfilePictureError) {
-      console.log(true);
       router.push('/(you)/(modal)/error-modal');
     }
   }, [isUpdatedUserDetailsError, isUpdatedProfilePictureError]);
