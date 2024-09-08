@@ -6,7 +6,7 @@ interface BoxProps {
 }
 
 const Box: React.FC<BoxProps> = ({ children }) => {
-  return <View className="bg-sky-lightest dark:bg-ink-darkest h-full px-[32px]">{children}</View>;
+  return <View className="bg-sky-lightest dark:bg-ink-darkest h-full px-8">{children}</View>;
 };
 
 export default Box;

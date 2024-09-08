@@ -23,7 +23,7 @@ const BasicPopover: React.FC<BasicPopoverProps> = ({
       <Loader isLoading={isLoading} />
       <View className=" w-full h-full flex-col justify-center items-center">
         <View className="absolute w-full h-full opacity-70 bg-ink-darkest" />
-        <View className="bg-sky-lightest dark:bg-ink-darker w-[327px] min-h-[300px] p-[24px] justify-between rounded-2xl space-y-10">
+        <View className="bg-sky-lightest dark:bg-ink-darker w-[85%] min-h-[300px] p-6 justify-between rounded-2xl space-y-10">
           <View>
             <Text className="font-bold text-title3 text-ink-darkest dark:text-sky-lightest text-center w-full">
               {title}
