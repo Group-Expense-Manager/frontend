@@ -5,7 +5,6 @@ import { ScrollView, Text, View } from 'react-native';
 
 import { CustomButton, TouchableExpense } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
-import { GlobalContext } from '@/context/GlobalContext';
 import useExpenses from '@/hooks/expense/UseExpenses';
 import useGroups, { Group } from '@/hooks/group/UseGroups';
 
@@ -15,7 +14,6 @@ export default function Groups() {
   const [currentGroupId, setCurrentGroupId] = useState<string | null>(null);
   const [groups, setGroups] = useState<Group[]>([]);
   const { data: expensesData, isFetching: isFetchingExpenses } = useExpenses(currentGroupId);
-  const { userData, setUserData } = useContext(GlobalContext);
 
   function getNameById(id: string, items: Group[]): string | undefined {
     const item = items.find((item) => item.groupId === id);
@@ -25,7 +23,6 @@ export default function Groups() {
   useEffect(() => {
     if (data && data.groups.length > 0) {
       setGroups(data.groups);
-      setUserData({ ...userData, currentGroupId: data.groups[0].groupId });
       setCurrentGroupId(data.groups[0].groupId);
     }
   }, [data]);
