@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Text } from 'react-native';
 
 import BaseInput from '@/components/ui/text-input/BaseInput';
@@ -43,7 +43,6 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
   showErrors = false,
 }) => {
   const { setSelectInputProps } = useContext(SelectInputContext);
-  const [isFocused, setIsFocused] = useState(false);
 
   const getValueLabel = () => {
     return !!value && <Text className={getInputStyle(disabled)}>{value.name}</Text>;
@@ -56,7 +55,6 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
   const handleSelect = (item: any) => {
     onSelect(item);
     router.back();
-    setIsFocused(false);
   };
 
   const handlePress = () => {
@@ -70,8 +68,6 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
   return (
     <BaseInput
       disabled={disabled}
-      isFocused={isFocused}
-      setIsFocused={setIsFocused}
       label={label}
       errorMessages={errorMessages}
       linkLabel={linkLabel}

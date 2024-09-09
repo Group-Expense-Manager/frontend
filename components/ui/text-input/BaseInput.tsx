@@ -42,8 +42,8 @@ const getLabelStyle = (isFocused: boolean, middleSectionExist: boolean, disabled
 
 interface BaseInputProps {
   disabled: boolean;
-  isFocused: boolean;
-  setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
+  isFocused?: boolean;
+  setIsFocused?: React.Dispatch<React.SetStateAction<boolean>>;
   label: string;
   errorMessages: string[];
   linkLabel?: LinkLabelProps;
@@ -56,8 +56,8 @@ interface BaseInputProps {
 
 const BaseInput: React.FC<BaseInputProps> = ({
   disabled = false,
-  isFocused,
-  setIsFocused,
+  isFocused = false,
+  setIsFocused = () => {},
   label = '',
   errorMessages = [],
   linkLabel,
@@ -78,7 +78,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
     <View className="w-full">
       <TouchableWithoutFeedback onPress={handleTouchable}>
         <View
-          className={`${getBorderStyle(!!errorMessages.length || showErrors, isFocused, disabled)} flex flex-row`}>
+          className={`${getBorderStyle(!!errorMessages.length || showErrors, isFocused, disabled)} flex flex-row items-center`}>
           {!!leftSection && (
             <View className="flex p-2 items-start justify-center flex-2">{leftSection}</View>
           )}
