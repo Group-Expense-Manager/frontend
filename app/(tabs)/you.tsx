@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { CustomButton } from '@/components';
-import ProfileHeader from '@/components/modules/userdetails/ProfileHeader';
 import SafeView from '@/components/ui/box/SafeView';
+import InfoCard from '@/components/ui/card/InfoCard';
 import { GlobalContext } from '@/context/GlobalContext';
 import { ButtonType } from '@/util/ButtonType';
 import { getName } from '@/util/GetName';
+
 export default function You() {
   const { t } = useTranslation();
   const { userData } = useContext(GlobalContext);
@@ -17,10 +18,10 @@ export default function You() {
     <SafeView>
       <View className="py-[32px] w-full h-full flex flex-col justify-between items-center ">
         <View className="w-full space-y-[34px]">
-          <ProfileHeader
+          <InfoCard
             image={userData.profilePicture}
-            username={userData.userDetails.username}
-            name={getName(userData.userDetails.firstName, userData.userDetails.lastName)}
+            details={userData.userDetails.username}
+            title={getName(userData.userDetails.firstName, userData.userDetails.lastName)}
           />
           <View className="w-full">
             <CustomButton onPress={() => router.push('/edit-profile')} title={t('Edit profile')} />

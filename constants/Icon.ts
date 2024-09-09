@@ -1,4 +1,6 @@
 import ArrowLeftIcon from '../assets/icons/arrow-left.svg';
+import DiamondIcon from '../assets/icons/card/diamond-02.svg';
+import SettingsIcon from '../assets/icons/card/settings-01.svg';
 import CheckIcon from '../assets/icons/check.svg';
 import ChevronDownIcon from '../assets/icons/chevron-down.svg';
 import ChipChevronDownIcon from '../assets/icons/chip/chip-chevron-down.svg';
@@ -42,4 +44,6 @@ export {
   BankNoteIcon,
   FileIcon,
   ScalesIcon,
+  DiamondIcon,
+  SettingsIcon,
 };

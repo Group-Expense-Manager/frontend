@@ -3,13 +3,13 @@ import { View, Text } from 'react-native';
 
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 
-interface ProfileHeaderProps {
+interface InfoCardProps {
   image: ImageBase64;
-  name?: string;
-  username: string;
+  title?: string;
+  details: string;
 }
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ image, name = null, username }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ image, title = null, details }) => {
   return (
     <View className="flex-row w-full justify-start px-3 space-x-3">
       <CustomImage image={image} size="large" />
@@ -18,14 +18,14 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ image, name = null, usern
           numberOfLines={1}
           ellipsizeMode="tail"
           className="text-ink-darkest dark:text-sky-lightest text-large font-semibold w-full">
-          {name === null ? username : name}
+          {title === null ? details : title}
         </Text>
-        {name && (
+        {title && (
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
             className="text-small w-full text-ink-darkest dark:text-sky-lightest">
-            {username}
+            {details}
           </Text>
         )}
       </View>
@@ -33,4 +33,4 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ image, name = null, usern
   );
 };
 
-export default ProfileHeader;
+export default InfoCard;
