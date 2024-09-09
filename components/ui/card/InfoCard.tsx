@@ -18,7 +18,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ image, title = null, details }) => 
           numberOfLines={1}
           ellipsizeMode="tail"
           className="text-ink-darkest dark:text-sky-lightest text-large font-semibold w-full">
-          {title === null ? details : title}
+          {title ? title : details}
         </Text>
         {title && (
           <Text

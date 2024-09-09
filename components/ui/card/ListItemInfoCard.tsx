@@ -27,18 +27,22 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
 }) => {
   const { colorScheme } = useColorScheme();
 
-  const clonedIcon = iconProps
-    ? React.cloneElement(iconProps.icon, {
-        width: IconSize.MEDIUM,
-        height: IconSize.MEDIUM,
-        strokeWidth: 1,
-        stroke: !iconProps.darkModeColor
-          ? iconProps.color
-          : colorScheme === 'light'
-            ? iconProps.color
-            : iconProps.darkModeColor,
-      })
-    : undefined;
+  function getIconColor(props: IconProps) {
+    return !props.darkModeColor
+      ? props.color
+      : colorScheme === 'light'
+        ? props.color
+        : props.darkModeColor;
+  }
+
+  function modifyIcon(props: IconProps) {
+    return React.cloneElement(props.icon, {
+      width: IconSize.MEDIUM,
+      height: IconSize.MEDIUM,
+      strokeWidth: 1,
+      stroke: getIconColor(props),
+    });
+  }
 
   return (
     <View className="flex-row w-full justify-start p-3 space-x-3">
@@ -51,7 +55,7 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
             numberOfLines={1}
             ellipsizeMode="tail"
             className="text-ink-darkest dark:text-sky-lightest text-large font-semibold w-full">
-            {title === null ? details : title}
+            {title ? title : details}
           </Text>
           {title && (
             <Text
@@ -68,7 +72,7 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
           activeOpacity={0.7}
           onPress={iconProps.onPress}
           className="justify-center">
-          {clonedIcon}
+          {modifyIcon(iconProps)}
         </TouchableOpacity>
       )}
     </View>
