@@ -1,6 +1,6 @@
 import { useColorScheme } from 'nativewind';
 import React, { ReactElement } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 import theme from '@/constants/Colors';
 import { IconSize } from '@/util/IconSize';
@@ -51,7 +51,7 @@ const CreationButton: React.FC<CreationButtonProps> = ({
       onPress={onPress}
       activeOpacity={0.7}
       className={`
-           rounded-3xl  w-full justify-center items-center p-3
+           rounded-3xl w-full justify-center items-center p-3
           ${backgroundColor()}
         `}
       disabled={disabled}>

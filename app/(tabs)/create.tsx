@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -14,7 +14,7 @@ export default function Create() {
 
   return (
     <SafeView>
-      <View className=" w-full h-full flex-col justify-between pb-8 pt-4">
+      <View className="w-full h-full flex-col justify-between pb-8 pt-4">
         <View>
           <CreationButton
             onPress={() => router.navigate('/expense-group')}
