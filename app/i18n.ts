@@ -24,6 +24,9 @@ i18n
     react: {
       useSuspense: false,
     },
+  })
+  .catch((error) => {
+    console.error(error);
   });
 
 export default i18n;

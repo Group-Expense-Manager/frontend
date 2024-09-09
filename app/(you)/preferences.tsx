@@ -1,4 +1,4 @@
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import i18n from 'i18next';
 import { useColorScheme } from 'nativewind';
@@ -6,14 +6,15 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { SelectList } from '@/components';
 import Box from '@/components/ui/box/Box';
 import CustomCheckbox from '@/components/ui/checkbox/CustomCheckbox';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomSwitch from '@/components/ui/switch/CustomSwitch';
 import CustomTable from '@/components/ui/table/CustomTable';
+import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LANGUAGE_KEY, MODE_KEY } from '@/constants/Storage';
 import { GlobalContext } from '@/context/GlobalContext';
+import { SelectInputData } from '@/context/utils/SelectInputContext';
 
 export default function Preferences() {
   const { t } = useTranslation();
@@ -21,6 +22,10 @@ export default function Preferences() {
   const { preferences, setPreferences } = useContext(GlobalContext);
   const [isSwitchOn, setSwitchOn] = useState(colorScheme === 'dark');
   const [isCheckboxChecked, setCheckboxChecked] = useState(preferences.mode === 'system');
+  const [selectedLanguage, setSelectedLanguage] = useState<SelectInputData<string>>({
+    value: preferences.language,
+    name: t(preferences.language),
+  });
 
   const navigation = useNavigation();
 
@@ -80,6 +85,7 @@ export default function Preferences() {
 
   async function setLanguage(language: string) {
     await i18n.changeLanguage(language);
+    setSelectedLanguage({ value: language, name: t(language) });
     preferences.language = i18n.language;
     SecureStore.setItem(LANGUAGE_KEY, i18n.language);
   }
@@ -100,13 +106,11 @@ export default function Preferences() {
             onValueChange={() => setSwitchOn(!isSwitchOn)}
           />
         </CustomTable>
-        <SelectList
-          name={t('Language')}
-          setSelected={setLanguage}
-          data={[
-            { key: 'en', value: `${t('English')}` },
-            { key: 'pl', value: `${t('Polish')}` },
-          ]}
+        <SelectInput
+          onSelect={setLanguage}
+          onPress={() => router.navigate('/(you)/language-select')}
+          label={t('Language')}
+          value={selectedLanguage}
         />
       </View>
     </Box>
