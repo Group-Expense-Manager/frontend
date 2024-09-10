@@ -21,9 +21,9 @@ interface IconProps {
 
 const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
   image,
-  title = null,
+  title,
   details,
-  iconProps = null,
+  iconProps,
 }) => {
   const { colorScheme } = useColorScheme();
 

@@ -9,7 +9,7 @@ interface InfoCardProps {
   details: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ image, title = null, details }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ image, title, details }) => {
   return (
     <View className="flex-row w-full justify-start px-3 space-x-3">
       <CustomImage image={image} size="large" />
