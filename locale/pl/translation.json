@@ -104,6 +104,7 @@
   "Phone number" : "Numer telefonu",
   "Bank account number" : "Numer konta bankowego",
   "Preferred payment method": "Preferowana metoda płatności",
+  "Payment method": "Metoda płatności",
   "Unsaved Changes": "Niezapisane zmiany",
   "Unsaved Changes - description":"Zmiany nie zostały zapisane. Jeśli teraz opuścisz widok, Twoje zmiany zostaną utracone. Co chcesz zrobić?",
   "Discard Changes": "Odrzuć zmiany",

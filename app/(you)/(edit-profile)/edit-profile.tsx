@@ -12,8 +12,10 @@ import CustomHeader from '@/components/ui/header/CustomHeader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import NumericTextInput from '@/components/ui/text-input/NumericTextInput';
 import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
-import { GlobalContext } from '@/context/GlobalContext';
+import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import { GlobalContext, PaymentMethod } from '@/context/GlobalContext';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
+import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useUpdateProfilePicture from '@/hooks/attachment/UseUpdateProfilePicture';
 import useUpdateUserDetails from '@/hooks/userdetails/UseUpdateUserDetails';
 import { handleImageChoice } from '@/util/HandleImageChoice';
@@ -23,6 +25,13 @@ export default function EditProfile() {
   const { userData } = useContext(GlobalContext);
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
   const navigation = useNavigation();
+
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
+    SelectInputData<PaymentMethod>
+  >({
+    value: profileUpdate.userDetails.preferredPaymentMethod,
+    name: t(profileUpdate.userDetails.preferredPaymentMethod),
+  });
 
   const [bothRunning, setBothRunning] = useState(false);
   const {
@@ -162,6 +171,17 @@ export default function EditProfile() {
     }
   }
 
+  function setPaymentMethod(paymentMethod: PaymentMethod) {
+    setSelectedPaymentMethod({ value: paymentMethod, name: t(paymentMethod) });
+    setProfileUpdate({
+      ...profileUpdate,
+      userDetails: {
+        ...profileUpdate.userDetails,
+        preferredPaymentMethod: paymentMethod,
+      },
+    });
+  }
+
   return (
     <Box>
       <View className="w-full h-full flex-col">
@@ -220,14 +240,16 @@ export default function EditProfile() {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push('/edit-profile-preferred-payment-method')}>
-              <View pointerEvents="none">
-                <SingleTextInput
-                  label={t('Preferred payment method')}
-                  value={t(profileUpdate.userDetails.preferredPaymentMethod)}
-                />
-              </View>
-            </TouchableOpacity>
+            <View>
+              <SelectInput
+                onSelect={setPaymentMethod}
+                onPress={() =>
+                  router.navigate('/(edit-profile)/edit-profile-preferred-payment-method-select')
+                }
+                label={t('Preferred payment method')}
+                value={selectedPaymentMethod}
+              />
+            </View>
           </View>
         </View>
         {dataChanged() && (

@@ -102,6 +102,7 @@
   "Phone number" : "Phone number",
   "Bank account number" : "Bank account number",
   "Preferred payment method": "Preferred payment method",
+  "Payment method": "Payment method",
   "Unsaved Changes": "Unsaved Changes",
   "Unsaved Changes - description":"Changes have not been saved. If you exit now, your changes will be lost. What would you like to do?",
   "Discard Changes": "Discard Changes",
