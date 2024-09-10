@@ -5,6 +5,7 @@ import React, { createContext, FC, ReactNode, useEffect, useState } from 'react'
 
 import { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { LANGUAGE_KEY, MODE_KEY, TOKEN_KEY, USER_KEY } from '@/constants/Storage';
+import { Group } from '@/hooks/group/UseGroups';
 
 interface AuthState {
   userId: string | null;
@@ -47,13 +48,15 @@ export type UserDetails = {
 };
 
 interface UserData {
-  currentGroupId?: string;
+  currentGroup: Group | undefined;
+  userGroups: Group[];
   userDetails: UserDetails;
   profilePicture: ImageBase64;
 }
 
 export const defaultUserData: UserData = {
-  currentGroupId: undefined,
+  currentGroup: undefined,
+  userGroups: [],
   userDetails: {
     id: '',
     username: '',

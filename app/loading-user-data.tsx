@@ -23,12 +23,17 @@ export default function LoadingScreen() {
     if (
       userDetailsStatus === 'success' &&
       profilePictureStatus === 'success' &&
-      userGroupsStatus == 'success'
+      userGroupsStatus === 'success'
     ) {
-      setUserData({ currentGroupId: userGroups?.groups[0]?.groupId, userDetails, profilePicture });
+      setUserData({
+        currentGroup: userGroups.groups ? userGroups.groups[0] : undefined,
+        userGroups: userGroups.groups,
+        userDetails,
+        profilePicture,
+      });
       router.replace('/groups');
     }
-  }, [userDetailsStatus, profilePictureStatus]);
+  }, [userDetailsStatus, profilePictureStatus, userGroupsStatus]);
 
   return (
     <SafeView>

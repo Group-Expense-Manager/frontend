@@ -15,8 +15,6 @@
   "Don't have an account?": "Don't have an account?",
   "Already have an account?": "Already have an account?",
   "You don't belong to any group!": "You don't belong to any group!",
-  "Create new group": "Create new group",
-  "Join existing group": "Join existing group",
   "Group name": "Group name",
   "Next": "Next",
   "Cancel": "Cancel",
@@ -26,6 +24,11 @@
   "Base currencies": "Base currencies",
   "Acceptance required": "Acceptance required",
   "Join group": "Join group",
+  "Join group - description": "Enter the code to join the group.",
+  "Incorrect join code": "Incorrect join code",
+  "Join code": "Join code",
+  "Successfully joined group": "Successfully joined group!",
+  "Successfully joined group - description": "You have successfully joined the group. Welcome aboard! You can now participate in group activities.",
   "Join": "Join",
   "Create expense": "Create expense",
   "Create payment": "Create payment",
@@ -68,7 +71,6 @@
   "Verify account": "Verify account",
   "Verify account - description": "To end up registration process, please provide code which was sent to your email account.",
   "Incorrect verification code": "Incorrect code!",
-  "Incorrect verification code - description": "Provided verification code is incorrect. Verify its correctness and try again.",
   "Username must contain at least 3 characters": "Username must contain at least 3 characters",
   "Username may contain at most 20 characters": "Username may contain at most 20 characters",
   "Username can only contain letters, numbers and sings: \"_.+-\"": "Username can only contain letters, numbers and sings: \"_.+-\"",
@@ -124,5 +126,9 @@
   "Image Too Large": "Image Too Large",
   "Image Too Large - description": "The uploaded image exceeds the maximum allowed file size. Please choose a smaller image or reduce its size before uploading",
   "Unsupported File Format": "Unsupported File Format",
-  "Unsupported File Format - description": "The uploaded file is in a format that is not supported. Please choose a file in one of the allowed formats, such as JPG, JPEG, PNG or BMP."
+  "Unsupported File Format - description": "The uploaded file is in a format that is not supported. Please choose a file in one of the allowed formats, such as JPG, JPEG, PNG or BMP.",
+  "Current group": "Current group",
+  "My groups": "My groups",
+  "author": "author"
+
 }

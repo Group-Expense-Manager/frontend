@@ -1,3 +1,5 @@
+import { UserDetails } from '@/context/GlobalContext';
+
 export function getName(firstName?: string, lastName?: string): string | undefined {
   switch (true) {
     case !!firstName && !!lastName:
@@ -8,5 +10,18 @@ export function getName(firstName?: string, lastName?: string): string | undefin
       return lastName;
     default:
       return undefined;
+  }
+}
+
+export function getNameFromUserDetails(userDetails: UserDetails): string {
+  switch (true) {
+    case !!userDetails.firstName && !!userDetails.lastName:
+      return `${userDetails.firstName} ${userDetails.lastName}`;
+    case !!userDetails.firstName:
+      return userDetails.firstName;
+    case !!userDetails.lastName:
+      return userDetails.lastName;
+    default:
+      return userDetails.username;
   }
 }

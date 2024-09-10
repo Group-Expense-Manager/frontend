@@ -7,6 +7,7 @@ import { GlobalContext } from '@/context/GlobalContext';
 
 export type Group = {
   groupId: string;
+  ownerId: string;
   name: string;
   attachmentId: string;
 };
