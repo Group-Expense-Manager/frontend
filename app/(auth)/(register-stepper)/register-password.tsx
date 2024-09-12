@@ -30,11 +30,11 @@ export default function RegisterPassword() {
       errorMessage: t('Password may contain at most 30 characters'),
     },
     {
-      rule: /^(?=.*[a-z]).+$/,
+      rule: /^(?=.*\p{Ll}).+$/u,
       errorMessage: t('Password must contain at least 1 lowercase letter'),
     },
     {
-      rule: /^(?=.*[A-Z]).+$/,
+      rule: /^(?=.*\p{Lu}).+$/u,
       errorMessage: t('Password must contain at least 1 uppercase letter'),
     },
 

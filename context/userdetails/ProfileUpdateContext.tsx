@@ -2,7 +2,7 @@ import React, { createContext, FC, ReactNode, useContext, useState } from 'react
 
 import { GlobalContext, PaymentMethod } from '@/context/GlobalContext';
 
-export interface profileUpdate {
+export interface ProfileUpdate {
   userDetails: {
     username: string;
     firstName?: string;
@@ -24,10 +24,10 @@ export interface profileUpdate {
 }
 
 interface ProfileUpdateContextProps {
-  profileUpdate: profileUpdate;
-  setProfileUpdate: (profileUpdate: profileUpdate) => void;
+  profileUpdate: ProfileUpdate;
+  setProfileUpdate: (profileUpdate: ProfileUpdate) => void;
 }
-export const setProfileUpdate: profileUpdate = {
+export const setProfileUpdate: ProfileUpdate = {
   userDetails: {
     username: '',
     firstName: undefined,
@@ -56,7 +56,7 @@ export const ProfileUpdateContext = createContext<ProfileUpdateContextProps>({
 
 export const ProfileEditionProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { userData } = useContext(GlobalContext);
-  const [profileUpdate, setProfileUpdate] = useState<profileUpdate>({
+  const [profileUpdate, setProfileUpdate] = useState<ProfileUpdate>({
     userDetails: {
       username: userData.userDetails.username,
       firstName: userData.userDetails.firstName,

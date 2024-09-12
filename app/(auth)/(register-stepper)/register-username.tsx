@@ -29,7 +29,7 @@ export default function RegisterUsername() {
       errorMessage: t('Username may contain at most 20 characters'),
     },
     {
-      rule: /^[a-zA-Z0-9_.+-]+$/,
+      rule: /^[\p{L}0-9_.+-]*$/u,
       errorMessage: t('Username can only contain letters, numbers and sings: "_.+-"'),
     },
   ]);
