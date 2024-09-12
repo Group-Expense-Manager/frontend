@@ -6,7 +6,7 @@ import RadioButtonRow from '@/components/ui/text-input/select/row/RadioButtonRow
 import { PaymentMethod } from '@/context/GlobalContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
 
-export default function LanguageSelect() {
+export default function EditProfilePreferredPaymentMethodSelect() {
   const { t } = useTranslation();
 
   const createRow = (item: SelectInputData<string>, selected: boolean) => {
