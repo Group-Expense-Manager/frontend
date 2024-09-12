@@ -52,7 +52,7 @@ const RootLayout = () => {
         <GroupProvider>
           <PaperProvider>
             <SafeAreaProvider>
-              <View style={{ flex: 1 }}>
+              <View className="flex-1">
                 <StatusBar
                   backgroundColor={colorScheme === 'light' ? theme.sky.lightest : theme.ink.darkest}
                   style={colorScheme === 'light' ? 'dark' : 'light'}
