@@ -129,6 +129,12 @@
   "Unsupported File Format - description": "The uploaded file is in a format that is not supported. Please choose a file in one of the allowed formats, such as JPG, JPEG, PNG or BMP.",
   "Current group": "Current group",
   "My groups": "My groups",
-  "author": "author"
-
+  "author": "author",
+  "Settings": "Settings",
+  "Group data": "Group data",
+  "List of members": "List of members",
+  "Members": "Members",
+  "Join group code": "Join group code",
+  "Join group code - description": "New users can join the group using the code below. Share it to invite others to the group!",
+  "Copy": "Copy"
 }

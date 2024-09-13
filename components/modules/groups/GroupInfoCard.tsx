@@ -6,6 +6,7 @@ import ListItemInfoCard from '@/components/ui/card/ListItemInfoCard';
 import theme from '@/constants/Colors';
 import { SettingsIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
+import { GroupContext } from '@/context/group/GroupContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
 import { Group } from '@/hooks/group/UseGroups';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
@@ -21,6 +22,7 @@ const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ group }) => {
 
   const { data: ownerDetails } = useGroupMemberDetails(group.groupId, group.ownerId);
   const { data: groupPicture } = useGroupPicture(group.groupId, group.attachmentId);
+  const { setGroup } = useContext(GroupContext);
 
   const [author, setAuthor] = useState('');
 
@@ -39,7 +41,10 @@ const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ group }) => {
         icon: <SettingsIcon />,
         color: theme.ink.darkest,
         darkModeColor: theme.sky.lightest,
-        onPress: () => {},
+        onPress: () => {
+          setGroup(group);
+          router.push('/group-settings');
+        },
       }}
       onPress={() => {
         setUserData({ ...userData, currentGroup: group });

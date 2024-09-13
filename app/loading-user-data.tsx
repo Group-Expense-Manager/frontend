@@ -11,13 +11,14 @@ import useUserDetails from '@/hooks/userdetails/UseUserDetails';
 import { IconSize } from '@/util/IconSize';
 
 export default function LoadingScreen() {
+  const { authState, setUserData } = useContext(GlobalContext);
+
   const { data: userDetails, status: userDetailsStatus } = useUserDetails();
   const { data: profilePicture, status: profilePictureStatus } = useProfilePicture(
+    authState.userId!,
     userDetails?.attachmentId,
   );
   const { data: userGroups, status: userGroupsStatus } = useGroups();
-
-  const { setUserData } = useContext(GlobalContext);
 
   useEffect(() => {
     if (

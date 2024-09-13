@@ -2,30 +2,25 @@ import React, { createContext, FC, ReactNode, useState } from 'react';
 
 import { Group } from '@/hooks/group/UseGroups';
 
-export interface GroupProps {
-  currentGroupId: string;
-  groups: Group[];
-}
-
 interface GroupContextProps {
-  groupProps: GroupProps;
-  setGroupProps: (groupProps: GroupProps) => void;
+  group: Group;
+  setGroup: (group: Group) => void;
 }
 
-const defaultGroupProps: GroupProps = {
-  currentGroupId: '',
-  groups: [],
+const defaultGroup: Group = {
+  groupId: '',
+  name: '',
+  ownerId: '',
+  attachmentId: '',
 };
 
 export const GroupContext = createContext<GroupContextProps>({
-  groupProps: defaultGroupProps,
-  setGroupProps: () => {},
+  group: defaultGroup,
+  setGroup: () => {},
 });
 
 export const GroupProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [groupProps, setGroupProps] = useState<GroupProps>(defaultGroupProps);
+  const [group, setGroup] = useState<Group>(defaultGroup);
 
-  return (
-    <GroupContext.Provider value={{ groupProps, setGroupProps }}>{children}</GroupContext.Provider>
-  );
+  return <GroupContext.Provider value={{ group, setGroup }}>{children}</GroupContext.Provider>;
 };

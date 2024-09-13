@@ -130,7 +130,12 @@
   "Unsupported File Format - description": "Przesłany plik jest w formacie, który nie jest obsługiwany. Proszę wybierz plik w jednym z dozwolonych formatów, np. JPG, JPEG, PNG lub BMP.",
   "Current group": "Obecna grupa",
   "My groups": "Moje grupy",
-  "author": "autor"
-
-
+  "author": "autor",
+  "Settings": "Ustawienia",
+  "Group data": "Dane grupy",
+  "List of members": "Lista członków",
+  "Members": "Członkowie",
+  "Join group code": "Kod dołączenia do grupy",
+  "Join group code - description": "Nowi użytkownicy mogą dołączać do grupy przy użyciu poniższego kodu. Udostępnij go, aby zaprosić innych do grupy!",
+  "Copy": "Kopiuj"
 }
