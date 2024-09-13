@@ -2,16 +2,15 @@ import * as Clipboard from 'expo-clipboard';
 import { router, useNavigation } from 'expo-router';
 import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Platform, Text } from 'react-native';
+import { Text } from 'react-native';
 
+import Loader from '@/components/ui/loader/Loader';
 import DoubleButtonPopover from '@/components/ui/popover/DoubleButtonPopover';
 import { GroupContext } from '@/context/group/GroupContext';
 import useGroup from '@/hooks/group/UseGroup';
 import { ButtonType } from '@/util/ButtonType';
 
 export default function JoinGroupCodeModal() {
-  const osName = Platform.OS;
-
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { group } = useContext(GroupContext);
@@ -29,7 +28,7 @@ export default function JoinGroupCodeModal() {
             {groupDetails.joinCode}
           </Text>
         ) : (
-          <ActivityIndicator animating color="#E3E5E5" size={osName === 'ios' ? 'large' : 50} />
+          <Loader />
         )
       }
       firstButtonProps={{

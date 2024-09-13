@@ -1,16 +1,16 @@
 import { useNavigation } from 'expo-router';
 import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Platform, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import GroupMemberInfoCard from '@/components/modules/groups/GroupMemberInfoCard';
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
+import Loader from '@/components/ui/loader/Loader';
 import { GroupContext } from '@/context/group/GroupContext';
 import useGroupMembersDetails from '@/hooks/userdetails/UseGroupMembersDetails';
 
 export default function GroupSettings() {
-  const osName = Platform.OS;
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -36,7 +36,7 @@ export default function GroupSettings() {
             ))}
           </ScrollView>
         ) : (
-          <ActivityIndicator animating color="#E3E5E5" size={osName === 'ios' ? 'large' : 50} />
+          <Loader />
         )}
       </View>
     </Box>

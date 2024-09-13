@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Text, View } from 'react-native';
 
-import { Loader } from '@/components';
+import { FullViewLoader } from '@/components';
 
 interface BasicPopoverProps {
   title: string;
@@ -20,7 +20,7 @@ const BasicPopover: React.FC<BasicPopoverProps> = ({
 }) => {
   return (
     <Modal transparent>
-      <Loader isLoading={isLoading} />
+      <FullViewLoader isLoading={isLoading} />
       <View className=" w-full h-full flex-col justify-center items-center">
         <View className="absolute w-full h-full opacity-70 bg-ink-darkest" />
         <View className="bg-sky-lightest dark:bg-ink-darker w-[85%] min-h-[300px] p-6 justify-between rounded-2xl space-y-10">

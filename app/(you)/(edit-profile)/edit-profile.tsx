@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, TouchableOpacity, View } from 'react-native';
 
-import { Loader } from '@/components';
 import ProfilePictureEdition from '@/components/modules/userdetails/ProfilePictureEdition';
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
@@ -92,15 +91,13 @@ export default function EditProfile() {
         <CustomHeader
           title={t('Profile edition')}
           onLeftIconPress={() => {
-            if (isUpdatedUserDetailsPending || isUpdatedProfilePicturePending) {
-              return;
-            }
             if (dataChanged()) {
               router.push('/(edit-profile)/(modal)/exit-without-saving-modal');
             } else {
               router.back();
             }
           }}
+          isLoading={isUpdatedUserDetailsPending || isUpdatedProfilePicturePending}
         />
       ),
     });
@@ -185,10 +182,6 @@ export default function EditProfile() {
   return (
     <Box>
       <View className="w-full h-full flex-col">
-        <Loader
-          isLoading={isUpdatedUserDetailsPending || isUpdatedProfilePicturePending}
-          hasViewHeader
-        />
         <View className="w-full flex-col space-y-[28px]">
           <ProfilePictureEdition
             image={{ uri: profileUpdate.profilePicture.imageUri }}
