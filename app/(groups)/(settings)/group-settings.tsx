@@ -7,6 +7,7 @@ import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
 import InfoCard from '@/components/ui/card/InfoCard';
 import CustomHeader from '@/components/ui/header/CustomHeader';
+import Loader from '@/components/ui/loader/Loader';
 import { GroupContext } from '@/context/group/GroupContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
 import useGroup from '@/hooks/group/UseGroup';
@@ -20,7 +21,7 @@ export default function GroupSettings() {
 
   const { data: ownerDetails } = useGroupMemberDetails(group.groupId, group.ownerId);
   const { data: groupPicture } = useGroupPicture(group.groupId, group.attachmentId);
-  useGroup(group.groupId);
+  const { data: groupDetails } = useGroup(group.groupId);
 
   const [author, setAuthor] = useState('');
 
@@ -40,15 +41,26 @@ export default function GroupSettings() {
   return (
     <Box>
       <View className="w-full h-full flex-col space-y-8">
-        <View className="py-8">
-          <InfoCard
-            image={!groupPicture ? { uri: '' } : groupPicture}
-            title={group.name}
-            details={`${t('author')}: ${author}`}
-          />
+        <View className="h-32 justify-center">
+          <View>
+            {groupDetails ? (
+              <InfoCard
+                image={!groupPicture ? { uri: '' } : groupPicture}
+                title={groupDetails.name}
+                details={`${t('author')}: ${author}`}
+              />
+            ) : (
+              <Loader />
+            )}
+          </View>
         </View>
         <View className="w-full">
-          <CustomButton onPress={() => {}} title={t('Group data')} />
+          <CustomButton
+            onPress={() => {
+              router.push('/group-data');
+            }}
+            title={t('Group data')}
+          />
         </View>
         <View className="w-full">
           <CustomButton

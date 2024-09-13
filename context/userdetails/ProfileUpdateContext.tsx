@@ -27,7 +27,7 @@ interface ProfileUpdateContextProps {
   profileUpdate: ProfileUpdate;
   setProfileUpdate: (profileUpdate: ProfileUpdate) => void;
 }
-export const setProfileUpdate: ProfileUpdate = {
+export const defaultProfileUpdate: ProfileUpdate = {
   userDetails: {
     username: '',
     firstName: undefined,
@@ -50,11 +50,11 @@ export const setProfileUpdate: ProfileUpdate = {
 };
 
 export const ProfileUpdateContext = createContext<ProfileUpdateContextProps>({
-  profileUpdate: setProfileUpdate,
+  profileUpdate: defaultProfileUpdate,
   setProfileUpdate: () => {},
 });
 
-export const ProfileEditionProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const ProfileUpdateProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { userData } = useContext(GlobalContext);
   const [profileUpdate, setProfileUpdate] = useState<ProfileUpdate>({
     userDetails: {

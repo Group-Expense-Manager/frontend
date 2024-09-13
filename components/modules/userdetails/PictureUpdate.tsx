@@ -10,7 +10,7 @@ interface ProfilePictureEditionProps {
   onPress: () => void;
 }
 
-const ProfilePictureEdition: React.FC<ProfilePictureEditionProps> = ({ image, onPress }) => {
+const PictureUpdate: React.FC<ProfilePictureEditionProps> = ({ image, onPress }) => {
   return (
     <View className="flex-col items-start self-center">
       <CustomImage image={image} size="colossal" />
@@ -21,4 +21,4 @@ const ProfilePictureEdition: React.FC<ProfilePictureEditionProps> = ({ image, on
   );
 };
 
-export default ProfilePictureEdition;
+export default PictureUpdate;
