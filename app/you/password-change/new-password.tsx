@@ -12,7 +12,7 @@ import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
 import { Validator } from '@/util/Validator';
 
-export default function ChangePasswordNew() {
+export default function NewPassword() {
   const { t } = useTranslation();
   const { passwordChangeProps, setPasswordChangeProps } = useContext(PasswordChangeContext);
   const validator = new Validator([
@@ -80,14 +80,14 @@ export default function ChangePasswordNew() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('/change-password-new-repeat')}
+                onPress={() => router.navigate('/you/password-change/repeat-new-password')}
                 title={t('Next')}
                 disabled={isNextButtonDisabled}
               />
             </View>
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('/change-password-old')}
+                onPress={() => router.navigate('/you/password-change/old-password')}
                 title={t('Back')}
                 type={ButtonType.OUTLINED}
               />

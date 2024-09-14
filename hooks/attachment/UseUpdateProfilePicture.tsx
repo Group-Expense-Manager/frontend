@@ -45,7 +45,7 @@ export default function useUpdateProfilePicture(
     },
     onError: () => {
       if (!inParallel) {
-        router.push('/(you)/(modal)/error-modal');
+        router.push('/you/edit-profile/(modal)/error-modal');
       }
     },
   });

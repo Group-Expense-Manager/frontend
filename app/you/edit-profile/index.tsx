@@ -22,7 +22,7 @@ import useUpdateUserDetails from '@/hooks/userdetails/UseUpdateUserDetails';
 import useUserDetails, { PaymentMethod } from '@/hooks/userdetails/UseUserDetails';
 import { handleImageChoice } from '@/util/HandleImageChoice';
 
-export default function EditProfile() {
+export default function Index() {
   const { t } = useTranslation();
   const { userData } = useContext(GlobalContext);
   const navigation = useNavigation();
@@ -46,16 +46,6 @@ export default function EditProfile() {
     name: t(profileUpdate.userDetails.preferredPaymentMethod),
   });
 
-  useLayoutEffect(() => {
-    if (dataPresentAndNoFetching) {
-      setProfileUpdate({ ...profileUpdate, userDetails, profilePicture });
-      setSelectedPaymentMethod({
-        value: userDetails.preferredPaymentMethod,
-        name: t(userDetails.preferredPaymentMethod),
-      });
-    }
-  }, [dataPresentAndNoFetching]);
-
   const [bothRunning, setBothRunning] = useState(false);
   const {
     mutate: updateUserDetails,
@@ -70,18 +60,6 @@ export default function EditProfile() {
     isError: isUpdatedProfilePictureError,
   } = useUpdateProfilePicture(bothRunning, userDetails?.attachmentId);
 
-  useEffect(() => {
-    if (isUpdatedUserDetailsSuccess && isUpdatedProfilePictureSuccess) {
-      router.back();
-    }
-  }, [isUpdatedUserDetailsSuccess, isUpdatedProfilePictureSuccess]);
-
-  useEffect(() => {
-    if (isUpdatedUserDetailsError || isUpdatedProfilePictureError) {
-      router.push('/(you)/(modal)/error-modal');
-    }
-  }, [isUpdatedUserDetailsError, isUpdatedProfilePictureError]);
-
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -94,8 +72,8 @@ export default function EditProfile() {
     if (!result.canceled) {
       handleImageChoice(
         result.assets[0],
-        () => router.push('/(edit-profile)/(modal)/unsupported-file-format-modal'),
-        () => router.push('/(edit-profile)/(modal)/image-too-large-modal'),
+        () => router.push('/you/edit-profile/(modal)/unsupported-file-format-modal'),
+        () => router.push('/you/edit-profile/(modal)/image-too-large-modal'),
         () =>
           setProfileUpdate({
             ...profileUpdate,
@@ -108,6 +86,28 @@ export default function EditProfile() {
   };
 
   useLayoutEffect(() => {
+    if (dataPresentAndNoFetching) {
+      setProfileUpdate({ ...profileUpdate, userDetails, profilePicture });
+      setSelectedPaymentMethod({
+        value: userDetails.preferredPaymentMethod,
+        name: t(userDetails.preferredPaymentMethod),
+      });
+    }
+  }, [dataPresentAndNoFetching]);
+
+  useEffect(() => {
+    if (isUpdatedUserDetailsSuccess && isUpdatedProfilePictureSuccess) {
+      router.back();
+    }
+  }, [isUpdatedUserDetailsSuccess, isUpdatedProfilePictureSuccess]);
+
+  useEffect(() => {
+    if (isUpdatedUserDetailsError || isUpdatedProfilePictureError) {
+      router.push('/you/edit-profile/(modal)/error-modal');
+    }
+  }, [isUpdatedUserDetailsError, isUpdatedProfilePictureError]);
+
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
 
@@ -115,8 +115,8 @@ export default function EditProfile() {
         <CustomHeader
           title={t('Profile edition')}
           onLeftIconPress={() => {
-            if (dataChanged()) {
-              router.push('/(edit-profile)/(modal)/exit-without-saving-modal');
+            if (hasUserDataChanged()) {
+              router.push('/you/edit-profile/(modal)/exit-without-saving-modal');
             } else {
               router.back();
             }
@@ -133,26 +133,29 @@ export default function EditProfile() {
     isUpdatedProfilePicturePending,
   ]);
 
-  function handleBackClick() {
+  function shouldBlockHardwareBackPress(): boolean {
     if (isUpdatedUserDetailsPending || isUpdatedProfilePicturePending) {
       return true;
     }
-    if (dataChanged()) {
-      router.push('/(edit-profile)/(modal)/exit-without-saving-modal');
+    if (hasUserDataChanged()) {
+      router.push('/you/edit-profile/(modal)/exit-without-saving-modal');
       return true;
     }
     return false;
   }
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackClick);
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      shouldBlockHardwareBackPress,
+    );
     return () => backHandler.remove();
   }, [profileUpdate, userData, isUpdatedUserDetailsPending, isUpdatedProfilePicturePending]);
 
-  function dataChanged(): boolean {
-    return userDetailsChanged() || profilePictureChanged();
+  function hasUserDataChanged(): boolean {
+    return hasUserDetailsChanged() || hasProfilePictureChanged();
   }
 
-  function userDetailsChanged(): boolean {
+  function hasUserDetailsChanged(): boolean {
     return (
       userDetails?.username !== profileUpdate.userDetails.username ||
       userDetails?.firstName !== profileUpdate.userDetails.firstName ||
@@ -163,11 +166,11 @@ export default function EditProfile() {
     );
   }
 
-  function profilePictureChanged(): boolean {
+  function hasProfilePictureChanged(): boolean {
     return profilePicture?.uri !== profileUpdate.profilePicture.uri;
   }
 
-  function dataIsValid(): boolean {
+  function isUserDataValid(): boolean {
     return (
       profileUpdate.isValid.username &&
       profileUpdate.isValid.firstName &&
@@ -178,14 +181,14 @@ export default function EditProfile() {
   }
 
   function handleSave() {
-    if (userDetailsChanged() && profilePictureChanged()) {
+    if (hasUserDetailsChanged() && hasProfilePictureChanged()) {
       setBothRunning(true);
       updateUserDetails();
       updateProfilePicture();
-    } else if (userDetailsChanged()) {
+    } else if (hasUserDetailsChanged()) {
       setBothRunning(false);
       updateUserDetails();
-    } else if (profilePictureChanged()) {
+    } else if (hasProfilePictureChanged()) {
       setBothRunning(false);
       updateProfilePicture();
     }
@@ -209,7 +212,7 @@ export default function EditProfile() {
           <View className="w-full flex-col space-y-[28px]">
             <PictureUpdate image={profileUpdate.profilePicture} onPress={pickImage} />
             <View className=" w-full flex-col space-y-[12px]">
-              <TouchableOpacity onPress={() => router.push('/edit-profile-username')}>
+              <TouchableOpacity onPress={() => router.push('/you/edit-profile/username')}>
                 <View pointerEvents="none">
                   <SingleTextInput
                     label={t('Nick')}
@@ -218,7 +221,7 @@ export default function EditProfile() {
                   />
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/edit-profile-first-name')}>
+              <TouchableOpacity onPress={() => router.push('/you/edit-profile/first-name')}>
                 <View pointerEvents="none">
                   <MultiTextInput
                     label={t('First name')}
@@ -227,7 +230,7 @@ export default function EditProfile() {
                   />
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/edit-profile-last-name')}>
+              <TouchableOpacity onPress={() => router.push('/you/edit-profile/last-name')}>
                 <View pointerEvents="none">
                   <MultiTextInput
                     label={t('Last name')}
@@ -236,7 +239,7 @@ export default function EditProfile() {
                   />
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/edit-profile-phone-number')}>
+              <TouchableOpacity onPress={() => router.push('/you/edit-profile/phone-number')}>
                 <View pointerEvents="none">
                   <NumericTextInput
                     label={t('Phone number')}
@@ -245,7 +248,8 @@ export default function EditProfile() {
                   />
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/edit-profile-bank-account-number')}>
+              <TouchableOpacity
+                onPress={() => router.push('/you/edit-profile/bank-account-number')}>
                 <View pointerEvents="none">
                   <NumericTextInput
                     label={t('Bank account number')}
@@ -258,7 +262,7 @@ export default function EditProfile() {
                 <SelectInput
                   onSelect={setPaymentMethod}
                   onPress={() =>
-                    router.navigate('/(edit-profile)/edit-profile-preferred-payment-method-select')
+                    router.navigate('/you/edit-profile/preferred-payment-method-select')
                   }
                   label={t('Preferred payment method')}
                   value={selectedPaymentMethod}
@@ -266,12 +270,12 @@ export default function EditProfile() {
               </View>
             </View>
           </View>
-          {dataChanged() && (
+          {hasUserDataChanged() && (
             <View className="flex-1 justify-center">
               <CustomButton
                 title={t('Save changes')}
                 onPress={() => handleSave()}
-                disabled={!dataIsValid()}
+                disabled={!isUserDataValid()}
               />
             </View>
           )}

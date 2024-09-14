@@ -10,15 +10,27 @@ import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 import { Validator } from '@/util/Validator';
 
-export default function EditProfileBankAccountNumber() {
+export default function Username() {
   const { t } = useTranslation();
 
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
 
   const validator = new Validator([
     {
-      rule: /^[A-Z]{2}[0-9]{2}[a-zA-Z0-9]{11,30}$/,
-      errorMessage: t('Invalid Bank account number format'),
+      rule(arg: string) {
+        return arg.length >= 3;
+      },
+      errorMessage: t('Username must contain at least 3 characters'),
+    },
+    {
+      rule(arg: string) {
+        return arg.length <= 20;
+      },
+      errorMessage: t('Username may contain at most 20 characters'),
+    },
+    {
+      rule: /^[\p{L}0-9_.+-]*$/u,
+      errorMessage: t('Username can only contain letters, numbers and sings: "_.+-"'),
     },
   ]);
 
@@ -45,31 +57,21 @@ export default function EditProfileBankAccountNumber() {
           <CustomImage image={profileUpdate.profilePicture} size="colossal" />
           <View className=" w-full flex-col space-y-[12px]">
             <SingleTextInput
-              label={t('Bank account number')}
-              onChangeText={(bankAccountNumber) =>
+              label={t('Nick')}
+              onChangeText={(username) =>
                 setProfileUpdate({
                   ...profileUpdate,
-                  userDetails: {
-                    ...profileUpdate.userDetails,
-                    bankAccountNumber: bankAccountNumber === '' ? undefined : bankAccountNumber,
-                  },
+                  userDetails: { ...profileUpdate.userDetails, username },
                   isValid: {
                     ...profileUpdate.isValid,
-                    bankAccountNumber:
-                      bankAccountNumber === ''
-                        ? true
-                        : validator.validate(bankAccountNumber).length === 0,
+                    username: validator.validate(username).length === 0,
                   },
                 })
               }
-              value={profileUpdate.userDetails.bankAccountNumber}
+              value={profileUpdate.userDetails.username}
               autoFocus
               onBlur={() => router.back()}
-              errorMessages={
-                profileUpdate.userDetails.bankAccountNumber
-                  ? validator.validate(profileUpdate.userDetails.bankAccountNumber)
-                  : []
-              }
+              errorMessages={validator.validate(profileUpdate.userDetails.username)}
             />
           </View>
         </View>

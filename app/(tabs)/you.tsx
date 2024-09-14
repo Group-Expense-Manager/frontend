@@ -25,7 +25,7 @@ export default function You() {
         <View className="w-full space-y-[34px]">
           {userDetails ? (
             <InfoCard
-              image={profilePicture ? profilePicture : { uri: '' }}
+              image={profilePicture}
               details={userDetails.username}
               title={getName(userDetails.firstName, userDetails.lastName)}
             />
@@ -34,16 +34,22 @@ export default function You() {
           )}
 
           <View className="w-full">
-            <CustomButton onPress={() => router.push('/edit-profile')} title={t('Edit profile')} />
+            <CustomButton
+              onPress={() => router.push('/you/edit-profile')}
+              title={t('Edit profile')}
+            />
           </View>
           <View className="w-full">
             <CustomButton
-              onPress={() => router.push('/change-password-old')}
+              onPress={() => router.push('/you/password-change/old-password')}
               title={t('Change password')}
             />
           </View>
           <View className="w-full">
-            <CustomButton onPress={() => router.push('/preferences')} title={t('Preferences')} />
+            <CustomButton
+              onPress={() => router.push('/you/preferences')}
+              title={t('Preferences')}
+            />
           </View>
         </View>
         <View className="w-full my-[34px]">

@@ -35,7 +35,7 @@ export default function useUpdateUserDetails(inParallel: boolean = false) {
     },
     onError: () => {
       if (!inParallel) {
-        router.push('/(you)/(modal)/error-modal');
+        router.push('/you/edit-profile/(modal)/error-modal');
       }
     },
   });

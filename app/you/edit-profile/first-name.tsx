@@ -6,19 +6,35 @@ import { View } from 'react-native';
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomImage from '@/components/ui/image/CustomImage';
-import NumericTextInput from '@/components/ui/text-input/NumericTextInput';
+import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 import { Validator } from '@/util/Validator';
 
-export default function EditProfilePhoneNumber() {
+export default function FirstName() {
   const { t } = useTranslation();
 
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
 
   const validator = new Validator([
     {
-      rule: /^\d{8,10}$|^\+\d{11}$/,
-      errorMessage: t('Invalid phone number format'),
+      rule(arg: string) {
+        return arg.length >= 2;
+      },
+      errorMessage: t('First name must contain at least 2 characters'),
+    },
+    {
+      rule(arg: string) {
+        return arg.length <= 20;
+      },
+      errorMessage: t('First name may contain at most 20 characters'),
+    },
+    {
+      rule: /^[\p{L}' -]*$/u,
+      errorMessage: t('First name can only contain only letters, apostrophes, spaces, or hyphens'),
+    },
+    {
+      rule: /^\p{Lu}.*$/u,
+      errorMessage: t('First name must start with capital letter'),
     },
   ]);
 
@@ -44,28 +60,27 @@ export default function EditProfilePhoneNumber() {
         <View className="w-full flex-col space-y-[28px] items-center">
           <CustomImage image={profileUpdate.profilePicture} size="colossal" />
           <View className=" w-full flex-col space-y-[12px]">
-            <NumericTextInput
-              label={t('Phone number')}
-              onChangeText={(phoneNumber) =>
+            <MultiTextInput
+              label={t('First name')}
+              onChangeText={(firstName) =>
                 setProfileUpdate({
                   ...profileUpdate,
                   userDetails: {
                     ...profileUpdate.userDetails,
-                    phoneNumber: phoneNumber === '' ? undefined : phoneNumber,
+                    firstName: firstName === '' ? undefined : firstName,
                   },
                   isValid: {
                     ...profileUpdate.isValid,
-                    phoneNumber:
-                      phoneNumber === '' ? true : validator.validate(phoneNumber).length === 0,
+                    firstName: firstName === '' ? true : validator.validate(firstName).length === 0,
                   },
                 })
               }
-              value={profileUpdate.userDetails.phoneNumber}
+              value={profileUpdate.userDetails.firstName}
               autoFocus
               onBlur={() => router.back()}
               errorMessages={
-                profileUpdate.userDetails.phoneNumber
-                  ? validator.validate(profileUpdate.userDetails.phoneNumber)
+                profileUpdate.userDetails.firstName
+                  ? validator.validate(profileUpdate.userDetails.firstName)
                   : []
               }
             />

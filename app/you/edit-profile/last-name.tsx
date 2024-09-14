@@ -6,11 +6,11 @@ import { View } from 'react-native';
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomImage from '@/components/ui/image/CustomImage';
-import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
+import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 import { Validator } from '@/util/Validator';
 
-export default function EditProfileUsername() {
+export default function LastName() {
   const { t } = useTranslation();
 
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
@@ -18,19 +18,23 @@ export default function EditProfileUsername() {
   const validator = new Validator([
     {
       rule(arg: string) {
-        return arg.length >= 3;
+        return arg.length >= 2;
       },
-      errorMessage: t('Username must contain at least 3 characters'),
+      errorMessage: t('Last name must contain at least 2 characters'),
     },
     {
       rule(arg: string) {
         return arg.length <= 20;
       },
-      errorMessage: t('Username may contain at most 20 characters'),
+      errorMessage: t('Last name may contain at most 20 characters'),
     },
     {
-      rule: /^[\p{L}0-9_.+-]*$/u,
-      errorMessage: t('Username can only contain letters, numbers and sings: "_.+-"'),
+      rule: /^[\p{L}' -]*$/u,
+      errorMessage: t('Last name can only contain only letters, apostrophes, spaces, or hyphens'),
+    },
+    {
+      rule: /^\p{Lu}.*$/u,
+      errorMessage: t('Last name must start with capital letter'),
     },
   ]);
 
@@ -56,22 +60,29 @@ export default function EditProfileUsername() {
         <View className="w-full flex-col space-y-[28px] items-center">
           <CustomImage image={profileUpdate.profilePicture} size="colossal" />
           <View className=" w-full flex-col space-y-[12px]">
-            <SingleTextInput
-              label={t('Nick')}
-              onChangeText={(username) =>
+            <MultiTextInput
+              label={t('Last name')}
+              onChangeText={(lastName) =>
                 setProfileUpdate({
                   ...profileUpdate,
-                  userDetails: { ...profileUpdate.userDetails, username },
+                  userDetails: {
+                    ...profileUpdate.userDetails,
+                    lastName: lastName === '' ? undefined : lastName,
+                  },
                   isValid: {
                     ...profileUpdate.isValid,
-                    username: validator.validate(username).length === 0,
+                    lastName: lastName === '' ? true : validator.validate(lastName).length === 0,
                   },
                 })
               }
-              value={profileUpdate.userDetails.username}
+              value={profileUpdate.userDetails.lastName}
               autoFocus
               onBlur={() => router.back()}
-              errorMessages={validator.validate(profileUpdate.userDetails.username)}
+              errorMessages={
+                profileUpdate.userDetails.lastName
+                  ? validator.validate(profileUpdate.userDetails.lastName)
+                  : []
+              }
             />
           </View>
         </View>

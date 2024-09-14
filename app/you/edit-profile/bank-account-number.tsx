@@ -6,35 +6,19 @@ import { View } from 'react-native';
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomImage from '@/components/ui/image/CustomImage';
-import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
+import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 import { Validator } from '@/util/Validator';
 
-export default function EditProfileFirstName() {
+export default function BankAccountNumber() {
   const { t } = useTranslation();
 
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
 
   const validator = new Validator([
     {
-      rule(arg: string) {
-        return arg.length >= 2;
-      },
-      errorMessage: t('First name must contain at least 2 characters'),
-    },
-    {
-      rule(arg: string) {
-        return arg.length <= 20;
-      },
-      errorMessage: t('First name may contain at most 20 characters'),
-    },
-    {
-      rule: /^[\p{L}' -]*$/u,
-      errorMessage: t('First name can only contain only letters, apostrophes, spaces, or hyphens'),
-    },
-    {
-      rule: /^\p{Lu}.*$/u,
-      errorMessage: t('First name must start with capital letter'),
+      rule: /^[A-Z]{2}[0-9]{2}[a-zA-Z0-9]{11,30}$/,
+      errorMessage: t('Invalid Bank account number format'),
     },
   ]);
 
@@ -60,27 +44,30 @@ export default function EditProfileFirstName() {
         <View className="w-full flex-col space-y-[28px] items-center">
           <CustomImage image={profileUpdate.profilePicture} size="colossal" />
           <View className=" w-full flex-col space-y-[12px]">
-            <MultiTextInput
-              label={t('First name')}
-              onChangeText={(firstName) =>
+            <SingleTextInput
+              label={t('Bank account number')}
+              onChangeText={(bankAccountNumber) =>
                 setProfileUpdate({
                   ...profileUpdate,
                   userDetails: {
                     ...profileUpdate.userDetails,
-                    firstName: firstName === '' ? undefined : firstName,
+                    bankAccountNumber: bankAccountNumber === '' ? undefined : bankAccountNumber,
                   },
                   isValid: {
                     ...profileUpdate.isValid,
-                    firstName: firstName === '' ? true : validator.validate(firstName).length === 0,
+                    bankAccountNumber:
+                      bankAccountNumber === ''
+                        ? true
+                        : validator.validate(bankAccountNumber).length === 0,
                   },
                 })
               }
-              value={profileUpdate.userDetails.firstName}
+              value={profileUpdate.userDetails.bankAccountNumber}
               autoFocus
               onBlur={() => router.back()}
               errorMessages={
-                profileUpdate.userDetails.firstName
-                  ? validator.validate(profileUpdate.userDetails.firstName)
+                profileUpdate.userDetails.bankAccountNumber
+                  ? validator.validate(profileUpdate.userDetails.bankAccountNumber)
                   : []
               }
             />
