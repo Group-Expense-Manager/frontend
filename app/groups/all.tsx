@@ -1,5 +1,5 @@
 import { router, useNavigation } from 'expo-router';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
@@ -7,13 +7,14 @@ import GroupInfoCard from '@/components/modules/groups/GroupInfoCard';
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
 import CustomHeader from '@/components/ui/header/CustomHeader';
-import { GlobalContext } from '@/context/GlobalContext';
+import Loader from '@/components/ui/loader/Loader';
+import useGroups from '@/hooks/group/UseGroups';
 
-export default function MyGroups() {
+export default function All() {
   const { t } = useTranslation();
 
   const navigation = useNavigation();
-  const { userData } = useContext(GlobalContext);
+  const { data: groups } = useGroups();
 
   useEffect(() => {
     navigation.setOptions({
@@ -25,13 +26,18 @@ export default function MyGroups() {
   return (
     <Box>
       <View className="w-full h-full flex-col justify-between pb-8 space-y-8">
-        <ScrollView className="flex flex-col space-y-2">
-          {userData.userGroups.map((group) => (
-            <View key={group.groupId}>
-              <GroupInfoCard group={group} />
-            </View>
-          ))}
-        </ScrollView>
+        {groups ? (
+          <ScrollView className="flex flex-col space-y-2">
+            {groups.map((groupId) => (
+              <View key={groupId}>
+                <GroupInfoCard groupId={groupId} />
+              </View>
+            ))}
+          </ScrollView>
+        ) : (
+          <Loader />
+        )}
+
         <View className="w-full y space-y-8">
           <View className="w-full">
             <CustomButton onPress={() => {}} title={t('Create group')} />
@@ -39,7 +45,7 @@ export default function MyGroups() {
           <View className="w-full">
             <CustomButton
               onPress={() => {
-                router.push('/join-group-modal');
+                router.push('/groups/join-group-modal');
               }}
               title={t('Join group')}
             />

@@ -23,7 +23,7 @@ export type Currency = {
   code: string;
 };
 
-function useGroup(groupId: string) {
+function useGroup(groupId?: string) {
   const { authState } = useContext(GlobalContext);
   return useQuery({
     queryKey: [`/groups/${groupId}`],
@@ -38,6 +38,7 @@ function useGroup(groupId: string) {
       return data;
     },
     refetchOnMount: false,
+    enabled: !!groupId,
   });
 }
 

@@ -20,7 +20,7 @@ export default function Create() {
             onPress={() => router.navigate('/expense-group')}
             title={t('Add expense')}
             icon={<BankNoteIcon />}
-            disabled={!userData.userGroups}
+            disabled={!userData.currentGroupId}
           />
         </View>
 
@@ -29,7 +29,7 @@ export default function Create() {
             onPress={() => {}}
             title={t('Add payment')}
             icon={<ScalesIcon />}
-            disabled={!userData.userGroups}
+            disabled={!userData.currentGroupId}
           />
         </View>
 
@@ -38,7 +38,7 @@ export default function Create() {
             onPress={() => {}}
             title={t('Add report')}
             icon={<FileIcon />}
-            disabled={!userData.userGroups}
+            disabled={!userData.currentGroupId}
           />
         </View>
       </View>

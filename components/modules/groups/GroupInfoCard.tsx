@@ -6,23 +6,22 @@ import ListItemInfoCard from '@/components/ui/card/ListItemInfoCard';
 import theme from '@/constants/Colors';
 import { SettingsIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
-import { GroupContext } from '@/context/group/GroupContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
-import { Group } from '@/hooks/group/UseGroups';
+import useGroup from '@/hooks/group/UseGroup';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
 import { getNameFromUserDetails } from '@/util/GetName';
 
 interface GroupInfoCardProps {
-  group: Group;
+  groupId: string;
 }
 
-const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ group }) => {
+const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ groupId }) => {
   const { t } = useTranslation();
   const { userData, setUserData } = useContext(GlobalContext);
 
-  const { data: ownerDetails } = useGroupMemberDetails(group.groupId, group.ownerId);
-  const { data: groupPicture } = useGroupPicture(group.groupId, group.attachmentId);
-  const { setGroup } = useContext(GroupContext);
+  const { data: groupDetails } = useGroup(groupId);
+  const { data: ownerDetails } = useGroupMemberDetails(groupId, groupDetails?.ownerId);
+  const { data: groupPicture } = useGroupPicture(groupId, groupDetails?.attachmentId);
 
   const [author, setAuthor] = useState('');
 
@@ -32,26 +31,25 @@ const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ group }) => {
     }
   }, [ownerDetails]);
 
-  return (
+  return groupDetails ? (
     <ListItemInfoCard
       image={!groupPicture ? { uri: '' } : groupPicture}
-      title={group.name}
+      title={groupDetails.name}
       details={`${t('author')}: ${author}`}
       iconProps={{
         icon: <SettingsIcon />,
         color: theme.ink.darkest,
         darkModeColor: theme.sky.lightest,
         onPress: () => {
-          setGroup(group);
-          router.push('/group-settings');
+          router.push(`/groups/${groupId}`);
         },
       }}
       onPress={() => {
-        setUserData({ ...userData, currentGroup: group });
+        setUserData({ ...userData, currentGroupId: groupId });
         router.back();
       }}
     />
-  );
+  ) : null;
 };
 
 export default GroupInfoCard;

@@ -27,8 +27,7 @@ export default function LoadingScreen() {
       userGroupsStatus === 'success'
     ) {
       setUserData({
-        currentGroup: userGroups.groups ? userGroups.groups[0] : undefined,
-        userGroups: userGroups.groups,
+        currentGroupId: userGroups ? userGroups[0] : undefined,
         userDetails,
         profilePicture,
       });

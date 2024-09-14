@@ -1,5 +1,5 @@
-import { router, useNavigation } from 'expo-router';
-import React, { useContext, useEffect, useState } from 'react';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -8,7 +8,6 @@ import CustomButton from '@/components/ui/button/CustomButton';
 import InfoCard from '@/components/ui/card/InfoCard';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
-import { GroupContext } from '@/context/group/GroupContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
 import useGroup from '@/hooks/group/UseGroup';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
@@ -17,11 +16,11 @@ import { getNameFromUserDetails } from '@/util/GetName';
 export default function GroupSettings() {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { group } = useContext(GroupContext);
+  const params = useLocalSearchParams<{ groupId: string }>();
 
-  const { data: ownerDetails } = useGroupMemberDetails(group.groupId, group.ownerId);
-  const { data: groupPicture } = useGroupPicture(group.groupId, group.attachmentId);
-  const { data: groupDetails } = useGroup(group.groupId);
+  const { data: groupDetails } = useGroup(params.groupId);
+  const { data: ownerDetails } = useGroupMemberDetails(params.groupId, groupDetails?.ownerId);
+  const { data: groupPicture } = useGroupPicture(params.groupId, groupDetails?.attachmentId);
 
   const [author, setAuthor] = useState('');
 
@@ -57,7 +56,7 @@ export default function GroupSettings() {
         <View className="w-full">
           <CustomButton
             onPress={() => {
-              router.push('/group-data');
+              router.push(`/groups/${params.groupId}/details`);
             }}
             title={t('Group data')}
           />
@@ -65,7 +64,7 @@ export default function GroupSettings() {
         <View className="w-full">
           <CustomButton
             onPress={() => {
-              router.push('/group-members');
+              router.push(`/groups/${params.groupId}/members`);
             }}
             title={t('List of members')}
           />
@@ -73,7 +72,7 @@ export default function GroupSettings() {
         <View className="w-full">
           <CustomButton
             onPress={() => {
-              router.push('/join-group-code-modal');
+              router.push(`/groups/${params.groupId}/join-group-code-modal`);
             }}
             title={t('Join code')}
           />

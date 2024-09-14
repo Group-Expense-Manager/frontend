@@ -1,20 +1,21 @@
 import * as Clipboard from 'expo-clipboard';
-import { router, useNavigation } from 'expo-router';
-import React, { useContext, useEffect } from 'react';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
 
 import Loader from '@/components/ui/loader/Loader';
 import DoubleButtonPopover from '@/components/ui/popover/DoubleButtonPopover';
-import { GroupContext } from '@/context/group/GroupContext';
 import useGroup from '@/hooks/group/UseGroup';
 import { ButtonType } from '@/util/ButtonType';
 
 export default function JoinGroupCodeModal() {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { group } = useContext(GroupContext);
-  const { data: groupDetails } = useGroup(group.groupId);
+
+  const params = useLocalSearchParams<{ groupId: string }>();
+  const { data: groupDetails } = useGroup(params.groupId);
+
   useEffect(() => {
     navigation.setOptions({ presentation: 'transparentModal' });
   }, [navigation]);

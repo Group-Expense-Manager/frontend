@@ -6,7 +6,7 @@ import { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
 
-export default function useGroupPicture(groupId: string, attachmentId: string) {
+export default function useGroupPicture(groupId: string, attachmentId?: string) {
   const { authState } = useContext(GlobalContext);
   return useQuery({
     queryKey: [`/groups/${groupId}/attachments/${attachmentId}`],
@@ -36,5 +36,6 @@ export default function useGroupPicture(groupId: string, attachmentId: string) {
       };
     },
     refetchOnMount: false,
+    enabled: !!attachmentId,
   });
 }

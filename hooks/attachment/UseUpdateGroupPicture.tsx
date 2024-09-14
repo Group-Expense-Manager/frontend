@@ -11,7 +11,7 @@ import { GroupUpdateContext } from '@/context/group/GroupUpdateContext';
 export default function useUpdateGroupPicture(
   inParallel: boolean = false,
   groupId: string,
-  attachmentId: string,
+  attachmentId?: string,
 ) {
   const { authState } = useContext(GlobalContext);
   const { groupUpdate } = useContext(GroupUpdateContext);
@@ -47,7 +47,7 @@ export default function useUpdateGroupPicture(
     },
     onError: () => {
       if (!inParallel) {
-        router.push('/(groups)/(group-data)/(modal)/error-modal');
+        router.push(`/groups/${groupId}/details/(modal)/error-modal`);
       }
     },
   });

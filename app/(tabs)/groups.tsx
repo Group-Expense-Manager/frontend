@@ -4,24 +4,30 @@ import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, View } from 'react-native';
 
 import SafeView from '@/components/ui/box/SafeView';
+import Loader from '@/components/ui/loader/Loader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import { GlobalContext } from '@/context/GlobalContext';
+import useGroup from '@/hooks/group/UseGroup';
 
 export default function Groups() {
   const { t } = useTranslation();
   const { userData } = useContext(GlobalContext);
+  const { data: groupDetails } = useGroup(userData.currentGroupId);
 
   return (
     <SafeView>
       <View className="py-8">
-        <TouchableOpacity onPress={() => router.push('/my-groups')}>
-          <View pointerEvents="none">
-            <MultiTextInput
-              label={t('Current group')}
-              value={userData.currentGroup === undefined ? '' : userData.currentGroup.name}
-            />
-          </View>
-        </TouchableOpacity>
+        {userData.currentGroupId ? (
+          groupDetails ? (
+            <TouchableOpacity onPress={() => router.push('/groups/all')}>
+              <View pointerEvents="none">
+                <MultiTextInput label={t('Current group')} value={groupDetails.name} />
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <Loader />
+          )
+        ) : null}
       </View>
     </SafeView>
   );

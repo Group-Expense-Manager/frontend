@@ -1,5 +1,5 @@
 import * as ImagePicker from 'expo-image-picker';
-import { router, useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, TouchableOpacity, View } from 'react-native';
@@ -9,12 +9,11 @@ import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
 import Chip from '@/components/ui/chip/Chip';
 import CustomHeader from '@/components/ui/header/CustomHeader';
-import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
+import CustomImage from '@/components/ui/image/CustomImage';
 import Loader from '@/components/ui/loader/Loader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { GlobalContext } from '@/context/GlobalContext';
-import { GroupContext } from '@/context/group/GroupContext';
 import { GroupUpdateContext } from '@/context/group/GroupUpdateContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
 import useUpdateGroupPicture from '@/hooks/attachment/UseUpdateGroupPicture';
@@ -22,19 +21,19 @@ import useGroup from '@/hooks/group/UseGroup';
 import useUpdateGroup from '@/hooks/group/UseUpdateGroup';
 import { handleImageChoice } from '@/util/HandleImageChoice';
 
-export default function GroupData() {
+export default function Index() {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const { authState } = useContext(GlobalContext);
 
-  const { group } = useContext(GroupContext);
-  const { data: groupDetails, isFetching: isFetchingGroupDetails } = useGroup(group.groupId);
+  const params = useLocalSearchParams<{ groupId: string }>();
+  const { data: groupDetails, isFetching: isFetchingGroupDetails } = useGroup(params.groupId);
   const { data: groupPicture, isFetching: isFetchGroupPicture } = useGroupPicture(
-    group.groupId,
-    group.attachmentId,
+    params.groupId,
+    groupDetails?.attachmentId,
   );
-
   const isOwner = authState.userId === groupDetails?.ownerId;
+
   const dataPresentAndNoFetching =
     groupDetails && groupPicture && !isFetchGroupPicture && !isFetchingGroupDetails;
 
@@ -52,14 +51,14 @@ export default function GroupData() {
     isPending: isUpdatedGroupPicturePending,
     isSuccess: isUpdatedGroupPictureSuccess,
     isError: isUpdatedGroupPictureError,
-  } = useUpdateGroupPicture(bothRunning, group.groupId, group.attachmentId);
+  } = useUpdateGroupPicture(bothRunning, params.groupId, groupDetails?.attachmentId);
 
   const {
     mutate: updateGroupDetails,
     isPending: isUpdatedGroupDetailsPending,
     isSuccess: isUpdatedGroupDetailsSuccess,
     isError: isUpdatedGroupDetailsError,
-  } = useUpdateGroup(bothRunning, group.groupId);
+  } = useUpdateGroup(bothRunning, params.groupId);
 
   useEffect(() => {
     if (isUpdatedGroupDetailsSuccess && isUpdatedGroupPictureSuccess) {
@@ -69,7 +68,7 @@ export default function GroupData() {
 
   useEffect(() => {
     if (isUpdatedGroupDetailsError || isUpdatedGroupPictureError) {
-      router.push('/(groups)/(group-data)/(modal)/error-modal');
+      router.push(`/groups/${params.groupId}/details/(modal)/error-modal`);
     }
   }, [isUpdatedGroupDetailsError, isUpdatedGroupPictureError]);
 
@@ -85,8 +84,9 @@ export default function GroupData() {
     if (!result.canceled) {
       handleImageChoice(
         result.assets[0],
-        () => router.push('/(groups)/(group-data)/(modal)/unsupported-file-format-modal'),
-        () => router.push('/(groups)/(group-data)/(modal)/image-too-large-modal'),
+        () =>
+          router.push(`/groups/${params.groupId}/details/(modal)/unsupported-file-format-modal`),
+        () => router.push(`/groups/${params.groupId}/details/(modal)/image-too-large-modal`),
         () =>
           setGroupUpdate({
             ...groupUpdate,
@@ -106,8 +106,8 @@ export default function GroupData() {
         <CustomHeader
           title={t('Group data')}
           onLeftIconPress={() => {
-            if (dataChanged()) {
-              router.push('/(groups)/(group-data)/(modal)/exit-without-saving-modal');
+            if (isOwner && dataChanged()) {
+              router.push(`/groups/${params.groupId}/details/(modal)/exit-without-saving-modal`);
             } else {
               router.back();
             }
@@ -116,20 +116,14 @@ export default function GroupData() {
         />
       ),
     });
-  }, [
-    navigation,
-    groupUpdate,
-    // userData,
-    isUpdatedGroupDetailsPending,
-    isUpdatedGroupPicturePending,
-  ]);
+  }, [navigation, groupUpdate, isUpdatedGroupDetailsPending, isUpdatedGroupPicturePending]);
 
   function handleBackClick() {
     if (isUpdatedGroupDetailsPending || isUpdatedGroupPicturePending) {
       return true;
     }
-    if (dataChanged()) {
-      router.push('/(groups)/(group-data)/(modal)/exit-without-saving-modal');
+    if (isOwner && dataChanged()) {
+      router.push(`/groups/${params.groupId}/details/(modal)/exit-without-saving-modal`);
       return true;
     }
     return false;
@@ -137,12 +131,7 @@ export default function GroupData() {
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackClick);
     return () => backHandler.remove();
-  }, [
-    groupUpdate,
-    // userData,
-    isUpdatedGroupDetailsPending,
-    isUpdatedGroupPicturePending,
-  ]);
+  }, [groupUpdate, isUpdatedGroupDetailsPending, isUpdatedGroupPicturePending]);
 
   function dataChanged(): boolean {
     return groupNameChanged() || groupPictureChanged();
@@ -185,7 +174,8 @@ export default function GroupData() {
 
             <View className="w-full space-y-3">
               {isOwner ? (
-                <TouchableOpacity onPress={() => router.push('/group-data-group-name')}>
+                <TouchableOpacity
+                  onPress={() => router.push(`/groups/${params.groupId}/details/group-name`)}>
                   <View pointerEvents="none">
                     <MultiTextInput
                       label={t('Group name')}

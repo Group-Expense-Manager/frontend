@@ -7,7 +7,6 @@ import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constan
 import { GlobalContext } from '@/context/GlobalContext';
 import { GroupUpdateContext } from '@/context/group/GroupUpdateContext';
 import { GroupDetails } from '@/hooks/group/UseGroup';
-import { Group, Groups } from '@/hooks/group/UseGroups';
 
 export default function (inParallel: boolean = false, groupId: string) {
   const { authState } = useContext(GlobalContext);
@@ -36,25 +35,14 @@ export default function (inParallel: boolean = false, groupId: string) {
       queryClient.setQueryData([`/groups/${groupId}`], (oldData: GroupDetails) => {
         return { ...oldData, ...response.data };
       });
-      queryClient.setQueryData([`/groups`], (oldData: Groups) => {
-        const updatedGroup: Group = {
-          groupId: response.data.groupId,
-          ownerId: response.data.ownerId,
-          name: response.data.name,
-          attachmentId: response.data.attachmentId,
-        };
-        const updatedGroups = oldData.groups.map((group) =>
-          group.groupId === response.data.groupId ? updatedGroup : group,
-        );
-        return { groups: updatedGroups };
-      });
+
       if (!inParallel) {
         router.back();
       }
     },
     onError: () => {
       if (!inParallel) {
-        router.push('/(groups)/(group-data)/(modal)/error-modal');
+        router.push(`/groups/${groupId}/details/(modal)/error-modal`);
       }
     },
   });

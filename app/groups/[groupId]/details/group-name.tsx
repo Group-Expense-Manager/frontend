@@ -10,7 +10,7 @@ import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import { GroupUpdateContext } from '@/context/group/GroupUpdateContext';
 import { Validator } from '@/util/Validator';
 
-export default function GroupData() {
+export default function GroupName() {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
