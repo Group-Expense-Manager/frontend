@@ -216,9 +216,7 @@ export default function Index() {
             <View className="w-full py-8">
               <CustomButton
                 title={t('Save changes')}
-                onPress={() => {
-                  handleSave();
-                }}
+                onPress={() => handleSave}
                 disabled={!groupUpdate.isValidGroupName}
               />
             </View>

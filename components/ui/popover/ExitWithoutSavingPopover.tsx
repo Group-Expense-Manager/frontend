@@ -26,9 +26,7 @@ const ExitWithoutSavingPopover: React.FC<ExitWithoutSavingProps> = ({ onDiscardC
       }}
       secondButtonProps={{
         title: t(`Keep Editing`),
-        onPress: () => {
-          router.back();
-        },
+        onPress: () => router.back(),
         type: ButtonType.OUTLINED,
       }}
     />

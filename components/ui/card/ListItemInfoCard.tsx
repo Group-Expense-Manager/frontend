@@ -21,7 +21,7 @@ interface IconProps {
 }
 
 const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
-  image,
+  image = { uri: '' },
   title,
   details,
   onPress,
@@ -54,7 +54,7 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
         onPress={onPress}
         className="flex-row flex-1 justify-start items-center space-x-3">
         <View className="py-1">
-          <CustomImage image={image ? image : { uri: '' }} size="medium" />
+          <CustomImage image={image} size="medium" />
         </View>
         <View className="items-start justify-center flex-1">
           <Text

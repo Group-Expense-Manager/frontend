@@ -15,19 +15,19 @@ interface GroupMemberCardProps {
 const GroupMemberInfoCard: React.FC<GroupMemberCardProps> = ({ member, isOwner }) => {
   const { data: profilePicture } = useProfilePicture(member.id, member.attachmentId);
 
+  const iconProps = isOwner
+    ? {
+        icon: <DiamondIcon />,
+        color: theme.primary.base,
+      }
+    : undefined;
+
   return (
     <ListItemInfoCard
       image={profilePicture}
       title={getName(member.firstName, member.lastName)}
       details={member.username}
-      iconProps={
-        isOwner
-          ? {
-              icon: <DiamondIcon />,
-              color: theme.primary.base,
-            }
-          : undefined
-      }
+      iconProps={iconProps}
     />
   );
 };

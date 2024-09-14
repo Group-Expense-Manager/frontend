@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Platform } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
 import theme from '@/constants/Colors';
 

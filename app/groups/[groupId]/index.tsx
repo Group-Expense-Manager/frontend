@@ -55,25 +55,19 @@ export default function GroupSettings() {
         </View>
         <View className="w-full">
           <CustomButton
-            onPress={() => {
-              router.push(`/groups/${params.groupId}/details`);
-            }}
+            onPress={() => router.push(`/groups/${params.groupId}/details`)}
             title={t('Group data')}
           />
         </View>
         <View className="w-full">
           <CustomButton
-            onPress={() => {
-              router.push(`/groups/${params.groupId}/members`);
-            }}
+            onPress={() => router.push(`/groups/${params.groupId}/members`)}
             title={t('List of members')}
           />
         </View>
         <View className="w-full">
           <CustomButton
-            onPress={() => {
-              router.push(`/groups/${params.groupId}/join-group-code-modal`);
-            }}
+            onPress={() => router.push(`/groups/${params.groupId}/join-group-code-modal`)}
             title={t('Join code')}
           />
         </View>

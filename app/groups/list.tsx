@@ -44,9 +44,7 @@ export default function List() {
           </View>
           <View className="w-full">
             <CustomButton
-              onPress={() => {
-                router.push('/groups/join-group-modal');
-              }}
+              onPress={() => router.push('/groups/join-group-modal')}
               title={t('Join group')}
             />
           </View>
