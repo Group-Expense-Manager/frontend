@@ -11,24 +11,29 @@ import useUserDetails from '@/hooks/userdetails/UseUserDetails';
 import { IconSize } from '@/util/IconSize';
 
 export default function LoadingScreen() {
+  const { authState, setUserData } = useContext(GlobalContext);
+
   const { data: userDetails, status: userDetailsStatus } = useUserDetails();
   const { data: profilePicture, status: profilePictureStatus } = useProfilePicture(
+    authState.userId!,
     userDetails?.attachmentId,
   );
   const { data: userGroups, status: userGroupsStatus } = useGroups();
-
-  const { setUserData } = useContext(GlobalContext);
 
   useEffect(() => {
     if (
       userDetailsStatus === 'success' &&
       profilePictureStatus === 'success' &&
-      userGroupsStatus == 'success'
+      userGroupsStatus === 'success'
     ) {
-      setUserData({ currentGroupId: userGroups?.groups[0]?.groupId, userDetails, profilePicture });
+      setUserData({
+        currentGroupId: userGroups?.[0],
+        userDetails,
+        profilePicture,
+      });
       router.replace('/groups');
     }
-  }, [userDetailsStatus, profilePictureStatus]);
+  }, [userDetailsStatus, profilePictureStatus, userGroupsStatus]);
 
   return (
     <SafeView>

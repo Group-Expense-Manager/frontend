@@ -2,15 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useContext } from 'react';
 
-import { API_URL } from '@/constants/Api';
+import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
 
-export type Group = {
+export type GroupDetails = {
   groupId: string;
   name: string;
   ownerId: string;
   members: Member[];
-  acceptRequired: boolean;
   groupCurrencies: Currency[];
   joinCode: string;
   attachmentId: string;
@@ -24,20 +23,21 @@ export type Currency = {
   code: string;
 };
 
-function useGroup(groupId: string | null) {
+function useGroup(groupId?: string) {
   const { authState } = useContext(GlobalContext);
   return useQuery({
-    queryKey: ['groups/${groupId}'],
-    queryFn: async (): Promise<Group> => {
-      const { data } = await axios.get(`${API_URL}/external/groups/${groupId}`, {
+    queryKey: [`/groups/${groupId}`],
+    queryFn: async (): Promise<GroupDetails> => {
+      const { data } = await axios.get(`${API_URL}${PATHS.EXTERNAL}/groups/${groupId}`, {
         headers: {
-          host: 'gem.web.group-manager.com',
-          accept: 'application/vnd.gem.internal.v1+json',
+          host: HOST.GROUP_MANAGER,
+          accept: APPLICATION_JSON_INTERNAL_VER_1,
           authorization: `Bearer ${authState.token}`,
         },
       });
       return data;
     },
+    refetchOnMount: false,
     enabled: !!groupId,
   });
 }

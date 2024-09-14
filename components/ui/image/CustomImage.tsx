@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
-
+import { Image, View } from 'react-native';
 export type ImageBase64 = {
   uri: string;
 };
@@ -26,10 +25,13 @@ const CustomImage: React.FC<CustomImageProps> = ({ image, size = 'large' }) => {
     }
   }
   const sizeInPx = getSizeInPx();
-  return (
-    image.uri && (
-      <Image width={sizeInPx} height={sizeInPx} borderRadius={sizeInPx / 2} source={image} />
-    )
+  return image.uri ? (
+    <Image width={sizeInPx} height={sizeInPx} borderRadius={sizeInPx / 2} source={image} />
+  ) : (
+    <View
+      className="bg-sky-light dark:bg-ink-dark"
+      style={{ width: sizeInPx, height: sizeInPx, borderRadius: sizeInPx / 2 }}
+    />
   );
 };
 

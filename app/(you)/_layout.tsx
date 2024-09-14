@@ -6,7 +6,7 @@ import { SelectInputProvider } from '@/context/utils/SelectInputContext';
 
 export default function YouLayout() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView className="flex-1">
       <SelectInputProvider>
         <Stack
           screenOptions={{

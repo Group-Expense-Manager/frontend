@@ -15,18 +15,20 @@
   "Don't have an account?": "Nie masz konta?",
   "Already have an account?": "Masz już konto?",
   "You don't belong to any group!": "Nie należysz do żadnej grupy!",
-  "Create new group": "Utwórz nową grupę",
-  "Join existing group": "Dołącz do istniejącej grupy",
   "Group name": "Nazwa grupy",
   "Next": "Dalej",
   "Cancel": "Anuluj",
   "Back": "Cofnij",
   "Confirm": "Potwierdź",
-
   "Create group": "Utwórz grupę",
   "Base currencies": "Waluty podstawowe",
   "Acceptance required": "Wymagana akceptacja",
   "Join group": "Dołącz do grupy",
+  "Join group - description": "Wprowadź kod, aby dołączyć do grupy.",
+  "Incorrect join code": "Nieprawidłowy kod dołączenia",
+  "Join code": "Kod dołączenia",
+  "Successfully joined group": "Pomyślnie dołączyłeś do grupy!",
+  "Successfully joined group - description": "Pomyślnie dołączyłeś do grupy. Witamy na pokładzie! Teraz możesz brać udział w aktywnościach grupy.",
   "Join": "Dołącz",
   "Create expense": "Utwórz wydatek",
   "Create payment": "Utwórz rozliczenie",
@@ -70,7 +72,6 @@
   "Verify account": "Weryfikacja konta",
   "Verify account - description": "W celu ukończenia procesu rejestracji, podaj kod, otrzymany na adres email.",
   "Incorrect verification code": "Błędny kod",
-  "Incorrect verification code - description": "Podano nieprawidłowy kod weryfikacyjny. Zweryfikuj jego poprawność i spróbuj ponownie.",
   "Username must contain at least 3 characters": "Nazwa użytkownika musi zawierać przynajmniej 3 znaki",
   "Username may contain at most 20 characters": "Nazwa użytkownika może zawierać maksymalnie 20 znaków",
   "Username can only contain letters, numbers and sings: \"_.+-\"": "Nazwa użytkownika może się składać tylko z liter, cyfr i znaków: \"_.+-\"",
@@ -126,8 +127,17 @@
   "Image Too Large": "Obraz jest za duży",
   "Image Too Large - description": "Przesłany obraz przekracza maksymalny dozwolony rozmiar pliku. Proszę wybierz mniejszy obraz lub zmniejsz jego rozmiar przed przesłaniem.",
   "Unsupported File Format": "Nieobsługiwany format pliku",
-  "Unsupported File Format - description": "Przesłany plik jest w formacie, który nie jest obsługiwany. Proszę wybierz plik w jednym z dozwolonych formatów, np. JPG, JPEG, PNG lub BMP."
-
-
-
+  "Unsupported File Format - description": "Przesłany plik jest w formacie, który nie jest obsługiwany. Proszę wybierz plik w jednym z dozwolonych formatów, np. JPG, JPEG, PNG lub BMP.",
+  "Current group": "Obecna grupa",
+  "My groups": "Moje grupy",
+  "author": "autor",
+  "Settings": "Ustawienia",
+  "Group data": "Dane grupy",
+  "List of members": "Lista członków",
+  "Members": "Członkowie",
+  "Join group code": "Kod dołączenia do grupy",
+  "Join group code - description": "Nowi użytkownicy mogą dołączać do grupy przy użyciu poniższego kodu. Udostępnij go, aby zaprosić innych do grupy!",
+  "Copy": "Kopiuj",
+  "Group name can not be empty": "Nazwa grupy nie może być pusta",
+  "Group name may contain at most 20 characters": "Nazwa grupy może zawierać maksymalnie 20 znaków"
 }

@@ -10,7 +10,7 @@ interface SafeViewProps {
 const SafeView: React.FC<SafeViewProps> = ({ children }) => {
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView className="flex-1">
         <Box>{children}</Box>
       </SafeAreaView>
     </>

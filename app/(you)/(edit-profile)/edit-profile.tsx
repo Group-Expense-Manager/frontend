@@ -4,8 +4,7 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, TouchableOpacity, View } from 'react-native';
 
-import { Loader } from '@/components';
-import ProfilePictureEdition from '@/components/modules/userdetails/ProfilePictureEdition';
+import PictureUpdate from '@/components/modules/userdetails/PictureUpdate';
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
 import CustomHeader from '@/components/ui/header/CustomHeader';
@@ -71,8 +70,8 @@ export default function EditProfile() {
     if (!result.canceled) {
       handleImageChoice(
         result.assets[0],
-        () => router.push('/unsupported-file-format-modal'),
-        () => router.push('/image-too-large-modal'),
+        () => router.push('/(edit-profile)/(modal)/unsupported-file-format-modal'),
+        () => router.push('/(edit-profile)/(modal)/image-too-large-modal'),
         () =>
           setProfileUpdate({
             ...profileUpdate,
@@ -92,15 +91,13 @@ export default function EditProfile() {
         <CustomHeader
           title={t('Profile edition')}
           onLeftIconPress={() => {
-            if (isUpdatedUserDetailsPending || isUpdatedProfilePicturePending) {
-              return;
-            }
             if (dataChanged()) {
               router.push('/(edit-profile)/(modal)/exit-without-saving-modal');
             } else {
               router.back();
             }
           }}
+          isLoading={isUpdatedUserDetailsPending || isUpdatedProfilePicturePending}
         />
       ),
     });
@@ -117,7 +114,7 @@ export default function EditProfile() {
       return true;
     }
     if (dataChanged()) {
-      router.push('/exit-without-saving-modal');
+      router.push('/(edit-profile)/(modal)/exit-without-saving-modal');
       return true;
     }
     return false;
@@ -185,12 +182,8 @@ export default function EditProfile() {
   return (
     <Box>
       <View className="w-full h-full flex-col">
-        <Loader
-          isLoading={isUpdatedUserDetailsPending || isUpdatedProfilePicturePending}
-          hasViewHeader
-        />
         <View className="w-full flex-col space-y-[28px]">
-          <ProfilePictureEdition
+          <PictureUpdate
             image={{ uri: profileUpdate.profilePicture.imageUri }}
             onPress={pickImage}
           />

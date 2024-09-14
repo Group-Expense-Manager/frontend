@@ -1,3 +1,5 @@
+import { UserDetails } from '@/context/GlobalContext';
+
 export function getName(firstName?: string, lastName?: string): string | undefined {
   switch (true) {
     case !!firstName && !!lastName:
@@ -9,4 +11,9 @@ export function getName(firstName?: string, lastName?: string): string | undefin
     default:
       return undefined;
   }
+}
+
+export function getNameFromUserDetails(userDetails: UserDetails): string {
+  const name = getName(userDetails.firstName, userDetails.lastName);
+  return name ? name : userDetails.username;
 }

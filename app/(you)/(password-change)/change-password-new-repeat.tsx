@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
 
-import { CustomButton, Loader } from '@/components';
+import { CustomButton, FullViewLoader } from '@/components';
 import Box from '@/components/ui/box/Box';
 import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
@@ -47,7 +47,7 @@ export default function ChangePasswordNew() {
         contentContainerStyle={{
           height: '100%',
         }}>
-        <Loader isLoading={isPasswordChangePending} />
+        <FullViewLoader isLoading={isPasswordChangePending} />
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full">
             <View className="w-full flex justify-center items-center">

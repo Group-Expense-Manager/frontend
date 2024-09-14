@@ -6,9 +6,10 @@ import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { IconSize } from '@/util/IconSize';
 
 interface ListItemInfoCardProps {
-  image: ImageBase64;
+  image?: ImageBase64;
   title?: string;
   details: string;
+  onPress?: () => void;
   iconProps?: IconProps;
 }
 
@@ -20,9 +21,10 @@ interface IconProps {
 }
 
 const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
-  image,
+  image = { uri: '' },
   title,
   details,
+  onPress,
   iconProps,
 }) => {
   const { colorScheme } = useColorScheme();
@@ -46,7 +48,11 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
 
   return (
     <View className="flex-row w-full justify-start p-3 space-x-3">
-      <View className="flex-row flex-1 justify-start items-center space-x-3">
+      <TouchableOpacity
+        disabled={!onPress}
+        activeOpacity={0.7}
+        onPress={onPress}
+        className="flex-row flex-1 justify-start items-center space-x-3">
         <View className="py-1">
           <CustomImage image={image} size="medium" />
         </View>
@@ -66,7 +72,7 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
             </Text>
           )}
         </View>
-      </View>
+      </TouchableOpacity>
       {!!iconProps && (
         <TouchableOpacity
           activeOpacity={0.7}

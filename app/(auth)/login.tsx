@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
 
-import { CustomButton, Loader } from '@/components';
+import { CustomButton, FullViewLoader } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
 import EmailTextInput from '@/components/ui/text-input/EmailTextInput';
 import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
@@ -31,7 +31,7 @@ export default function Login() {
         contentContainerStyle={{
           height: '100%',
         }}>
-        <Loader isLoading={isLoginPending} />
+        <FullViewLoader isLoading={isLoginPending} />
         <View className="py-[32px] w-full h-full flex flex-col justify-between items-center">
           <View className="w-full">
             <View className="w-full flex justify-center items-center">
