@@ -54,7 +54,7 @@ export default function EditProfileUsername() {
     <Box>
       <View className="w-full h-full flex-col">
         <View className="w-full flex-col space-y-[28px] items-center">
-          <CustomImage image={{ uri: profileUpdate.profilePicture.imageUri }} size="colossal" />
+          <CustomImage image={profileUpdate.profilePicture} size="colossal" />
           <View className=" w-full flex-col space-y-[12px]">
             <SingleTextInput
               label={t('Nick')}

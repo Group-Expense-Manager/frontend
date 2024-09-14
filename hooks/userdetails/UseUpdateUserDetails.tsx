@@ -1,15 +1,19 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { router } from 'expo-router';
 import { useContext } from 'react';
 
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
-import { GlobalContext, UserDetails } from '@/context/GlobalContext';
+import { GlobalContext } from '@/context/GlobalContext';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
+import { GroupDetails } from '@/hooks/group/UseGroup';
+import { UserDetails } from '@/hooks/userdetails/UseUserDetails';
 
 export default function useUpdateUserDetails(inParallel: boolean = false) {
-  const { authState, userData, setUserData } = useContext(GlobalContext);
+  const { authState } = useContext(GlobalContext);
   const { profileUpdate } = useContext(ProfileUpdateContext);
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: () => {
       return axios.put(`${API_URL}${PATHS.EXTERNAL}/user-details`, profileUpdate.userDetails, {
@@ -22,17 +26,9 @@ export default function useUpdateUserDetails(inParallel: boolean = false) {
       });
     },
     onSuccess: (response: AxiosResponse<UserDetails>) => {
-      const updatedUserDetails: UserDetails = {
-        id: userData.userDetails.id,
-        username: response.data.username,
-        firstName: response.data.firstName,
-        lastName: response.data.lastName,
-        phoneNumber: response.data.phoneNumber,
-        bankAccountNumber: response.data.bankAccountNumber,
-        preferredPaymentMethod: response.data.preferredPaymentMethod,
-        attachmentId: userData.userDetails.attachmentId,
-      };
-      setUserData({ ...userData, userDetails: updatedUserDetails });
+      queryClient.setQueryData(['/user-details'], (oldData: GroupDetails) => {
+        return { ...oldData, ...response.data };
+      });
       if (!inParallel) {
         router.back();
       }

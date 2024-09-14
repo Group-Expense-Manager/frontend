@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useContext } from 'react';
 
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
-import { GlobalContext, PaymentMethod, UserDetails } from '@/context/GlobalContext';
+import { GlobalContext } from '@/context/GlobalContext';
+import { UserDetails } from '@/hooks/userdetails/UseUserDetails';
 
 export default function useGroupMemberDetails(groupId: string, groupMemberId?: string) {
   const { authState } = useContext(GlobalContext);
@@ -24,16 +25,5 @@ export default function useGroupMemberDetails(groupId: string, groupMemberId?: s
     },
     refetchOnMount: false,
     enabled: !!groupMemberId,
-
-    placeholderData: {
-      id: '',
-      username: '',
-      firstName: undefined,
-      lastName: undefined,
-      phoneNumber: undefined,
-      bankAccountNumber: undefined,
-      preferredPaymentMethod: PaymentMethod.NONE,
-      attachmentId: '',
-    },
   });
 }
