@@ -10,7 +10,7 @@ import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
 import useGroups from '@/hooks/group/UseGroups';
 
-export default function All() {
+export default function List() {
   const { t } = useTranslation();
 
   const navigation = useNavigation();

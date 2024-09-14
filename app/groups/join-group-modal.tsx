@@ -44,16 +44,12 @@ export default function JoinGroup() {
       }}
       firstButtonProps={{
         title: t('Confirm'),
-        onPress: () => {
-          joinGroup();
-        },
+        onPress: joinGroup,
         disabled: isConfirmButtonDisabled || error,
       }}
       secondButtonProps={{
         title: t('Cancel'),
-        onPress: () => {
-          router.back();
-        },
+        onPress: router.back,
         type: ButtonType.OUTLINED,
       }}
       isLoading={isJoinGroupPending}

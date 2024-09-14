@@ -19,6 +19,13 @@ export default function JoinGroupCodeModal() {
   useEffect(() => {
     navigation.setOptions({ presentation: 'transparentModal' });
   }, [navigation]);
+
+  function copy() {
+    if (groupDetails) {
+      Clipboard.setStringAsync(groupDetails.joinCode).then(() => router.back());
+    }
+  }
+
   return (
     <DoubleButtonPopover
       title={t('Join group code')}
@@ -34,12 +41,7 @@ export default function JoinGroupCodeModal() {
       }
       firstButtonProps={{
         title: t('Copy'),
-        onPress: async () => {
-          if (groupDetails) {
-            await Clipboard.setStringAsync(groupDetails.joinCode);
-            router.back();
-          }
-        },
+        onPress: copy,
         disabled: !groupDetails,
       }}
       secondButtonProps={{

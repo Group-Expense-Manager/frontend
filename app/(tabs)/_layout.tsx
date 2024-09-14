@@ -1,3 +1,4 @@
+import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import React, { useContext } from 'react';
@@ -13,6 +14,15 @@ const TabLayout = () => {
   const { t } = useTranslation();
   const { colorScheme } = useColorScheme();
   const { userData } = useContext(GlobalContext);
+
+  const tabBarButton = (props: BottomTabBarButtonProps) => {
+    return <TabButton {...props} />;
+  };
+
+  const topTabBarButton = (props: BottomTabBarButtonProps) => {
+    return <TopTabButton {...props} />;
+  };
+
   return (
     <Tabs
       screenOptions={{
@@ -29,9 +39,7 @@ const TabLayout = () => {
         name="reports"
         options={{
           title: t('Reports'),
-          tabBarButton: (props) => {
-            return <TabButton {...props} />;
-          },
+          tabBarButton,
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon name={t('Reports')} focused={focused}>
@@ -44,9 +52,7 @@ const TabLayout = () => {
         name="groups"
         options={{
           title: t('Groups'),
-          tabBarButton: (props) => {
-            return <TabButton {...props} />;
-          },
+          tabBarButton,
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon name={t('Groups')} focused={focused}>
@@ -60,9 +66,7 @@ const TabLayout = () => {
         name="create"
         options={{
           headerShown: false,
-          tabBarButton: (props) => {
-            return <TopTabButton {...props} />;
-          },
+          tabBarButton: topTabBarButton,
           tabBarIcon: ({ focused }) => (
             <TopTabIcon focused={focused}>
               <PlusIcon />
@@ -75,9 +79,7 @@ const TabLayout = () => {
         name="alignments"
         options={{
           title: t('Alignments'),
-          tabBarButton: (props) => {
-            return <TabButton {...props} />;
-          },
+          tabBarButton,
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon name={t('Alignments')} focused={focused}>
@@ -90,9 +92,7 @@ const TabLayout = () => {
         name="you"
         options={{
           title: t('You'),
-          tabBarButton: (props) => {
-            return <TabButton {...props} />;
-          },
+          tabBarButton,
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon name={t('You')} focused={focused}>

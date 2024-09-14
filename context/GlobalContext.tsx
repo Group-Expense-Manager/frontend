@@ -47,7 +47,7 @@ export type UserDetails = {
 };
 
 interface UserData {
-  currentGroupId: string | undefined;
+  currentGroupId?: string;
   userDetails: UserDetails;
   profilePicture: ImageBase64;
 }

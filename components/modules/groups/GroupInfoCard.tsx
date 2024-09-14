@@ -33,16 +33,14 @@ const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ groupId }) => {
 
   return groupDetails ? (
     <ListItemInfoCard
-      image={!groupPicture ? { uri: '' } : groupPicture}
+      image={groupPicture}
       title={groupDetails.name}
       details={`${t('author')}: ${author}`}
       iconProps={{
         icon: <SettingsIcon />,
         color: theme.ink.darkest,
         darkModeColor: theme.sky.lightest,
-        onPress: () => {
-          router.push(`/groups/${groupId}`);
-        },
+        onPress: () => router.push(`/groups/${groupId}`),
       }}
       onPress={() => {
         setUserData({ ...userData, currentGroupId: groupId });

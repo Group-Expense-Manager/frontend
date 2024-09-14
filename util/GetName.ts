@@ -14,14 +14,6 @@ export function getName(firstName?: string, lastName?: string): string | undefin
 }
 
 export function getNameFromUserDetails(userDetails: UserDetails): string {
-  switch (true) {
-    case !!userDetails.firstName && !!userDetails.lastName:
-      return `${userDetails.firstName} ${userDetails.lastName}`;
-    case !!userDetails.firstName:
-      return userDetails.firstName;
-    case !!userDetails.lastName:
-      return userDetails.lastName;
-    default:
-      return userDetails.username;
-  }
+  const name = getName(userDetails.firstName, userDetails.lastName);
+  return name ? name : userDetails.username;
 }

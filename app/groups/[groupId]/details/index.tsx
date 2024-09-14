@@ -39,12 +39,6 @@ export default function Index() {
 
   const { groupUpdate, setGroupUpdate } = useContext(GroupUpdateContext);
 
-  useLayoutEffect(() => {
-    if (isOwner && dataPresentAndNoFetching) {
-      setGroupUpdate({ groupName: groupDetails.name, groupPicture, isValidGroupName: true });
-    }
-  }, [dataPresentAndNoFetching, isOwner]);
-
   const [bothRunning, setBothRunning] = useState(false);
   const {
     mutate: updateGroupPicture,
@@ -59,18 +53,6 @@ export default function Index() {
     isSuccess: isUpdatedGroupDetailsSuccess,
     isError: isUpdatedGroupDetailsError,
   } = useUpdateGroup(bothRunning, params.groupId);
-
-  useEffect(() => {
-    if (isUpdatedGroupDetailsSuccess && isUpdatedGroupPictureSuccess) {
-      router.back();
-    }
-  }, [isUpdatedGroupDetailsSuccess, isUpdatedGroupPictureSuccess]);
-
-  useEffect(() => {
-    if (isUpdatedGroupDetailsError || isUpdatedGroupPictureError) {
-      router.push(`/groups/${params.groupId}/details/(modal)/error-modal`);
-    }
-  }, [isUpdatedGroupDetailsError, isUpdatedGroupPictureError]);
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -99,6 +81,24 @@ export default function Index() {
   };
 
   useLayoutEffect(() => {
+    if (isOwner && dataPresentAndNoFetching) {
+      setGroupUpdate({ groupName: groupDetails.name, groupPicture, isValidGroupName: true });
+    }
+  }, [dataPresentAndNoFetching, isOwner]);
+
+  useEffect(() => {
+    if (isUpdatedGroupDetailsSuccess && isUpdatedGroupPictureSuccess) {
+      router.back();
+    }
+  }, [isUpdatedGroupDetailsSuccess, isUpdatedGroupPictureSuccess]);
+
+  useEffect(() => {
+    if (isUpdatedGroupDetailsError || isUpdatedGroupPictureError) {
+      router.push(`/groups/${params.groupId}/details/(modal)/error-modal`);
+    }
+  }, [isUpdatedGroupDetailsError, isUpdatedGroupPictureError]);
+
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
 
@@ -106,7 +106,7 @@ export default function Index() {
         <CustomHeader
           title={t('Group data')}
           onLeftIconPress={() => {
-            if (isOwner && dataChanged()) {
+            if (isOwner && hasGroupDataChanged()) {
               router.push(`/groups/${params.groupId}/details/(modal)/exit-without-saving-modal`);
             } else {
               router.back();
@@ -118,42 +118,46 @@ export default function Index() {
     });
   }, [navigation, groupUpdate, isUpdatedGroupDetailsPending, isUpdatedGroupPicturePending]);
 
-  function handleBackClick() {
+  function shouldBlockHardWareBackPress(): boolean {
     if (isUpdatedGroupDetailsPending || isUpdatedGroupPicturePending) {
       return true;
     }
-    if (isOwner && dataChanged()) {
+    if (isOwner && hasGroupDataChanged()) {
       router.push(`/groups/${params.groupId}/details/(modal)/exit-without-saving-modal`);
       return true;
     }
     return false;
   }
+
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackClick);
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      shouldBlockHardWareBackPress,
+    );
     return () => backHandler.remove();
   }, [groupUpdate, isUpdatedGroupDetailsPending, isUpdatedGroupPicturePending]);
 
-  function dataChanged(): boolean {
-    return groupNameChanged() || groupPictureChanged();
+  function hasGroupDataChanged(): boolean {
+    return hasGroupNameChanged() || hasGroupPictureChanged();
   }
 
-  function groupNameChanged(): boolean {
+  function hasGroupNameChanged(): boolean {
     return groupUpdate.groupName !== groupDetails?.name;
   }
 
-  function groupPictureChanged(): boolean {
+  function hasGroupPictureChanged(): boolean {
     return groupUpdate.groupPicture !== groupPicture;
   }
 
-  function handleSave() {
-    if (groupNameChanged() && groupPictureChanged()) {
+  function handleSave(): void {
+    if (hasGroupNameChanged() && hasGroupPictureChanged()) {
       setBothRunning(true);
       updateGroupDetails();
       updateGroupPicture();
-    } else if (groupNameChanged()) {
+    } else if (hasGroupNameChanged()) {
       setBothRunning(false);
       updateGroupDetails();
-    } else if (groupPictureChanged()) {
+    } else if (hasGroupPictureChanged()) {
       setBothRunning(false);
       updateGroupPicture();
     }
@@ -208,7 +212,7 @@ export default function Index() {
               <View />
             </View>
           </View>
-          {isOwner && dataChanged() && (
+          {isOwner && hasGroupDataChanged() && (
             <View className="w-full py-8">
               <CustomButton
                 title={t('Save changes')}

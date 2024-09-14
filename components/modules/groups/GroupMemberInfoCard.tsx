@@ -17,7 +17,7 @@ const GroupMemberInfoCard: React.FC<GroupMemberCardProps> = ({ member, isOwner }
 
   return (
     <ListItemInfoCard
-      image={!profilePicture ? { uri: '' } : profilePicture}
+      image={profilePicture}
       title={getName(member.firstName, member.lastName)}
       details={member.username}
       iconProps={

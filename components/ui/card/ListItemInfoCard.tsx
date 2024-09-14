@@ -6,7 +6,7 @@ import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { IconSize } from '@/util/IconSize';
 
 interface ListItemInfoCardProps {
-  image: ImageBase64;
+  image?: ImageBase64;
   title?: string;
   details: string;
   onPress?: () => void;
@@ -54,7 +54,7 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
         onPress={onPress}
         className="flex-row flex-1 justify-start items-center space-x-3">
         <View className="py-1">
-          <CustomImage image={image} size="medium" />
+          <CustomImage image={image ? image : { uri: '' }} size="medium" />
         </View>
         <View className="items-start justify-center flex-1">
           <Text

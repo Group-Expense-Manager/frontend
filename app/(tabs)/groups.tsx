@@ -17,17 +17,16 @@ export default function Groups() {
   return (
     <SafeView>
       <View className="py-8">
-        {userData.currentGroupId ? (
-          groupDetails ? (
-            <TouchableOpacity onPress={() => router.push('/groups/all')}>
+        {userData.currentGroupId &&
+          (groupDetails ? (
+            <TouchableOpacity onPress={() => router.push('/groups/list')}>
               <View pointerEvents="none">
                 <MultiTextInput label={t('Current group')} value={groupDetails.name} />
               </View>
             </TouchableOpacity>
           ) : (
             <Loader />
-          )
-        ) : null}
+          ))}
       </View>
     </SafeView>
   );
