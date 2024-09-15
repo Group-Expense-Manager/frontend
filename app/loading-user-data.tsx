@@ -15,7 +15,7 @@ export default function LoadingScreen() {
 
   const { data: userDetails, status: userDetailsStatus } = useUserDetails();
   const { status: profilePictureStatus } = useProfilePicture(
-    authState.userId!,
+    authState.userId,
     userDetails?.attachmentId,
   );
   const { data: userGroups, status: userGroupsStatus } = useGroups();

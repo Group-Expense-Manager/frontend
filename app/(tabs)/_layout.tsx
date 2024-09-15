@@ -17,7 +17,7 @@ const TabLayout = () => {
   const { colorScheme } = useColorScheme();
   const { authState } = useContext(GlobalContext);
   const { data: userDetails } = useUserDetails();
-  const { data: profilePicture } = useProfilePicture(authState.userId!, userDetails?.attachmentId);
+  const { data: profilePicture } = useProfilePicture(authState.userId, userDetails?.attachmentId);
 
   const tabBarButton = (props: BottomTabBarButtonProps) => {
     return <TabButton {...props} />;

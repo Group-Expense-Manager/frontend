@@ -17,7 +17,7 @@ export default function You() {
   const { t } = useTranslation();
   const { authState } = useContext(GlobalContext);
   const { data: userDetails } = useUserDetails();
-  const { data: profilePicture } = useProfilePicture(authState.userId!, userDetails?.attachmentId);
+  const { data: profilePicture } = useProfilePicture(authState.userId, userDetails?.attachmentId);
 
   return (
     <SafeView>

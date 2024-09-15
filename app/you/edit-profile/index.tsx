@@ -30,7 +30,7 @@ export default function Index() {
   const { authState } = useContext(GlobalContext);
   const { data: userDetails, isFetching: isFetchingUserDetails } = useUserDetails();
   const { data: profilePicture, isFetching: isFetchProfilePicture } = useProfilePicture(
-    authState.userId!,
+    authState.userId,
     userDetails?.attachmentId,
   );
 
