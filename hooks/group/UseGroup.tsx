@@ -4,6 +4,7 @@ import { useContext } from 'react';
 
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
+import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 
 export type GroupDetails = {
   groupId: string;
@@ -19,11 +20,7 @@ export type Member = {
   userId: string;
 };
 
-export type Currency = {
-  code: string;
-};
-
-function useGroup(groupId?: string) {
+function useGroup(groupId?: string | null) {
   const { authState } = useContext(GlobalContext);
   return useQuery({
     queryKey: [`/groups/${groupId}`],

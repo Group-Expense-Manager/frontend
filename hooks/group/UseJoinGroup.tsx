@@ -7,8 +7,8 @@ import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constan
 import { GlobalContext } from '@/context/GlobalContext';
 import { GroupDetails } from '@/hooks/group/UseGroup';
 
-function useJoinGroup(code: string) {
-  const { authState } = useContext(GlobalContext);
+function useJoinGroup(isFirstGroup: boolean, code: string) {
+  const { authState, setUserData } = useContext(GlobalContext);
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -30,11 +30,21 @@ function useJoinGroup(code: string) {
       queryClient.invalidateQueries({
         queryKey: [`/groups`],
       });
-      router.replace(`/groups/${response.data.groupId}/successfully-joined-group-modal`);
+      setUserData({ currentGroupId: response.data.groupId });
+
+      if (isFirstGroup) {
+        router.replace(`/groups/successfully-joined-first-group-modal`);
+      } else {
+        router.replace(`/groups/successfully-joined-group-modal`);
+      }
     },
     onError: (error: AxiosError) => {
       if (error.response?.status !== 404) {
-        router.replace('/groups/error-modal');
+        if (isFirstGroup) {
+          router.replace('/groups/first-group-error-modal');
+        } else {
+          router.replace('/groups/error-modal');
+        }
       }
     },
   });

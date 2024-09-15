@@ -4,6 +4,7 @@ import { TouchableOpacity, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
+import Loader from '@/components/ui/loader/Loader';
 import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
 
 const isSelect = (item: SelectInputData<any>, selectedData: SelectInputData<any>[]) => {
@@ -23,7 +24,7 @@ const getBorderStyles = (item: SelectInputData<any>, data: SelectInputData<any>[
 
 interface SelectListProps<T> {
   title: string;
-  data: SelectInputData<T>[];
+  data?: SelectInputData<T>[];
   createRow: (item: SelectInputData<T>, selected: boolean) => ReactNode;
 }
 
@@ -49,15 +50,19 @@ const SelectList: React.FC<SelectListProps<any>> = ({ title, data, createRow }) 
   return (
     <Box>
       <View className="py-[32px] w-full flex flex-col">
-        {data.map((item) => (
-          <View key={item.name} className={`${getBorderStyles(item, data)} flex justify-center`}>
-            <TouchableOpacity
-              className="flex my-2 h-16 justify-center"
-              onPress={() => handleSelect(item)}>
-              {createRow(item, isSelect(item, selectInputProps.selectedData))}
-            </TouchableOpacity>
-          </View>
-        ))}
+        {data ? (
+          data.map((item) => (
+            <View key={item.name} className={`${getBorderStyles(item, data)} flex justify-center`}>
+              <TouchableOpacity
+                className="flex my-2 h-16 justify-center"
+                onPress={() => handleSelect(item)}>
+                {createRow(item, isSelect(item, selectInputProps.selectedData))}
+              </TouchableOpacity>
+            </View>
+          ))
+        ) : (
+          <Loader />
+        )}
       </View>
     </Box>
   );

@@ -27,7 +27,7 @@ export default function LoadingScreen() {
       userGroupsStatus === 'success'
     ) {
       setUserData({
-        currentGroupId: userGroups?.[0],
+        currentGroupId: !userGroups.length ? null : userGroups[0],
       });
       router.replace('/groups');
     }

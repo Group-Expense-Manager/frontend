@@ -7,7 +7,8 @@ import { CustomButton, SelectList } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
 import { LogoIcon } from '@/constants/Icon';
 import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
-import useGroup, { Currency } from '@/hooks/group/UseGroup';
+import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
+import useGroup from '@/hooks/group/UseGroup';
 import { IconSize } from '@/util/IconSize';
 
 export default function ExpenseCurrency() {

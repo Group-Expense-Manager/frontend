@@ -40,7 +40,10 @@ export default function List() {
 
         <View className="w-full y space-y-8">
           <View className="w-full">
-            <CustomButton onPress={() => {}} title={t('Create group')} />
+            <CustomButton
+              onPress={() => router.push('/groups/new/group-name')}
+              title={t('Create group')}
+            />
           </View>
           <View className="w-full">
             <CustomButton

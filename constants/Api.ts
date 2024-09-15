@@ -5,6 +5,7 @@ export const HOST = {
   USER_DETAILS_MANAGER: 'gem.web.user-details-manager.com',
   ATTACHMENT_STORE: 'gem.web.attachment-store.com',
   GROUP_MANAGER: 'gem.web.group-manager.com',
+  CURRENCY_MANAGER: 'gem.web.currency-manager.com',
 };
 
 export const PATHS = {

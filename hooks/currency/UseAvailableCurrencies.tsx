@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useContext } from 'react';
 
-import { API_URL } from '@/constants/Api';
+import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
 
 export type Currencies = {
@@ -18,10 +18,10 @@ function useAvailableCurrencies() {
   return useQuery({
     queryKey: ['availableCurrencies'],
     queryFn: async (): Promise<Currencies> => {
-      const { data } = await axios.get(`${API_URL}/external/currencies`, {
+      const { data } = await axios.get(`${API_URL}${PATHS.EXTERNAL}/currencies`, {
         headers: {
-          host: 'gem.web.currency-manager.com',
-          'content-type': 'application/vnd.gem.internal.v1+json',
+          host: HOST.CURRENCY_MANAGER,
+          accept: APPLICATION_JSON_INTERNAL_VER_1,
           authorization: `Bearer ${authState.token}`,
         },
       });
