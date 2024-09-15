@@ -1,5 +1,5 @@
 import { useNavigation } from 'expo-router';
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
@@ -21,22 +21,16 @@ const getBorderStyles = (item: SelectInputData<any>, data: SelectInputData<any>[
   return 'border-sky-light border-b-2';
 };
 
-interface SelectListProps<T> {
+interface SelectListProps {
   title: string;
-  data: SelectInputData<T>[];
-  createRow: (item: SelectInputData<T>, selected: boolean) => ReactNode;
 }
 
-const SelectList: React.FC<SelectListProps<any>> = ({ title, data, createRow }) => {
+const SelectList: React.FC<SelectListProps> = ({ title }) => {
   const { selectInputProps, setSelectInputProps } = useContext(SelectInputContext);
   const navigation = useNavigation();
 
   const handleSelect = (item: SelectInputData<any>) => {
-    selectInputProps.onSelect(item.value);
-    setSelectInputProps({
-      ...selectInputProps,
-      selectedData: [item],
-    });
+    selectInputProps.onSelect(item);
   };
 
   useEffect(() => {
@@ -49,12 +43,15 @@ const SelectList: React.FC<SelectListProps<any>> = ({ title, data, createRow }) 
   return (
     <Box>
       <View className="py-[32px] w-full flex flex-col">
-        {data.map((item) => (
-          <View key={item.name} className={`${getBorderStyles(item, data)} flex justify-center`}>
+        {selectInputProps.data.map((item) => (
+          <View
+            key={item.name}
+            className={`${getBorderStyles(item, selectInputProps.data)} flex justify-center`}>
             <TouchableOpacity
+              disabled={item.isDisabled}
               className="flex my-2 h-16 justify-center"
               onPress={() => handleSelect(item)}>
-              {createRow(item, isSelect(item, selectInputProps.selectedData))}
+              {selectInputProps.createRow(item, isSelect(item, selectInputProps.selectedData))}
             </TouchableOpacity>
           </View>
         ))}

@@ -10,7 +10,7 @@ import { IconSize } from '@/util/IconSize';
 interface CustomCheckboxProps {
   disabled?: boolean;
   value: boolean;
-  onValueChange: () => void;
+  onValueChange?: () => void;
 }
 
 enum CheckboxState {
@@ -21,7 +21,7 @@ enum CheckboxState {
 const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   disabled = false,
   value,
-  onValueChange,
+  onValueChange = () => {},
 }) => {
   const { colorScheme } = useColorScheme();
 

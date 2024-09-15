@@ -12,6 +12,7 @@ import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomSwitch from '@/components/ui/switch/CustomSwitch';
 import CustomTable from '@/components/ui/table/CustomTable';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import RadioButtonRow from '@/components/ui/text-input/select/row/RadioButtonRow';
 import { LANGUAGE_KEY, MODE_KEY } from '@/constants/Storage';
 import { GlobalContext } from '@/context/GlobalContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
@@ -89,6 +90,17 @@ export default function Preferences() {
     preferences.language = i18n.language;
     SecureStore.setItem(LANGUAGE_KEY, i18n.language);
   }
+
+  const createRow = (item: SelectInputData<string>, selected: boolean) => {
+    return <RadioButtonRow item={item} selected={selected} />;
+  };
+
+  const languages = () => {
+    return [
+      { value: 'en', name: `${t('en')}` },
+      { value: 'pl', name: `${t('pl')}` },
+    ];
+  };
 
   return (
     <Box>

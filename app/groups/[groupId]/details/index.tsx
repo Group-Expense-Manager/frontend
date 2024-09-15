@@ -1,6 +1,13 @@
 import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, TouchableOpacity, View } from 'react-native';
 
@@ -12,11 +19,14 @@ import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomImage from '@/components/ui/image/CustomImage';
 import Loader from '@/components/ui/loader/Loader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
+import MultiSelectInput from '@/components/ui/text-input/select/MultiSelectInput';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { GlobalContext } from '@/context/GlobalContext';
 import { GroupUpdateContext } from '@/context/group/GroupUpdateContext';
+import { SelectInputData, SelectInputProvider } from '@/context/utils/SelectInputContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
 import useUpdateGroupPicture from '@/hooks/attachment/UseUpdateGroupPicture';
+import useAvailableCurrencies from '@/hooks/currency/UseAvailableCurrencies';
 import useGroup from '@/hooks/group/UseGroup';
 import useUpdateGroup from '@/hooks/group/UseUpdateGroup';
 import { handleImageChoice } from '@/util/HandleImageChoice';
@@ -38,6 +48,15 @@ export default function Index() {
     groupDetails && groupPicture && !isFetchGroupPicture && !isFetchingGroupDetails;
 
   const { groupUpdate, setGroupUpdate } = useContext(GroupUpdateContext);
+
+  // TODO remove that and add that to above group update
+  const [selectedCurrencies, setSelectedCurrencies] = useState<SelectInputData<string>[]>(
+    groupDetails?.groupCurrencies.map((currency) => ({
+      name: t(currency.code),
+      value: currency.code,
+    })) || [],
+  );
+  const { data: availableCurrencies } = useAvailableCurrencies();
 
   const [bothRunning, setBothRunning] = useState(false);
   const {
@@ -193,11 +212,23 @@ export default function Index() {
               )}
 
               <View className="w-full">
-                <SelectInput
+                <MultiSelectInput
                   label={t('Group currencies')}
-                  onPress={() => {}}
-                  onSelect={() => {}}
-                  disabled
+                  type="normal"
+                  onPress={() =>
+                    router.navigate(`/groups/${params.groupId}/details/group-currencies`)
+                  }
+                  values={selectedCurrencies}
+                  setValues={setSelectedCurrencies}
+                  data={availableCurrencies?.currencies.map(
+                    (currency): SelectInputData<string> => ({
+                      name: t(currency.code),
+                      value: currency.code,
+                      isDisabled: groupDetails?.groupCurrencies?.some(
+                        (groupCurrency) => groupCurrency.code === currency.code,
+                      ),
+                    }),
+                  )}
                 />
               </View>
 

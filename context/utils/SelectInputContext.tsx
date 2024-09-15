@@ -2,12 +2,15 @@ import React, { createContext, ReactNode, useState } from 'react';
 
 export interface SelectInputProps<T> {
   selectedData: SelectInputData<T>[];
-  onSelect: (value: T) => void;
+  onSelect: (value: SelectInputData<T>) => void;
+  data: SelectInputData<T>[];
+  createRow: (item: SelectInputData<T>, selected: boolean) => ReactNode;
 }
 
 export interface SelectInputData<T> {
   name: string;
   value: T;
+  isDisabled?: boolean;
 }
 
 interface SelectInputContextProps<T> {
@@ -16,6 +19,8 @@ interface SelectInputContextProps<T> {
 }
 
 const defaultSelectInputProps: SelectInputProps<any> = {
+  data: [],
+  createRow: () => <></>,
   selectedData: [],
   onSelect: () => {},
 };
