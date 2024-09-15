@@ -39,7 +39,7 @@ function useJoinGroup(isFirstGroup: boolean, code: string) {
       }
     },
     onError: (error: AxiosError) => {
-      if (error.response?.status !== 404) {
+      if (error.response?.status !== 404 && error.response?.status !== 409) {
         if (isFirstGroup) {
           router.replace('/groups/first-group-error-modal');
         } else {
