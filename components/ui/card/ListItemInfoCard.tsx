@@ -21,7 +21,7 @@ interface IconProps {
 }
 
 const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
-  image = { uri: '' },
+  image,
   title,
   details,
   onPress,

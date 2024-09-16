@@ -146,7 +146,7 @@ export default function Index() {
   }
 
   function hasGroupPictureChanged(): boolean {
-    return groupUpdate.groupPicture !== groupPicture;
+    return groupUpdate.groupPicture?.uri !== groupPicture?.uri;
   }
 
   function handleSave(): void {

@@ -6,7 +6,7 @@ import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { EditIcon } from '@/constants/Icon';
 
 interface ProfilePictureEditionProps {
-  image: ImageBase64;
+  image?: ImageBase64;
   onPress: () => void;
 }
 
