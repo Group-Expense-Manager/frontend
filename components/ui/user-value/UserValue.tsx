@@ -14,11 +14,12 @@ interface UserValueProps {
 
 const UserValue: React.FC<UserValueProps> = ({ type, user, image, value, currency, onPress }) => {
   const rightText = () => {
+    const valueAsString = value.toString().replace('.', ',');
     switch (type) {
       case 'percent':
-        return `${value}%`;
+        return `${valueAsString}%`;
       default:
-        return `${value} ${currency}`;
+        return `${valueAsString} ${currency}`;
     }
   };
 
