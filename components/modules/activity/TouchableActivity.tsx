@@ -66,6 +66,8 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
     }
   };
 
+  const valueAsString = value.toString().replace('.', ',');
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -133,7 +135,7 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
             numberOfLines={1}
             ellipsizeMode="tail"
             className="font-bold text-regular text-ink-darkest dark:text-sky-lightest text-right">
-            {`${value} ${currency}`}
+            {`${valueAsString} ${currency}`}
           </Text>
         </View>
       </View>
