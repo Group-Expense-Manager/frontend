@@ -18,7 +18,7 @@ export default function useUpdateProfilePicture(
 
   return useMutation({
     mutationFn: () => {
-      const [metadata, base64Data] = profileUpdate.profilePicture.uri.split(',');
+      const [metadata, base64Data] = profileUpdate.profilePicture!.uri.split(',');
       const contentType = metadata.match(/:(.*?);/)![1];
 
       return axios.put(

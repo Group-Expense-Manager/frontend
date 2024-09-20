@@ -19,7 +19,7 @@ export default function useUpdateGroupPicture(
 
   return useMutation({
     mutationFn: () => {
-      const [metadata, base64Data] = groupUpdate.groupPicture.uri.split(',');
+      const [metadata, base64Data] = groupUpdate.groupPicture!.uri.split(',');
       const contentType = metadata.match(/:(.*?);/)![1];
 
       return axios.put(
