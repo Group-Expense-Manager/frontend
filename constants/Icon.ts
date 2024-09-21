@@ -21,6 +21,7 @@ import PlusCircleIcon from '../assets/icons/plus-circle.svg';
 import PlusIcon from '../assets/icons/plus.svg';
 import ScaleIcon from '../assets/icons/scales-01.svg';
 import SearchIcon from '../assets/icons/search-sm.svg';
+import TrashIcon from '../assets/icons/trash-01.svg';
 import UserIcon from '../assets/icons/user-circle.svg';
 import GroupIcon from '../assets/icons/users-03.svg';
 import CloseIcon from '../assets/icons/x-close.svg';
@@ -52,4 +53,5 @@ export {
   DiamondIcon,
   SettingsIcon,
   ArrowNarrowRight,
+  TrashIcon,
 };

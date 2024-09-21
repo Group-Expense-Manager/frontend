@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 
 interface UserValueProps {
-  type: 'balance' | 'percent' | 'cost';
+  type: 'balance' | 'weight' | 'cost';
   user: string;
   image?: ImageBase64;
   value: number;
@@ -16,8 +16,8 @@ const UserValue: React.FC<UserValueProps> = ({ type, user, image, value, currenc
   const rightText = () => {
     const valueAsString = value.toString().replace('.', ',');
     switch (type) {
-      case 'percent':
-        return `${valueAsString}%`;
+      case 'weight':
+        return `${valueAsString}`;
       default:
         return `${valueAsString} ${currency}`;
     }
