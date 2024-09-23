@@ -14,7 +14,7 @@ export function getName(firstName?: string, lastName?: string): string | undefin
   }
 }
 
-export function getNameFromUserDetails(userDetails: UserDetails): string {
+export function getNameFromUserDetails(userDetails: UserDetails | GroupMemberDetails): string {
   const name = getName(userDetails.firstName, userDetails.lastName);
   return name ? name : userDetails.username;
 }

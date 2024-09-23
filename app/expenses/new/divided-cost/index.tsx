@@ -56,7 +56,7 @@ export default function NewExpenseDividedCost() {
     }
 
     if (otherUserWithoutCost) {
-      return t('Other participants must have non-zero costs');
+      return t('Other members must have non-zero costs');
     }
     return '';
   }

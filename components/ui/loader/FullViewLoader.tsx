@@ -8,7 +8,7 @@ interface FullViewLoaderProps {
 }
 
 const FullViewLoader: React.FC<FullViewLoaderProps> = ({ isLoading = false }) => {
-  const screenHeight = Dimensions.get('window').height;
+  const screenHeight = Dimensions.get('screen').height;
 
   if (!isLoading) return null;
 

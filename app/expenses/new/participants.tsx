@@ -45,11 +45,7 @@ export default function NewExpenseParticipants() {
           </View>
           <View className="py-8 w-full flex flex-col space-y-8">
             {groupMembersDetails ? (
-              <SelectInput
-                onSelect={() => {}}
-                onPress={() => {}}
-                label={t('Expense participants')}
-              />
+              <SelectInput onSelect={() => {}} onPress={() => {}} label={t('Expense members')} />
             ) : (
               <Loader />
             )}

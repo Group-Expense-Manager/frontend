@@ -1,21 +1,21 @@
 import { useColorScheme } from 'nativewind';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import theme from '@/constants/Colors';
 import { ArrowNarrowRight, CheckCircleIcon, HelpCircleIcon, XCircleIcon } from '@/constants/Icon';
+import { formatToDayMonthYear } from '@/util/DateUtils';
 import { IconSize } from '@/util/IconSize';
 
 interface TouchableActivityProps {
   type: 'EXPENSE' | 'PAYMENT';
   creatorName: string;
-  creatorPicture?: ImageBase64;
+  creatorPicture: ReactNode;
   title: string;
   value: number;
   currency: string;
   status: 'ACCEPTED' | 'REJECTED' | 'PENDING';
-  participantPictures: (ImageBase64 | undefined)[];
+  participantPictures: ReactNode[];
   date: string;
   onPress: () => void;
 }
@@ -33,13 +33,6 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
   onPress,
 }) => {
   const { colorScheme } = useColorScheme();
-  const formatDate = (date: Date) => {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-
-    return `${day}.${month}.${year}`;
-  };
 
   const selectIcon = () => {
     switch (status) {
@@ -91,7 +84,7 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
         </Text>
         <View>
           <Text className="font-normal text-tiny text-ink-darkest dark:text-sky-lightest">
-            {formatDate(new Date(date))}
+            {formatToDayMonthYear(new Date(date))}
           </Text>
         </View>
       </View>
@@ -105,18 +98,14 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
               className="flex-1">
               <View className="flex-row  space-x-1 flex-1" onStartShouldSetResponder={() => true}>
                 {[creatorPicture, ...participantPictures].map((picture, index) => (
-                  <View key={index}>
-                    <CustomImage size="tiny" image={picture} />
-                  </View>
+                  <View key={index}>{picture}</View>
                 ))}
               </View>
             </ScrollView>
           </View>
         ) : (
           <View className="flex-row space-x-1">
-            <View>
-              <CustomImage size="tiny" image={creatorPicture} />
-            </View>
+            <View>{creatorPicture}</View>
             <View>
               <ArrowNarrowRight
                 stroke={colorScheme === 'light' ? theme.ink.darkest : theme.sky.lightest}
@@ -124,9 +113,7 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
                 height={IconSize.SMALL}
               />
             </View>
-            <View>
-              <CustomImage size="tiny" image={participantPictures[0]} />
-            </View>
+            <View>{participantPictures[0]}</View>
           </View>
         )}
 

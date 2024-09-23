@@ -15,7 +15,7 @@ const OptionsBar: React.FC<OptionsBarProps> = ({
   rightCaption,
 }) => {
   return (
-    <View className="flex-row w-full justify-between items-center px-6 py-3">
+    <View className="flex-row w-full justify-between items-center px-3 py-3">
       <View className="flex-col w-1/2">
         <Text className="text-small text-ink-darkest dark:text-sky-lightest">{leftText}</Text>
         {leftCaption && <Text className="text-tiny text-ink-lighter">{leftCaption}</Text>}

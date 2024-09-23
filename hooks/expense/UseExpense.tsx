@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useContext } from 'react';
 
-import { API_URL } from '@/constants/Api';
+import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
 
-export type ExpenseDetails = {
+export type Expense = {
   expenseId: string;
   creatorId: string;
   title: string;
@@ -15,37 +15,37 @@ export type ExpenseDetails = {
   exchangeRate: number | undefined;
   createdAt: Date;
   updatedAt: Date;
-  expenseDate: Date;
-  attachmentId: string | undefined;
+  expenseDate: string;
+  attachmentId: string;
   expenseParticipants: ExpenseParticipant[];
-  status: string;
+  status: 'ACCEPTED' | 'REJECTED' | 'PENDING';
   history: ExpenseHistoryEntry[];
 };
 
 export type ExpenseParticipant = {
   participantId: string;
   participantCost: number;
-  participantStatus: string;
+  participantStatus: 'ACCEPTED' | 'REJECTED' | 'PENDING';
 };
 
 export type ExpenseHistoryEntry = {
   participantId: string;
-  expenseAction: string;
-  createdAt: Date;
-  comment: string | undefined;
+  expenseAction: 'CREATED' | 'UPDATED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
+  createdAt: string;
+  comment?: string;
 };
 
-function useExpense(expenseId: string, groupId: string) {
-  const { authState } = useContext(GlobalContext);
+export default function useExpense(expenseId: string) {
+  const { authState, userData } = useContext(GlobalContext);
   return useQuery({
-    queryKey: [`expenses/${expenseId}/${groupId}`],
+    queryKey: [`/expenses/${expenseId}/groups/${userData.currentGroupId}`],
     queryFn: async (): Promise<Expense> => {
       const { data } = await axios.get(
-        `${API_URL}/external/expenses/${expenseId}/groups/${groupId}`,
+        `${API_URL}${PATHS.EXTERNAL}/expenses/${expenseId}/groups/${userData.currentGroupId}`,
         {
           headers: {
-            host: 'gem.web.expense-manager.com',
-            accept: 'application/vnd.gem.internal.v1+json',
+            host: HOST.EXPENSE_MANAGER,
+            accept: APPLICATION_JSON_INTERNAL_VER_1,
             authorization: `Bearer ${authState.token}`,
           },
         },
@@ -55,5 +55,3 @@ function useExpense(expenseId: string, groupId: string) {
     },
   });
 }
-
-export default useExpense;

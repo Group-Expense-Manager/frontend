@@ -64,8 +64,7 @@ export default function NewExpenseMessage() {
             <MultiTextInput
               label={t('Message (optional)')}
               onChangeText={(text: string) => {
-                const trimmedText = text.trim();
-                const message = trimmedText ? trimmedText : undefined;
+                const message = text ? text : undefined;
                 setExpenseCreation({ ...expenseCreation, message });
               }}
               value={expenseCreation.message ? expenseCreation.message : ''}

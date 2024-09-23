@@ -1,4 +1,4 @@
 export enum ButtonType {
-  PRIMARY = 'PRIMARY',
+  NORMAL = 'NORMAL',
   OUTLINED = 'OUTLINED',
 }
