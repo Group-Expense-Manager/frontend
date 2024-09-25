@@ -173,5 +173,11 @@
   "No, cancel": "No, cancel",
   "Decide": "Decide",
   "Expense decide": "Accept or reject expense",
-  "Expense decide - description": "By accepting this expense, you confirm that the details are accurate and agree to participate in the costs"
+  "Expense decide - description": "By accepting this expense, you confirm that the details are accurate and agree to participate in the costs",
+  "Payment group": "Payment group",
+  "Recipient": "Recipient",
+  "Payment title": "Payment title",
+  "Payment date": "Payment date",
+  "OTHER": "Other",
+  "Payment value": "Payment value"
 }

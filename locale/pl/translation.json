@@ -31,7 +31,7 @@
   "Successfully joined group - description": "Pomyślnie dołączyłeś do grupy. Witamy na pokładzie! Teraz możesz brać udział w aktywnościach grupy.",
   "Join": "Dołącz",
   "Create expense": "Utwórz wydatek",
-  "Create payment": "Utwórz rozliczenie",
+  "Create payment": "Utwórz płatność",
   "Create report": "Utwórz raport",
   "Select group": "Wybierz grupę",
   "Expense name": "Nazwa wydatku",
@@ -173,5 +173,11 @@
   "No, cancel": "Nie, anuluj",
   "Decide": "Zdecyduj",
   "Expense decide": "Zaakceptuj lub odrzuć wydatek",
-  "Expense decide - description": "Akceptując ten wydatek, potwierdzasz, że szczegóły są prawdziwe i zgadzasz się na udział w kosztach."
+  "Expense decide - description": "Akceptując ten wydatek, potwierdzasz, że szczegóły są prawdziwe i zgadzasz się na udział w kosztach.",
+  "Payment group": "Grupa płatności",
+  "Recipient": "Odbiorca",
+  "Payment title": "Tytuł płatności",
+  "Payment date": "Data płatności",
+  "OTHER": "Inna",
+  "Payment value": "Wartość płatności"
 }
