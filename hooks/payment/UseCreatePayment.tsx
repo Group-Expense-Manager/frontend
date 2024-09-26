@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { router } from 'expo-router';
 import { useContext } from 'react';
 
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
+import { Payment } from '@/hooks/payment/UsePayment';
 
 export default function useCreatePayment() {
   const { authState, userData, setUserData } = useContext(GlobalContext);
@@ -39,12 +40,19 @@ export default function useCreatePayment() {
         },
       );
     },
-    onSuccess: () => {
+    onSuccess: (response: AxiosResponse<Payment>) => {
+      queryClient.setQueryData(
+        [`/payments/${response.data.expenseId}/groups/${paymentCreation.groupId}`],
+        () => {
+          return response.data;
+        },
+      );
       queryClient.invalidateQueries({
         queryKey: [`/activities/groups/${paymentCreation.groupId}`],
       });
       setUserData({ ...userData, currentGroupId: paymentCreation.groupId });
       router.navigate('/groups');
+      router.push(`/payments/${response.data.expenseId}`);
     },
     onError: () => {
       router.push('/expenses/new/error-modal');

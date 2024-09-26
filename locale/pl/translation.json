@@ -161,7 +161,6 @@
   "Author": "Autor",
   "Title": "Tytuł",
   "Cost after exchange rate conversion": "Koszt po przewalutowaniu",
-  "Date of expense": "Data wydatku",
   "Expense history": "Historia wydatku",
   "Attachment": "Załącznik",
   "Actions": "Akcje",
@@ -179,5 +178,17 @@
   "Payment title": "Tytuł płatności",
   "Payment date": "Data płatności",
   "OTHER": "Inna",
-  "Payment value": "Wartość płatności"
+  "Payment value": "Wartość płatności",
+  "Value": "Wartość",
+  "Status": "Status",
+  "Status PENDING": "W toku",
+  "Status ACCEPTED": "Zaakceptowano",
+  "Status REJECTED": "Odrzucono",
+  "Payment history": "Historia płatności",
+  "Show payment history": "Wyświetl historię płatności",
+  "Delete payment": "Usuń płatność",
+  "Delete payment - title": "Czy usunąć tę płatność?",
+  "Delete payment - description": "Czy na pewno chcesz usunąć tę płatność? Operacja jest nieodwracalna.",
+  "Payment decide": "Zaakceptuj lub odrzuć płatność",
+  "Payment decide - description": "Akceptując tę płatność, potwierdzasz, że szczegóły są prawdziwe i zgadzasz się na udział w kosztach."
 }
