@@ -27,15 +27,14 @@ export default function NewPaymentAttachment() {
     });
 
     if (!result.canceled) {
-      handleImageChoice(
+      await handleImageChoice(
         result.assets[0],
         () => router.push('/payments/new/unsupported-file-format-modal'),
-        () => router.push('/payments/new/image-too-large-modal'),
-        () =>
+        (mimeType?: string, base64?: string | null) =>
           setPaymentCreation({
             ...paymentCreation,
             attachment: {
-              uri: `data:${result.assets[0].mimeType};base64,${result.assets[0].base64}`,
+              uri: `data:${mimeType};base64,${base64}`,
             },
           }),
       );
