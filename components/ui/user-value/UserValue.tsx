@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 
 interface UserValueProps {
   type: 'balance' | 'weight' | 'cost';
@@ -35,7 +36,7 @@ const UserValue: React.FC<UserValueProps> = ({ type, user, image, value, currenc
   };
 
   return (
-    <TouchableOpacity
+    <SingleClickTouchableOpacity
       disabled={!onPress}
       onPress={onPress}
       activeOpacity={0.7}
@@ -58,7 +59,7 @@ const UserValue: React.FC<UserValueProps> = ({ type, user, image, value, currenc
           {rightText()}
         </Text>
       </View>
-    </TouchableOpacity>
+    </SingleClickTouchableOpacity>
   );
 };
 

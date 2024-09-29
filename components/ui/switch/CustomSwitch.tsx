@@ -1,6 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { Availability } from '@/util/Availability';
 
 interface CustomSwitchProps {
@@ -59,14 +60,15 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({ disabled = false, value, on
   }
 
   return (
-    <TouchableOpacity
+    <SingleClickTouchableOpacity
+      delay={500}
       activeOpacity={1}
       onPress={toggleSwitch}
       className={`flex-row ${thumbPosition} items-center px-[2px] w-[56px] h-[32px]  rounded-[32px] ${trackColor()}
         ${hasBorder ? 'border border-sky-light dark:border-ink-dark' : ''}
         `}>
       <View className={`w-[28px] h-[28px]  rounded-[14px] ${thumbColor()}`} />
-    </TouchableOpacity>
+    </SingleClickTouchableOpacity>
   );
 };
 

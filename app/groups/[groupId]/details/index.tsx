@@ -2,7 +2,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BackHandler, ScrollView, TouchableOpacity, View } from 'react-native';
+import { BackHandler, ScrollView, View } from 'react-native';
 
 import PictureUpdate from '@/components/modules/userdetails/PictureUpdate';
 import Box from '@/components/ui/box/Box';
@@ -13,6 +13,7 @@ import CustomImage from '@/components/ui/image/CustomImage';
 import Loader from '@/components/ui/loader/Loader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { GlobalContext } from '@/context/GlobalContext';
 import { GroupUpdateContext } from '@/context/group/GroupUpdateContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
@@ -177,7 +178,7 @@ export default function Index() {
 
             <View className="w-full space-y-3">
               {isOwner ? (
-                <TouchableOpacity
+                <SingleClickTouchableOpacity
                   onPress={() => router.push(`/groups/${params.groupId}/details/group-name`)}>
                   <View pointerEvents="none">
                     <MultiTextInput
@@ -186,7 +187,7 @@ export default function Index() {
                       showErrors={!groupUpdate.isValidGroupName}
                     />
                   </View>
-                </TouchableOpacity>
+                </SingleClickTouchableOpacity>
               ) : (
                 <MultiTextInput label={t('Group name')} value={groupDetails.name} disabled />
               )}

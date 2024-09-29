@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native';
 
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { ChipChevronDownIcon, ChipFilterLinesIcon, ChipXIcon } from '@/constants/Icon';
 import { IconSize } from '@/util/IconSize';
 
@@ -31,7 +32,7 @@ const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, image }) =>
   }
 
   return (
-    <TouchableOpacity
+    <SingleClickTouchableOpacity
       activeOpacity={1}
       onPress={onPress}
       style={{ paddingLeft, paddingRight }}
@@ -44,7 +45,7 @@ const Chip: React.FC<ChipProps> = ({ text, type, onPress = () => {}, image }) =>
         {text}
       </Text>
       {getIcon()}
-    </TouchableOpacity>
+    </SingleClickTouchableOpacity>
   );
 };
 

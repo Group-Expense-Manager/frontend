@@ -1,5 +1,7 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
+
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 
 export interface SegmentProps {
   text: string;
@@ -38,7 +40,8 @@ const SegmentedControls: React.FC<SegmentedControlsProps> = ({
   return (
     <View className="w-full rounded-[8px] p-0.5 flex-row bg-sky-lighter dark:bg-ink-darker items-center">
       {segments.map((segment, index) => (
-        <TouchableOpacity
+        <SingleClickTouchableOpacity
+          delay={500}
           key={`${index.toString()}-segment`}
           activeOpacity={1}
           onPress={() => {
@@ -52,7 +55,7 @@ const SegmentedControls: React.FC<SegmentedControlsProps> = ({
           {hasSeparator(index) && (
             <View className="bg-sky-base dark:bg-ink-base w-[1px] h-5 absolute -right-[0.5px]" />
           )}
-        </TouchableOpacity>
+        </SingleClickTouchableOpacity>
       ))}
     </View>
   );

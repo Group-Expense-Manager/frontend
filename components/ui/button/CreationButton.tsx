@@ -1,7 +1,8 @@
 import { useColorScheme } from 'nativewind';
 import React, { ReactElement } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native';
 
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import theme from '@/constants/Colors';
 import { IconSize } from '@/util/IconSize';
 
@@ -47,7 +48,7 @@ const CreationButton: React.FC<CreationButtonProps> = ({
     return colorScheme === 'light' ? theme.sky.dark : theme.ink.light;
   }
   return (
-    <TouchableOpacity
+    <SingleClickTouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
       className={`
@@ -57,7 +58,7 @@ const CreationButton: React.FC<CreationButtonProps> = ({
       disabled={disabled}>
       {clonedIcon}
       <Text className={`${textColor()} text-title3`}>{title}</Text>
-    </TouchableOpacity>
+    </SingleClickTouchableOpacity>
   );
 };
 

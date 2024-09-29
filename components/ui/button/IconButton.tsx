@@ -3,6 +3,7 @@ import React, { ReactElement } from 'react';
 import { TouchableOpacity } from 'react-native';
 
 import { ButtonColor } from '@/components/ui/button/CustomButton';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import theme from '@/constants/Colors';
 import { Availability } from '@/util/Availability';
 import { ButtonType } from '@/util/ButtonType';
@@ -102,7 +103,7 @@ const IconButton: React.FC<IconButtonProps> = ({
     }
   }
   return (
-    <TouchableOpacity
+    <SingleClickTouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
       className={`
@@ -114,7 +115,7 @@ const IconButton: React.FC<IconButtonProps> = ({
         `}
       disabled={disabled}>
       {clonedIcon}
-    </TouchableOpacity>
+    </SingleClickTouchableOpacity>
   );
 };
 

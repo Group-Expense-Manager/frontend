@@ -1,7 +1,8 @@
 import { useColorScheme } from 'nativewind';
 import React, { ReactNode } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import theme from '@/constants/Colors';
 import { ArrowNarrowRight, CheckCircleIcon, HelpCircleIcon, XCircleIcon } from '@/constants/Icon';
 import { formatToDayMonthYear } from '@/util/DateUtils';
@@ -62,7 +63,7 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
   const valueAsString = value.toString().replace('.', ',');
 
   return (
-    <TouchableOpacity
+    <SingleClickTouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
       className="bg-primary-lightest dark:bg-ink-base rounded-lg flex-col px-2 py-1 space-y-1">
@@ -126,7 +127,7 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
           </Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </SingleClickTouchableOpacity>
   );
 };
 

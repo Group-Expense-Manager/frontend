@@ -1,10 +1,11 @@
 import { useNavigation } from 'expo-router';
 import React, { ReactNode, useContext, useEffect } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
 
 const isSelect = (item: SelectInputData<any>, selectedData: SelectInputData<any>[]) => {
@@ -53,11 +54,11 @@ const SelectList: React.FC<SelectListProps<any>> = ({ title, data, createRow }) 
         {data ? (
           data.map((item) => (
             <View key={item.name} className={`${getBorderStyles(item, data)} flex justify-center`}>
-              <TouchableOpacity
+              <SingleClickTouchableOpacity
                 className="flex my-2 h-16 justify-center"
                 onPress={() => handleSelect(item)}>
                 {createRow(item, isSelect(item, selectInputProps.selectedData))}
-              </TouchableOpacity>
+              </SingleClickTouchableOpacity>
             </View>
           ))
         ) : (
