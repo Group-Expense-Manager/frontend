@@ -139,5 +139,6 @@
   "Join group code - description": "Nowi użytkownicy mogą dołączać do grupy przy użyciu poniższego kodu. Udostępnij go, aby zaprosić innych do grupy!",
   "Copy": "Kopiuj",
   "Group name can not be empty": "Nazwa grupy nie może być pusta",
-  "Group name may contain at most 20 characters": "Nazwa grupy może zawierać maksymalnie 20 znaków"
+  "Group name may contain at most 20 characters": "Nazwa grupy może zawierać maksymalnie 20 znaków",
+  "Group currencies": "Grupowe waluty"
 }

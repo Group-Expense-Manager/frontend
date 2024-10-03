@@ -28,7 +28,7 @@ const defaultPreferences: Preferences = {
 };
 
 interface UserData {
-  currentGroupId?: string;
+  currentGroupId: string | null | undefined;
 }
 
 export const defaultUserData: UserData = {

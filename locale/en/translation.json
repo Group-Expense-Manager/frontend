@@ -138,5 +138,6 @@
   "Join group code - description": "New users can join the group using the code below. Share it to invite others to the group!",
   "Copy": "Copy",
   "Group name can not be empty": "Group name can not be empty",
-  "Group name may contain at most 20 characters": "Group name may contain at most 20 characters"
+  "Group name may contain at most 20 characters": "Group name may contain at most 20 characters",
+  "Group currencies": "Group currencies"
 }
