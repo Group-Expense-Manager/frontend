@@ -2,6 +2,7 @@ import { Redirect } from 'expo-router';
 import { useContext } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import '@/app/i18n'; // This line imports the i18n configuration
 
 import { GlobalContext } from '@/context/GlobalContext';
 

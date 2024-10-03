@@ -1,4 +1,6 @@
-import React from 'react';
+import { useNavigation } from 'expo-router';
+import { useColorScheme } from 'nativewind';
+import React, { useLayoutEffect } from 'react';
 import { Modal, Text, View } from 'react-native';
 
 import { FullViewLoader } from '@/components';
@@ -18,6 +20,12 @@ const BasicPopover: React.FC<BasicPopoverProps> = ({
   bottomSection,
   isLoading = false,
 }) => {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({ presentation: 'transparentModal', animation: 'fade' });
+  }, [navigation]);
+
   return (
     <Modal transparent statusBarTranslucent>
       <FullViewLoader isLoading={isLoading} />

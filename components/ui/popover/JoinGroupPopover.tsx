@@ -1,4 +1,4 @@
-import { router, useNavigation } from 'expo-router';
+import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,7 +12,6 @@ interface JoinGroupProps {
 
 const JoinGroupPopover: React.FC<JoinGroupProps> = ({ isFirstGroup }) => {
   const { t } = useTranslation();
-  const navigation = useNavigation();
   const [code, setCode] = useState('');
   const [error, setError] = useState(false);
   const {
@@ -31,10 +30,6 @@ const JoinGroupPopover: React.FC<JoinGroupProps> = ({ isFirstGroup }) => {
       setError(true);
     }
   }, [isJoinGroupError]);
-
-  useEffect(() => {
-    navigation.setOptions({ presentation: 'transparentModal' });
-  }, [navigation]);
 
   return (
     <SingleTextInputPopover

@@ -1,5 +1,5 @@
-import { router, useNavigation } from 'expo-router';
-import React, { useEffect } from 'react';
+import { router } from 'expo-router';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import DoubleButtonPopover from '@/components/ui/popover/DoubleButtonPopover';
@@ -11,11 +11,7 @@ interface ExitWithoutSavingProps {
 
 const ExitWithoutSavingPopover: React.FC<ExitWithoutSavingProps> = ({ onDiscardChanges }) => {
   const { t } = useTranslation();
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    navigation.setOptions({ presentation: 'transparentModal' });
-  }, [navigation]);
   return (
     <DoubleButtonPopover
       title={t('Unsaved Changes')}

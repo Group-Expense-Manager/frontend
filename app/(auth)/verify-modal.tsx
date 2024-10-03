@@ -1,4 +1,4 @@
-import { router, useNavigation } from 'expo-router';
+import { router } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -10,7 +10,6 @@ import { ButtonType } from '@/util/ButtonType';
 
 export default function VerifyModal() {
   const { t } = useTranslation();
-  const navigation = useNavigation();
   const { verificationProps, setVerificationProps } = useContext(VerificationContext);
   const [error, setError] = useState(false);
   const {
@@ -34,9 +33,6 @@ export default function VerifyModal() {
 
   const isConfirmButtonDisabled = verificationProps.code.length === 0;
 
-  useEffect(() => {
-    navigation.setOptions({ presentation: 'transparentModal' });
-  }, [navigation]);
   return (
     <SingleTextInputPopover
       title={t('Verify account')}
