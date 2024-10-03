@@ -21,8 +21,8 @@ export default function Create() {
         <View className="w-full h-full flex-col justify-between pb-8 pt-4">
           <View>
             <CreationButton
-              onPress={() => router.navigate('/expense-group')}
-              title={t('Add expense')}
+              onPress={() => router.push('/expenses/new/group')}
+              title={t('Create expense')}
               icon={<BankNoteIcon />}
               disabled={!groups.length}
             />
@@ -31,7 +31,7 @@ export default function Create() {
           <View>
             <CreationButton
               onPress={() => {}}
-              title={t('Add payment')}
+              title={t('Create payment')}
               icon={<ScalesIcon />}
               disabled={!groups.length}
             />
@@ -40,7 +40,7 @@ export default function Create() {
           <View>
             <CreationButton
               onPress={() => {}}
-              title={t('Add report')}
+              title={t('Create report')}
               icon={<FileIcon />}
               disabled={!groups.length}
             />

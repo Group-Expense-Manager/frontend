@@ -21,7 +21,7 @@ function useGroups() {
 
   return useQuery({
     queryKey: ['/groups'],
-    queryFn: async (): Promise<string[]> => {
+    queryFn: async (): Promise<Group[]> => {
       const { data } = await axios.get(`${API_URL}${PATHS.EXTERNAL}/groups`, {
         headers: {
           host: HOST.GROUP_MANAGER,
@@ -29,7 +29,7 @@ function useGroups() {
           authorization: `Bearer ${authState.token}`,
         },
       });
-      return data.groups.map((group: Group) => group.groupId);
+      return data.groups;
     },
   });
 }

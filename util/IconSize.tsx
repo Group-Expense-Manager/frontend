@@ -4,5 +4,6 @@ export enum IconSize {
   SMALL = 24,
   MEDIUM = 40,
   LARGE = 48,
+  VERY_LARGE = 100,
   COLOSSAL = 150,
 }

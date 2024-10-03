@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 export interface SegmentProps {
@@ -7,14 +7,18 @@ export interface SegmentProps {
 }
 
 interface SegmentedControlsProps {
+  activeSegmentIndex: number;
+  onValueChange: (activeSegmentIndex: number) => void;
   segments: SegmentProps[];
 }
 
-const SegmentedControls: React.FC<SegmentedControlsProps> = ({ segments }) => {
-  const [activeSegmentIndex, setActiveSegment] = useState(0);
-
+const SegmentedControls: React.FC<SegmentedControlsProps> = ({
+  activeSegmentIndex,
+  onValueChange,
+  segments,
+}) => {
   function backgroundColor(index: number) {
-    return index === activeSegmentIndex ? 'bg-primary-lighter dark:bg-primary-dark' : '';
+    return index === activeSegmentIndex ? 'bg-primary-lighter dark:bg-primary-base' : '';
   }
 
   function textColor(index: number) {
@@ -39,7 +43,7 @@ const SegmentedControls: React.FC<SegmentedControlsProps> = ({ segments }) => {
           activeOpacity={1}
           onPress={() => {
             if (activeSegmentIndex !== index) {
-              setActiveSegment(index);
+              onValueChange(index);
               segment.onPress();
             }
           }}

@@ -32,6 +32,9 @@ export default function (inParallel: boolean = false, groupId: string) {
       );
     },
     onSuccess: (response: AxiosResponse<GroupDetails>) => {
+      queryClient.invalidateQueries({
+        queryKey: [`/groups`],
+      });
       queryClient.setQueryData([`/groups/${groupId}`], (oldData: GroupDetails) => {
         return { ...oldData, ...response.data };
       });

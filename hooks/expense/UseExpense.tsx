@@ -5,20 +5,21 @@ import { useContext } from 'react';
 import { API_URL } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
 
-export type Expense = {
+export type ExpenseDetails = {
+  expenseId: string;
   creatorId: string;
   title: string;
-  cost: number;
+  totalCost: number;
   baseCurrency: string;
   targetCurrency: string | undefined;
   exchangeRate: number | undefined;
   createdAt: Date;
   updatedAt: Date;
   expenseDate: Date;
-  attachmentId: undefined;
+  attachmentId: string | undefined;
   expenseParticipants: ExpenseParticipant[];
   status: string;
-  statusHistory: StatusHistoryEntry[];
+  history: ExpenseHistoryEntry[];
 };
 
 export type ExpenseParticipant = {
@@ -27,7 +28,7 @@ export type ExpenseParticipant = {
   participantStatus: string;
 };
 
-export type StatusHistoryEntry = {
+export type ExpenseHistoryEntry = {
   participantId: string;
   expenseAction: string;
   createdAt: Date;

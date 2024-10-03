@@ -1,3 +1,4 @@
+import { GroupMemberDetails } from '@/hooks/userdetails/UseGroupMembersDetails';
 import { UserDetails } from '@/hooks/userdetails/UseUserDetails';
 
 export function getName(firstName?: string, lastName?: string): string | undefined {
@@ -16,4 +17,8 @@ export function getName(firstName?: string, lastName?: string): string | undefin
 export function getNameFromUserDetails(userDetails: UserDetails): string {
   const name = getName(userDetails.firstName, userDetails.lastName);
   return name ? name : userDetails.username;
+}
+
+export function getFirstNameOrUsername(userDetails: GroupMemberDetails): string {
+  return userDetails.firstName ? userDetails.firstName : userDetails.username;
 }

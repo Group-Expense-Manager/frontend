@@ -139,5 +139,20 @@
   "Copy": "Copy",
   "Group name can not be empty": "Group name can not be empty",
   "Group name may contain at most 20 characters": "Group name may contain at most 20 characters",
-  "Group currencies": "Group currencies"
+  "Group currencies": "Group currencies",
+  "Currencies": "Currencies",
+  "Expense group": "Expense group",
+  "Expense title may contain at most 30 characters": "Expense title may contain at most 30 characters",
+  "Currency": "Currency",
+  "Target currency": "Target currency",
+  "Total cost": "Total cost",
+  "Expense participants": "Expense participants",
+  "Weight-based": "Weight-based",
+  "Cost-based": "Cost-based",
+  "The sum of partial costs does not match the total cost": "The sum of partial costs does not match the total cost",
+  "Other participants must have non-zero costs": "Other participants must have non-zero costs",
+  "Weight": "Weight",
+  "Cost": "Cost",
+  "Message (optional)": "Message (optional)",
+  "Attachment (optional)": "Attachment (optional)"
 }
