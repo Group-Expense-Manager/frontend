@@ -1,4 +1,4 @@
-import TouchableExpense from './modules/expense/TouchableExpense';
+import TouchableActivity from './modules/activity/TouchableActivity';
 
 import CustomButton from '@/components/ui/button/CustomButton';
 import TabButton from '@/components/ui/button/TabButton';
@@ -11,7 +11,7 @@ import TopTabIcon from '@/components/ui/tab/TopTabIcon';
 import CustomTextInput from '@/components/ui/text-input/CustomTextInput';
 
 export {
-  TouchableExpense,
+  TouchableActivity,
   CustomButton,
   FullViewLoader,
   TabIcon,

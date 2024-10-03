@@ -167,7 +167,7 @@ export default function Index() {
   }
 
   function hasProfilePictureChanged(): boolean {
-    return profilePicture?.uri !== profileUpdate.profilePicture.uri;
+    return profilePicture?.uri !== profileUpdate.profilePicture?.uri;
   }
 
   function isUserDataValid(): boolean {

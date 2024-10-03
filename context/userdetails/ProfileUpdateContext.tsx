@@ -12,7 +12,7 @@ export interface ProfileUpdate {
     bankAccountNumber?: string;
     preferredPaymentMethod: PaymentMethod;
   };
-  profilePicture: ImageBase64;
+  profilePicture?: ImageBase64;
   isValid: {
     username: boolean;
     firstName: boolean;
@@ -35,7 +35,7 @@ export const defaultProfileUpdate: ProfileUpdate = {
     bankAccountNumber: undefined,
     preferredPaymentMethod: PaymentMethod.NONE,
   },
-  profilePicture: { uri: '' },
+  profilePicture: undefined,
 
   isValid: {
     username: true,

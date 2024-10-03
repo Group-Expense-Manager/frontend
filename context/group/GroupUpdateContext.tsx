@@ -1,11 +1,11 @@
 import React, { createContext, FC, ReactNode, useState } from 'react';
 
+import { ImageBase64 } from '@/components/ui/image/CustomImage';
+
 export interface GroupUpdate {
   groupName: string;
   isValidGroupName: boolean;
-  groupPicture: {
-    uri: string;
-  };
+  groupPicture?: ImageBase64;
 }
 
 interface GroupUpdateContextProps {
@@ -16,9 +16,7 @@ interface GroupUpdateContextProps {
 const defaultGroupUpdate: GroupUpdate = {
   groupName: '',
   isValidGroupName: false,
-  groupPicture: {
-    uri: '',
-  },
+  groupPicture: undefined,
 };
 
 export const GroupUpdateContext = createContext<GroupUpdateContextProps>({
