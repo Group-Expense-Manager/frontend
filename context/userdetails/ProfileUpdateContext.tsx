@@ -1,6 +1,7 @@
-import React, { createContext, FC, ReactNode, useContext, useState } from 'react';
+import React, { createContext, FC, ReactNode, useState } from 'react';
 
-import { GlobalContext, PaymentMethod } from '@/context/GlobalContext';
+import { ImageBase64 } from '@/components/ui/image/CustomImage';
+import { PaymentMethod } from '@/hooks/userdetails/UseUserDetails';
 
 export interface ProfileUpdate {
   userDetails: {
@@ -11,9 +12,7 @@ export interface ProfileUpdate {
     bankAccountNumber?: string;
     preferredPaymentMethod: PaymentMethod;
   };
-  profilePicture: {
-    imageUri: string;
-  };
+  profilePicture: ImageBase64;
   isValid: {
     username: boolean;
     firstName: boolean;
@@ -36,9 +35,7 @@ export const defaultProfileUpdate: ProfileUpdate = {
     bankAccountNumber: undefined,
     preferredPaymentMethod: PaymentMethod.NONE,
   },
-  profilePicture: {
-    imageUri: '',
-  },
+  profilePicture: { uri: '' },
 
   isValid: {
     username: true,
@@ -55,27 +52,7 @@ export const ProfileUpdateContext = createContext<ProfileUpdateContextProps>({
 });
 
 export const ProfileUpdateProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const { userData } = useContext(GlobalContext);
-  const [profileUpdate, setProfileUpdate] = useState<ProfileUpdate>({
-    userDetails: {
-      username: userData.userDetails.username,
-      firstName: userData.userDetails.firstName,
-      lastName: userData.userDetails.lastName,
-      phoneNumber: userData.userDetails.phoneNumber,
-      bankAccountNumber: userData.userDetails.bankAccountNumber,
-      preferredPaymentMethod: userData.userDetails.preferredPaymentMethod,
-    },
-    profilePicture: {
-      imageUri: userData.profilePicture.uri,
-    },
-    isValid: {
-      username: true,
-      firstName: true,
-      lastName: true,
-      phoneNumber: true,
-      bankAccountNumber: true,
-    },
-  });
+  const [profileUpdate, setProfileUpdate] = useState<ProfileUpdate>(defaultProfileUpdate);
 
   return (
     <ProfileUpdateContext.Provider

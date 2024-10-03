@@ -6,19 +6,35 @@ import { View } from 'react-native';
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomImage from '@/components/ui/image/CustomImage';
-import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
+import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 import { Validator } from '@/util/Validator';
 
-export default function EditProfileBankAccountNumber() {
+export default function LastName() {
   const { t } = useTranslation();
 
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
 
   const validator = new Validator([
     {
-      rule: /^[A-Z]{2}[0-9]{2}[a-zA-Z0-9]{11,30}$/,
-      errorMessage: t('Invalid Bank account number format'),
+      rule(arg: string) {
+        return arg.length >= 2;
+      },
+      errorMessage: t('Last name must contain at least 2 characters'),
+    },
+    {
+      rule(arg: string) {
+        return arg.length <= 20;
+      },
+      errorMessage: t('Last name may contain at most 20 characters'),
+    },
+    {
+      rule: /^[\p{L}' -]*$/u,
+      errorMessage: t('Last name can only contain only letters, apostrophes, spaces, or hyphens'),
+    },
+    {
+      rule: /^\p{Lu}.*$/u,
+      errorMessage: t('Last name must start with capital letter'),
     },
   ]);
 
@@ -42,32 +58,29 @@ export default function EditProfileBankAccountNumber() {
     <Box>
       <View className="w-full h-full flex-col">
         <View className="w-full flex-col space-y-[28px] items-center">
-          <CustomImage image={{ uri: profileUpdate.profilePicture.imageUri }} size="colossal" />
+          <CustomImage image={profileUpdate.profilePicture} size="colossal" />
           <View className=" w-full flex-col space-y-[12px]">
-            <SingleTextInput
-              label={t('Bank account number')}
-              onChangeText={(bankAccountNumber) =>
+            <MultiTextInput
+              label={t('Last name')}
+              onChangeText={(lastName) =>
                 setProfileUpdate({
                   ...profileUpdate,
                   userDetails: {
                     ...profileUpdate.userDetails,
-                    bankAccountNumber: bankAccountNumber === '' ? undefined : bankAccountNumber,
+                    lastName: lastName === '' ? undefined : lastName,
                   },
                   isValid: {
                     ...profileUpdate.isValid,
-                    bankAccountNumber:
-                      bankAccountNumber === ''
-                        ? true
-                        : validator.validate(bankAccountNumber).length === 0,
+                    lastName: lastName === '' ? true : validator.validate(lastName).length === 0,
                   },
                 })
               }
-              value={profileUpdate.userDetails.bankAccountNumber}
+              value={profileUpdate.userDetails.lastName}
               autoFocus
               onBlur={() => router.back()}
               errorMessages={
-                profileUpdate.userDetails.bankAccountNumber
-                  ? validator.validate(profileUpdate.userDetails.bankAccountNumber)
+                profileUpdate.userDetails.lastName
+                  ? validator.validate(profileUpdate.userDetails.lastName)
                   : []
               }
             />

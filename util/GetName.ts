@@ -1,4 +1,4 @@
-import { UserDetails } from '@/context/GlobalContext';
+import { UserDetails } from '@/hooks/userdetails/UseUserDetails';
 
 export function getName(firstName?: string, lastName?: string): string | undefined {
   switch (true) {

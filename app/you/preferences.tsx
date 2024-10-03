@@ -108,7 +108,7 @@ export default function Preferences() {
         </CustomTable>
         <SelectInput
           onSelect={setLanguage}
-          onPress={() => router.navigate('/(you)/language-select')}
+          onPress={() => router.navigate('/you/language-select')}
           label={t('Language')}
           value={selectedLanguage}
         />

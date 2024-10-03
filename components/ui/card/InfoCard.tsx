@@ -4,12 +4,12 @@ import { View, Text } from 'react-native';
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 
 interface InfoCardProps {
-  image: ImageBase64;
+  image?: ImageBase64;
   title?: string;
   details: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ image, title, details }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ image = { uri: '' }, title, details }) => {
   return (
     <View className="flex-row w-full justify-start px-3 space-x-3">
       <CustomImage image={image} size="large" />

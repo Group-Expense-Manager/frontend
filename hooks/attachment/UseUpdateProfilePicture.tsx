@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toByteArray } from 'base64-js';
 import { router } from 'expo-router';
@@ -8,17 +8,21 @@ import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constan
 import { GlobalContext } from '@/context/GlobalContext';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 
-export default function useUpdateProfilePicture(inParallel: boolean = false) {
-  const { authState, userData, setUserData } = useContext(GlobalContext);
+export default function useUpdateProfilePicture(
+  inParallel: boolean = false,
+  attachmentId?: string,
+) {
+  const { authState } = useContext(GlobalContext);
   const { profileUpdate } = useContext(ProfileUpdateContext);
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () => {
-      const [metadata, base64Data] = profileUpdate.profilePicture.imageUri.split(',');
+      const [metadata, base64Data] = profileUpdate.profilePicture.uri.split(',');
       const contentType = metadata.match(/:(.*?);/)![1];
 
       return axios.put(
-        `${API_URL}${PATHS.EXTERNAL}/users/attachments/${userData.userDetails.attachmentId}`,
+        `${API_URL}${PATHS.EXTERNAL}/users/attachments/${attachmentId}`,
         toByteArray(base64Data),
 
         {
@@ -32,14 +36,16 @@ export default function useUpdateProfilePicture(inParallel: boolean = false) {
       );
     },
     onSuccess: () => {
-      setUserData({ ...userData, profilePicture: { uri: profileUpdate.profilePicture.imageUri } });
       if (!inParallel) {
         router.back();
       }
+      queryClient.invalidateQueries({
+        queryKey: [`/users/${authState.userId}/attachments/${attachmentId}`],
+      });
     },
     onError: () => {
       if (!inParallel) {
-        router.push('/(you)/(modal)/error-modal');
+        router.push('/you/edit-profile/(modal)/error-modal');
       }
     },
   });

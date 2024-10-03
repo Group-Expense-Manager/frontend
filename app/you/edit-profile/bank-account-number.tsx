@@ -6,19 +6,19 @@ import { View } from 'react-native';
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomImage from '@/components/ui/image/CustomImage';
-import NumericTextInput from '@/components/ui/text-input/NumericTextInput';
+import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 import { Validator } from '@/util/Validator';
 
-export default function EditProfilePhoneNumber() {
+export default function BankAccountNumber() {
   const { t } = useTranslation();
 
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
 
   const validator = new Validator([
     {
-      rule: /^\d{8,10}$|^\+\d{11}$/,
-      errorMessage: t('Invalid phone number format'),
+      rule: /^[A-Z]{2}[0-9]{2}[a-zA-Z0-9]{11,30}$/,
+      errorMessage: t('Invalid Bank account number format'),
     },
   ]);
 
@@ -42,30 +42,32 @@ export default function EditProfilePhoneNumber() {
     <Box>
       <View className="w-full h-full flex-col">
         <View className="w-full flex-col space-y-[28px] items-center">
-          <CustomImage image={{ uri: profileUpdate.profilePicture.imageUri }} size="colossal" />
+          <CustomImage image={profileUpdate.profilePicture} size="colossal" />
           <View className=" w-full flex-col space-y-[12px]">
-            <NumericTextInput
-              label={t('Phone number')}
-              onChangeText={(phoneNumber) =>
+            <SingleTextInput
+              label={t('Bank account number')}
+              onChangeText={(bankAccountNumber) =>
                 setProfileUpdate({
                   ...profileUpdate,
                   userDetails: {
                     ...profileUpdate.userDetails,
-                    phoneNumber: phoneNumber === '' ? undefined : phoneNumber,
+                    bankAccountNumber: bankAccountNumber === '' ? undefined : bankAccountNumber,
                   },
                   isValid: {
                     ...profileUpdate.isValid,
-                    phoneNumber:
-                      phoneNumber === '' ? true : validator.validate(phoneNumber).length === 0,
+                    bankAccountNumber:
+                      bankAccountNumber === ''
+                        ? true
+                        : validator.validate(bankAccountNumber).length === 0,
                   },
                 })
               }
-              value={profileUpdate.userDetails.phoneNumber}
+              value={profileUpdate.userDetails.bankAccountNumber}
               autoFocus
               onBlur={() => router.back()}
               errorMessages={
-                profileUpdate.userDetails.phoneNumber
-                  ? validator.validate(profileUpdate.userDetails.phoneNumber)
+                profileUpdate.userDetails.bankAccountNumber
+                  ? validator.validate(profileUpdate.userDetails.bankAccountNumber)
                   : []
               }
             />

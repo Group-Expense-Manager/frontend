@@ -3,7 +3,6 @@ import i18n from 'i18next';
 import { useColorScheme } from 'nativewind';
 import React, { createContext, FC, ReactNode, useEffect, useState } from 'react';
 
-import { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { LANGUAGE_KEY, MODE_KEY, TOKEN_KEY, USER_KEY } from '@/constants/Storage';
 
 interface AuthState {
@@ -28,45 +27,12 @@ const defaultPreferences: Preferences = {
   language: 'pl',
 };
 
-export enum PaymentMethod {
-  CASH = 'CASH',
-  BANK_TRANSFER = 'BANK_TRANSFER',
-  MOBILE_PAYMENT = 'MOBILE_PAYMENT',
-  NONE = 'NONE',
-}
-
-export type UserDetails = {
-  id: string;
-  username: string;
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
-  bankAccountNumber?: string;
-  preferredPaymentMethod: PaymentMethod;
-  attachmentId: string;
-};
-
 interface UserData {
   currentGroupId?: string;
-  userDetails: UserDetails;
-  profilePicture: ImageBase64;
 }
 
 export const defaultUserData: UserData = {
   currentGroupId: undefined,
-  userDetails: {
-    id: '',
-    username: '',
-    firstName: undefined,
-    lastName: undefined,
-    phoneNumber: undefined,
-    bankAccountNumber: undefined,
-    preferredPaymentMethod: PaymentMethod.NONE,
-    attachmentId: '',
-  },
-  profilePicture: {
-    uri: '',
-  },
 };
 
 interface GlobalContextProps {

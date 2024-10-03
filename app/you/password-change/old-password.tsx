@@ -11,7 +11,7 @@ import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
 
-export default function ChangePasswordOld() {
+export default function OldPassword() {
   const { t } = useTranslation();
   const { passwordChangeProps, setPasswordChangeProps } = useContext(PasswordChangeContext);
   const isNextButtonDisabled = passwordChangeProps.oldPassword.length === 0;
@@ -41,7 +41,7 @@ export default function ChangePasswordOld() {
           <View className="py-[32px] w-full flex flex-col justify-center items-center space-y-[32px]">
             <View className="w-full">
               <CustomButton
-                onPress={() => router.navigate('/change-password-new')}
+                onPress={() => router.navigate('/you/password-change/new-password')}
                 title={t('Next')}
                 disabled={isNextButtonDisabled}
               />

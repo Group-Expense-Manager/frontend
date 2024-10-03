@@ -10,7 +10,7 @@ import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 import { Validator } from '@/util/Validator';
 
-export default function EditProfileUsername() {
+export default function Username() {
   const { t } = useTranslation();
 
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
@@ -54,7 +54,7 @@ export default function EditProfileUsername() {
     <Box>
       <View className="w-full h-full flex-col">
         <View className="w-full flex-col space-y-[28px] items-center">
-          <CustomImage image={{ uri: profileUpdate.profilePicture.imageUri }} size="colossal" />
+          <CustomImage image={profileUpdate.profilePicture} size="colossal" />
           <View className=" w-full flex-col space-y-[12px]">
             <SingleTextInput
               label={t('Nick')}
