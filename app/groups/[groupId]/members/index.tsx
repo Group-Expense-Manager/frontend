@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
@@ -35,6 +35,7 @@ export default function GroupMembers() {
                 <GroupMemberInfoCard
                   member={member}
                   isOwner={member.id === groupDetails?.ownerId}
+                  onPress={() => router.push(`/groups/${params.groupId}/members/${member.id}`)}
                 />
               </View>
             ))}

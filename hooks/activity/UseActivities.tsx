@@ -11,8 +11,7 @@ export type ActivityListElement = {
   creatorId: string;
   title: string;
   value: number;
-  baseCurrency: string;
-  targetCurrency: string;
+  currency: string;
   status: 'ACCEPTED' | 'REJECTED' | 'PENDING';
   participantIds: string[];
   date: string;

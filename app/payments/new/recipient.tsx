@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -9,7 +9,9 @@ import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
-import { GroupMemberDetails } from '@/hooks/userdetails/UseGroupMembersDetails';
+import useGroupMembersDetails, {
+  GroupMemberDetails,
+} from '@/hooks/userdetails/UseGroupMembersDetails';
 import { ButtonType } from '@/util/ButtonType';
 import { getFirstNameOrUsername } from '@/util/GetName';
 import { IconSize } from '@/util/IconSize';
@@ -23,6 +25,20 @@ export default function NewPaymentRecipient() {
     value: { id: '', username: '', firstName: '', lastName: '', attachmentId: '' },
     name: '',
   });
+
+  const { data: membersDetails } = useGroupMembersDetails(paymentCreation.groupId);
+
+  useEffect(() => {
+    const recipientDetails = membersDetails?.details.find(
+      (details) => details.id === paymentCreation.recipientId,
+    );
+    if (recipientDetails) {
+      setSelectedMember({
+        value: recipientDetails,
+        name: getFirstNameOrUsername(recipientDetails),
+      });
+    }
+  }, [membersDetails]);
 
   function setRecipient(memberDetails: GroupMemberDetails) {
     setSelectedMember({ value: memberDetails, name: getFirstNameOrUsername(memberDetails) });

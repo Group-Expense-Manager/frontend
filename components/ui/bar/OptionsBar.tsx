@@ -1,11 +1,15 @@
+import * as Clipboard from 'expo-clipboard';
 import React from 'react';
 import { Text, View } from 'react-native';
+
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 
 interface OptionsBarProps {
   leftText: string;
   rightText: string;
   leftCaption?: string;
   rightCaption?: string;
+  copiable?: boolean;
 }
 
 const OptionsBar: React.FC<OptionsBarProps> = ({
@@ -13,6 +17,7 @@ const OptionsBar: React.FC<OptionsBarProps> = ({
   rightText,
   leftCaption,
   rightCaption,
+  copiable = false,
 }) => {
   return (
     <View className="flex-row w-full justify-between items-center px-3 py-3">
@@ -22,13 +27,18 @@ const OptionsBar: React.FC<OptionsBarProps> = ({
       </View>
 
       <View className="flex-col w-1/2">
-        <Text selectable className="text-small text-ink-darkest dark:text-sky-lightest text-right">
-          {rightText}
-        </Text>
-        {rightCaption && (
-          <Text selectable className="text-tiny text-ink-lighter text-right">
-            {rightCaption}
+        <SingleClickTouchableOpacity
+          disabled={!copiable}
+          onPress={() => {
+            Clipboard.setStringAsync(rightText);
+          }}>
+          <Text className="text-small text-ink-darkest dark:text-sky-lightest text-right">
+            {rightText}
           </Text>
+        </SingleClickTouchableOpacity>
+
+        {rightCaption && (
+          <Text className="text-tiny text-ink-lighter text-right">{rightCaption}</Text>
         )}
       </View>
     </View>

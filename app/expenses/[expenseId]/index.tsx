@@ -13,7 +13,6 @@ import Box from '@/components/ui/box/Box';
 import { ButtonColor } from '@/components/ui/button/CustomButton';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
-import { EditIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import useExpense, { Expense, ExpenseParticipant } from '@/hooks/expense/UseExpense';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
@@ -33,23 +32,42 @@ export default function ExpenseView() {
     expense?.creatorId,
   );
 
-  const creatorAsParticipant = (expense: Expense): ExpenseParticipant => {
+  const creatorAsParticipant = (
+    expense: Expense,
+    multiplier: number,
+    participants: ExpenseParticipant[],
+  ): ExpenseParticipant => {
     return {
       participantId: expense?.creatorId,
       participantCost: new Decimal(expense.totalCost)
+        .times(multiplier)
+        .toDecimalPlaces(2, Decimal.ROUND_DOWN)
         .minus(
           new Decimal(
-            expense?.expenseParticipants.reduce(
-              (accumulator, currentValue) => accumulator.add(currentValue.participantCost),
+            participants.reduce(
+              (accumulator, currentValue) =>
+                accumulator.add(new Decimal(currentValue.participantCost)),
               new Decimal(0),
             ),
           ),
         )
-        .toDecimalPlaces(2, Decimal.rounding)
+        .toDecimalPlaces(2, Decimal.ROUND_DOWN)
         .toNumber(),
       participantStatus: 'ACCEPTED',
     };
   };
+
+  function getParticipants(expense: Expense): ExpenseParticipant[] {
+    const multiplier = expense.exchangeRate ? expense.exchangeRate : 1;
+    const participants = expense?.expenseParticipants.map((participant) => ({
+      ...participant,
+      participantCost: new Decimal(participant.participantCost)
+        .times(multiplier)
+        .toDecimalPlaces(2, Decimal.ROUND_DOWN)
+        .toNumber(),
+    }));
+    return [creatorAsParticipant(expense, multiplier, participants), ...participants];
+  }
 
   const role = () => {
     switch (true) {
@@ -68,13 +86,7 @@ export default function ExpenseView() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      header: () => (
-        <CustomHeader
-          title={t('Expense')}
-          rightIcon={role() === 'creator' ? <EditIcon /> : undefined}
-          onRightIconPress={role() === 'creator' ? () => {} : undefined}
-        />
-      ),
+      header: () => <CustomHeader title={t('Expense')} />,
     });
   }, [navigation, role()]);
 
@@ -92,12 +104,12 @@ export default function ExpenseView() {
               <OptionsBar leftText={t('Title')} rightText={expense.title} />
               <OptionsBar
                 leftText={t('Cost')}
-                rightText={`${expense.totalCost} ${expense.baseCurrency}`}
+                rightText={`${expense.totalCost.toString().replace('.', ',')} ${expense.baseCurrency}`}
               />
               {expense?.targetCurrency && expense?.exchangeRate && (
                 <OptionsBar
                   leftText={t('Cost after exchange rate conversion')}
-                  rightText={`${new Decimal(expense.totalCost).times(expense.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN)} ${expense.targetCurrency}`}
+                  rightText={`${new Decimal(expense.totalCost).times(expense.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN).toString().replace('.', ',')} ${expense.targetCurrency}`}
                 />
               )}
               <OptionsBar
@@ -110,17 +122,17 @@ export default function ExpenseView() {
           <View className="space-y-2">
             <NavBar type="segment" title={t('Members')} />
             <View className="space-y-2">
-              {[creatorAsParticipant(expense), ...expense.expenseParticipants].map(
-                (participant, index) => (
-                  <View key={index}>
-                    <Participant
-                      participant={participant}
-                      currency={expense.baseCurrency}
-                      groupId={userData.currentGroupId!}
-                    />
-                  </View>
-                ),
-              )}
+              {getParticipants(expense).map((participant, index) => (
+                <View key={index}>
+                  <Participant
+                    participant={participant}
+                    currency={
+                      expense?.targetCurrency ? expense?.targetCurrency : expense.baseCurrency
+                    }
+                    groupId={userData.currentGroupId!}
+                  />
+                </View>
+              ))}
             </View>
           </View>
 
@@ -151,6 +163,11 @@ export default function ExpenseView() {
                   onPress={() => router.push(`/expenses/${params.expenseId}/history`)}
                 />
               </View>
+              {role() === 'creator' && (
+                <View>
+                  <CustomButton title={t('Edit expense')} onPress={() => {}} />
+                </View>
+              )}
               {role() === 'creator' && (
                 <View>
                   <CustomButton

@@ -18,5 +18,5 @@ export default function PaymentTypeSelect() {
     return Object.values(PaymentType).map((type) => ({ value: type, name: t(type) }));
   };
 
-  return <SelectList createRow={createRow} data={data()} title={t('Payment type')} />;
+  return <SelectList createRow={createRow} data={data()} title={t('Payment method')} />;
 }
