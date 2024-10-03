@@ -34,7 +34,7 @@ export type Payment = {
   createdAt: Date;
   updatedAt: Date;
   date: string;
-  attachmentId: string;
+  attachmentId?: string;
   status: 'ACCEPTED' | 'REJECTED' | 'PENDING';
   history: PaymentHistoryEntry[];
 };

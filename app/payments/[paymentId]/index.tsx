@@ -89,15 +89,18 @@ export default function PaymentView() {
             </View>
           </View>
 
-          <View className="space-y-2">
-            <NavBar title={t('Attachment')} type="segment" />
-            <View>
-              <ActivityAttachment
-                groupId={userData.currentGroupId!}
-                attachmentId={payment.attachmentId}
-              />
+          {payment.attachmentId && (
+            <View className="space-y-2">
+              <NavBar title={t('Attachment')} type="segment" />
+              <View>
+                <ActivityAttachment
+                  groupId={userData.currentGroupId!}
+                  attachmentId={payment.attachmentId}
+                />
+              </View>
             </View>
-          </View>
+          )}
+
           <View className="space-y-2 pb-8">
             <NavBar title={t('Actions')} type="segment" />
             <View className="space-y-4">
