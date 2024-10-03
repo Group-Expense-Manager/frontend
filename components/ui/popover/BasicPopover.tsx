@@ -19,7 +19,7 @@ const BasicPopover: React.FC<BasicPopoverProps> = ({
   isLoading = false,
 }) => {
   return (
-    <Modal transparent>
+    <Modal transparent statusBarTranslucent>
       <FullViewLoader isLoading={isLoading} />
       <View className=" w-full h-full flex-col justify-center items-center">
         <View className="absolute w-full h-full opacity-70 bg-ink-darkest" />

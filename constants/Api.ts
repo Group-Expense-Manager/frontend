@@ -7,6 +7,7 @@ export const HOST = {
   GROUP_MANAGER: 'gem.web.group-manager.com',
   CURRENCY_MANAGER: 'gem.web.currency-manager.com',
   EXPENSE_MANAGER: 'gem.web.expense-manager.com',
+  FINANCE_ADAPTER: 'gem.web.finance-adapter.com',
 };
 
 export const PATHS = {

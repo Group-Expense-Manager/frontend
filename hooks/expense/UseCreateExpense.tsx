@@ -10,10 +10,10 @@ import {
   ExpenseCreationContext,
   ExpenseParticipant,
 } from '@/context/expense/ExpenseCreationContext';
-import { ExpenseDetails } from '@/hooks/expense/UseExpense';
+import { Expense } from '@/hooks/expense/UseExpense';
 
 export default function useCreateExpense() {
-  const { authState } = useContext(GlobalContext);
+  const { authState, userData, setUserData } = useContext(GlobalContext);
   const { expenseCreation } = useContext(ExpenseCreationContext);
   const queryClient = useQueryClient();
 
@@ -51,6 +51,7 @@ export default function useCreateExpense() {
               participantCost: getParticipantCost(participant),
             })),
           attachmentId: expenseCreation.attachmentId,
+          message: expenseCreation.message,
         },
         {
           headers: {
@@ -62,12 +63,20 @@ export default function useCreateExpense() {
         },
       );
     },
-    onSuccess: (response: AxiosResponse<ExpenseDetails>) => {
-      queryClient.setQueryData([`/expenses?groupId=${expenseCreation.groupId}`], () => {
-        return response.data;
-      });
+    onSuccess: (response: AxiosResponse<Expense>) => {
+      queryClient.setQueryData(
+        [`/expenses/${response.data.expenseId}/groups/${expenseCreation.groupId}`],
+        () => {
+          return response.data;
+        },
+      );
 
+      queryClient.invalidateQueries({
+        queryKey: [`/activities/groups/${expenseCreation.groupId}`],
+      });
+      setUserData({ ...userData, currentGroupId: expenseCreation.groupId });
       router.navigate('/groups');
+      router.push(`/expenses/${response.data.expenseId}`);
     },
     onError: () => {
       router.push('/expenses/new/error-modal');

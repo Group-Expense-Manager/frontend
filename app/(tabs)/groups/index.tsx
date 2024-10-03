@@ -1,15 +1,17 @@
 import { router } from 'expo-router';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 
 import { CustomButton } from '@/components';
+import ActivityListItem from '@/components/modules/activity/ActivityListItem';
 import NavBar from '@/components/ui/bar/NavBar';
 import SafeView from '@/components/ui/box/SafeView';
 import Loader from '@/components/ui/loader/Loader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
+import useActivities from '@/hooks/activity/UseActivities';
 import useGroup from '@/hooks/group/UseGroup';
 import { IconSize } from '@/util/IconSize';
 
@@ -17,17 +19,47 @@ export default function Index() {
   const { t } = useTranslation();
   const { userData } = useContext(GlobalContext);
   const { data: groupDetails } = useGroup(userData.currentGroupId);
+  const { data: activities } = useActivities(userData.currentGroupId);
 
   return (
     <SafeView>
-      <View className="w-full h-full py-8">
+      <View className="w-full h-full pt-8">
         {userData.currentGroupId ? (
           groupDetails ? (
-            <TouchableOpacity onPress={() => router.push('/groups/list')}>
-              <View pointerEvents="none">
-                <MultiTextInput label={t('Current group')} value={groupDetails.name} />
+            <View className="flex-1 space-y-3">
+              <TouchableOpacity onPress={() => router.push('/groups/list')}>
+                <View pointerEvents="none">
+                  <MultiTextInput label={t('Current group')} value={groupDetails.name} />
+                </View>
+              </TouchableOpacity>
+              <View className="flex-1">
+                {activities ? (
+                  <ScrollView className="space-y-2" showsVerticalScrollIndicator={false}>
+                    {activities.activities.toReversed().map((activity, index) => (
+                      <View key={index}>
+                        <ActivityListItem
+                          groupId={activities.groupId}
+                          activity={activity}
+                          onPress={() => {
+                            switch (activity.type) {
+                              case 'EXPENSE': {
+                                router.push(`/expenses/${activity.activityId}`);
+                                break;
+                              }
+                              case 'PAYMENT': {
+                                break;
+                              }
+                            }
+                          }}
+                        />
+                      </View>
+                    ))}
+                  </ScrollView>
+                ) : (
+                  <Loader />
+                )}
               </View>
-            </TouchableOpacity>
+            </View>
           ) : (
             <Loader />
           )

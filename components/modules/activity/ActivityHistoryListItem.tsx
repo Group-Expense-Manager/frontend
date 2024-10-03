@@ -3,18 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
+import { formatToDayMonthTime } from '@/util/DateUtils';
 
-interface ActivityHistoryEntryProps {
-  activityAction: 'created' | 'updated' | 'deleted' | 'accepted' | 'rejected';
-  activityType: 'expense' | 'payment';
+interface ActivityHistoryListItemProps {
+  activityAction: 'CREATED' | 'UPDATED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
+  activityType: 'EXPENSE' | 'PAYMENT';
   position: 'left' | 'right';
-  image: ImageBase64;
+  image?: ImageBase64;
   username: string;
-  date: Date;
+  date: string;
   message?: string;
 }
 
-const ActivityHistoryEntry: React.FC<ActivityHistoryEntryProps> = ({
+const ActivityHistoryListItem: React.FC<ActivityHistoryListItemProps> = ({
   activityAction,
   activityType,
   position,
@@ -28,15 +29,6 @@ const ActivityHistoryEntry: React.FC<ActivityHistoryEntryProps> = ({
   const flexRow = position === 'left' ? 'flex-row' : 'flex-row-reverse';
   const items = position === 'left' ? 'items-start' : 'items-end';
   const justify = position === 'left' ? '' : 'justify-end';
-
-  const formatDate = () => {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-
-    return `${day}/${month} ${hours}:${minutes}`;
-  };
 
   return (
     <View className={`p-[10px] w-full ${flexRow}`}>
@@ -53,11 +45,11 @@ const ActivityHistoryEntry: React.FC<ActivityHistoryEntryProps> = ({
             {username}
           </Text>
           <View className="w-[8px]" />
-          <Text className="text-tiny text-ink-lighter">{formatDate()}</Text>
+          <Text className="text-tiny text-ink-lighter">{formatToDayMonthTime(new Date(date))}</Text>
         </View>
         <View className="rounded-[12px] bg-primary-base dark:bg-primary-dark px-[10px] py-[3px] max-w-[90%] items-start">
           <Text className="text-sky-lightest font-bold">
-            {`${t(activityAction)} ${t(activityType)}`.toUpperCase()}
+            {`${t(activityAction)} ${t(activityType)}`}
           </Text>
           {message && <Text className=" text-sky-lightest">{message}</Text>}
         </View>
@@ -66,4 +58,4 @@ const ActivityHistoryEntry: React.FC<ActivityHistoryEntryProps> = ({
   );
 };
 
-export default ActivityHistoryEntry;
+export default ActivityHistoryListItem;
