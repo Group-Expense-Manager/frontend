@@ -4,15 +4,14 @@ import { useContext } from 'react';
 
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
+import { Amount, FxData } from '@/hooks/payment/UsePayment';
 
 export type Expense = {
   expenseId: string;
   creatorId: string;
   title: string;
-  totalCost: number;
-  baseCurrency: string;
-  targetCurrency?: string;
-  exchangeRate?: number;
+  amount: Amount;
+  fxData?: FxData;
   createdAt: Date;
   updatedAt: Date;
   expenseDate: string;
