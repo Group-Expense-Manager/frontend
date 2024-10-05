@@ -4,25 +4,27 @@ import { toByteArray } from 'base64-js';
 import { router } from 'expo-router';
 import { useContext } from 'react';
 
+import { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
 import { GlobalContext } from '@/context/GlobalContext';
-import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
 
 interface AttachmentResponse {
   id: string;
 }
 
-export default function useCreateGroupAttachment() {
+export default function useCreateGroupAttachment(
+  groupId: string,
+  attachment: ImageBase64,
+  onSuccess: (id: string) => void,
+) {
   const { authState } = useContext(GlobalContext);
-  const { expenseCreation, setExpenseCreation } = useContext(ExpenseCreationContext);
-
   return useMutation({
     mutationFn: () => {
-      const [metadata, base64Data] = expenseCreation.attachment!.uri.split(',');
+      const [metadata, base64Data] = attachment.uri.split(',');
       const contentType = metadata.match(/:(.*?);/)![1];
 
       return axios.post(
-        `${API_URL}${PATHS.EXTERNAL}/groups/${expenseCreation.groupId}`,
+        `${API_URL}${PATHS.EXTERNAL}/groups/${groupId}`,
         toByteArray(base64Data),
 
         {
@@ -37,7 +39,7 @@ export default function useCreateGroupAttachment() {
     },
 
     onSuccess: (response: AxiosResponse<AttachmentResponse>) => {
-      setExpenseCreation({ ...expenseCreation, attachmentId: response.data.id });
+      onSuccess(response.data.id);
     },
     onError: () => {
       router.push('/expenses/new/error-modal');

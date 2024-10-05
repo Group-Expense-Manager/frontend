@@ -6,7 +6,7 @@ import RadioButtonRow from '@/components/ui/text-input/select/row/RadioButtonRow
 import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useGroups, { Group } from '@/hooks/group/UseGroups';
 
-export default function ExpenseGroupSelect() {
+export default function PaymentGroupSelect() {
   const { t } = useTranslation();
 
   const createRow = (item: SelectInputData<Group>, selected: boolean) => {

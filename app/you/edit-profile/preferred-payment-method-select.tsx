@@ -14,12 +14,10 @@ export default function PreferredPaymentMethodSelect() {
   };
 
   const options = () => {
-    return [
-      { value: PaymentMethod.NONE, name: `${t(PaymentMethod.NONE)}` },
-      { value: PaymentMethod.BANK_TRANSFER, name: `${t(PaymentMethod.BANK_TRANSFER)}` },
-      { value: PaymentMethod.MOBILE_PAYMENT, name: `${t(PaymentMethod.MOBILE_PAYMENT)}` },
-      { value: PaymentMethod.CASH, name: `${t(PaymentMethod.CASH)}` },
-    ];
+    return Object.values(PaymentMethod).map((method: PaymentMethod) => ({
+      value: method,
+      name: t(method),
+    }));
   };
 
   return <SelectList createRow={createRow} data={options()} title={t('Payment method')} />;

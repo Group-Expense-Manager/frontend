@@ -22,11 +22,13 @@ const OptionsBar: React.FC<OptionsBarProps> = ({
       </View>
 
       <View className="flex-col w-1/2">
-        <Text className="text-small text-ink-darkest dark:text-sky-lightest text-right">
+        <Text selectable className="text-small text-ink-darkest dark:text-sky-lightest text-right">
           {rightText}
         </Text>
         {rightCaption && (
-          <Text className="text-tiny text-ink-lighter text-right">{rightCaption}</Text>
+          <Text selectable className="text-tiny text-ink-lighter text-right">
+            {rightCaption}
+          </Text>
         )}
       </View>
     </View>

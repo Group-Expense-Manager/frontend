@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const ExpenseLayout = () => {
+const PaymentLayout = () => {
   return (
     <SafeAreaView className="flex-1">
       <Stack
@@ -13,4 +13,4 @@ const ExpenseLayout = () => {
     </SafeAreaView>
   );
 };
-export default ExpenseLayout;
+export default PaymentLayout;

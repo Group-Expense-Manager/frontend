@@ -30,7 +30,7 @@ export default function Create() {
 
           <View>
             <CreationButton
-              onPress={() => {}}
+              onPress={() => router.push('/payments/new/group')}
               title={t('Create payment')}
               icon={<ScalesIcon />}
               disabled={!groups.length}

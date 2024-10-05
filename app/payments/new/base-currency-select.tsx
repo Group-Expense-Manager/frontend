@@ -6,7 +6,7 @@ import RadioButtonRow from '@/components/ui/text-input/select/row/RadioButtonRow
 import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 
-export default function ExpenseBaseCurrencySelect() {
+export default function PaymentBaseCurrencySelect() {
   const { t } = useTranslation();
 
   const createRow = (item: SelectInputData<Currency>, selected: boolean) => {

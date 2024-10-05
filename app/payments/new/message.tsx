@@ -7,37 +7,37 @@ import { CustomButton, FullViewLoader } from '@/components';
 import Box from '@/components/ui/box/Box';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import { LogoIcon } from '@/constants/Icon';
-import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
+import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
 import useCreateGroupAttachment from '@/hooks/attachment/UseCreateGroupAttachment';
-import useCreateExpense from '@/hooks/expense/UseCreateExpense';
+import useCreatePayment from '@/hooks/payment/UseCreatePayment';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
 
-export default function NewExpenseMessage() {
+export default function NewPaymentMessage() {
   const { t } = useTranslation();
-  const { expenseCreation, setExpenseCreation } = useContext(ExpenseCreationContext);
+  const { paymentCreation, setPaymentCreation } = useContext(PaymentCreationContext);
 
   const {
-    mutate: createExpense,
-    isPending: isExpenseCreationPending,
-    isIdle: isExpenseCreationIdle,
-  } = useCreateExpense();
+    mutate: createPayment,
+    isPending: isPaymentCreationPending,
+    isIdle: isPaymentCreationIdle,
+  } = useCreatePayment();
   const {
     mutate: createAttachment,
     isPending: isAttachmentCreationPending,
     isSuccess: isAttachmentCreationSuccess,
-  } = useCreateGroupAttachment(expenseCreation.groupId, expenseCreation.attachment!, (id: string) =>
-    setExpenseCreation({ ...expenseCreation, attachmentId: id }),
+  } = useCreateGroupAttachment(paymentCreation.groupId, paymentCreation.attachment!, (id: string) =>
+    setPaymentCreation({ ...paymentCreation, attachmentId: id }),
   );
 
   const isCreationPending =
-    isExpenseCreationPending ||
+    isPaymentCreationPending ||
     isAttachmentCreationPending ||
-    (isExpenseCreationIdle && isAttachmentCreationSuccess);
+    (isPaymentCreationIdle && isAttachmentCreationSuccess);
 
   useEffect(() => {
     if (isAttachmentCreationSuccess) {
-      createExpense();
+      createPayment();
     }
   }, [isAttachmentCreationSuccess]);
 
@@ -47,10 +47,10 @@ export default function NewExpenseMessage() {
   }, [isCreationPending]);
 
   function create() {
-    if (expenseCreation.attachment) {
+    if (paymentCreation.attachment) {
       createAttachment();
     } else {
-      createExpense();
+      createPayment();
     }
   }
 
@@ -67,16 +67,16 @@ export default function NewExpenseMessage() {
               label={t('Message (optional)')}
               onChangeText={(text: string) => {
                 const message = text ? text : undefined;
-                setExpenseCreation({ ...expenseCreation, message });
+                setPaymentCreation({ ...paymentCreation, message });
               }}
-              value={expenseCreation.message ? expenseCreation.message : ''}
+              value={paymentCreation.message ? paymentCreation.message : ''}
             />
           </View>
         </View>
 
         <View className="py-8 w-full flex flex-col justify-center items-center space-y-8">
           <View className="w-full">
-            <CustomButton onPress={create} title={t('Create expense')} />
+            <CustomButton onPress={create} title={t('Create payment')} />
           </View>
           <View className="w-full">
             <CustomButton onPress={router.back} title={t('Back')} type={ButtonType.OUTLINED} />
