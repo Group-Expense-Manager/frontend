@@ -4,10 +4,10 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import NavBar from '@/components/ui/bar/NavBar';
 import Box from '@/components/ui/box/Box';
 import AttachmentButton from '@/components/ui/button/AttachmentButton';
+import CustomButton from '@/components/ui/button/CustomButton';
 import { LogoIcon } from '@/constants/Icon';
 import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
 import { ButtonType } from '@/util/ButtonType';

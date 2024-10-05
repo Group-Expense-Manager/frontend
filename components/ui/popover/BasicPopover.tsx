@@ -2,7 +2,7 @@ import { useNavigation } from 'expo-router';
 import React, { useLayoutEffect } from 'react';
 import { Modal, Text, View } from 'react-native';
 
-import { FullViewLoader } from '@/components';
+import FullViewLoader from '@/components/ui/loader/FullViewLoader';
 
 interface BasicPopoverProps {
   title: string;

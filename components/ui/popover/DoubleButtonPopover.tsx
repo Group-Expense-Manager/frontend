@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react';
 import { View } from 'react-native';
 
-import { CustomButton } from '@/components';
-import { CustomButtonProps } from '@/components/ui/button/CustomButton';
+import CustomButton, { CustomButtonProps } from '@/components/ui/button/CustomButton';
 import BasicPopover from '@/components/ui/popover/BasicPopover';
 
 interface DoubleButtonPopoverProps {

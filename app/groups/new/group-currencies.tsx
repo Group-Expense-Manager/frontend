@@ -3,9 +3,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, View } from 'react-native';
 
-import { CustomButton, FullViewLoader } from '@/components';
 import Box from '@/components/ui/box/Box';
 import MultiSelectInput from '@/components/ui/text-input/select/MultiSelectInput';
+import CustomButton from '@/components/ui/button/CustomButton';
+import FullViewLoader from '@/components/ui/loader/FullViewLoader';
 import { LogoIcon } from '@/constants/Icon';
 import { GroupCreationContext } from '@/context/group/GroupCreationContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';

@@ -5,9 +5,10 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Image } from 'react-native';
 
-import { TabButton, TabIcon, TopTabButton, TopTabIcon } from '@/components';
+import TabButton from '@/components/ui/button/TabButton';
+import TabIcon from '@/components/ui/tab/TabIcon';
 import theme from '@/constants/Colors';
-import { CreditCardIcon, FileAttachmentIcon, GroupIcon, PlusIcon } from '@/constants/Icon';
+import { GroupIcon, PlusCircleIcon, PlusIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import useProfilePicture from '@/hooks/attachment/UseProfilePicture';
 import useUserDetails from '@/hooks/userdetails/UseUserDetails';
@@ -23,10 +24,6 @@ const TabLayout = () => {
     return <TabButton {...props} />;
   };
 
-  const topTabBarButton = (props: BottomTabBarButtonProps) => {
-    return <TopTabButton {...props} />;
-  };
-
   return (
     <Tabs
       screenOptions={{
@@ -39,19 +36,6 @@ const TabLayout = () => {
           height: 60,
         },
       }}>
-      <Tabs.Screen
-        name="reports"
-        options={{
-          title: t('Reports'),
-          tabBarButton,
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon name={t('Reports')} focused={focused}>
-              <FileAttachmentIcon />
-            </TabIcon>
-          ),
-        }}
-      />
       <Tabs.Screen
         name="groups"
         options={{
@@ -69,25 +53,12 @@ const TabLayout = () => {
       <Tabs.Screen
         name="create"
         options={{
-          headerShown: false,
-          tabBarButton: topTabBarButton,
-          tabBarIcon: ({ focused }) => (
-            <TopTabIcon focused={focused}>
-              <PlusIcon />
-            </TopTabIcon>
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="alignments"
-        options={{
-          title: t('Alignments'),
+          title: t('Create'),
           tabBarButton,
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon name={t('Alignments')} focused={focused}>
-              <CreditCardIcon />
+            <TabIcon focused={focused}>
+              <PlusCircleIcon />
             </TabIcon>
           ),
         }}

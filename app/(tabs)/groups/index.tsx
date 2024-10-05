@@ -3,10 +3,10 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import ActivityListItem from '@/components/modules/activity/ActivityListItem';
 import NavBar from '@/components/ui/bar/NavBar';
 import SafeView from '@/components/ui/box/SafeView';
+import CustomButton from '@/components/ui/button/CustomButton';
 import Loader from '@/components/ui/loader/Loader';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';

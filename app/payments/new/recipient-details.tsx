@@ -3,9 +3,9 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import GroupMemberInfo from '@/components/modules/userdetails/GroupMemberInfo';
 import Box from '@/components/ui/box/Box';
+import CustomButton from '@/components/ui/button/CustomButton';
 import Loader from '@/components/ui/loader/Loader';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
 import useProfilePicture from '@/hooks/attachment/UseProfilePicture';
