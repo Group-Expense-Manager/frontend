@@ -10,7 +10,7 @@ import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
-import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
+import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useGroup from '@/hooks/group/UseGroup';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
@@ -32,8 +32,10 @@ export default function NewPaymentCurrencies() {
 
   const isNextButtonDisabled = !paymentCreation.baseCurrency.code;
 
+  const { data: availableCurrencies } = useAvailableCurrencies();
+
   const baseCurrencies = () => {
-    return groupDetails?.groupCurrencies.map((currency) => {
+    return availableCurrencies?.currencies.map((currency) => {
       return { value: currency, name: currency.code };
     });
   };
