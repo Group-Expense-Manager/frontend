@@ -5,7 +5,7 @@ export type ImageBase64 = {
 };
 
 interface CustomImageProps {
-  image: ImageBase64;
+  image?: ImageBase64;
   size: 'tiny' | 'small' | 'medium' | 'large' | 'colossal';
 }
 
@@ -25,7 +25,7 @@ const CustomImage: React.FC<CustomImageProps> = ({ image, size = 'large' }) => {
     }
   }
   const sizeInPx = getSizeInPx();
-  return image.uri ? (
+  return image ? (
     <Image width={sizeInPx} height={sizeInPx} borderRadius={sizeInPx / 2} source={image} />
   ) : (
     <View

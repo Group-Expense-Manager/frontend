@@ -5,6 +5,10 @@ export const HOST = {
   USER_DETAILS_MANAGER: 'gem.web.user-details-manager.com',
   ATTACHMENT_STORE: 'gem.web.attachment-store.com',
   GROUP_MANAGER: 'gem.web.group-manager.com',
+  CURRENCY_MANAGER: 'gem.web.currency-manager.com',
+  EXPENSE_MANAGER: 'gem.web.expense-manager.com',
+  PAYMENT_MANAGER: 'gem.web.payment-manager.com',
+  FINANCE_ADAPTER: 'gem.web.finance-adapter.com',
 };
 
 export const PATHS = {

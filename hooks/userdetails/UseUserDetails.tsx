@@ -3,7 +3,25 @@ import axios from 'axios';
 import { useContext } from 'react';
 
 import { API_URL, APPLICATION_JSON_INTERNAL_VER_1, HOST, PATHS } from '@/constants/Api';
-import { GlobalContext, UserDetails } from '@/context/GlobalContext';
+import { GlobalContext } from '@/context/GlobalContext';
+
+export enum PaymentMethod {
+  CASH = 'CASH',
+  BANK_TRANSFER = 'BANK_TRANSFER',
+  MOBILE_PAYMENT = 'MOBILE_PAYMENT',
+  NONE = 'NONE',
+}
+
+export type UserDetails = {
+  id: string;
+  username: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  bankAccountNumber?: string;
+  preferredPaymentMethod: PaymentMethod;
+  attachmentId: string;
+};
 
 export default function useUserDetails() {
   const { authState } = useContext(GlobalContext);

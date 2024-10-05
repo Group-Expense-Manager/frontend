@@ -1,5 +1,5 @@
-import { router, useNavigation } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import EmailTextInputPopover from '@/components/ui/popover/EmailTextInputPopover';
@@ -9,14 +9,11 @@ import { ButtonType } from '@/util/ButtonType';
 export default function RecoverPasswordModal() {
   const { t } = useTranslation();
   const [passwordRecoveryEmail, setPasswordRecoveryEmail] = useState('');
-  const navigation = useNavigation();
 
   const { mutate: recoverPassword, isPending: isPasswordRecoveryPending } =
     useRecoverPassword(passwordRecoveryEmail);
   const isConfirmButtonDisabled = passwordRecoveryEmail.trim().length === 0;
-  useEffect(() => {
-    navigation.setOptions({ presentation: 'transparentModal' });
-  }, [navigation]);
+
   return (
     <EmailTextInputPopover
       title={t('Password reset')}

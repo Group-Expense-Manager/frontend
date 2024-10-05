@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
+
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 
 export interface SegmentProps {
   text: string;
@@ -7,14 +9,18 @@ export interface SegmentProps {
 }
 
 interface SegmentedControlsProps {
+  activeSegmentIndex: number;
+  onValueChange: (activeSegmentIndex: number) => void;
   segments: SegmentProps[];
 }
 
-const SegmentedControls: React.FC<SegmentedControlsProps> = ({ segments }) => {
-  const [activeSegmentIndex, setActiveSegment] = useState(0);
-
+const SegmentedControls: React.FC<SegmentedControlsProps> = ({
+  activeSegmentIndex,
+  onValueChange,
+  segments,
+}) => {
   function backgroundColor(index: number) {
-    return index === activeSegmentIndex ? 'bg-primary-lighter dark:bg-primary-dark' : '';
+    return index === activeSegmentIndex ? 'bg-primary-lighter dark:bg-primary-base' : '';
   }
 
   function textColor(index: number) {
@@ -34,12 +40,13 @@ const SegmentedControls: React.FC<SegmentedControlsProps> = ({ segments }) => {
   return (
     <View className="w-full rounded-[8px] p-0.5 flex-row bg-sky-lighter dark:bg-ink-darker items-center">
       {segments.map((segment, index) => (
-        <TouchableOpacity
+        <SingleClickTouchableOpacity
+          delay={500}
           key={`${index.toString()}-segment`}
           activeOpacity={1}
           onPress={() => {
             if (activeSegmentIndex !== index) {
-              setActiveSegment(index);
+              onValueChange(index);
               segment.onPress();
             }
           }}
@@ -48,7 +55,7 @@ const SegmentedControls: React.FC<SegmentedControlsProps> = ({ segments }) => {
           {hasSeparator(index) && (
             <View className="bg-sky-base dark:bg-ink-base w-[1px] h-5 absolute -right-[0.5px]" />
           )}
-        </TouchableOpacity>
+        </SingleClickTouchableOpacity>
       ))}
     </View>
   );

@@ -57,10 +57,10 @@ const RootLayout = () => {
               <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                <Stack.Screen name="(you)" options={{ headerShown: false }} />
+                <Stack.Screen name="you" options={{ headerShown: false }} />
                 <Stack.Screen name="groups" options={{ headerShown: false }} />
-                <Stack.Screen name="(stepper)" options={{ headerShown: false }} />
                 <Stack.Screen name="expenses" options={{ headerShown: false }} />
+                <Stack.Screen name="payments" options={{ headerShown: false }} />
                 <Stack.Screen name="index" options={{ headerShown: false }} />
                 <Stack.Screen
                   name="loading-user-data"

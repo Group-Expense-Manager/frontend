@@ -1,51 +1,57 @@
+import Decimal from 'decimal.js';
 import React, { createContext, FC, ReactNode, useState } from 'react';
+
+import { ImageBase64 } from '@/components/ui/image/CustomImage';
+import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 
 export interface ExpenseParticipant {
   participantId: string;
-  participantCost: number;
+  participantCost: Decimal;
 }
 
-export interface ExpenseCreationProps {
+export interface ExpenseCreation {
   groupId: string;
   title: string;
-  cost: number;
-  baseCurrency: string;
-  targetCurrency: string | undefined;
+  totalCost: Decimal;
+  baseCurrency: Currency;
+  targetCurrency?: Currency;
   expenseDate: Date;
   expenseParticipants: ExpenseParticipant[];
-  message: string | undefined;
-  attachmentId: string | undefined;
+  divisionType: 'weight' | 'cost';
+  message?: string;
+  attachment?: ImageBase64;
+  attachmentId?: string;
 }
 
 interface ExpenseCreationContextProps {
-  expenseCreationProps: ExpenseCreationProps;
-  setExpenseCreationProps: (ExpenseCreationProps: ExpenseCreationProps) => void;
+  expenseCreation: ExpenseCreation;
+  setExpenseCreation: (ExpenseCreation: ExpenseCreation) => void;
 }
 
-const defaultExpenseCreationProps: ExpenseCreationProps = {
+const defaultExpenseCreation: ExpenseCreation = {
   groupId: '',
   title: '',
-  cost: 0,
-  baseCurrency: '',
+  totalCost: new Decimal(0),
+  baseCurrency: { code: '' },
   targetCurrency: undefined,
-  expenseDate: new Date(1),
+  expenseDate: new Date(),
   expenseParticipants: [],
+  divisionType: 'weight',
   message: undefined,
+  attachment: undefined,
   attachmentId: undefined,
 };
 
 export const ExpenseCreationContext = createContext<ExpenseCreationContextProps>({
-  expenseCreationProps: defaultExpenseCreationProps,
-  setExpenseCreationProps: () => {},
+  expenseCreation: defaultExpenseCreation,
+  setExpenseCreation: () => {},
 });
 
 export const ExpenseCreationProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [expenseCreationProps, setExpenseCreationProps] = useState<ExpenseCreationProps>(
-    defaultExpenseCreationProps,
-  );
+  const [expenseCreation, setExpenseCreation] = useState<ExpenseCreation>(defaultExpenseCreation);
 
   return (
-    <ExpenseCreationContext.Provider value={{ expenseCreationProps, setExpenseCreationProps }}>
+    <ExpenseCreationContext.Provider value={{ expenseCreation, setExpenseCreation }}>
       {children}
     </ExpenseCreationContext.Provider>
   );

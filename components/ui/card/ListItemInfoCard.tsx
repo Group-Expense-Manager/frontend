@@ -1,8 +1,9 @@
 import { useColorScheme } from 'nativewind';
 import React, { ReactElement } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { IconSize } from '@/util/IconSize';
 
 interface ListItemInfoCardProps {
@@ -21,7 +22,7 @@ interface IconProps {
 }
 
 const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
-  image = { uri: '' },
+  image,
   title,
   details,
   onPress,
@@ -48,7 +49,7 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
 
   return (
     <View className="flex-row w-full justify-start p-3 space-x-3">
-      <TouchableOpacity
+      <SingleClickTouchableOpacity
         disabled={!onPress}
         activeOpacity={0.7}
         onPress={onPress}
@@ -72,14 +73,14 @@ const ListItemInfoCard: React.FC<ListItemInfoCardProps> = ({
             </Text>
           )}
         </View>
-      </TouchableOpacity>
+      </SingleClickTouchableOpacity>
       {!!iconProps && (
-        <TouchableOpacity
+        <SingleClickTouchableOpacity
           activeOpacity={0.7}
           onPress={iconProps.onPress}
           className="justify-center">
           {modifyIcon(iconProps)}
-        </TouchableOpacity>
+        </SingleClickTouchableOpacity>
       )}
     </View>
   );

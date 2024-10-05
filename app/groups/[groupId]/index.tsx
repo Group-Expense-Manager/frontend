@@ -44,7 +44,7 @@ export default function GroupSettings() {
           <View>
             {groupDetails ? (
               <InfoCard
-                image={!groupPicture ? { uri: '' } : groupPicture}
+                image={groupPicture}
                 title={groupDetails.name}
                 details={`${t('author')}: ${author}`}
               />

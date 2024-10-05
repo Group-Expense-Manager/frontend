@@ -14,8 +14,8 @@ export default function LoadingScreen() {
   const { authState, setUserData } = useContext(GlobalContext);
 
   const { data: userDetails, status: userDetailsStatus } = useUserDetails();
-  const { data: profilePicture, status: profilePictureStatus } = useProfilePicture(
-    authState.userId!,
+  const { status: profilePictureStatus } = useProfilePicture(
+    authState.userId,
     userDetails?.attachmentId,
   );
   const { data: userGroups, status: userGroupsStatus } = useGroups();
@@ -27,9 +27,7 @@ export default function LoadingScreen() {
       userGroupsStatus === 'success'
     ) {
       setUserData({
-        currentGroupId: userGroups?.[0],
-        userDetails,
-        profilePicture,
+        currentGroupId: !userGroups.length ? null : userGroups[0].groupId,
       });
       router.replace('/groups');
     }

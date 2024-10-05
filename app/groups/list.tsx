@@ -28,9 +28,9 @@ export default function List() {
       <View className="w-full h-full flex-col justify-between pb-8 space-y-8">
         {groups ? (
           <ScrollView className="flex flex-col space-y-2">
-            {groups.map((groupId) => (
-              <View key={groupId}>
-                <GroupInfoCard groupId={groupId} />
+            {groups.map((group) => (
+              <View key={group.groupId}>
+                <GroupInfoCard groupId={group.groupId} />
               </View>
             ))}
           </ScrollView>
@@ -40,7 +40,10 @@ export default function List() {
 
         <View className="w-full y space-y-8">
           <View className="w-full">
-            <CustomButton onPress={() => {}} title={t('Create group')} />
+            <CustomButton
+              onPress={() => router.push('/groups/new/group-name')}
+              title={t('Create group')}
+            />
           </View>
           <View className="w-full">
             <CustomButton

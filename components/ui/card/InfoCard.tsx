@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 
 interface InfoCardProps {
-  image: ImageBase64;
+  image?: ImageBase64;
   title?: string;
   details: string;
 }

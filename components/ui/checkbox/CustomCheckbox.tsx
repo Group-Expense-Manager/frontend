@@ -1,7 +1,7 @@
 import { useColorScheme } from 'nativewind';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import theme from '@/constants/Colors';
 import { CheckIcon } from '@/constants/Icon';
 import { Availability } from '@/util/Availability';
@@ -70,12 +70,13 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   }
 
   return (
-    <TouchableOpacity
+    <SingleClickTouchableOpacity
+      delay={500}
       activeOpacity={1}
       onPress={toggleCheckbox}
       className={`${backgroundColor()} px-[2px] w-6 h-6 items-center justify-center rounded-[4px] ${border()}`}>
       <CheckIcon stroke={iconColor()} width={IconSize.TINY} height={IconSize.TINY} />
-    </TouchableOpacity>
+    </SingleClickTouchableOpacity>
   );
 };
 

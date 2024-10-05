@@ -31,23 +31,25 @@ const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ groupId }) => {
     }
   }, [ownerDetails]);
 
-  return groupDetails ? (
-    <ListItemInfoCard
-      image={groupPicture}
-      title={groupDetails.name}
-      details={`${t('author')}: ${author}`}
-      iconProps={{
-        icon: <SettingsIcon />,
-        color: theme.ink.darkest,
-        darkModeColor: theme.sky.lightest,
-        onPress: () => router.push(`/groups/${groupId}`),
-      }}
-      onPress={() => {
-        setUserData({ ...userData, currentGroupId: groupId });
-        router.back();
-      }}
-    />
-  ) : null;
+  return (
+    groupDetails && (
+      <ListItemInfoCard
+        image={groupPicture}
+        title={groupDetails.name}
+        details={`${t('author')}: ${author}`}
+        iconProps={{
+          icon: <SettingsIcon />,
+          color: theme.ink.darkest,
+          darkModeColor: theme.sky.lightest,
+          onPress: () => router.push(`/groups/${groupId}`),
+        }}
+        onPress={() => {
+          setUserData({ ...userData, currentGroupId: groupId });
+          router.back();
+        }}
+      />
+    )
+  );
 };
 
 export default GroupInfoCard;

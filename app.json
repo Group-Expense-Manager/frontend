@@ -26,7 +26,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.pawel04.gem"
     },
     "web": {
       "bundler": "metro",
@@ -36,10 +37,24 @@
     "plugins": [
       "expo-secure-store",
       "expo-router",
-      "expo-image-picker"
+      "expo-image-picker",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "05e3149d-ef6e-4f68-8789-2552c37ccc7a"
+      }
     }
   }
 }

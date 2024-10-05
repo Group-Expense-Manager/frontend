@@ -1,6 +1,6 @@
 import * as Clipboard from 'expo-clipboard';
-import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useEffect } from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text } from 'react-native';
 
@@ -11,14 +11,9 @@ import { ButtonType } from '@/util/ButtonType';
 
 export default function JoinGroupCodeModal() {
   const { t } = useTranslation();
-  const navigation = useNavigation();
 
   const params = useLocalSearchParams<{ groupId: string }>();
   const { data: groupDetails } = useGroup(params.groupId);
-
-  useEffect(() => {
-    navigation.setOptions({ presentation: 'transparentModal' });
-  }, [navigation]);
 
   function copy() {
     if (groupDetails) {

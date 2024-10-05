@@ -1,4 +1,5 @@
-import { UserDetails } from '@/context/GlobalContext';
+import { GroupMemberDetails } from '@/hooks/userdetails/UseGroupMembersDetails';
+import { UserDetails } from '@/hooks/userdetails/UseUserDetails';
 
 export function getName(firstName?: string, lastName?: string): string | undefined {
   switch (true) {
@@ -13,7 +14,11 @@ export function getName(firstName?: string, lastName?: string): string | undefin
   }
 }
 
-export function getNameFromUserDetails(userDetails: UserDetails): string {
+export function getNameFromUserDetails(userDetails: UserDetails | GroupMemberDetails): string {
   const name = getName(userDetails.firstName, userDetails.lastName);
   return name ? name : userDetails.username;
+}
+
+export function getFirstNameOrUsername(userDetails: GroupMemberDetails): string {
+  return userDetails.firstName ? userDetails.firstName : userDetails.username;
 }

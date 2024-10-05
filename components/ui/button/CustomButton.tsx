@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { Availability } from '@/util/Availability';
 import { ButtonType } from '@/util/ButtonType';
 
@@ -10,6 +11,7 @@ export interface CustomButtonProps {
   disabled?: boolean;
   type?: ButtonType;
   size?: ButtonSize;
+  color?: ButtonColor;
 }
 
 export enum ButtonSize {
@@ -18,23 +20,38 @@ export enum ButtonSize {
   BLOCK = 'BLOCK',
 }
 
+export enum ButtonColor {
+  PRIMARY = 'PRIMARY',
+  RED = 'RED',
+  GREEN = 'GREEN',
+}
+
 const CustomButton: React.FC<CustomButtonProps> = ({
   title,
   onPress,
   disabled = false,
-  type = ButtonType.PRIMARY,
+  type = ButtonType.NORMAL,
   size = ButtonSize.BLOCK,
+  color = ButtonColor.PRIMARY,
 }) => {
   const disabledType = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${type}`;
 
   function backgroundColor(): string {
     switch (disabledType) {
-      case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
+      case `${Availability.DISABLED}-${ButtonType.NORMAL}`:
         return 'bg-sky-light dark:bg-ink-dark';
       case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
         return 'bg-sky-latest dark:bg-ink-darkest';
-      case `${Availability.ENABLED}-${ButtonType.PRIMARY}`:
-        return 'bg-primary-base';
+      case `${Availability.ENABLED}-${ButtonType.NORMAL}`: {
+        switch (color) {
+          case ButtonColor.PRIMARY:
+            return 'bg-primary-base';
+          case ButtonColor.RED:
+            return 'bg-red-base';
+          case ButtonColor.GREEN:
+            return 'bg-green-base';
+        }
+      }
       default:
         return '';
     }
@@ -44,8 +61,16 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     switch (disabledType) {
       case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
         return 'border-sky-base dark:border-ink-base';
-      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
-        return 'border-primary-base dark:border-primary-light';
+      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`: {
+        switch (color) {
+          case ButtonColor.PRIMARY:
+            return 'border-primary-base dark:border-primary-light';
+          case ButtonColor.RED:
+            return 'border-red-base dark:border-red-light';
+          case ButtonColor.GREEN:
+            return 'border-green-base dark:border-green-light';
+        }
+      }
       default:
         return '';
     }
@@ -53,21 +78,29 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
   function textColor(): string {
     switch (disabledType) {
-      case `${Availability.DISABLED}-${ButtonType.PRIMARY}`:
+      case `${Availability.DISABLED}-${ButtonType.NORMAL}`:
         return 'text-sky-dark dark:text-ink-light';
       case `${Availability.DISABLED}-${ButtonType.OUTLINED}`:
         return 'text-sky-base dark:text-ink-base';
-      case `${Availability.ENABLED}-${ButtonType.PRIMARY}`:
+      case `${Availability.ENABLED}-${ButtonType.NORMAL}`:
         return 'text-sky-lightest';
-      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`:
-        return 'text-primary-base dark:text-primary-light';
+      case `${Availability.ENABLED}-${ButtonType.OUTLINED}`: {
+        switch (color) {
+          case ButtonColor.PRIMARY:
+            return 'text-primary-base dark:text-primary-light';
+          case ButtonColor.RED:
+            return 'text-red-base dark:text-red-light';
+          case ButtonColor.GREEN:
+            return 'text-green-base dark:text-green-light';
+        }
+      }
       default:
         return '';
     }
   }
   return (
     <View className={`${size === ButtonSize.BLOCK ? 'w-full' : ''}`}>
-      <TouchableOpacity
+      <SingleClickTouchableOpacity
         onPress={onPress}
         activeOpacity={0.7}
         className={`
@@ -79,7 +112,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         `}
         disabled={disabled}>
         <Text className={`${textColor()} font-medium text-regular`}>{title}</Text>
-      </TouchableOpacity>
+      </SingleClickTouchableOpacity>
     </View>
   );
 };

@@ -1,35 +1,32 @@
 import React, { createContext, FC, ReactNode, useState } from 'react';
 
-export interface GroupCreationProps {
+import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
+
+export interface GroupCreation {
   name: string;
-  acceptRequired: boolean;
-  groupCurrencies: string;
-  attachmentId: string;
+  groupCurrencies: Currency[];
 }
 
 interface GroupCreationContextProps {
-  groupCreationProps: GroupCreationProps;
-  setGroupCreationProps: (groupCreationProps: GroupCreationProps) => void;
+  groupCreation: GroupCreation;
+  setGroupCreation: (groupCreation: GroupCreation) => void;
 }
 
-const defaultGroupCreationProps: GroupCreationProps = {
+const defaultGroupCreation: GroupCreation = {
   name: '',
-  acceptRequired: true,
-  groupCurrencies: 'PLN',
-  attachmentId: '123',
+  groupCurrencies: [{ code: '' }],
 };
 
 export const GroupCreationContext = createContext<GroupCreationContextProps>({
-  groupCreationProps: defaultGroupCreationProps,
-  setGroupCreationProps: () => {},
+  groupCreation: defaultGroupCreation,
+  setGroupCreation: () => {},
 });
 
 export const GroupCreationProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [groupCreationProps, setGroupCreationProps] =
-    useState<GroupCreationProps>(defaultGroupCreationProps);
+  const [groupCreation, setGroupCreation] = useState<GroupCreation>(defaultGroupCreation);
 
   return (
-    <GroupCreationContext.Provider value={{ groupCreationProps, setGroupCreationProps }}>
+    <GroupCreationContext.Provider value={{ groupCreation, setGroupCreation }}>
       {children}
     </GroupCreationContext.Provider>
   );
