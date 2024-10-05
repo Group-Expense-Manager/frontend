@@ -11,12 +11,12 @@ export type Expense = {
   title: string;
   totalCost: number;
   baseCurrency: string;
-  targetCurrency: string | undefined;
-  exchangeRate: number | undefined;
+  targetCurrency?: string;
+  exchangeRate?: number;
   createdAt: Date;
   updatedAt: Date;
   expenseDate: string;
-  attachmentId: string;
+  attachmentId?: string;
   expenseParticipants: ExpenseParticipant[];
   status: 'ACCEPTED' | 'REJECTED' | 'PENDING';
   history: ExpenseHistoryEntry[];

@@ -136,15 +136,17 @@ export default function ExpenseView() {
             </View>
           </View>
 
-          <View className="space-y-2">
-            <NavBar title={t('Attachment')} type="segment" />
-            <View>
-              <ActivityAttachment
-                groupId={userData.currentGroupId!}
-                attachmentId={expense.attachmentId}
-              />
+          {expense.attachmentId && (
+            <View className="space-y-2">
+              <NavBar title={t('Attachment')} type="segment" />
+              <View>
+                <ActivityAttachment
+                  groupId={userData.currentGroupId!}
+                  attachmentId={expense.attachmentId}
+                />
+              </View>
             </View>
-          </View>
+          )}
           <View className="space-y-2 pb-8">
             <NavBar title={t('Actions')} type="segment" />
             <View className="space-y-4">
