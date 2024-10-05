@@ -5,11 +5,11 @@ import { BackHandler, View } from 'react-native';
 
 import { CustomButton, FullViewLoader } from '@/components';
 import Box from '@/components/ui/box/Box';
-import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import MultiSelectInput from '@/components/ui/text-input/select/MultiSelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { GroupCreationContext } from '@/context/group/GroupCreationContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
-import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
+import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useCreateGroup from '@/hooks/group/UseCreateGroup';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
@@ -20,18 +20,27 @@ export default function CreateGroupCurrencies() {
 
   const { mutate: createGroup, isPending: isGroupCreationPending } = useCreateGroup();
 
-  const [selectedGroupCurrencies, setSelectedGroupCurrencies] = useState<SelectInputData<Currency>>(
-    {
-      value: groupCreation.groupCurrencies[0],
-      name: groupCreation.groupCurrencies[0].code,
-    },
+  const [selectedGroupCurrencies, setSelectedGroupCurrencies] = useState<
+    SelectInputData<Currency>[]
+  >(
+    groupCreation.groupCurrencies.map((currency) => ({
+      value: currency,
+      name: currency.code,
+    })),
   );
 
   const isNextButtonDisabled = !groupCreation.groupCurrencies.length;
 
-  function setGroupCurrencies(currency: Currency) {
-    setSelectedGroupCurrencies({ value: currency, name: currency.code });
-    setGroupCreation({ ...groupCreation, groupCurrencies: [currency] });
+  const { data: availableCurrencies } = useAvailableCurrencies();
+
+  const currencies = () => {
+    return availableCurrencies?.currencies.map((currency) => {
+      return { value: currency, name: currency.code };
+    });
+  };
+
+  function setGroupCurrencies(currencies: Currency[]) {
+    setGroupCreation({ ...groupCreation, groupCurrencies: currencies });
   }
 
   useEffect(() => {
@@ -51,11 +60,13 @@ export default function CreateGroupCurrencies() {
             <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
           </View>
           <View className="py-8 w-full flex flex-col space-y-8">
-            <SelectInput
+            <MultiSelectInput
               onSelect={setGroupCurrencies}
               onPress={() => router.navigate('/groups/new/group-currencies-select')}
               label={t('Group currencies')}
-              value={selectedGroupCurrencies}
+              values={selectedGroupCurrencies}
+              setValues={setSelectedGroupCurrencies}
+              data={currencies()}
             />
           </View>
         </View>

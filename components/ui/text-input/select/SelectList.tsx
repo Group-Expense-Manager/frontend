@@ -1,11 +1,10 @@
 import { useNavigation } from 'expo-router';
-import React, { ReactNode, useContext, useEffect } from 'react';
-import { View } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
-import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
 
 const isSelect = (item: SelectInputData<any>, selectedData: SelectInputData<any>[]) => {
@@ -23,22 +22,16 @@ const getBorderStyles = (item: SelectInputData<any>, data: SelectInputData<any>[
   return 'border-sky-light border-b-2';
 };
 
-interface SelectListProps<T> {
+interface SelectListProps {
   title: string;
-  data?: SelectInputData<T>[];
-  createRow: (item: SelectInputData<T>, selected: boolean) => ReactNode;
 }
 
-const SelectList: React.FC<SelectListProps<any>> = ({ title, data, createRow }) => {
-  const { selectInputProps, setSelectInputProps } = useContext(SelectInputContext);
+const SelectList: React.FC<SelectListProps> = ({ title }) => {
+  const { selectInputProps } = useContext(SelectInputContext);
   const navigation = useNavigation();
 
   const handleSelect = (item: SelectInputData<any>) => {
-    selectInputProps.onSelect(item.value);
-    setSelectInputProps({
-      ...selectInputProps,
-      selectedData: [item],
-    });
+    selectInputProps.onSelect(item);
   };
 
   useEffect(() => {
@@ -51,14 +44,17 @@ const SelectList: React.FC<SelectListProps<any>> = ({ title, data, createRow }) 
   return (
     <Box>
       <View className="py-[32px] w-full flex flex-col">
-        {data ? (
-          data.map((item) => (
-            <View key={item.name} className={`${getBorderStyles(item, data)} flex justify-center`}>
-              <SingleClickTouchableOpacity
+        {selectInputProps.data ? (
+          selectInputProps.data.map((item) => (
+            <View
+              key={item.name}
+              className={`${getBorderStyles(item, selectInputProps.data)} flex justify-center`}>
+              <TouchableOpacity
+                disabled={item.isDisabled}
                 className="flex my-2 h-16 justify-center"
                 onPress={() => handleSelect(item)}>
-                {createRow(item, isSelect(item, selectInputProps.selectedData))}
-              </SingleClickTouchableOpacity>
+                {selectInputProps.createRow(item, isSelect(item, selectInputProps.selectedData))}
+              </TouchableOpacity>
             </View>
           ))
         ) : (

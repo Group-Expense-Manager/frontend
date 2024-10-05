@@ -12,6 +12,7 @@ import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomSwitch from '@/components/ui/switch/CustomSwitch';
 import CustomTable from '@/components/ui/table/CustomTable';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { LANGUAGE_KEY, MODE_KEY } from '@/constants/Storage';
 import { GlobalContext } from '@/context/GlobalContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
@@ -90,27 +91,38 @@ export default function Preferences() {
     SecureStore.setItem(LANGUAGE_KEY, i18n.language);
   }
 
+  const languages = () => {
+    return [
+      { value: 'en', name: `${t('en')}` },
+      { value: 'pl', name: `${t('pl')}` },
+    ];
+  };
+
   return (
     <Box>
       <View className="py-[32px] w-full flex flex-col items-center ">
-        <CustomTable title={t('Use system theme')}>
-          <CustomCheckbox
-            value={isCheckboxChecked}
-            onValueChange={() => setCheckboxChecked(!isCheckboxChecked)}
-          />
-        </CustomTable>
-        <CustomTable title={t('Dark mode')}>
-          <CustomSwitch
-            disabled={preferences.mode === 'system'}
-            value={isSwitchOn}
-            onValueChange={() => setSwitchOn(!isSwitchOn)}
-          />
-        </CustomTable>
+        <SingleClickTouchableOpacity
+          delay={500}
+          activeOpacity={1}
+          onPress={() => setCheckboxChecked(!isCheckboxChecked)}>
+          <CustomTable title={t('Use system theme')}>
+            <CustomCheckbox value={isCheckboxChecked} />
+          </CustomTable>
+        </SingleClickTouchableOpacity>
+        <SingleClickTouchableOpacity
+          delay={500}
+          activeOpacity={1}
+          onPress={() => setSwitchOn(!isSwitchOn)}>
+          <CustomTable title={t('Dark mode')}>
+            <CustomSwitch disabled={preferences.mode === 'system'} value={isSwitchOn} />
+          </CustomTable>
+        </SingleClickTouchableOpacity>
         <SelectInput
           onSelect={setLanguage}
           onPress={() => router.navigate('/you/language-select')}
           label={t('Language')}
           value={selectedLanguage}
+          data={languages()}
         />
       </View>
     </Box>

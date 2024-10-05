@@ -22,6 +22,10 @@ export default function NewPaymentType() {
     name: '',
   });
 
+  const paymentTypes = () => {
+    return Object.values(PaymentType).map((type) => ({ value: type, name: t(type) }));
+  };
+
   useEffect(() => {
     if (paymentCreation.type) {
       setSelectedType({ value: paymentCreation.type, name: t(paymentCreation.type) });
@@ -35,6 +39,7 @@ export default function NewPaymentType() {
       type: paymentType,
     });
   }
+
   return (
     <Box>
       <View className="py-8 w-full h-full flex flex-col justify-between items-center">
@@ -48,6 +53,7 @@ export default function NewPaymentType() {
               onPress={() => router.navigate('/payments/new/type-select')}
               label={t('Payment method')}
               value={selectedType}
+              data={paymentTypes()}
             />
           </View>
         </View>

@@ -1,6 +1,6 @@
 import { useColorScheme } from 'nativewind';
 import React, { ReactElement } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import theme from '@/constants/Colors';
 import { IconSize } from '@/util/IconSize';

@@ -103,6 +103,7 @@ export const GlobalProvider: FC<{ children: ReactNode }> = ({ children }) => {
       await loadToken();
       await loadPreferences();
     }
+
     initializeApp().then(() => setLoading(false));
   }, []);
 

@@ -10,7 +10,7 @@ import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
-import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
+import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useGroup from '@/hooks/group/UseGroup';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
@@ -31,6 +31,20 @@ export default function NewPaymentCurrencies() {
   });
 
   const isNextButtonDisabled = !paymentCreation.baseCurrency.code;
+
+  const { data: availableCurrencies } = useAvailableCurrencies();
+
+  const baseCurrencies = () => {
+    return availableCurrencies?.currencies.map((currency) => {
+      return { value: currency, name: currency.code };
+    });
+  };
+
+  const targetCurrencies = () => {
+    return groupDetails?.groupCurrencies.map((currency) => {
+      return { value: currency, name: currency.code };
+    });
+  };
 
   function setBaseCurrency(currency: Currency) {
     setSelectedBaseCurrency({ value: currency, name: currency.code });
@@ -98,6 +112,7 @@ export default function NewPaymentCurrencies() {
                     onPress={() => router.navigate('/payments/new/base-currency-select')}
                     label={t('Currency')}
                     value={selectedBaseCurrency}
+                    data={baseCurrencies()}
                   />
                 </View>
                 {isCurrencyNotInGroupCurrencies(selectedBaseCurrency.value) && (
@@ -107,6 +122,7 @@ export default function NewPaymentCurrencies() {
                       onPress={() => router.navigate('/payments/new/target-currency-select')}
                       label={t('Target currency')}
                       value={selectedTargetCurrency}
+                      data={targetCurrencies()}
                     />
                   </View>
                 )}

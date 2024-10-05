@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import CustomRadioButton from '@/components/ui/radio-button/CustomRadioButton';
+import CustomCheckbox from '@/components/ui/checkbox/CustomCheckbox';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
 
 interface RadioButtonRowProps<T> {
@@ -9,17 +9,17 @@ interface RadioButtonRowProps<T> {
   selected: boolean;
 }
 
-const RadioButtonRow: React.FC<RadioButtonRowProps<any>> = ({ item, selected }) => {
+const CheckBoxRow: React.FC<RadioButtonRowProps<any>> = ({ item, selected }) => {
   return (
     <View className="flex-row items-center justify-between">
       <Text className="text-regular text-ink-darkest dark:text-sky-lightest font-regular text-left">
         {item.name}
       </Text>
       <View className="items-center justify-center">
-        <CustomRadioButton value={selected} />
+        <CustomCheckbox value={selected} disabled={item.isDisabled} />
       </View>
     </View>
   );
 };
 
-export default RadioButtonRow;
+export default CheckBoxRow;

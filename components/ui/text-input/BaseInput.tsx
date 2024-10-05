@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Text, TouchableWithoutFeedback, View } from 'react-native';
 
 import ErrorLabels from '@/components/ui/text-input/ErrorLabel';
 import LinkLabel from '@/components/ui/text-input/LinkLabel';

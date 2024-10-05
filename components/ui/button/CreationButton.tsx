@@ -47,6 +47,7 @@ const CreationButton: React.FC<CreationButtonProps> = ({
     }
     return colorScheme === 'light' ? theme.sky.dark : theme.ink.light;
   }
+
   return (
     <SingleClickTouchableOpacity
       onPress={onPress}

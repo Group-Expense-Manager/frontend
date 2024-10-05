@@ -19,7 +19,9 @@ export default function (inParallel: boolean = false, groupId: string) {
         `${API_URL}${PATHS.EXTERNAL}/groups/${groupId}`,
         {
           name: groupUpdate.groupName,
-          groupCurrencies: [{ code: 'PLN' }],
+          groupCurrencies: groupUpdate.groupCurrencies.map((currency) => ({
+            code: currency.code,
+          })),
         },
         {
           headers: {

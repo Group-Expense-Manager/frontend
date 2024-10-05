@@ -26,6 +26,7 @@ interface ProfileUpdateContextProps {
   profileUpdate: ProfileUpdate;
   setProfileUpdate: (profileUpdate: ProfileUpdate) => void;
 }
+
 export const defaultProfileUpdate: ProfileUpdate = {
   userDetails: {
     username: '',

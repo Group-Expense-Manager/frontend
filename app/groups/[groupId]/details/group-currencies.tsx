@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import SelectList from '@/components/ui/text-input/select/SelectList';
 
-export default function PaymentBaseCurrencySelect() {
+export default function GroupName() {
   const { t } = useTranslation();
 
-  return <SelectList title={t('Currency')} />;
+  return <SelectList title={t('Group currencies')} />;
 }

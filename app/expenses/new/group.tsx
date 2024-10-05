@@ -29,6 +29,12 @@ export default function NewExpenseGroup() {
     name: '',
   });
 
+  const groupsList = () => {
+    return groups?.map((group) => {
+      return { value: group, name: group.name };
+    });
+  };
+
   useEffect(() => {
     if (groups && !selectedGroup.name) {
       const selected = groups.find((group) => group.groupId === userData.currentGroupId);
@@ -57,6 +63,7 @@ export default function NewExpenseGroup() {
       });
     }
   }
+
   return (
     <Box>
       <View className="py-8 w-full h-full flex flex-col justify-between items-center">
@@ -71,6 +78,7 @@ export default function NewExpenseGroup() {
                 onPress={() => router.navigate('/expenses/new/group-select')}
                 label={t('Expense group')}
                 value={selectedGroup}
+                data={groupsList()}
               />
             ) : (
               <Loader />

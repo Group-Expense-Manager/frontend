@@ -1,6 +1,6 @@
 import { useColorScheme } from 'nativewind';
 import React, { ReactElement } from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';

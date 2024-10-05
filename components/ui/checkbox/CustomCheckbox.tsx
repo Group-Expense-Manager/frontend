@@ -1,7 +1,7 @@
 import { useColorScheme } from 'nativewind';
 import React from 'react';
+import { View } from 'react-native';
 
-import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import theme from '@/constants/Colors';
 import { CheckIcon } from '@/constants/Icon';
 import { Availability } from '@/util/Availability';
@@ -10,7 +10,7 @@ import { IconSize } from '@/util/IconSize';
 interface CustomCheckboxProps {
   disabled?: boolean;
   value: boolean;
-  onValueChange: () => void;
+  onValueChange?: () => void;
 }
 
 enum CheckboxState {
@@ -18,18 +18,8 @@ enum CheckboxState {
   UNCHECKED = 'UNCHECKED',
 }
 
-const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
-  disabled = false,
-  value,
-  onValueChange,
-}) => {
+const CustomCheckbox: React.FC<CustomCheckboxProps> = ({ disabled = false, value }) => {
   const { colorScheme } = useColorScheme();
-
-  function toggleCheckbox() {
-    if (!disabled) {
-      onValueChange();
-    }
-  }
 
   function backgroundColor(): string {
     const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
@@ -43,6 +33,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
         return '';
     }
   }
+
   function iconColor(): string {
     const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
 
@@ -70,13 +61,10 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   }
 
   return (
-    <SingleClickTouchableOpacity
-      delay={500}
-      activeOpacity={1}
-      onPress={toggleCheckbox}
+    <View
       className={`${backgroundColor()} px-[2px] w-6 h-6 items-center justify-center rounded-[4px] ${border()}`}>
       <CheckIcon stroke={iconColor()} width={IconSize.TINY} height={IconSize.TINY} />
-    </SingleClickTouchableOpacity>
+    </View>
   );
 };
 

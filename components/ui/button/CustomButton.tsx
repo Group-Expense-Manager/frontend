@@ -98,6 +98,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         return '';
     }
   }
+
   return (
     <View className={`${size === ButtonSize.BLOCK ? 'w-full' : ''}`}>
       <SingleClickTouchableOpacity

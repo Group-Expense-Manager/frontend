@@ -1,5 +1,4 @@
 import { useNavigation } from 'expo-router';
-import { useColorScheme } from 'nativewind';
 import React, { useLayoutEffect } from 'react';
 import { Modal, Text, View } from 'react-native';
 
