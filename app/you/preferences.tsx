@@ -2,7 +2,7 @@ import { router, useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import i18n from 'i18next';
 import { useColorScheme } from 'nativewind';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -30,7 +30,7 @@ export default function Preferences() {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
       header: () => <CustomHeader title={t('Preferences')} />,

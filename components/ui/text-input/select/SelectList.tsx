@@ -1,5 +1,5 @@
 import { useNavigation } from 'expo-router';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
@@ -34,7 +34,7 @@ const SelectList: React.FC<SelectListProps> = ({ title }) => {
     selectInputProps.onSelect(item);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
       header: () => <CustomHeader title={title} />,
