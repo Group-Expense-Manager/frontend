@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
@@ -18,7 +18,7 @@ export default function GroupMembers() {
   const { data: groupDetails } = useGroup(params.groupId);
   const { data: groupMembersDetails } = useGroupMembersDetails(params.groupId);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
       header: () => <CustomHeader title={t('Members')} />,

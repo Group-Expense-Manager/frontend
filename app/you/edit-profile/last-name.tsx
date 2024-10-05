@@ -1,5 +1,5 @@
 import { router, useNavigation } from 'expo-router';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -39,10 +39,9 @@ export default function LastName() {
   ]);
 
   const navigation = useNavigation();
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-
       header: () => (
         <CustomHeader
           title={t('Profile edition')}

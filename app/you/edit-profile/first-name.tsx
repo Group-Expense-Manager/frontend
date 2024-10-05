@@ -1,5 +1,5 @@
 import { router, useNavigation } from 'expo-router';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -39,7 +39,7 @@ export default function FirstName() {
   ]);
 
   const navigation = useNavigation();
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
 

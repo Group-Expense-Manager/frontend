@@ -5,7 +5,6 @@ import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/Single
 
 export interface SegmentProps {
   text: string;
-  onPress: () => void;
 }
 
 interface SegmentedControlsProps {
@@ -47,7 +46,6 @@ const SegmentedControls: React.FC<SegmentedControlsProps> = ({
           onPress={() => {
             if (activeSegmentIndex !== index) {
               onValueChange(index);
-              segment.onPress();
             }
           }}
           className={`${backgroundColor(index)} flex-1 justify-center rounded-[6px] h-7`}>

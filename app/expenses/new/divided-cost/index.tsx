@@ -111,11 +111,9 @@ export default function NewExpenseDividedCost() {
                   segments={[
                     {
                       text: t('Weight-based'),
-                      onPress: () => {},
                     },
                     {
                       text: t('Cost-based'),
-                      onPress: () => {},
                     },
                   ]}
                 />
