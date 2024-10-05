@@ -27,15 +27,14 @@ export default function NewExpenseAttachment() {
     });
 
     if (!result.canceled) {
-      handleImageChoice(
+      await handleImageChoice(
         result.assets[0],
         () => router.push('/expenses/new/unsupported-file-format-modal'),
-        () => router.push('/expenses/new/image-too-large-modal'),
-        () =>
+        (mimeType?: string, base64?: string | null) =>
           setExpenseCreation({
             ...expenseCreation,
             attachment: {
-              uri: `data:${result.assets[0].mimeType};base64,${result.assets[0].base64}`,
+              uri: `data:${mimeType};base64,${base64}`,
             },
           }),
       );

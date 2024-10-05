@@ -64,16 +64,15 @@ export default function Index() {
     });
 
     if (!result.canceled) {
-      handleImageChoice(
+      await handleImageChoice(
         result.assets[0],
         () =>
           router.push(`/groups/${params.groupId}/details/(modal)/unsupported-file-format-modal`),
-        () => router.push(`/groups/${params.groupId}/details/(modal)/image-too-large-modal`),
-        () =>
+        (mimeType?: string, base64?: string | null) =>
           setGroupUpdate({
             ...groupUpdate,
             groupPicture: {
-              uri: `data:${result.assets[0].mimeType};base64,${result.assets[0].base64}`,
+              uri: `data:${mimeType};base64,${base64}`,
             },
           }),
       );
@@ -106,7 +105,7 @@ export default function Index() {
         <CustomHeader
           title={t('Group data')}
           onLeftIconPress={() => {
-            if (isOwner && hasGroupDataChanged()) {
+            if (dataPresentAndNoFetching && isOwner && hasGroupDataChanged()) {
               router.push(`/groups/${params.groupId}/details/(modal)/exit-without-saving-modal`);
             } else {
               router.back();
@@ -122,7 +121,7 @@ export default function Index() {
     if (isUpdatedGroupDetailsPending || isUpdatedGroupPicturePending) {
       return true;
     }
-    if (isOwner && hasGroupDataChanged()) {
+    if (dataPresentAndNoFetching && isOwner && hasGroupDataChanged()) {
       router.push(`/groups/${params.groupId}/details/(modal)/exit-without-saving-modal`);
       return true;
     }
@@ -216,7 +215,7 @@ export default function Index() {
             <View className="w-full py-8">
               <CustomButton
                 title={t('Save changes')}
-                onPress={() => handleSave}
+                onPress={handleSave}
                 disabled={!groupUpdate.isValidGroupName}
               />
             </View>

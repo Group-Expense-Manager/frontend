@@ -70,15 +70,14 @@ export default function Index() {
     });
 
     if (!result.canceled) {
-      handleImageChoice(
+      await handleImageChoice(
         result.assets[0],
         () => router.push('/you/edit-profile/(modal)/unsupported-file-format-modal'),
-        () => router.push('/you/edit-profile/(modal)/image-too-large-modal'),
-        () =>
+        (mimeType?: string, base64?: string | null) =>
           setProfileUpdate({
             ...profileUpdate,
             profilePicture: {
-              uri: `data:${result.assets[0].mimeType};base64,${result.assets[0].base64}`,
+              uri: `data:${mimeType};base64,${base64}`,
             },
           }),
       );
@@ -115,7 +114,7 @@ export default function Index() {
         <CustomHeader
           title={t('Profile edition')}
           onLeftIconPress={() => {
-            if (hasUserDataChanged()) {
+            if (dataPresentAndNoFetching && hasUserDataChanged()) {
               router.push('/you/edit-profile/(modal)/exit-without-saving-modal');
             } else {
               router.back();
@@ -137,7 +136,7 @@ export default function Index() {
     if (isUpdatedUserDetailsPending || isUpdatedProfilePicturePending) {
       return true;
     }
-    if (hasUserDataChanged()) {
+    if (dataPresentAndNoFetching && hasUserDataChanged()) {
       router.push('/you/edit-profile/(modal)/exit-without-saving-modal');
       return true;
     }
