@@ -40,7 +40,6 @@ export default function CreateGroupCurrencies() {
   };
 
   function setGroupCurrencies(currencies: Currency[]) {
-    console.log(currencies);
     setGroupCreation({ ...groupCreation, groupCurrencies: currencies });
   }
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { Availability } from '@/util/Availability';
 
 interface CustomSwitchProps {
   disabled?: boolean;
   value: boolean;
-  onValueChange: () => void;
 }
 
 enum SwitchState {
@@ -15,15 +13,9 @@ enum SwitchState {
   OFF = 'OFF',
 }
 
-const CustomSwitch: React.FC<CustomSwitchProps> = ({ disabled = false, value, onValueChange }) => {
+const CustomSwitch: React.FC<CustomSwitchProps> = ({ disabled = false, value }) => {
   const thumbPosition = value ? 'justify-end' : 'justify-start';
   const hasBorder = !value && disabled;
-
-  function toggleSwitch() {
-    if (!disabled) {
-      onValueChange();
-    }
-  }
 
   function thumbColor(): string {
     const disabledOn = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? SwitchState.ON : SwitchState.OFF}`;
@@ -60,15 +52,12 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({ disabled = false, value, on
   }
 
   return (
-    <SingleClickTouchableOpacity
-      delay={500}
-      activeOpacity={1}
-      onPress={toggleSwitch}
+    <View
       className={`flex-row ${thumbPosition} items-center px-[2px] w-[56px] h-[32px]  rounded-[32px] ${trackColor()}
         ${hasBorder ? 'border border-sky-light dark:border-ink-dark' : ''}
         `}>
       <View className={`w-[28px] h-[28px]  rounded-[14px] ${thumbColor()}`} />
-    </SingleClickTouchableOpacity>
+    </View>
   );
 };
 

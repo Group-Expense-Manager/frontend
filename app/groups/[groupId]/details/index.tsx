@@ -235,6 +235,7 @@ export default function Index() {
                   }
                   values={selectedCurrencies}
                   setValues={setSelectedCurrencies}
+                  disabled={!isOwner}
                   data={availableCurrencies?.currencies.map(
                     (currency): SelectInputData<string> => ({
                       name: t(currency.code),

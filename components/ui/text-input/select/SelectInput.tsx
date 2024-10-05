@@ -52,7 +52,7 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
   };
 
   const getDownArrowIcon = () => {
-    return <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />;
+    return <ChevronDownIcon width={IconSize.SMALL} height={IconSize.SMALL} />;
   };
 
   const handleSelect = (item: SelectInputData<any>) => {
