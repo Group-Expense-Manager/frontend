@@ -1,12 +1,14 @@
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
+
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 
 export const TopTabButton: React.FC<BottomTabBarButtonProps> = ({ onPress, children }) => {
   return (
-    <TouchableOpacity onPress={onPress} className="flex items-center justify-center">
+    <SingleClickTouchableOpacity onPress={onPress} className="flex items-center justify-center">
       <View>{children}</View>
-    </TouchableOpacity>
+    </SingleClickTouchableOpacity>
   );
 };
 

@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components';
 import ActivityListItem from '@/components/modules/activity/ActivityListItem';
@@ -9,6 +9,7 @@ import NavBar from '@/components/ui/bar/NavBar';
 import SafeView from '@/components/ui/box/SafeView';
 import Loader from '@/components/ui/loader/Loader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import useActivities from '@/hooks/activity/UseActivities';
@@ -27,11 +28,11 @@ export default function Index() {
         {userData.currentGroupId ? (
           groupDetails ? (
             <View className="flex-1 space-y-3">
-              <TouchableOpacity onPress={() => router.push('/groups/list')}>
+              <SingleClickTouchableOpacity onPress={() => router.push('/groups/list')}>
                 <View pointerEvents="none">
                   <MultiTextInput label={t('Current group')} value={groupDetails.name} />
                 </View>
-              </TouchableOpacity>
+              </SingleClickTouchableOpacity>
               <View className="flex-1">
                 {activities ? (
                   <ScrollView className="space-y-2" showsVerticalScrollIndicator={false}>

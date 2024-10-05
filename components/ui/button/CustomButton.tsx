@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { Availability } from '@/util/Availability';
 import { ButtonType } from '@/util/ButtonType';
 
@@ -99,7 +100,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   }
   return (
     <View className={`${size === ButtonSize.BLOCK ? 'w-full' : ''}`}>
-      <TouchableOpacity
+      <SingleClickTouchableOpacity
         onPress={onPress}
         activeOpacity={0.7}
         className={`
@@ -111,7 +112,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         `}
         disabled={disabled}>
         <Text className={`${textColor()} font-medium text-regular`}>{title}</Text>
-      </TouchableOpacity>
+      </SingleClickTouchableOpacity>
     </View>
   );
 };

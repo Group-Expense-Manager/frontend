@@ -2,7 +2,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { router, useNavigation } from 'expo-router';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BackHandler, TouchableOpacity, View } from 'react-native';
+import { BackHandler, View } from 'react-native';
 
 import PictureUpdate from '@/components/modules/userdetails/PictureUpdate';
 import Box from '@/components/ui/box/Box';
@@ -13,6 +13,7 @@ import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import NumericTextInput from '@/components/ui/text-input/NumericTextInput';
 import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { GlobalContext } from '@/context/GlobalContext';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
@@ -211,7 +212,8 @@ export default function Index() {
           <View className="w-full flex-col space-y-[28px]">
             <PictureUpdate image={profileUpdate.profilePicture} onPress={pickImage} />
             <View className=" w-full flex-col space-y-[12px]">
-              <TouchableOpacity onPress={() => router.push('/you/edit-profile/username')}>
+              <SingleClickTouchableOpacity
+                onPress={() => router.push('/you/edit-profile/username')}>
                 <View pointerEvents="none">
                   <SingleTextInput
                     label={t('Nick')}
@@ -219,8 +221,9 @@ export default function Index() {
                     showErrors={!profileUpdate.isValid.username}
                   />
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/you/edit-profile/first-name')}>
+              </SingleClickTouchableOpacity>
+              <SingleClickTouchableOpacity
+                onPress={() => router.push('/you/edit-profile/first-name')}>
                 <View pointerEvents="none">
                   <MultiTextInput
                     label={t('First name')}
@@ -228,8 +231,9 @@ export default function Index() {
                     showErrors={!profileUpdate.isValid.firstName}
                   />
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/you/edit-profile/last-name')}>
+              </SingleClickTouchableOpacity>
+              <SingleClickTouchableOpacity
+                onPress={() => router.push('/you/edit-profile/last-name')}>
                 <View pointerEvents="none">
                   <MultiTextInput
                     label={t('Last name')}
@@ -237,8 +241,9 @@ export default function Index() {
                     showErrors={!profileUpdate.isValid.lastName}
                   />
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/you/edit-profile/phone-number')}>
+              </SingleClickTouchableOpacity>
+              <SingleClickTouchableOpacity
+                onPress={() => router.push('/you/edit-profile/phone-number')}>
                 <View pointerEvents="none">
                   <NumericTextInput
                     label={t('Phone number')}
@@ -246,8 +251,8 @@ export default function Index() {
                     showErrors={!profileUpdate.isValid.phoneNumber}
                   />
                 </View>
-              </TouchableOpacity>
-              <TouchableOpacity
+              </SingleClickTouchableOpacity>
+              <SingleClickTouchableOpacity
                 onPress={() => router.push('/you/edit-profile/bank-account-number')}>
                 <View pointerEvents="none">
                   <NumericTextInput
@@ -256,7 +261,7 @@ export default function Index() {
                     showErrors={!profileUpdate.isValid.bankAccountNumber}
                   />
                 </View>
-              </TouchableOpacity>
+              </SingleClickTouchableOpacity>
               <View>
                 <SelectInput
                   onSelect={setPaymentMethod}
