@@ -33,15 +33,10 @@ interface PaymentCreationContextProps {
 const defaultPaymentCreation: PaymentCreation = {
   groupId: '',
   title: '',
-  type: undefined,
   value: new Decimal(0),
   baseCurrency: { code: '' },
-  targetCurrency: undefined,
   date: new Date(),
   recipientId: '',
-  message: undefined,
-  attachment: undefined,
-  attachmentId: undefined,
 };
 
 export const PaymentCreationContext = createContext<PaymentCreationContextProps>({

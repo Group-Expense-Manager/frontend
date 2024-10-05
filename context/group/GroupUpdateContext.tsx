@@ -22,7 +22,6 @@ const defaultGroupUpdate: GroupUpdate = {
   groupName: '',
   groupCurrencies: [],
   isValidGroupName: false,
-  groupPicture: undefined,
 };
 
 export const GroupUpdateContext = createContext<GroupUpdateContextProps>({

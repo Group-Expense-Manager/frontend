@@ -69,7 +69,7 @@ export default function NewPaymentMessage() {
                 const message = text ? text : undefined;
                 setPaymentCreation({ ...paymentCreation, message });
               }}
-              value={paymentCreation.message ? paymentCreation.message : ''}
+              value={paymentCreation.message ?? ''}
             />
           </View>
         </View>

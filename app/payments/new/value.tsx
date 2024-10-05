@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js';
 import { router } from 'expo-router';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,13 +10,12 @@ import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
+import { numberToString, toDecimal } from '@/util/StringUtils';
 
 export default function NewPaymentValue() {
   const { t } = useTranslation();
   const { paymentCreation, setPaymentCreation } = useContext(PaymentCreationContext);
-  const [valueString, setTotalCostString] = useState<string>(
-    paymentCreation.value.toString().replace('.', ','),
-  );
+  const [valueString, setTotalCostString] = useState<string>(numberToString(paymentCreation.value));
 
   const isNextButtonDisabled = paymentCreation.value.isZero() || paymentCreation.value.isNegative();
 
@@ -33,7 +31,7 @@ export default function NewPaymentValue() {
               label={`${t('Payment value')} (${paymentCreation.baseCurrency.code})`}
               onChangeText={(value: string) => {
                 setTotalCostString(value);
-                const valueNumber = new Decimal(value ? value.replace(',', '.') : 0);
+                const valueNumber = toDecimal(value);
                 setPaymentCreation({
                   ...paymentCreation,
                   value: valueNumber,
