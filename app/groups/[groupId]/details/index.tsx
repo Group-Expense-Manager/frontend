@@ -55,6 +55,7 @@ export default function Index() {
     groupDetails?.groupCurrencies.map((currency) => ({
       name: t(currency.code),
       value: currency.code,
+      isDisabled: true,
     })) || [],
   );
   const { data: availableCurrencies } = useAvailableCurrencies();
@@ -231,14 +232,6 @@ export default function Index() {
                   )}
                 />
               </View>
-
-              <ScrollView horizontal className="flex-row space-x-2 w-full">
-                {groupDetails.groupCurrencies.map((currency) => (
-                  <View key={currency.code}>
-                    <Chip text={currency.code} type="normal" />
-                  </View>
-                ))}
-              </ScrollView>
 
               <View />
             </View>

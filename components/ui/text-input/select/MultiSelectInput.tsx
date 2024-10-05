@@ -1,5 +1,5 @@
-import React, { ReactNode, useContext } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import React, { ReactNode, useContext, useEffect, useLayoutEffect } from 'react';
+import { ScrollView, View } from 'react-native';
 
 import Chip from '@/components/ui/chip/Chip';
 import BaseInput from '@/components/ui/text-input/BaseInput';
@@ -36,33 +36,24 @@ const MultiSelectInput: React.FC<MultiSelectInputProps<any>> = ({
   showErrors = false,
   type = 'normal',
 }) => {
-  const { setSelectInputProps } = useContext(SelectInputContext);
+  const { setSelectInputProps, selectInputProps } = useContext(SelectInputContext);
 
   const getDownArrowIcon = () => {
     return <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />;
   };
 
   const handleMultiSelect = (item: SelectInputData<any>) => {
-    setValues(() => {
-      const isAlreadySelected = values.some(
+    setValues((prevValues) => {
+      const isAlreadySelected = prevValues.some(
         (selectedItem) => selectedItem.name === item.name && selectedItem.value === item.value,
       );
 
-      const newSelectedData = isAlreadySelected
-        ? values.filter(
+      return isAlreadySelected
+        ? prevValues.filter(
             (selectedItem) =>
               !(selectedItem.name === item.name && selectedItem.value === item.value),
           )
-        : [...values, item];
-      console.log('newSelectedData', newSelectedData);
-      console.log('values', values);
-      setSelectInputProps({
-        data,
-        createRow,
-        onSelect: handleMultiSelect,
-        selectedData: newSelectedData,
-      });
-      return newSelectedData;
+        : [...prevValues, item];
     });
   };
 
@@ -80,8 +71,17 @@ const MultiSelectInput: React.FC<MultiSelectInputProps<any>> = ({
     onPress();
   };
 
+  useLayoutEffect(() => {
+    setSelectInputProps({
+      data,
+      createRow,
+      onSelect: handleMultiSelect,
+      selectedData: values,
+    });
+  }, [values]);
+
   return (
-    <View>
+    <View className="space-y-2">
       <BaseInput
         disabled={disabled}
         label={label}
@@ -91,7 +91,7 @@ const MultiSelectInput: React.FC<MultiSelectInputProps<any>> = ({
         rightSection={getDownArrowIcon()}
         showErrors={showErrors}
       />
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView horizontal className="flex-row space-x-2 w-full">
         {values.map((value) => (
           <View key={value.name}>
             <Chip text={value.name} type={type} />

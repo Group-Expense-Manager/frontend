@@ -2,7 +2,6 @@ import { router } from 'expo-router';
 import React, { ReactNode, useContext } from 'react';
 import { Text, View } from 'react-native';
 
-import CustomRadioButton from '@/components/ui/radio-button/CustomRadioButton';
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
 import RadioButtonRow from '@/components/ui/text-input/select/row/RadioButtonRow';

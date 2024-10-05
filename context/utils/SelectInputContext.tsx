@@ -19,10 +19,10 @@ interface SelectInputContextProps<T> {
 }
 
 const defaultSelectInputProps: SelectInputProps<any> = {
-  data: [],
-  createRow: () => <></>,
   selectedData: [],
   onSelect: () => {},
+  data: [],
+  createRow: () => <></>,
 };
 
 export const SelectInputContext = createContext<SelectInputContextProps<any>>({
