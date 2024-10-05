@@ -39,7 +39,7 @@ export default function ExpenseView() {
   ): ExpenseParticipant => {
     return {
       participantId: expense?.creatorId,
-      participantCost: new Decimal(expense.totalCost)
+      participantCost: new Decimal(expense.amount.value)
         .times(multiplier)
         .toDecimalPlaces(2, Decimal.ROUND_DOWN)
         .minus(
@@ -58,7 +58,7 @@ export default function ExpenseView() {
   };
 
   function getParticipants(expense: Expense): ExpenseParticipant[] {
-    const multiplier = expense.exchangeRate ? expense.exchangeRate : 1;
+    const multiplier = expense.fxData?.exchangeRate ? expense.fxData?.exchangeRate : 1;
     const participants = expense?.expenseParticipants.map((participant) => ({
       ...participant,
       participantCost: new Decimal(participant.participantCost)
@@ -104,12 +104,12 @@ export default function ExpenseView() {
               <OptionsBar leftText={t('Title')} rightText={expense.title} />
               <OptionsBar
                 leftText={t('Cost')}
-                rightText={`${expense.totalCost.toString().replace('.', ',')} ${expense.baseCurrency}`}
+                rightText={`${expense.amount.value.toString().replace('.', ',')} ${expense.amount.currency}`}
               />
-              {expense?.targetCurrency && expense?.exchangeRate && (
+              {expense?.fxData && (
                 <OptionsBar
                   leftText={t('Cost after exchange rate conversion')}
-                  rightText={`${new Decimal(expense.totalCost).times(expense.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN).toString().replace('.', ',')} ${expense.targetCurrency}`}
+                  rightText={`${new Decimal(expense.amount.value).times(expense.fxData.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN).toString().replace('.', ',')} ${expense.fxData.targetCurrency}`}
                 />
               )}
               <OptionsBar
@@ -127,7 +127,9 @@ export default function ExpenseView() {
                   <Participant
                     participant={participant}
                     currency={
-                      expense?.targetCurrency ? expense?.targetCurrency : expense.baseCurrency
+                      expense?.fxData?.targetCurrency
+                        ? expense?.fxData?.targetCurrency
+                        : expense.amount.currency
                     }
                     groupId={userData.currentGroupId!}
                   />

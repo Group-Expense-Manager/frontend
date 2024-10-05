@@ -40,8 +40,10 @@ export default function useCreateExpense() {
         `${API_URL}${PATHS.EXTERNAL}/expenses?groupId=${expenseCreation.groupId}`,
         {
           title: expenseCreation.title,
-          totalCost: expenseCreation.totalCost.toNumber(),
-          baseCurrency: expenseCreation.baseCurrency.code,
+          amount: {
+            value: expenseCreation.totalCost.toNumber(),
+            currency: expenseCreation.baseCurrency.code,
+          },
           targetCurrency: expenseCreation.targetCurrency?.code,
           expenseDate: expenseCreation.expenseDate,
           expenseParticipants: expenseCreation.expenseParticipants
