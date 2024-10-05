@@ -4,8 +4,8 @@ import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import Box from '@/components/ui/box/Box';
+import CustomButton from '@/components/ui/button/CustomButton';
 import Loader from '@/components/ui/loader/Loader';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';

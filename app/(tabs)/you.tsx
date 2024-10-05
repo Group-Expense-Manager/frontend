@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
+import CustomButton from '@/components/ui/button/CustomButton';
 import InfoCard from '@/components/ui/card/InfoCard';
 import Loader from '@/components/ui/loader/Loader';
 import { GlobalContext } from '@/context/GlobalContext';

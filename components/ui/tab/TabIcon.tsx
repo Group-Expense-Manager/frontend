@@ -7,7 +7,7 @@ import { IconSize } from '@/util/IconSize';
 
 interface TabIconProps {
   focused: boolean;
-  name: string;
+  name?: string;
   children: ReactElement;
 }
 
@@ -30,8 +30,8 @@ export const TabIcon: React.FC<TabIconProps> = ({ focused, name, children }) => 
           height: IconSize.SMALL,
         }
       : {
-          width: IconSize.SMALL,
-          height: IconSize.SMALL,
+          width: name ? IconSize.SMALL : IconSize.LARGE,
+          height: name ? IconSize.SMALL : IconSize.LARGE,
           stroke: focused
             ? colorScheme === 'light'
               ? theme.primary.base
@@ -42,14 +42,16 @@ export const TabIcon: React.FC<TabIconProps> = ({ focused, name, children }) => 
   return (
     <View className="flex items-center justify-center">
       {clonedIcon}
-      <Text
-        className={
-          focused
-            ? 'text-tiny font-normal text-primary-base dark:text-primary-light'
-            : 'text-tiny font-normal text-sky-dark'
-        }>
-        {name}
-      </Text>
+      {name && (
+        <Text
+          className={
+            focused
+              ? 'text-tiny font-normal text-primary-base dark:text-primary-light'
+              : 'text-tiny font-normal text-sky-dark'
+          }>
+          {name}
+        </Text>
+      )}
     </View>
   );
 };

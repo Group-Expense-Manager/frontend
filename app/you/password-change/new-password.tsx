@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import Box from '@/components/ui/box/Box';
+import CustomButton from '@/components/ui/button/CustomButton';
 import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PasswordChangeContext } from '@/context/auth/PasswordChangeContext';

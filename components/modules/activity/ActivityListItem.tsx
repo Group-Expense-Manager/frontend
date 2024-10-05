@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { TouchableActivity } from '@/components';
 import GroupMemberImage from '@/components/modules/activity/GroupMemberImage';
+import TouchableActivity from '@/components/modules/activity/TouchableActivity';
 import { ActivityListElement } from '@/hooks/activity/UseActivities';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
 import useGroupMembersDetails from '@/hooks/userdetails/UseGroupMembersDetails';

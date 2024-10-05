@@ -4,12 +4,11 @@ import React, { useContext, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import ActivityAttachment from '@/components/modules/activity/ActivityAttachment';
 import NavBar from '@/components/ui/bar/NavBar';
 import OptionsBar from '@/components/ui/bar/OptionsBar';
 import Box from '@/components/ui/box/Box';
-import { ButtonColor } from '@/components/ui/button/CustomButton';
+import CustomButton, { ButtonColor } from '@/components/ui/button/CustomButton';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
 import { GlobalContext } from '@/context/GlobalContext';

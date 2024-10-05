@@ -4,10 +4,10 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import UserCost from '@/components/modules/expense/UserCost';
 import NavBar from '@/components/ui/bar/NavBar';
 import Box from '@/components/ui/box/Box';
+import CustomButton from '@/components/ui/button/CustomButton';
 import Loader from '@/components/ui/loader/Loader';
 import SegmentedControls from '@/components/ui/segmetedcontrols/SegmentedControls';
 import { LogoIcon } from '@/constants/Icon';

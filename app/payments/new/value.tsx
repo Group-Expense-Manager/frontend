@@ -3,8 +3,8 @@ import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { CustomButton } from '@/components';
 import Box from '@/components/ui/box/Box';
+import CustomButton from '@/components/ui/button/CustomButton';
 import CostTextInput from '@/components/ui/text-input/CostTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';

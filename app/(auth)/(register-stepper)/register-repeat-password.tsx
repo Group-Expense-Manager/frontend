@@ -3,8 +3,9 @@ import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, ScrollView, View } from 'react-native';
 
-import { CustomButton, FullViewLoader } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
+import CustomButton from '@/components/ui/button/CustomButton';
+import FullViewLoader from '@/components/ui/loader/FullViewLoader';
 import PasswordTextInput from '@/components/ui/text-input/PasswordTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { RegistrationContext } from '@/context/auth/RegistrationContext';

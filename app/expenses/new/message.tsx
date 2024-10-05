@@ -3,8 +3,9 @@ import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, View } from 'react-native';
 
-import { CustomButton, FullViewLoader } from '@/components';
 import Box from '@/components/ui/box/Box';
+import CustomButton from '@/components/ui/button/CustomButton';
+import FullViewLoader from '@/components/ui/loader/FullViewLoader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import { LogoIcon } from '@/constants/Icon';
 import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';

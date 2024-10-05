@@ -3,8 +3,8 @@ import { useColorScheme } from 'nativewind';
 import React, { ReactElement } from 'react';
 import { Text, View } from 'react-native';
 
-import { FullViewLoader } from '@/components';
 import IconButton from '@/components/ui/button/IconButton';
+import FullViewLoader from '@/components/ui/loader/FullViewLoader';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import theme from '@/constants/Colors';
 import { ArrowLeftIcon } from '@/constants/Icon';

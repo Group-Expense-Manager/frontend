@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, View } from 'react-native';
 import { pl, registerTranslation } from 'react-native-paper-dates';
 
-import { CustomButton } from '@/components';
 import SafeView from '@/components/ui/box/SafeView';
+import CustomButton from '@/components/ui/button/CustomButton';
 import { LogoIcon } from '@/constants/Icon';
 import { IconSize } from '@/util/IconSize';
 
