@@ -47,6 +47,7 @@ export default function Index() {
                                 break;
                               }
                               case 'PAYMENT': {
+                                router.push(`/payments/${activity.activityId}`);
                                 break;
                               }
                             }

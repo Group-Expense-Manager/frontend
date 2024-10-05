@@ -8,25 +8,25 @@ import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
 import { GlobalContext } from '@/context/GlobalContext';
-import useExpense from '@/hooks/expense/UseExpense';
+import usePayment from '@/hooks/payment/UsePayment';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
 
-export default function ExpenseHistory() {
+export default function PaymentHistory() {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const params = useLocalSearchParams<{ expenseId: string }>();
+  const params = useLocalSearchParams<{ paymentId: string }>();
   const { authState, userData } = useContext(GlobalContext);
 
-  const { data: expense } = useExpense(params.expenseId);
+  const { data: payment } = usePayment(params.paymentId);
   const { data: groupMemberDetails } = useGroupMemberDetails(
     userData.currentGroupId!,
-    expense?.creatorId,
+    payment?.creatorId,
   );
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      header: () => <CustomHeader title={t('Expense history')} />,
+      header: () => <CustomHeader title={t('Payment history')} />,
     });
   }, [navigation]);
 
@@ -34,17 +34,17 @@ export default function ExpenseHistory() {
 
   return (
     <Box>
-      {expense && groupMemberDetails ? (
+      {payment && groupMemberDetails ? (
         <ScrollView
           ref={scrollViewRef}
           onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
           showsVerticalScrollIndicator={false}>
-          {expense.history.map((entry, index) => (
+          {payment.history.map((entry, index) => (
             <View key={index}>
               <FilledActivityHistoryListItem
-                historyEntry={{ ...entry, activityAction: entry.expenseAction }}
+                historyEntry={{ ...entry, activityAction: entry.paymentAction }}
                 groupId={userData.currentGroupId!}
-                activityType="EXPENSE"
+                activityType="PAYMENT"
                 position={authState.userId === entry.participantId ? 'right' : 'left'}
               />
             </View>
