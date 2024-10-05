@@ -1,5 +1,5 @@
-import { router, useNavigation } from 'expo-router';
-import React, { useEffect } from 'react';
+import { router } from 'expo-router';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonColor } from '@/components/ui/button/CustomButton';
@@ -20,11 +20,7 @@ const DeleteActivityPopover: React.FC<DeleteActivityProps> = ({
   isLoading,
 }) => {
   const { t } = useTranslation();
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    navigation.setOptions({ presentation: 'transparentModal' });
-  }, [navigation]);
   return (
     <DoubleButtonPopover
       title={title}

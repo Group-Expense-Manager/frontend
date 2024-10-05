@@ -1,5 +1,5 @@
-import { router, useNavigation } from 'expo-router';
-import React, { useEffect } from 'react';
+import { router } from 'expo-router';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -34,7 +34,6 @@ const ActivityDecisionPopover: React.FC<ActivityDecisionPopoverProps> = ({
   isLoading,
 }) => {
   const { t } = useTranslation();
-  const navigation = useNavigation();
 
   const middleSection = (
     <View className="space-y-4">
@@ -65,10 +64,6 @@ const ActivityDecisionPopover: React.FC<ActivityDecisionPopoverProps> = ({
       </View>
     </View>
   );
-
-  useEffect(() => {
-    navigation.setOptions({ presentation: 'transparentModal', headerShown: false });
-  }, [navigation]);
 
   return (
     <DoubleButtonPopover
