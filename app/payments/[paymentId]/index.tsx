@@ -12,13 +12,13 @@ import Box from '@/components/ui/box/Box';
 import { ButtonColor } from '@/components/ui/button/CustomButton';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
-import { EditIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import usePayment from '@/hooks/payment/UsePayment';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
 import { ButtonType } from '@/util/ButtonType';
 import { formatToDayMonthYear } from '@/util/DateUtils';
 import { getNameFromUserDetails } from '@/util/GetName';
+import { numberToString } from '@/util/StringUtils';
 
 export default function PaymentView() {
   const { t } = useTranslation();
@@ -73,12 +73,12 @@ export default function PaymentView() {
               <OptionsBar leftText={t('Title')} rightText={payment.title} />
               <OptionsBar
                 leftText={t('Value')}
-                rightText={`${payment.amount.value.toString().replace('.', ',')} ${payment.amount.currency}`}
+                rightText={`${numberToString(payment.amount.value)} ${payment.amount.currency}`}
               />
               {payment.fxData?.targetCurrency && payment.fxData?.exchangeRate && (
                 <OptionsBar
                   leftText={t('Cost after exchange rate conversion')}
-                  rightText={`${new Decimal(payment.amount.value).times(payment.fxData.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN).toString().replace('.', ',')} ${payment.fxData?.targetCurrency}`}
+                  rightText={`${numberToString(new Decimal(payment.amount.value).times(payment.fxData.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN))} ${payment.fxData?.targetCurrency}`}
                 />
               )}
               <OptionsBar

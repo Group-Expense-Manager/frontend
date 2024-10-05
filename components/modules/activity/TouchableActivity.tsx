@@ -7,6 +7,7 @@ import theme from '@/constants/Colors';
 import { ArrowNarrowRight, CheckCircleIcon, HelpCircleIcon, XCircleIcon } from '@/constants/Icon';
 import { formatToDayMonthYear } from '@/util/DateUtils';
 import { IconSize } from '@/util/IconSize';
+import { numberToString } from '@/util/StringUtils';
 
 interface TouchableActivityProps {
   type: 'EXPENSE' | 'PAYMENT';
@@ -59,8 +60,6 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
         );
     }
   };
-
-  const valueAsString = value.toString().replace('.', ',');
 
   return (
     <SingleClickTouchableOpacity
@@ -123,7 +122,7 @@ const TouchableActivity: React.FC<TouchableActivityProps> = ({
             numberOfLines={1}
             ellipsizeMode="tail"
             className="font-bold text-regular text-ink-darkest dark:text-sky-lightest text-right">
-            {`${valueAsString} ${currency}`}
+            {`${numberToString(value)} ${currency}`}
           </Text>
         </View>
       </View>

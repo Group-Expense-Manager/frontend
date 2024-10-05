@@ -10,7 +10,7 @@ import { Payment } from '@/hooks/payment/UsePayment';
 export interface PaymentDecision {
   paymentId: string;
   groupId: string;
-  decision: 'ACCEPT' | 'REJECT';
+  decision: string;
   message?: string;
 }
 

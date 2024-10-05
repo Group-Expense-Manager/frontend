@@ -34,9 +34,7 @@ const ActivityAttachment: React.FC<ActivityAttachmentProps> = ({ groupId, attach
       }}>
       <View className="bg-primary-lightest dark:bg-ink-base border-primary-base border-2 rounded-3xl justify-center items-center overflow-hidden">
         {imageDimensions ? (
-          <>
-            <Image style={imageDimensions} resizeMode="cover" source={attachment} />
-          </>
+          <Image style={imageDimensions} resizeMode="cover" source={attachment} />
         ) : (
           <View
             className="items-center justify-center"

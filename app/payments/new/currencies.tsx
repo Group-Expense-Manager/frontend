@@ -26,8 +26,8 @@ export default function NewPaymentCurrencies() {
   });
 
   const [selectedTargetCurrency, setSelectedTargetCurrency] = useState<SelectInputData<Currency>>({
-    value: paymentCreation.targetCurrency ? paymentCreation.targetCurrency : { code: '' },
-    name: paymentCreation.targetCurrency ? paymentCreation.targetCurrency.code : '',
+    value: paymentCreation.targetCurrency ?? { code: '' },
+    name: paymentCreation.targetCurrency?.code ?? '',
   });
 
   const isNextButtonDisabled = !paymentCreation.baseCurrency.code;

@@ -16,7 +16,7 @@ interface ActivityDecisionPopoverProps {
   onConfirmPress: () => void;
   message?: string;
   onMessageChange: (text: string) => void;
-  decision: 'ACCEPT' | 'REJECT' | undefined;
+  decision: 'ACCEPT' | 'REJECT' | 'NONE';
   onAcceptPress: () => void;
   onRejectPress: () => void;
   isLoading: boolean;
@@ -70,7 +70,11 @@ const ActivityDecisionPopover: React.FC<ActivityDecisionPopoverProps> = ({
       title={title}
       description={description}
       middleSection={middleSection}
-      firstButtonProps={{ title: t('Confirm'), onPress: onConfirmPress, disabled: !decision }}
+      firstButtonProps={{
+        title: t('Confirm'),
+        onPress: onConfirmPress,
+        disabled: decision === 'NONE',
+      }}
       secondButtonProps={{ title: t('Cancel'), onPress: router.back, type: ButtonType.OUTLINED }}
       isLoading={isLoading}
     />

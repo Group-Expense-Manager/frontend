@@ -26,8 +26,8 @@ export default function NewExpenseCurrencies() {
   });
 
   const [selectedTargetCurrency, setSelectedTargetCurrency] = useState<SelectInputData<Currency>>({
-    value: expenseCreation.targetCurrency ? expenseCreation.targetCurrency : { code: '' },
-    name: expenseCreation.targetCurrency ? expenseCreation.targetCurrency.code : '',
+    value: expenseCreation.targetCurrency ?? { code: '' },
+    name: expenseCreation.targetCurrency?.code ?? '',
   });
 
   const isNextButtonDisabled = !expenseCreation.baseCurrency.code;

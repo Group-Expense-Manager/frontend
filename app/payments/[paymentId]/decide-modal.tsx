@@ -13,12 +13,12 @@ export default function PaymentDecideModal() {
   const params = useLocalSearchParams<{ paymentId: string }>();
   const { userData } = useContext(GlobalContext);
   const [message, setMessage] = useState<string | undefined>(undefined);
-  const [decision, setDecision] = useState<'ACCEPT' | 'REJECT' | undefined>(undefined);
+  const [decision, setDecision] = useState<'ACCEPT' | 'REJECT' | 'NONE'>('NONE');
 
   const { mutate: addPaymentDecision, isPending: iseDecisionPending } = useAddPaymentDecision({
     paymentId: params.paymentId,
     groupId: userData.currentGroupId!,
-    decision: decision!,
+    decision,
     message,
   });
 
@@ -36,10 +36,10 @@ export default function PaymentDecideModal() {
       onMessageChange={(text) => setMessage(text ? text : undefined)}
       decision={decision}
       onAcceptPress={() => {
-        setDecision(decision === 'ACCEPT' ? undefined : 'ACCEPT');
+        setDecision(decision === 'ACCEPT' ? 'NONE' : 'ACCEPT');
       }}
       onRejectPress={() => {
-        setDecision(decision === 'REJECT' ? undefined : 'REJECT');
+        setDecision(decision === 'REJECT' ? 'NONE' : 'REJECT');
       }}
       isLoading={iseDecisionPending}
     />

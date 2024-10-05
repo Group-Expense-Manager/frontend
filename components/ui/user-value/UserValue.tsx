@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 
 import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
+import { numberToString } from '@/util/StringUtils';
 
 interface UserValueProps {
   type: 'balance' | 'weight' | 'cost';
@@ -15,7 +16,7 @@ interface UserValueProps {
 
 const UserValue: React.FC<UserValueProps> = ({ type, user, image, value, currency, onPress }) => {
   const rightText = () => {
-    const valueAsString = value.toString().replace('.', ',');
+    const valueAsString = numberToString(value);
     switch (type) {
       case 'weight':
         return `${valueAsString}`;

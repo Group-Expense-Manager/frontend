@@ -10,7 +10,7 @@ import { Expense } from '@/hooks/expense/UseExpense';
 export interface ExpenseDecision {
   expenseId: string;
   groupId: string;
-  decision: 'ACCEPT' | 'REJECT';
+  decision: string;
   message?: string;
 }
 
