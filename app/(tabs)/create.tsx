@@ -14,7 +14,7 @@ export default function Create() {
   const { data: groups } = useGroups();
 
   return (
-    <SafeView>
+    <SafeView type="wide">
       {groups === undefined ? (
         <Loader />
       ) : (

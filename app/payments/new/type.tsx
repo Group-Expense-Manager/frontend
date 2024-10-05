@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -21,6 +21,12 @@ export default function NewPaymentType() {
     value: undefined,
     name: '',
   });
+
+  useEffect(() => {
+    if (paymentCreation.type) {
+      setSelectedType({ value: paymentCreation.type, name: t(paymentCreation.type) });
+    }
+  }, [paymentCreation.type]);
 
   function setPaymentType(paymentType: PaymentType) {
     setSelectedType({ value: paymentType, name: t(paymentType) });
@@ -51,7 +57,7 @@ export default function NewPaymentType() {
             <CustomButton
               onPress={() => router.push('/payments/new/currencies')}
               title={t('Next')}
-              disabled={!paymentCreation.recipientId}
+              disabled={!paymentCreation.type}
             />
           </View>
           <View className="w-full">

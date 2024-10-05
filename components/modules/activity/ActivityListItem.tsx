@@ -26,7 +26,7 @@ const ActivityListItem: React.FC<ActivityListItemProps> = ({ groupId, activity, 
         creatorName={getNameFromUserDetails(creatorDetails)}
         title={activity.title}
         value={activity.value}
-        currency={activity.baseCurrency}
+        currency={activity.currency}
         status={activity.status}
         creatorPicture={<GroupMemberImage groupMemberDetails={creatorDetails} />}
         participantPictures={groupMembersDetails.details

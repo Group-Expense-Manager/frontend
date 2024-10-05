@@ -65,7 +65,7 @@ const Participant: React.FC<UserCostStatusProps> = ({ participant, groupId, curr
           numberOfLines={1}
           ellipsizeMode="tail"
           className="font-bold text-regular text-right max-w-[50%] text-ink-darkest dark:text-sky-lightest">
-          {`${participant.participantCost} ${currency}`}
+          {`${participant.participantCost.toString().replace('.', ',')} ${currency}`}
         </Text>
         <View>{selectIcon()}</View>
       </View>

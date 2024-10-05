@@ -46,7 +46,7 @@
   "GEM": "GEM",
   "Email address taken": "Adres email zajęty!",
   "Email address taken - description": "Adres e-mail, który podałeś, jest już powiązany z istniejącym kontem.",
-  "Oops something went wrong": "Oops coś poszło nie tak!",
+  "Oops something went wrong": "Upss coś poszło nie tak!",
   "Oops something went wrong - description": "Spróbuj ponownie później.",
   "Password recovery email sent - description": "Jeśli konto z tym adresem e-mail istnieje, instrukcje dotyczące odzyskiwania hasła zostaną wysłane.",
   "Verification email sent": "Pomyślnie wysłano email weryfikacyjny.",
@@ -133,6 +133,7 @@
   "Group data": "Dane grupy",
   "List of members": "Lista członków",
   "Members": "Członkowie",
+  "Member": "Członek",
   "Join group code": "Kod dołączenia do grupy",
   "Join group code - description": "Nowi użytkownicy mogą dołączać do grupy przy użyciu poniższego kodu. Udostępnij go, aby zaprosić innych do grupy!",
   "Copy": "Kopiuj",
@@ -190,5 +191,9 @@
   "Delete payment - title": "Czy usunąć tę płatność?",
   "Delete payment - description": "Czy na pewno chcesz usunąć tę płatność? Operacja jest nieodwracalna.",
   "Payment decide": "Zaakceptuj lub odrzuć płatność",
-  "Payment decide - description": "Akceptując tę płatność, potwierdzasz, że szczegóły są prawdziwe i zgadzasz się na udział w kosztach."
+  "Payment decide - description": "Akceptując tę płatność, potwierdzasz, że szczegóły są prawdziwe i zgadzasz się na udział w kosztach.",
+  "Oops, you don't have any activities!": "Upss, nie masz żadnych aktywności!",
+  "Edit expense": "Edytuj wydatek",
+  "Edit payment": "Edytuj płatność"
+
 }

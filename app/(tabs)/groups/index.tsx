@@ -23,7 +23,7 @@ export default function Index() {
   const { data: activities } = useActivities(userData.currentGroupId);
 
   return (
-    <SafeView>
+    <SafeView type="wide">
       <View className="w-full h-full pt-8">
         {userData.currentGroupId ? (
           groupDetails ? (
@@ -35,28 +35,35 @@ export default function Index() {
               </SingleClickTouchableOpacity>
               <View className="flex-1">
                 {activities ? (
-                  <ScrollView className="space-y-2" showsVerticalScrollIndicator={false}>
-                    {activities.activities.toReversed().map((activity, index) => (
-                      <View key={index}>
-                        <ActivityListItem
-                          groupId={activities.groupId}
-                          activity={activity}
-                          onPress={() => {
-                            switch (activity.type) {
-                              case 'EXPENSE': {
-                                router.push(`/expenses/${activity.activityId}`);
-                                break;
+                  activities.activities.length > 0 ? (
+                    <ScrollView className="space-y-2" showsVerticalScrollIndicator={false}>
+                      {activities.activities.toReversed().map((activity, index) => (
+                        <View key={index}>
+                          <ActivityListItem
+                            groupId={activities.groupId}
+                            activity={activity}
+                            onPress={() => {
+                              switch (activity.type) {
+                                case 'EXPENSE': {
+                                  router.push(`/expenses/${activity.activityId}`);
+                                  break;
+                                }
+                                case 'PAYMENT': {
+                                  router.push(`/payments/${activity.activityId}`);
+                                  break;
+                                }
                               }
-                              case 'PAYMENT': {
-                                router.push(`/payments/${activity.activityId}`);
-                                break;
-                              }
-                            }
-                          }}
-                        />
-                      </View>
-                    ))}
-                  </ScrollView>
+                            }}
+                          />
+                        </View>
+                      ))}
+                      <View />
+                    </ScrollView>
+                  ) : (
+                    <View className="py-8">
+                      <NavBar title={t("Oops, you don't have any activities!")} type="normal" />
+                    </View>
+                  )
                 ) : (
                   <Loader />
                 )}

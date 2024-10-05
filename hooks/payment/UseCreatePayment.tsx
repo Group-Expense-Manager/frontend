@@ -55,7 +55,7 @@ export default function useCreatePayment() {
       router.push(`/payments/${response.data.expenseId}`);
     },
     onError: () => {
-      router.push('/expenses/new/error-modal');
+      router.push('/payments/new/error-modal');
     },
   });
 }

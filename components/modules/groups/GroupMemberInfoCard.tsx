@@ -10,9 +10,10 @@ import { getName } from '@/util/GetName';
 interface GroupMemberCardProps {
   member: GroupMemberDetails;
   isOwner: boolean;
+  onPress: () => void;
 }
 
-const GroupMemberInfoCard: React.FC<GroupMemberCardProps> = ({ member, isOwner }) => {
+const GroupMemberInfoCard: React.FC<GroupMemberCardProps> = ({ member, isOwner, onPress }) => {
   const { data: profilePicture } = useProfilePicture(member.id, member.attachmentId);
 
   const iconProps = isOwner
@@ -28,6 +29,7 @@ const GroupMemberInfoCard: React.FC<GroupMemberCardProps> = ({ member, isOwner }
       title={getName(member.firstName, member.lastName)}
       details={member.username}
       iconProps={iconProps}
+      onPress={onPress}
     />
   );
 };

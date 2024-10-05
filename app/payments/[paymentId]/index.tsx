@@ -51,13 +51,7 @@ export default function PaymentView() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      header: () => (
-        <CustomHeader
-          title={t('Payment')}
-          rightIcon={role() === 'creator' ? <EditIcon /> : undefined}
-          onRightIconPress={role() === 'creator' ? () => {} : undefined}
-        />
-      ),
+      header: () => <CustomHeader title={t('Payment')} />,
     });
   }, [navigation, role()]);
 
@@ -79,12 +73,12 @@ export default function PaymentView() {
               <OptionsBar leftText={t('Title')} rightText={payment.title} />
               <OptionsBar
                 leftText={t('Value')}
-                rightText={`${payment.amount.value} ${payment.amount.currency}`}
+                rightText={`${payment.amount.value.toString().replace('.', ',')} ${payment.amount.currency}`}
               />
               {payment.fxData?.targetCurrency && payment.fxData?.exchangeRate && (
                 <OptionsBar
                   leftText={t('Cost after exchange rate conversion')}
-                  rightText={`${new Decimal(payment.amount.value).times(payment.fxData.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN)} ${payment.fxData?.targetCurrency}`}
+                  rightText={`${new Decimal(payment.amount.value).times(payment.fxData.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN).toString().replace('.', ',')} ${payment.fxData?.targetCurrency}`}
                 />
               )}
               <OptionsBar
@@ -94,23 +88,6 @@ export default function PaymentView() {
               <OptionsBar leftText={t('Status')} rightText={t(`Status ${payment.status}`)} />
             </View>
           </View>
-
-          {/*<View className="space-y-2">*/}
-          {/*  <NavBar type="segment" title={t('Members')} />*/}
-          {/*  <View className="space-y-2">*/}
-          {/*    {[creatorAsParticipant(payment), ...payment.paymentParticipants].map(*/}
-          {/*      (participant, index) => (*/}
-          {/*        <View key={index}>*/}
-          {/*          <Participant*/}
-          {/*            participant={participant}*/}
-          {/*            currency={payment.baseCurrency}*/}
-          {/*            groupId={userData.currentGroupId!}*/}
-          {/*          />*/}
-          {/*        </View>*/}
-          {/*      ),*/}
-          {/*    )}*/}
-          {/*  </View>*/}
-          {/*</View>*/}
 
           <View className="space-y-2">
             <NavBar title={t('Attachment')} type="segment" />
@@ -139,6 +116,11 @@ export default function PaymentView() {
                   onPress={() => router.push(`/payments/${params.paymentId}/history`)}
                 />
               </View>
+              {role() === 'creator' && (
+                <View>
+                  <CustomButton title={t('Edit payment')} onPress={() => {}} />
+                </View>
+              )}
               {role() === 'creator' && (
                 <View>
                   <CustomButton
