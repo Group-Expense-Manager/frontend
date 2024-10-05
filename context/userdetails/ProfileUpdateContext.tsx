@@ -29,14 +29,8 @@ interface ProfileUpdateContextProps {
 export const defaultProfileUpdate: ProfileUpdate = {
   userDetails: {
     username: '',
-    firstName: undefined,
-    lastName: undefined,
-    phoneNumber: undefined,
-    bankAccountNumber: undefined,
     preferredPaymentMethod: PaymentMethod.NONE,
   },
-  profilePicture: undefined,
-
   isValid: {
     username: true,
     firstName: true,

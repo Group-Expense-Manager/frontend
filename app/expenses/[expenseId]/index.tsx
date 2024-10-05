@@ -19,6 +19,7 @@ import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
 import { ButtonType } from '@/util/ButtonType';
 import { formatToDayMonthYear } from '@/util/DateUtils';
 import { getNameFromUserDetails } from '@/util/GetName';
+import { numberToString } from '@/util/StringUtils';
 
 export default function ExpenseView() {
   const { t } = useTranslation();
@@ -58,7 +59,7 @@ export default function ExpenseView() {
   };
 
   function getParticipants(expense: Expense): ExpenseParticipant[] {
-    const multiplier = expense.fxData?.exchangeRate ? expense.fxData?.exchangeRate : 1;
+    const multiplier = expense.fxData?.exchangeRate ?? 1;
     const participants = expense?.expenseParticipants.map((participant) => ({
       ...participant,
       participantCost: new Decimal(participant.participantCost)
@@ -104,12 +105,12 @@ export default function ExpenseView() {
               <OptionsBar leftText={t('Title')} rightText={expense.title} />
               <OptionsBar
                 leftText={t('Cost')}
-                rightText={`${expense.amount.value.toString().replace('.', ',')} ${expense.amount.currency}`}
+                rightText={`${numberToString(expense.amount.value)} ${expense.amount.currency}`}
               />
               {expense?.fxData && (
                 <OptionsBar
                   leftText={t('Cost after exchange rate conversion')}
-                  rightText={`${new Decimal(expense.amount.value).times(expense.fxData.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN).toString().replace('.', ',')} ${expense.fxData.targetCurrency}`}
+                  rightText={`${numberToString(new Decimal(expense.amount.value).times(expense.fxData.exchangeRate).toDecimalPlaces(2, Decimal.ROUND_DOWN))} ${expense.fxData.targetCurrency}`}
                 />
               )}
               <OptionsBar
@@ -126,11 +127,7 @@ export default function ExpenseView() {
                 <View key={index}>
                   <Participant
                     participant={participant}
-                    currency={
-                      expense?.fxData?.targetCurrency
-                        ? expense?.fxData?.targetCurrency
-                        : expense.amount.currency
-                    }
+                    currency={expense.fxData?.targetCurrency ?? expense.amount.currency}
                     groupId={userData.currentGroupId!}
                   />
                 </View>

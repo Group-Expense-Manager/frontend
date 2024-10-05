@@ -69,7 +69,7 @@ export default function NewExpenseMessage() {
                 const message = text ? text : undefined;
                 setExpenseCreation({ ...expenseCreation, message });
               }}
-              value={expenseCreation.message ? expenseCreation.message : ''}
+              value={expenseCreation.message ?? ''}
             />
           </View>
         </View>

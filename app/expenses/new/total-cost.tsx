@@ -11,12 +11,13 @@ import { LogoIcon } from '@/constants/Icon';
 import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
+import { numberToString, toDecimal } from '@/util/StringUtils';
 
 export default function NewExpenseTotalCost() {
   const { t } = useTranslation();
   const { expenseCreation, setExpenseCreation } = useContext(ExpenseCreationContext);
   const [totalCostString, setTotalCostString] = useState<string>(
-    expenseCreation.totalCost.toString().replace('.', ','),
+    numberToString(expenseCreation.totalCost),
   );
 
   const isNextButtonDisabled =
@@ -34,7 +35,7 @@ export default function NewExpenseTotalCost() {
               label={`${t('Total cost')} (${expenseCreation.baseCurrency.code})`}
               onChangeText={(totalCost: string) => {
                 setTotalCostString(totalCost);
-                const totalCostNumber = new Decimal(totalCost ? totalCost.replace(',', '.') : 0);
+                const totalCostNumber = toDecimal(totalCost);
                 setExpenseCreation({
                   ...expenseCreation,
                   totalCost: totalCostNumber,

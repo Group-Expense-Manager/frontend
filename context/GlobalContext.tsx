@@ -28,12 +28,10 @@ const defaultPreferences: Preferences = {
 };
 
 interface UserData {
-  currentGroupId: string | null | undefined;
+  currentGroupId?: string | null;
 }
 
-export const defaultUserData: UserData = {
-  currentGroupId: undefined,
-};
+export const defaultUserData: UserData = {};
 
 interface GlobalContextProps {
   authState: AuthState;

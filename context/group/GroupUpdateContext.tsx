@@ -16,7 +16,6 @@ interface GroupUpdateContextProps {
 const defaultGroupUpdate: GroupUpdate = {
   groupName: '',
   isValidGroupName: false,
-  groupPicture: undefined,
 };
 
 export const GroupUpdateContext = createContext<GroupUpdateContextProps>({

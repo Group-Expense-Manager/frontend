@@ -33,13 +33,9 @@ const defaultExpenseCreation: ExpenseCreation = {
   title: '',
   totalCost: new Decimal(0),
   baseCurrency: { code: '' },
-  targetCurrency: undefined,
   expenseDate: new Date(),
   expenseParticipants: [],
   divisionType: 'weight',
-  message: undefined,
-  attachment: undefined,
-  attachmentId: undefined,
 };
 
 export const ExpenseCreationContext = createContext<ExpenseCreationContextProps>({

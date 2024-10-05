@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import WeightTextInput from '@/components/ui/text-input/WeightTextInput';
 import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
 import useProfilePicture from '@/hooks/attachment/UseProfilePicture';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
+import { toDecimal } from '@/util/StringUtils';
 
 export default function NewExpenseDividedCost() {
   const { t } = useTranslation();
@@ -35,7 +35,7 @@ export default function NewExpenseDividedCost() {
       if (participant.participantId === params.userId) {
         return {
           participantId: participant.participantId,
-          participantCost: new Decimal(costString ? costString.replace(',', '.') : 0),
+          participantCost: toDecimal(costString),
         };
       }
       return participant;

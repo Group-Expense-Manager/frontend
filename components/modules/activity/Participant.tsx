@@ -9,6 +9,7 @@ import { ExpenseParticipant } from '@/hooks/expense/UseExpense';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
 import { getFirstNameOrUsername } from '@/util/GetName';
 import { IconSize } from '@/util/IconSize';
+import { numberToString } from '@/util/StringUtils';
 
 interface UserCostStatusProps {
   participant: ExpenseParticipant;
@@ -65,7 +66,7 @@ const Participant: React.FC<UserCostStatusProps> = ({ participant, groupId, curr
           numberOfLines={1}
           ellipsizeMode="tail"
           className="font-bold text-regular text-right max-w-[50%] text-ink-darkest dark:text-sky-lightest">
-          {`${participant.participantCost.toString().replace('.', ',')} ${currency}`}
+          {`${numberToString(participant.participantCost)} ${currency}`}
         </Text>
         <View>{selectIcon()}</View>
       </View>
