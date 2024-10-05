@@ -1,6 +1,6 @@
 import { useColorScheme } from 'nativewind';
 import React, { useEffect, useRef, useState } from 'react';
-import { TextInput, Keyboard } from 'react-native';
+import { Keyboard, TextInput } from 'react-native';
 
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';

@@ -43,6 +43,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
         return '';
     }
   }
+
   function iconColor(): string {
     const disabledChecked = `${disabled ? Availability.DISABLED : Availability.ENABLED}-${value ? CheckboxState.CHECKED : CheckboxState.UNCHECKED}`;
 

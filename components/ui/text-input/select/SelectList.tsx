@@ -1,11 +1,11 @@
 import { useNavigation } from 'expo-router';
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
-import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
 import Loader from '@/components/ui/loader/Loader';
+import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
 
 const isSelect = (item: SelectInputData<any>, selectedData: SelectInputData<any>[]) => {
   return selectedData.some(
@@ -27,7 +27,7 @@ interface SelectListProps {
 }
 
 const SelectList: React.FC<SelectListProps> = ({ title }) => {
-  const { selectInputProps, setSelectInputProps } = useContext(SelectInputContext);
+  const { selectInputProps } = useContext(SelectInputContext);
   const navigation = useNavigation();
 
   const handleSelect = (item: SelectInputData<any>) => {

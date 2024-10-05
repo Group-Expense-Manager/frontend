@@ -41,6 +41,7 @@ export default function useVerify(email: string, code: string) {
     },
   });
 }
+
 interface VerifyResponse {
   userId: string;
   token: string;

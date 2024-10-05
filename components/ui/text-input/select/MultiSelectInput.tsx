@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useEffect, useLayoutEffect } from 'react';
+import React, { ReactNode, useContext, useLayoutEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import Chip from '@/components/ui/chip/Chip';
@@ -20,7 +20,7 @@ interface MultiSelectInputProps<T> {
   values?: SelectInputData<T>[];
   setValues?: React.Dispatch<React.SetStateAction<SelectInputData<T>[]>>;
   showErrors?: boolean;
-  type: 'remove' | 'normal';
+  type?: 'remove' | 'normal';
 }
 
 const MultiSelectInput: React.FC<MultiSelectInputProps<any>> = ({
@@ -36,7 +36,7 @@ const MultiSelectInput: React.FC<MultiSelectInputProps<any>> = ({
   showErrors = false,
   type = 'normal',
 }) => {
-  const { setSelectInputProps, selectInputProps } = useContext(SelectInputContext);
+  const { setSelectInputProps } = useContext(SelectInputContext);
 
   const getDownArrowIcon = () => {
     return <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />;
@@ -78,6 +78,7 @@ const MultiSelectInput: React.FC<MultiSelectInputProps<any>> = ({
       onSelect: handleMultiSelect,
       selectedData: values,
     });
+    onSelect(values.map((value) => value.value));
   }, [values]);
 
   return (

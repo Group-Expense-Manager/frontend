@@ -7,6 +7,7 @@ import { CustomButton } from '@/components';
 import Box from '@/components/ui/box/Box';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
+import { GlobalContext } from '@/context/GlobalContext';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useGroupMembersDetails, {
@@ -28,6 +29,16 @@ export default function NewPaymentRecipient() {
 
   const { data: membersDetails } = useGroupMembersDetails(paymentCreation.groupId);
 
+  const { authState } = useContext(GlobalContext);
+
+  const recipients = () => {
+    return membersDetails?.details
+      .filter((memberDetails) => memberDetails.id !== authState.userId)
+      .map((memberDetails) => {
+        return { value: memberDetails, name: getFirstNameOrUsername(memberDetails) };
+      });
+  };
+
   useEffect(() => {
     const recipientDetails = membersDetails?.details.find(
       (details) => details.id === paymentCreation.recipientId,
@@ -47,6 +58,7 @@ export default function NewPaymentRecipient() {
       recipientId: memberDetails.id,
     });
   }
+
   return (
     <Box>
       <View className="py-8 w-full h-full flex flex-col justify-between items-center">
@@ -60,6 +72,7 @@ export default function NewPaymentRecipient() {
               onPress={() => router.navigate('/payments/new/recipient-select')}
               label={t('Recipient')}
               value={selectedMember}
+              data={recipients()}
             />
           </View>
         </View>

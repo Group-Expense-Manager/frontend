@@ -14,7 +14,7 @@ interface GroupCreationContextProps {
 
 const defaultGroupCreation: GroupCreation = {
   name: '',
-  groupCurrencies: [{ code: '' }],
+  groupCurrencies: [],
 };
 
 export const GroupCreationContext = createContext<GroupCreationContextProps>({

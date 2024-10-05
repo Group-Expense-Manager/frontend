@@ -4,8 +4,13 @@ import { ImageBase64 } from '@/components/ui/image/CustomImage';
 
 export interface GroupUpdate {
   groupName: string;
+  groupCurrencies: GroupCurrencyUpdate[];
   isValidGroupName: boolean;
   groupPicture?: ImageBase64;
+}
+
+interface GroupCurrencyUpdate {
+  code: string;
 }
 
 interface GroupUpdateContextProps {
@@ -15,6 +20,7 @@ interface GroupUpdateContextProps {
 
 const defaultGroupUpdate: GroupUpdate = {
   groupName: '',
+  groupCurrencies: [],
   isValidGroupName: false,
   groupPicture: undefined,
 };

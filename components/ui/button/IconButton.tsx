@@ -1,6 +1,5 @@
 import { useColorScheme } from 'nativewind';
 import React, { ReactElement } from 'react';
-import { TouchableOpacity } from 'react-native';
 
 import { ButtonColor } from '@/components/ui/button/CustomButton';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
@@ -102,6 +101,7 @@ const IconButton: React.FC<IconButtonProps> = ({
         return '';
     }
   }
+
   return (
     <SingleClickTouchableOpacity
       onPress={onPress}

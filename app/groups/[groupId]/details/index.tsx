@@ -1,30 +1,21 @@
 import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import React, {
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BackHandler, ScrollView, View } from 'react-native';
+import { BackHandler, View } from 'react-native';
 
 import PictureUpdate from '@/components/modules/userdetails/PictureUpdate';
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
-import Chip from '@/components/ui/chip/Chip';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import CustomImage from '@/components/ui/image/CustomImage';
 import Loader from '@/components/ui/loader/Loader';
 import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import MultiSelectInput from '@/components/ui/text-input/select/MultiSelectInput';
-import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { GlobalContext } from '@/context/GlobalContext';
 import { GroupUpdateContext } from '@/context/group/GroupUpdateContext';
-import { SelectInputData, SelectInputProvider } from '@/context/utils/SelectInputContext';
+import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
 import useUpdateGroupPicture from '@/hooks/attachment/UseUpdateGroupPicture';
 import useAvailableCurrencies from '@/hooks/currency/UseAvailableCurrencies';
@@ -49,8 +40,6 @@ export default function Index() {
     groupDetails && groupPicture && !isFetchGroupPicture && !isFetchingGroupDetails;
 
   const { groupUpdate, setGroupUpdate } = useContext(GroupUpdateContext);
-
-  // TODO remove that and add that to above group update
   const [selectedCurrencies, setSelectedCurrencies] = useState<SelectInputData<string>[]>(
     groupDetails?.groupCurrencies.map((currency) => ({
       name: t(currency.code),
@@ -102,7 +91,12 @@ export default function Index() {
 
   useLayoutEffect(() => {
     if (isOwner && dataPresentAndNoFetching) {
-      setGroupUpdate({ groupName: groupDetails.name, groupPicture, isValidGroupName: true });
+      setGroupUpdate({
+        groupName: groupDetails.name,
+        groupCurrencies: groupDetails.groupCurrencies,
+        groupPicture,
+        isValidGroupName: true,
+      });
     }
   }, [dataPresentAndNoFetching, isOwner]);
 
@@ -158,23 +152,35 @@ export default function Index() {
   }, [groupUpdate, isUpdatedGroupDetailsPending, isUpdatedGroupPicturePending]);
 
   function hasGroupDataChanged(): boolean {
-    return hasGroupNameChanged() || hasGroupPictureChanged();
+    return hasDetailsChanged() || hasGroupPictureChanged();
   }
 
-  function hasGroupNameChanged(): boolean {
-    return groupUpdate.groupName !== groupDetails?.name;
+  function hasDetailsChanged(): boolean {
+    return groupUpdate.groupName !== groupDetails?.name || hasGroupCurrenciesChanged();
   }
 
   function hasGroupPictureChanged(): boolean {
     return groupUpdate.groupPicture?.uri !== groupPicture?.uri;
   }
 
+  function hasGroupCurrenciesChanged(): boolean {
+    return (
+      selectedCurrencies.length !== groupDetails?.groupCurrencies.length ||
+      selectedCurrencies.some(
+        (currency) =>
+          !groupDetails?.groupCurrencies.some(
+            (groupCurrency) => groupCurrency.code === currency.value,
+          ),
+      )
+    );
+  }
+
   function handleSave(): void {
-    if (hasGroupNameChanged() && hasGroupPictureChanged()) {
+    if (hasDetailsChanged() && hasGroupPictureChanged()) {
       setBothRunning(true);
       updateGroupDetails();
       updateGroupPicture();
-    } else if (hasGroupNameChanged()) {
+    } else if (hasDetailsChanged()) {
       setBothRunning(false);
       updateGroupDetails();
     } else if (hasGroupPictureChanged()) {
@@ -182,6 +188,13 @@ export default function Index() {
       updateGroupPicture();
     }
   }
+
+  const handleSelectedCurrencies = (values: string[]) => {
+    setGroupUpdate({
+      ...groupUpdate,
+      groupCurrencies: values.map((elem) => ({ code: elem })),
+    });
+  };
 
   return (
     <Box>
@@ -214,6 +227,7 @@ export default function Index() {
 
               <View className="w-full">
                 <MultiSelectInput
+                  onSelect={handleSelectedCurrencies}
                   label={t('Group currencies')}
                   type="normal"
                   onPress={() =>

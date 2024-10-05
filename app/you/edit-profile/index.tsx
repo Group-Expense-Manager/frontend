@@ -85,6 +85,13 @@ export default function Index() {
     }
   };
 
+  const paymentTypes = () => {
+    return Object.values(PaymentMethod).map((method: PaymentMethod) => ({
+      value: method,
+      name: t(method),
+    }));
+  };
+
   useLayoutEffect(() => {
     if (dataPresentAndNoFetching) {
       setProfileUpdate({ ...profileUpdate, userDetails, profilePicture });
@@ -143,6 +150,7 @@ export default function Index() {
     }
     return false;
   }
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -270,6 +278,7 @@ export default function Index() {
                   }
                   label={t('Preferred payment method')}
                   value={selectedPaymentMethod}
+                  data={paymentTypes()}
                 />
               </View>
             </View>

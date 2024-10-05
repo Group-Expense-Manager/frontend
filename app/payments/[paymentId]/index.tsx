@@ -12,7 +12,6 @@ import Box from '@/components/ui/box/Box';
 import { ButtonColor } from '@/components/ui/button/CustomButton';
 import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
-import { EditIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import usePayment from '@/hooks/payment/UsePayment';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';

@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import React, { ReactNode, useContext } from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
@@ -55,8 +55,8 @@ const SelectInput: React.FC<SelectInputProps<any>> = ({
     return <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />;
   };
 
-  const handleSelect = (item: any) => {
-    onSelect(item);
+  const handleSelect = (item: SelectInputData<any>) => {
+    onSelect(item.value);
     router.back();
   };
 

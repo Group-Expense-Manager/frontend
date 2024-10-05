@@ -156,8 +156,8 @@
   "Cost": "Koszt",
   "Message (optional)": "Wiadomość (opcjonalna)",
   "Attachment (optional)": "Załącznik (opcjonalny)",
-  "Expense":  "Wydatek",
-  "Payment":  "Płatność",
+  "Expense": "Wydatek",
+  "Payment": "Płatność",
   "Details": "Szczegóły",
   "Author": "Autor",
   "Title": "Tytuł",
@@ -195,5 +195,4 @@
   "Oops, you don't have any activities!": "Upss, nie masz żadnych aktywności!",
   "Edit expense": "Edytuj wydatek",
   "Edit payment": "Edytuj płatność"
-
 }

@@ -60,6 +60,7 @@ export default function NewExpenseDividedCost() {
     }
     return '';
   }
+
   const isNextButtonDisabled = !!getErrors();
 
   function getDefaultCost(type: 'weight' | 'cost') {
@@ -108,8 +109,14 @@ export default function NewExpenseDividedCost() {
                     });
                   }}
                   segments={[
-                    { text: t('Weight-based'), onPress: () => {} },
-                    { text: t('Cost-based'), onPress: () => {} },
+                    {
+                      text: t('Weight-based'),
+                      onPress: () => {},
+                    },
+                    {
+                      text: t('Cost-based'),
+                      onPress: () => {},
+                    },
                   ]}
                 />
               </View>

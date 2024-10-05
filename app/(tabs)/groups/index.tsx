@@ -8,7 +8,7 @@ import ActivityListItem from '@/components/modules/activity/ActivityListItem';
 import NavBar from '@/components/ui/bar/NavBar';
 import SafeView from '@/components/ui/box/SafeView';
 import Loader from '@/components/ui/loader/Loader';
-import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
+import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
@@ -30,7 +30,14 @@ export default function Index() {
             <View className="flex-1 space-y-3">
               <SingleClickTouchableOpacity onPress={() => router.push('/groups/list')}>
                 <View pointerEvents="none">
-                  <MultiTextInput label={t('Current group')} value={groupDetails.name} />
+                  <SelectInput
+                    label={t('Current group')}
+                    value={{
+                      name: groupDetails.name,
+                      value: groupDetails.name,
+                      isDisabled: false,
+                    }}
+                  />
                 </View>
               </SingleClickTouchableOpacity>
               <View className="flex-1">

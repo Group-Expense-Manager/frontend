@@ -10,6 +10,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import theme from '@/constants/Colors';
 import { GlobalProvider } from '@/context/GlobalContext';
+
 const client = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
