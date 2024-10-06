@@ -6,7 +6,7 @@ import CustomImage, { ImageBase64 } from '@/components/ui/image/CustomImage';
 import { formatToDayMonthTime } from '@/util/DateUtils';
 
 interface ActivityHistoryListItemProps {
-  activityAction: 'CREATED' | 'UPDATED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
+  activityAction: 'CREATED' | 'EDITED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
   activityType: 'EXPENSE' | 'PAYMENT';
   position: 'left' | 'right';
   image?: ImageBase64;

@@ -18,13 +18,13 @@ export type FxData = {
 
 export type PaymentHistoryEntry = {
   participantId: string;
-  paymentAction: 'CREATED' | 'UPDATED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
+  paymentAction: 'CREATED' | 'EDITED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
   createdAt: string;
   comment?: string;
 };
 
 export type Payment = {
-  expenseId: string;
+  paymentId: string;
   creatorId: string;
   recipientId: string;
   title: string;
