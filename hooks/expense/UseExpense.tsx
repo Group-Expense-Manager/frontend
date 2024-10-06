@@ -29,7 +29,7 @@ export type ExpenseParticipant = {
 
 export type ExpenseHistoryEntry = {
   participantId: string;
-  expenseAction: 'CREATED' | 'UPDATED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
+  expenseAction: 'CREATED' | 'EDITED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
   createdAt: string;
   comment?: string;
 };

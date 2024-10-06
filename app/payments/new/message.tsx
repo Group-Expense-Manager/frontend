@@ -27,8 +27,11 @@ export default function NewPaymentMessage() {
     mutate: createAttachment,
     isPending: isAttachmentCreationPending,
     isSuccess: isAttachmentCreationSuccess,
-  } = useCreateGroupAttachment(paymentCreation.groupId, paymentCreation.attachment!, (id: string) =>
-    setPaymentCreation({ ...paymentCreation, attachmentId: id }),
+  } = useCreateGroupAttachment(
+    paymentCreation.groupId,
+    paymentCreation.attachment!,
+    (id: string) => setPaymentCreation({ ...paymentCreation, attachmentId: id }),
+    () => router.push('/payments/new/error-modal'),
   );
 
   const isCreationPending =

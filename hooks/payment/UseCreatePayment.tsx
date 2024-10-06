@@ -42,7 +42,7 @@ export default function useCreatePayment() {
     },
     onSuccess: (response: AxiosResponse<Payment>) => {
       queryClient.setQueryData(
-        [`/payments/${response.data.expenseId}/groups/${paymentCreation.groupId}`],
+        [`/payments/${response.data.paymentId}/groups/${paymentCreation.groupId}`],
         () => {
           return response.data;
         },
@@ -52,7 +52,7 @@ export default function useCreatePayment() {
       });
       setUserData({ ...userData, currentGroupId: paymentCreation.groupId });
       router.navigate('/groups');
-      router.push(`/payments/${response.data.expenseId}`);
+      router.navigate(`/payments/${response.data.paymentId}`);
     },
     onError: () => {
       router.push('/payments/new/error-modal');

@@ -18,7 +18,7 @@ export default function Create() {
       {groups === undefined ? (
         <Loader />
       ) : (
-        <View className="w-full h-full flex-col justify-between pb-8 pt-4">
+        <View className="w-full h-full flex-col justify-between py-4">
           <View>
             <CreationButton
               onPress={() => router.push('/expenses/new/group')}
