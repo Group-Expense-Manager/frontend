@@ -8,7 +8,6 @@ import CustomButton from '@/components/ui/button/CustomButton';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext, PaymentType } from '@/context/payment/PaymentCreationContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
 

@@ -1,7 +1,7 @@
 import { useNavigation } from 'expo-router';
 import React, { useContext, useLayoutEffect } from 'react';
 import isEqual from 'react-fast-compare';
-import { TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
@@ -42,24 +42,26 @@ const SelectList: React.FC<SelectListProps> = ({ title }) => {
 
   return (
     <Box>
-      <View className="py-[32px] w-full flex flex-col">
-        {selectInputProps.data ? (
-          selectInputProps.data.map((item) => (
-            <View
-              key={item.name}
-              className={`${getBorderStyles(item, selectInputProps.data)} flex justify-center`}>
-              <TouchableOpacity
-                disabled={item.isDisabled}
-                className="flex my-2 h-16 justify-center"
-                onPress={() => handleSelect(item)}>
-                {selectInputProps.createRow(item, isSelect(item, selectInputProps.selectedData))}
-              </TouchableOpacity>
-            </View>
-          ))
-        ) : (
-          <Loader />
-        )}
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View className="flex flex-col w-full flex-wrap">
+          {selectInputProps.data ? (
+            selectInputProps.data.map((item) => (
+              <View
+                key={item.name}
+                className={`${getBorderStyles(item, selectInputProps.data)} flex justify-center w-full`}>
+                <TouchableOpacity
+                  disabled={item.isDisabled}
+                  className="flex my-2 h-16 justify-center"
+                  onPress={() => handleSelect(item)}>
+                  {selectInputProps.createRow(item, isSelect(item, selectInputProps.selectedData))}
+                </TouchableOpacity>
+              </View>
+            ))
+          ) : (
+            <Loader />
+          )}
+        </View>
+      </ScrollView>
     </Box>
   );
 };

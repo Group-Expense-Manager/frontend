@@ -94,12 +94,14 @@ const MultiSelectInput: React.FC<MultiSelectInputComponentProps<any>> = ({
         rightSection={getDownArrowIcon()}
         showErrors={showErrors}
       />
-      <ScrollView horizontal className="flex-row space-x-2 w-full">
-        {selectedValues.map((value) => (
-          <View key={uuid.v4()}>
-            <Chip text={value?.name ?? ''} type={type} />
-          </View>
-        ))}
+      <ScrollView className="w-full">
+        <View className="flex flex-row flex-wrap">
+          {selectedValues.map((value) => (
+            <View key={uuid.v4()} className="m-1">
+              <Chip text={value?.name ?? ''} type={type} />
+            </View>
+          ))}
+        </View>
       </ScrollView>
     </View>
   );

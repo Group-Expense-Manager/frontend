@@ -165,9 +165,7 @@ export default function Index() {
       selectedCurrencies.length !== groupDetails?.groupCurrencies.length ||
       selectedCurrencies.some(
         (currency) =>
-          !groupDetails?.groupCurrencies.some(
-            (groupCurrency) => groupCurrency.code === currency.value,
-          ),
+          !groupDetails?.groupCurrencies.some((groupCurrency) => isEqual(groupCurrency, currency)),
       )
     );
   }
@@ -186,10 +184,10 @@ export default function Index() {
     }
   }
 
-  const handleSelectedCurrencies = (values: string[]) => {
+  const handleSelectedCurrencies = (values: Currency[]) => {
     setGroupUpdate({
       ...groupUpdate,
-      groupCurrencies: values.map((elem) => ({ code: elem })),
+      groupCurrencies: values,
     });
   };
 
