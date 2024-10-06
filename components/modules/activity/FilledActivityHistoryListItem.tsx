@@ -8,7 +8,7 @@ import { getFirstNameOrUsername } from '@/util/GetName';
 
 export type ActivityHistoryEntry = {
   participantId: string;
-  activityAction: 'CREATED' | 'UPDATED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
+  activityAction: 'CREATED' | 'EDITED' | 'DELETED' | 'ACCEPTED' | 'REJECTED';
   createdAt: string;
   comment?: string;
 };

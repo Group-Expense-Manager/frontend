@@ -70,6 +70,7 @@ export default function PaymentView() {
                 rightText={getNameFromUserDetails(recipientDetails)}
               />
               <OptionsBar leftText={t('Title')} rightText={payment.title} />
+              <OptionsBar leftText={t('Payment method')} rightText={t(payment.type)} />
               <OptionsBar
                 leftText={t('Value')}
                 rightText={`${numberToString(payment.amount.value)} ${payment.amount.currency}`}
@@ -120,7 +121,10 @@ export default function PaymentView() {
               </View>
               {role() === 'creator' && (
                 <View>
-                  <CustomButton title={t('Edit payment')} onPress={() => {}} />
+                  <CustomButton
+                    title={t('Edit payment')}
+                    onPress={() => router.push(`/payments/${params.paymentId}/edit/title`)}
+                  />
                 </View>
               )}
               {role() === 'creator' && (

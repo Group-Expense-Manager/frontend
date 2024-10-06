@@ -27,8 +27,11 @@ export default function NewExpenseMessage() {
     mutate: createAttachment,
     isPending: isAttachmentCreationPending,
     isSuccess: isAttachmentCreationSuccess,
-  } = useCreateGroupAttachment(expenseCreation.groupId, expenseCreation.attachment!, (id: string) =>
-    setExpenseCreation({ ...expenseCreation, attachmentId: id }),
+  } = useCreateGroupAttachment(
+    expenseCreation.groupId,
+    expenseCreation.attachment!,
+    (id: string) => setExpenseCreation({ ...expenseCreation, attachmentId: id }),
+    () => router.push('/expenses/new/error-modal'),
   );
 
   const isCreationPending =
