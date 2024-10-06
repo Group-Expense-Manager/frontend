@@ -5,11 +5,10 @@ import { View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
-import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import UserSelectInput from '@/components/ui/text-input/select/UserSelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useGroupMembersDetails, {
   GroupMemberDetails,
 } from '@/hooks/userdetails/UseGroupMembersDetails';
@@ -22,10 +21,7 @@ export default function NewPaymentRecipient() {
 
   const { paymentCreation, setPaymentCreation } = useContext(PaymentCreationContext);
 
-  const [selectedMember, setSelectedMember] = useState<SelectInputData<GroupMemberDetails>>({
-    value: { id: '', username: '', firstName: '', lastName: '', attachmentId: '' },
-    name: '',
-  });
+  const [selectedMember, setSelectedMember] = useState<GroupMemberDetails>();
 
   const { data: membersDetails } = useGroupMembersDetails(paymentCreation.groupId);
 
@@ -44,15 +40,12 @@ export default function NewPaymentRecipient() {
       (details) => details.id === paymentCreation.recipientId,
     );
     if (recipientDetails) {
-      setSelectedMember({
-        value: recipientDetails,
-        name: getFirstNameOrUsername(recipientDetails),
-      });
+      setSelectedMember(recipientDetails);
     }
   }, [membersDetails]);
 
   function setRecipient(memberDetails: GroupMemberDetails) {
-    setSelectedMember({ value: memberDetails, name: getFirstNameOrUsername(memberDetails) });
+    setSelectedMember(memberDetails);
     setPaymentCreation({
       ...paymentCreation,
       recipientId: memberDetails.id,
@@ -67,7 +60,7 @@ export default function NewPaymentRecipient() {
             <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
           </View>
           <View className="py-8 w-full flex flex-col space-y-8">
-            <SelectInput
+            <UserSelectInput
               onSelect={setRecipient}
               onPress={() => router.navigate('/payments/new/recipient-select')}
               label={t('Recipient')}

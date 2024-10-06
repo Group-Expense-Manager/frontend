@@ -9,7 +9,6 @@ import Loader from '@/components/ui/loader/Loader';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useGroup from '@/hooks/group/UseGroup';
 import { ButtonType } from '@/util/ButtonType';
@@ -20,15 +19,13 @@ export default function NewExpenseCurrencies() {
   const { expenseCreation, setExpenseCreation } = useContext(ExpenseCreationContext);
   const { data: groupDetails } = useGroup(expenseCreation.groupId);
 
-  const [selectedBaseCurrency, setSelectedBaseCurrency] = useState<SelectInputData<Currency>>({
-    value: expenseCreation.baseCurrency,
-    name: expenseCreation.baseCurrency.code,
-  });
+  const [selectedBaseCurrency, setSelectedBaseCurrency] = useState<Currency>(
+    expenseCreation.baseCurrency,
+  );
 
-  const [selectedTargetCurrency, setSelectedTargetCurrency] = useState<SelectInputData<Currency>>({
-    value: expenseCreation.targetCurrency ?? { code: '' },
-    name: expenseCreation.targetCurrency?.code ?? '',
-  });
+  const [selectedTargetCurrency, setSelectedTargetCurrency] = useState<Currency>(
+    expenseCreation.targetCurrency ?? { code: '' },
+  );
 
   const isNextButtonDisabled = !expenseCreation.baseCurrency.code;
 
@@ -47,19 +44,16 @@ export default function NewExpenseCurrencies() {
   };
 
   function setBaseCurrency(currency: Currency) {
-    setSelectedBaseCurrency({ value: currency, name: currency.code });
+    setSelectedBaseCurrency(currency);
 
     if (isCurrencyNotInGroupCurrencies(currency)) {
-      if (selectedTargetCurrency.name) {
+      if (selectedTargetCurrency.code) {
         setExpenseCreation({
           ...expenseCreation,
           baseCurrency: currency,
         });
       } else {
-        setSelectedTargetCurrency({
-          value: groupDetails!.groupCurrencies[0],
-          name: groupDetails!.groupCurrencies[0].code,
-        });
+        setSelectedTargetCurrency(groupDetails!.groupCurrencies[0]);
         setExpenseCreation({
           ...expenseCreation,
           baseCurrency: currency,
@@ -67,10 +61,7 @@ export default function NewExpenseCurrencies() {
         });
       }
     } else {
-      setSelectedTargetCurrency({
-        value: { code: '' },
-        name: '',
-      });
+      setSelectedTargetCurrency({ code: '' });
       setExpenseCreation({
         ...expenseCreation,
         baseCurrency: currency,
@@ -80,7 +71,7 @@ export default function NewExpenseCurrencies() {
   }
 
   function setTargetCurrency(currency: Currency) {
-    setSelectedTargetCurrency({ value: currency, name: currency.code });
+    setSelectedTargetCurrency(currency);
     setExpenseCreation({
       ...expenseCreation,
       targetCurrency: currency,
@@ -115,7 +106,7 @@ export default function NewExpenseCurrencies() {
                     data={baseCurrencies()}
                   />
                 </View>
-                {isCurrencyNotInGroupCurrencies(selectedBaseCurrency.value) && (
+                {isCurrencyNotInGroupCurrencies(selectedBaseCurrency) && (
                   <View>
                     <SelectInput
                       onSelect={setTargetCurrency}

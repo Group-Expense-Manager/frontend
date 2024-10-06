@@ -6,11 +6,10 @@ import { View } from 'react-native';
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
 import Loader from '@/components/ui/loader/Loader';
-import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import GroupSelectInput from '@/components/ui/text-input/select/GroupSelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useGroups, { Group } from '@/hooks/group/UseGroups';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
@@ -24,9 +23,11 @@ export default function NewPaymentGroup() {
 
   const { data: groups } = useGroups();
 
-  const [selectedGroup, setSelectedGroup] = useState<SelectInputData<Group>>({
-    value: { groupId: '', name: '', ownerId: '', attachmentId: '' },
+  const [selectedGroup, setSelectedGroup] = useState<Group>({
+    groupId: '',
     name: '',
+    ownerId: '',
+    attachmentId: '',
   });
 
   const groupList = () => {
@@ -39,10 +40,7 @@ export default function NewPaymentGroup() {
     if (groups && !selectedGroup.name) {
       const selected = groups.find((group) => group.groupId === userData.currentGroupId);
       if (selected) {
-        setSelectedGroup({
-          value: selected,
-          name: selected.name,
-        });
+        setSelectedGroup(selected);
         setPaymentCreation({
           ...paymentCreation,
           groupId: selected.groupId,
@@ -53,7 +51,7 @@ export default function NewPaymentGroup() {
 
   function setGroup(group: Group) {
     if (group.groupId !== paymentCreation.groupId) {
-      setSelectedGroup({ value: group, name: group.name });
+      setSelectedGroup(group);
       setPaymentCreation({
         ...paymentCreation,
         groupId: group.groupId,
@@ -73,7 +71,7 @@ export default function NewPaymentGroup() {
           </View>
           <View className="py-8 w-full flex flex-col space-y-8">
             {groups ? (
-              <SelectInput
+              <GroupSelectInput
                 onSelect={setGroup}
                 onPress={() => router.navigate('/payments/new/group-select')}
                 label={t('Payment group')}

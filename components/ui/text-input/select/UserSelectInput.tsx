@@ -3,28 +3,15 @@ import React, { ReactNode, useContext } from 'react';
 import isEqual from 'react-fast-compare';
 import { Text } from 'react-native';
 
+import CustomImage from '@/components/ui/image/CustomImage';
 import BaseInput from '@/components/ui/text-input/BaseInput';
-import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
-import RadioButtonRow from '@/components/ui/text-input/select/row/RadioButtonRow';
+import { SelectInputComponentProps } from '@/components/ui/text-input/select/SelectInput';
+import UserImageRow from '@/components/ui/text-input/select/row/UserImageRow';
 import { ChevronDownIcon } from '@/constants/Icon';
 import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
+import useProfilePicture from '@/hooks/attachment/UseProfilePicture';
+import { GroupMemberDetails } from '@/hooks/userdetails/UseGroupMembersDetails';
 import { IconSize } from '@/util/IconSize';
-
-export interface SelectInputComponentProps<T> {
-  onSelect?: (value: T) => void;
-  onPress?: () => void;
-  disabled?: boolean;
-  errorMessages?: string[];
-  linkLabel?: LinkLabelProps;
-  label: string;
-  value?: T;
-  showErrors?: boolean;
-  data?: SelectInputData<T>[];
-}
-
-export const getDownArrowIcon = () => {
-  return <ChevronDownIcon width={IconSize.TINY} height={IconSize.TINY} />;
-};
 
 const getInputStyle = (isDisabled: boolean) => {
   let inputStyle = 'text-regular font-bold';
@@ -39,7 +26,7 @@ const getInputStyle = (isDisabled: boolean) => {
   return inputStyle;
 };
 
-const SelectInput: React.FC<SelectInputComponentProps<any>> = ({
+const UserSelectInput: React.FC<SelectInputComponentProps<GroupMemberDetails>> = ({
   onSelect = () => {},
   onPress = () => {},
   disabled = false,
@@ -57,13 +44,17 @@ const SelectInput: React.FC<SelectInputComponentProps<any>> = ({
     return !!selectedValue && <Text className={getInputStyle(disabled)}>{selectedValue.name}</Text>;
   };
 
+  const getDownArrowIcon = () => {
+    return <ChevronDownIcon width={IconSize.SMALL} height={IconSize.SMALL} />;
+  };
+
   const handleSelect = (item: SelectInputData<any>) => {
     onSelect(item.value);
     router.back();
   };
 
   const createRow = (item: SelectInputData<any>, selected: boolean): ReactNode => {
-    return <RadioButtonRow item={item} selected={selected} />;
+    return <UserImageRow item={item} selected={selected} />;
   };
 
   const handlePress = () => {
@@ -76,6 +67,12 @@ const SelectInput: React.FC<SelectInputComponentProps<any>> = ({
     onPress();
   };
 
+  const { data: profilePicture } = useProfilePicture(value?.id, value?.attachmentId);
+
+  const selectedAvatar = () => {
+    return <CustomImage image={profilePicture} size="small" />;
+  };
+
   return (
     <BaseInput
       disabled={disabled}
@@ -85,9 +82,10 @@ const SelectInput: React.FC<SelectInputComponentProps<any>> = ({
       handlePress={handlePress}
       middleSection={getValueLabel()}
       rightSection={getDownArrowIcon()}
+      leftSection={selectedAvatar()}
       showErrors={showErrors}
     />
   );
 };
 
-export default SelectInput;
+export default UserSelectInput;

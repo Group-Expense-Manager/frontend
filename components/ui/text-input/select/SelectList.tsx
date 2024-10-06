@@ -1,5 +1,6 @@
 import { useNavigation } from 'expo-router';
 import React, { useContext, useLayoutEffect } from 'react';
+import isEqual from 'react-fast-compare';
 import { TouchableOpacity, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
@@ -7,10 +8,8 @@ import CustomHeader from '@/components/ui/header/CustomHeader';
 import Loader from '@/components/ui/loader/Loader';
 import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
 
-const isSelect = (item: SelectInputData<any>, selectedData: SelectInputData<any>[]) => {
-  return selectedData.some(
-    (selectedItem) => selectedItem.name === item.name && selectedItem.value === item.value,
-  );
+const isSelect = (item: SelectInputData<any>, selectedData: any[]) => {
+  return selectedData.some((selectedItem) => isEqual(selectedItem, item.value));
 };
 
 const isLatestElement = (item: SelectInputData<any>, data: SelectInputData<any>[]) => {

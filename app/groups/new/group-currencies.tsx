@@ -9,7 +9,6 @@ import FullViewLoader from '@/components/ui/loader/FullViewLoader';
 import MultiSelectInput from '@/components/ui/text-input/select/MultiSelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { GroupCreationContext } from '@/context/group/GroupCreationContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useCreateGroup from '@/hooks/group/UseCreateGroup';
 import { ButtonType } from '@/util/ButtonType';
@@ -21,13 +20,8 @@ export default function CreateGroupCurrencies() {
 
   const { mutate: createGroup, isPending: isGroupCreationPending } = useCreateGroup();
 
-  const [selectedGroupCurrencies, setSelectedGroupCurrencies] = useState<
-    SelectInputData<Currency>[]
-  >(
-    groupCreation.groupCurrencies.map((currency) => ({
-      value: currency,
-      name: currency.code,
-    })),
+  const [selectedGroupCurrencies, setSelectedGroupCurrencies] = useState<Currency[]>(
+    groupCreation.groupCurrencies,
   );
 
   const isNextButtonDisabled = !groupCreation.groupCurrencies.length;
@@ -36,7 +30,7 @@ export default function CreateGroupCurrencies() {
 
   const currencies = () => {
     return availableCurrencies?.currencies.map((currency) => {
-      return { value: currency, name: currency.code };
+      return { value: currency, name: currency.code, isDisabled: false };
     });
   };
 
