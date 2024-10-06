@@ -14,6 +14,7 @@ import BankNoteIcon from '../assets/icons/create/bank-note-01.svg';
 import FileIcon from '../assets/icons/create/file-06.svg';
 import ScalesIcon from '../assets/icons/create/scales-01.svg';
 import CreditCardIcon from '../assets/icons/credit-card-02.svg';
+import CurvedArrowIcon from '../assets/icons/curved-arrow.svg';
 import EditIcon from '../assets/icons/edit-02.svg';
 import FileAttachmentIcon from '../assets/icons/file-attachment-04.svg';
 import LogoIcon from '../assets/icons/logo.svg';
@@ -54,4 +55,5 @@ export {
   SettingsIcon,
   ArrowNarrowRight,
   TrashIcon,
+  CurvedArrowIcon,
 };
