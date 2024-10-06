@@ -8,7 +8,7 @@ import { Image } from 'react-native';
 import TabButton from '@/components/ui/button/TabButton';
 import TabIcon from '@/components/ui/tab/TabIcon';
 import theme from '@/constants/Colors';
-import { GroupIcon, PlusCircleIcon, PlusIcon } from '@/constants/Icon';
+import { GroupIcon, PlusCircleIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import useProfilePicture from '@/hooks/attachment/UseProfilePicture';
 import useUserDetails from '@/hooks/userdetails/UseUserDetails';
