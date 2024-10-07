@@ -1,9 +1,10 @@
 import { router } from 'expo-router';
 import React, { ReactNode, useContext } from 'react';
 import isEqual from 'react-fast-compare';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 import CustomImage from '@/components/ui/image/CustomImage';
+import Loader from '@/components/ui/loader/Loader';
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import { SelectInputComponentProps } from '@/components/ui/text-input/select/SelectInput';
 import GroupImageRow from '@/components/ui/text-input/select/row/GroupImageRow';
@@ -67,6 +68,8 @@ const GroupSelectInput: React.FC<SelectInputComponentProps<Group>> = ({
     onPress();
   };
 
+  const showLoader = data.length === 0;
+
   const { data: profilePicture } = useGroupPicture(value?.groupId!, value?.attachmentId);
 
   const selectedAvatar = () => {
@@ -74,17 +77,24 @@ const GroupSelectInput: React.FC<SelectInputComponentProps<Group>> = ({
   };
 
   return (
-    <BaseInput
-      disabled={disabled}
-      label={label}
-      errorMessages={errorMessages}
-      linkLabel={linkLabel}
-      handlePress={handlePress}
-      middleSection={getValueLabel()}
-      rightSection={getDownArrowIcon()}
-      leftSection={selectedAvatar()}
-      showErrors={showErrors}
-    />
+    <View className="relative">
+      <BaseInput
+        disabled={disabled || showLoader}
+        label={label}
+        errorMessages={errorMessages}
+        linkLabel={linkLabel}
+        handlePress={handlePress}
+        middleSection={getValueLabel()}
+        rightSection={getDownArrowIcon()}
+        leftSection={selectedAvatar()}
+        showErrors={showErrors}
+      />
+      {showLoader && (
+        <View className="absolute flex w-full justify-center content-center h-full">
+          <Loader />
+        </View>
+      )}
+    </View>
   );
 };
 

@@ -3,6 +3,7 @@ import React, { ReactNode, useContext, useLayoutEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import UserChip from '@/components/ui/chip/UserChip';
+import Loader from '@/components/ui/loader/Loader';
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import {
   handleMultiSelect,
@@ -56,17 +57,26 @@ const MultiSelectInput: React.FC<MultiSelectInputComponentProps<GroupMemberDetai
     onSelect(values);
   }, [values]);
 
+  const showLoader = data.length === 0;
+
   return (
     <View className="space-y-2">
-      <BaseInput
-        disabled={disabled}
-        label={label}
-        errorMessages={errorMessages}
-        linkLabel={linkLabel}
-        handlePress={handlePress}
-        rightSection={getDownArrowIcon()}
-        showErrors={showErrors}
-      />
+      <View className="relative">
+        <BaseInput
+          disabled={disabled || showLoader}
+          label={label}
+          errorMessages={errorMessages}
+          linkLabel={linkLabel}
+          handlePress={handlePress}
+          rightSection={getDownArrowIcon()}
+          showErrors={showErrors}
+        />
+        {showLoader && (
+          <View className="absolute flex w-full justify-center content-center h-full">
+            <Loader />
+          </View>
+        )}
+      </View>
       <ScrollView horizontal className="flex-row space-x-2 w-full">
         {values.map((value) => (
           <View key={uuid.v4()}>

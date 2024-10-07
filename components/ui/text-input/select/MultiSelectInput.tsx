@@ -4,6 +4,7 @@ import isEqual from 'react-fast-compare';
 import { ScrollView, View } from 'react-native';
 
 import Chip from '@/components/ui/chip/Chip';
+import Loader from '@/components/ui/loader/Loader';
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
 import { getDownArrowIcon } from '@/components/ui/text-input/select/SelectInput';
@@ -83,17 +84,26 @@ const MultiSelectInput: React.FC<MultiSelectInputComponentProps<any>> = ({
   const selectedValues =
     values.map((value) => data.find((item) => isEqual(item.value, value))) ?? [];
 
+  const showLoader = data.length === 0;
+
   return (
     <View className="space-y-2">
-      <BaseInput
-        disabled={disabled}
-        label={label}
-        errorMessages={errorMessages}
-        linkLabel={linkLabel}
-        handlePress={handlePress}
-        rightSection={getDownArrowIcon()}
-        showErrors={showErrors}
-      />
+      <View className="relative">
+        <BaseInput
+          disabled={disabled || showLoader}
+          label={label}
+          errorMessages={errorMessages}
+          linkLabel={linkLabel}
+          handlePress={handlePress}
+          rightSection={getDownArrowIcon()}
+          showErrors={showErrors}
+        />
+        {showLoader && (
+          <View className="absolute flex w-full justify-center content-center h-full">
+            <Loader />
+          </View>
+        )}
+      </View>
       <ScrollView className="w-full">
         <View className="flex flex-row flex-wrap">
           {selectedValues.map((value) => (

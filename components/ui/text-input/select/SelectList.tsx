@@ -5,7 +5,6 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomHeader from '@/components/ui/header/CustomHeader';
-import Loader from '@/components/ui/loader/Loader';
 import { SelectInputContext, SelectInputData } from '@/context/utils/SelectInputContext';
 
 const isSelect = (item: SelectInputData<any>, selectedData: any[]) => {
@@ -44,22 +43,18 @@ const SelectList: React.FC<SelectListProps> = ({ title }) => {
     <Box>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="flex flex-col w-full flex-wrap">
-          {selectInputProps.data ? (
-            selectInputProps.data.map((item) => (
-              <View
-                key={item.name}
-                className={`${getBorderStyles(item, selectInputProps.data)} flex justify-center w-full`}>
-                <TouchableOpacity
-                  disabled={item.isDisabled}
-                  className="flex my-2 h-16 justify-center"
-                  onPress={() => handleSelect(item)}>
-                  {selectInputProps.createRow(item, isSelect(item, selectInputProps.selectedData))}
-                </TouchableOpacity>
-              </View>
-            ))
-          ) : (
-            <Loader />
-          )}
+          {selectInputProps.data.map((item) => (
+            <View
+              key={item.name}
+              className={`${getBorderStyles(item, selectInputProps.data)} flex justify-center w-full`}>
+              <TouchableOpacity
+                disabled={item.isDisabled}
+                className="flex my-2 h-16 justify-center"
+                onPress={() => handleSelect(item)}>
+                {selectInputProps.createRow(item, isSelect(item, selectInputProps.selectedData))}
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </Box>

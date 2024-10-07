@@ -89,6 +89,7 @@ export default function NewExpenseParticipants() {
   function setParticipants(membersDetails: GroupMemberDetails[]) {
     setExpenseCreation({
       ...expenseCreation,
+      divisionType: 'weight',
       expenseParticipants: membersDetails.map((details) => ({
         participantId: details.id,
         participantCost: new Decimal(1),

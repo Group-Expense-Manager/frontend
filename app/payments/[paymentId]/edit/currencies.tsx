@@ -112,7 +112,7 @@ export default function EditPaymentCurrencies() {
                     data={baseCurrencies()}
                   />
                 </View>
-                {isCurrencyNotInGroupCurrencies(selectedBaseCurrency.value) && (
+                {isCurrencyNotInGroupCurrencies(selectedBaseCurrency) && (
                   <View>
                     <SelectInput
                       onSelect={setTargetCurrency}

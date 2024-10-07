@@ -1,8 +1,9 @@
 import { router } from 'expo-router';
 import React, { ReactNode, useContext } from 'react';
 import isEqual from 'react-fast-compare';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
+import Loader from '@/components/ui/loader/Loader';
 import BaseInput from '@/components/ui/text-input/BaseInput';
 import LinkLabelProps from '@/components/ui/text-input/LinkLabelProps';
 import RadioButtonRow from '@/components/ui/text-input/select/row/RadioButtonRow';
@@ -76,17 +77,26 @@ const SelectInput: React.FC<SelectInputComponentProps<any>> = ({
     onPress();
   };
 
+  const showLoader = data.length === 0;
+
   return (
-    <BaseInput
-      disabled={disabled}
-      label={label}
-      errorMessages={errorMessages}
-      linkLabel={linkLabel}
-      handlePress={handlePress}
-      middleSection={getValueLabel()}
-      rightSection={getDownArrowIcon()}
-      showErrors={showErrors}
-    />
+    <View className="relative">
+      <BaseInput
+        disabled={disabled || showLoader}
+        label={label}
+        errorMessages={errorMessages}
+        linkLabel={linkLabel}
+        handlePress={handlePress}
+        middleSection={getValueLabel()}
+        rightSection={getDownArrowIcon()}
+        showErrors={showErrors}
+      />
+      {showLoader && (
+        <View className="absolute flex w-full justify-center content-center h-full">
+          <Loader />
+        </View>
+      )}
+    </View>
   );
 };
 
