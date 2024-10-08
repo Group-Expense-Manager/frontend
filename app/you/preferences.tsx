@@ -109,8 +109,7 @@ export default function Preferences() {
           delay={500}
           activeOpacity={1}
           onPress={() => setSwitchOn(!isSwitchOn)}
-          disabled={preferences.mode === 'system'}
-          className="w-full">
+          disabled={preferences.mode === 'system'}>
           <CustomTable title={t('Dark mode')}>
             <CustomSwitch value={isSwitchOn} />
           </CustomTable>
