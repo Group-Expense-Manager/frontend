@@ -194,5 +194,10 @@
   "Payment decide - description": "By accepting this payment, you confirm that the details are accurate and agree to participate in the costs.",
   "Oops, you don't have any activities!": "Oops, you don't have any activities!",
   "Edit expense": "Edit expense",
-  "Edit payment": "Edit payment"
+  "Edit payment": "Edit payment",
+  "Report group": "Report group",
+  "Report created": "Report created!",
+  "Report created - description": "Report was successfully created and sent to your email address.",
+  "Report format": "Report format"
+
 }

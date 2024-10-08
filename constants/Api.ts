@@ -1,4 +1,4 @@
-export const API_URL = 'http://192.168.0.101';
+export const API_URL = 'http://192.168.55.13';
 
 export const HOST = {
   AUTHENTICATOR: 'gem.web.authenticator.com',
@@ -9,6 +9,7 @@ export const HOST = {
   EXPENSE_MANAGER: 'gem.web.expense-manager.com',
   PAYMENT_MANAGER: 'gem.web.payment-manager.com',
   FINANCE_ADAPTER: 'gem.web.finance-adapter.com',
+  REPORT_CREATOR: 'gem.web.report-creator.com',
 };
 
 export const PATHS = {
