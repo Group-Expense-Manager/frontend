@@ -73,16 +73,18 @@ const MultiSelectInput: React.FC<MultiSelectInputComponentProps<GroupMemberDetai
         />
         {showLoader && (
           <View className="absolute flex w-full justify-center content-center h-full">
-            <Loader />
+            <Loader size="small" />
           </View>
         )}
       </View>
-      <ScrollView horizontal className="flex-row space-x-2 w-full">
-        {values.map((value) => (
-          <View key={uuid.v4()}>
-            <UserChip type={type} userDetails={value} />
-          </View>
-        ))}
+      <ScrollView className="w-full">
+        <View className="flex flex-row flex-wrap">
+          {values.map((value) => (
+            <View key={uuid.v4()} className="mx-0.5 my-1">
+              <UserChip type={type} userDetails={value} />
+            </View>
+          ))}
+        </View>
       </ScrollView>
     </View>
   );

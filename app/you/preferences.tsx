@@ -108,9 +108,11 @@ export default function Preferences() {
         <SingleClickTouchableOpacity
           delay={500}
           activeOpacity={1}
-          onPress={() => setSwitchOn(!isSwitchOn)}>
+          onPress={() => setSwitchOn(!isSwitchOn)}
+          disabled={preferences.mode === 'system'}
+          className="w-full">
           <CustomTable title={t('Dark mode')}>
-            <CustomSwitch disabled={preferences.mode === 'system'} value={isSwitchOn} />
+            <CustomSwitch value={isSwitchOn} />
           </CustomTable>
         </SingleClickTouchableOpacity>
         <SelectInput

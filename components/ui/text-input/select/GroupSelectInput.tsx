@@ -91,7 +91,7 @@ const GroupSelectInput: React.FC<SelectInputComponentProps<Group>> = ({
       />
       {showLoader && (
         <View className="absolute flex w-full justify-center content-center h-full">
-          <Loader />
+          <Loader size="small" />
         </View>
       )}
     </View>

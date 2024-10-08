@@ -1,3 +1,4 @@
+import { uuid } from 'expo-modules-core';
 import { useNavigation } from 'expo-router';
 import React, { useContext, useLayoutEffect } from 'react';
 import isEqual from 'react-fast-compare';
@@ -45,7 +46,7 @@ const SelectList: React.FC<SelectListProps> = ({ title }) => {
         <View className="flex flex-col w-full flex-wrap">
           {selectInputProps.data.map((item) => (
             <View
-              key={item.name}
+              key={uuid.v4()}
               className={`${getBorderStyles(item, selectInputProps.data)} flex justify-center w-full`}>
               <TouchableOpacity
                 disabled={item.isDisabled}

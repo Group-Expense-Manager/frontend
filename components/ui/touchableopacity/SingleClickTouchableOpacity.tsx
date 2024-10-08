@@ -10,12 +10,13 @@ export const SingleClickTouchableOpacity: React.FC<SingleClickTouchableOpacityPr
   delay = 1000,
   onPress,
   children,
+  disabled = false,
   ...props
 }) => {
   const [processing, setProcessing] = useState(false);
 
   const handlePress = (event: GestureResponderEvent) => {
-    if (onPress && !processing) {
+    if (onPress && !processing && !disabled) {
       setProcessing(true);
       onPress(event);
       setTimeout(() => setProcessing(false), delay);
