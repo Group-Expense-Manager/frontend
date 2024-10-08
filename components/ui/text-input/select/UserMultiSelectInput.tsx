@@ -1,5 +1,5 @@
 import { uuid } from 'expo-modules-core';
-import React, { ReactNode, useContext, useLayoutEffect } from 'react';
+import React, { ReactNode, useContext, useLayoutEffect, useRef } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import UserChip from '@/components/ui/chip/UserChip';
@@ -47,6 +47,8 @@ const MultiSelectInput: React.FC<MultiSelectInputComponentProps<GroupMemberDetai
     onPress();
   };
 
+  const hasMounted = useRef(false);
+
   useLayoutEffect(() => {
     setSelectInputProps({
       data,
@@ -54,7 +56,11 @@ const MultiSelectInput: React.FC<MultiSelectInputComponentProps<GroupMemberDetai
       onSelect: onItemSelect,
       selectedData: values,
     });
-    onSelect(values);
+    if (hasMounted.current) {
+      onSelect(values);
+    }
+
+    hasMounted.current = true;
   }, [values]);
 
   const showLoader = data.length === 0;

@@ -1,3 +1,4 @@
+import Decimal from 'decimal.js';
 import { router } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +20,7 @@ export default function NewExpenseGroup() {
 
   const { expenseCreation, setExpenseCreation } = useContext(ExpenseCreationContext);
 
-  const { userData } = useContext(GlobalContext);
+  const { authState, userData } = useContext(GlobalContext);
 
   const { data: groups } = useGroups();
 
@@ -44,6 +45,12 @@ export default function NewExpenseGroup() {
         setExpenseCreation({
           ...expenseCreation,
           groupId: selected.groupId,
+          expenseParticipants: [
+            {
+              participantId: authState.userId!,
+              participantCost: new Decimal(1),
+            },
+          ],
         });
       }
     }
@@ -57,7 +64,13 @@ export default function NewExpenseGroup() {
         groupId: group.groupId,
         baseCurrency: { code: '' },
         targetCurrency: undefined,
-        expenseParticipants: [],
+        divisionType: 'weight',
+        expenseParticipants: [
+          {
+            participantId: authState.userId!,
+            participantCost: new Decimal(1),
+          },
+        ],
       });
     }
   }

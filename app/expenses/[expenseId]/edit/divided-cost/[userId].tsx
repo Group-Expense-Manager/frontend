@@ -8,31 +8,33 @@ import CustomImage from '@/components/ui/image/CustomImage';
 import Loader from '@/components/ui/loader/Loader';
 import CostTextInput from '@/components/ui/text-input/CostTextInput';
 import WeightTextInput from '@/components/ui/text-input/WeightTextInput';
-import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
+import { GlobalContext } from '@/context/GlobalContext';
+import { ExpenseUpdateContext } from '@/context/expense/ExpenseUpdateContext';
 import useProfilePicture from '@/hooks/attachment/UseProfilePicture';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
 import { numberToString, toDecimal } from '@/util/StringUtils';
 
-export default function NewExpenseDividedCost() {
+export default function EditExpenseDividedCost() {
   const { t } = useTranslation();
-  const { expenseCreation, setExpenseCreation } = useContext(ExpenseCreationContext);
+  const { expenseUpdate, setExpenseUpdate } = useContext(ExpenseUpdateContext);
   const params = useLocalSearchParams<{ userId: string }>();
 
-  const { data: userDetails } = useGroupMemberDetails(expenseCreation.groupId, params.userId);
+  const { userData } = useContext(GlobalContext);
+  const { data: userDetails } = useGroupMemberDetails(userData.currentGroupId!, params.userId);
   const { data: userPicture } = useProfilePicture(params.userId, userDetails?.attachmentId);
 
   const [costString, setCostString] = useState<string>(getParticipantCostAsString());
 
   function getParticipantCostAsString(): string {
     return numberToString(
-      expenseCreation.expenseParticipants.find(
+      expenseUpdate.expenseParticipants.find(
         (participant) => participant.participantId === params.userId,
       )!.participantCost,
     );
   }
 
   function setNewCost() {
-    const updatedParticipants = expenseCreation.expenseParticipants.map((participant) => {
+    const updatedParticipants = expenseUpdate.expenseParticipants.map((participant) => {
       if (participant.participantId === params.userId) {
         return {
           participantId: participant.participantId,
@@ -42,7 +44,7 @@ export default function NewExpenseDividedCost() {
       return participant;
     });
 
-    setExpenseCreation({ ...expenseCreation, expenseParticipants: updatedParticipants });
+    setExpenseUpdate({ ...expenseUpdate, expenseParticipants: updatedParticipants });
   }
 
   return (
@@ -54,7 +56,7 @@ export default function NewExpenseDividedCost() {
               <CustomImage size="colossal" image={userPicture} />
             </View>
             <View>
-              {expenseCreation.divisionType === 'weight' ? (
+              {expenseUpdate.divisionType === 'weight' ? (
                 <WeightTextInput
                   label={t('Weight')}
                   value={costString}
@@ -71,7 +73,7 @@ export default function NewExpenseDividedCost() {
                 />
               ) : (
                 <CostTextInput
-                  label={`${t(`Cost`)} (${expenseCreation.baseCurrency.code})`}
+                  label={`${t(`Cost`)} (${expenseUpdate.baseCurrency.code})`}
                   value={costString}
                   onChangeText={(cost: string) => {
                     setCostString(cost);
