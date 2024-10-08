@@ -8,7 +8,6 @@ import CustomButton from '@/components/ui/button/CustomButton';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext, PaymentType } from '@/context/payment/PaymentCreationContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
 
@@ -17,10 +16,7 @@ export default function NewPaymentType() {
 
   const { paymentCreation, setPaymentCreation } = useContext(PaymentCreationContext);
 
-  const [selectedType, setSelectedType] = useState<SelectInputData<PaymentType | undefined>>({
-    value: undefined,
-    name: '',
-  });
+  const [selectedType, setSelectedType] = useState<PaymentType>();
 
   const paymentTypes = () => {
     return Object.values(PaymentType).map((type) => ({ value: type, name: t(type) }));
@@ -28,12 +24,12 @@ export default function NewPaymentType() {
 
   useEffect(() => {
     if (paymentCreation.type) {
-      setSelectedType({ value: paymentCreation.type, name: t(paymentCreation.type) });
+      setSelectedType(paymentCreation.type);
     }
   }, [paymentCreation.type]);
 
   function setPaymentType(paymentType: PaymentType) {
-    setSelectedType({ value: paymentType, name: t(paymentType) });
+    setSelectedType(paymentType);
     setPaymentCreation({
       ...paymentCreation,
       type: paymentType,

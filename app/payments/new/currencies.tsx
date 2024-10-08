@@ -9,7 +9,6 @@ import Loader from '@/components/ui/loader/Loader';
 import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useGroup from '@/hooks/group/UseGroup';
 import { ButtonType } from '@/util/ButtonType';
@@ -20,15 +19,13 @@ export default function NewPaymentCurrencies() {
   const { paymentCreation, setPaymentCreation } = useContext(PaymentCreationContext);
   const { data: groupDetails } = useGroup(paymentCreation.groupId);
 
-  const [selectedBaseCurrency, setSelectedBaseCurrency] = useState<SelectInputData<Currency>>({
-    value: paymentCreation.baseCurrency,
-    name: paymentCreation.baseCurrency.code,
-  });
+  const [selectedBaseCurrency, setSelectedBaseCurrency] = useState<Currency>(
+    paymentCreation.baseCurrency,
+  );
 
-  const [selectedTargetCurrency, setSelectedTargetCurrency] = useState<SelectInputData<Currency>>({
-    value: paymentCreation.targetCurrency ?? { code: '' },
-    name: paymentCreation.targetCurrency?.code ?? '',
-  });
+  const [selectedTargetCurrency, setSelectedTargetCurrency] = useState<Currency>(
+    paymentCreation.targetCurrency ?? { code: '' },
+  );
 
   const isNextButtonDisabled = !paymentCreation.baseCurrency.code;
 
@@ -47,19 +44,16 @@ export default function NewPaymentCurrencies() {
   };
 
   function setBaseCurrency(currency: Currency) {
-    setSelectedBaseCurrency({ value: currency, name: currency.code });
+    setSelectedBaseCurrency(currency);
 
     if (isCurrencyNotInGroupCurrencies(currency)) {
-      if (selectedTargetCurrency.name) {
+      if (selectedTargetCurrency.code) {
         setPaymentCreation({
           ...paymentCreation,
           baseCurrency: currency,
         });
       } else {
-        setSelectedTargetCurrency({
-          value: groupDetails!.groupCurrencies[0],
-          name: groupDetails!.groupCurrencies[0].code,
-        });
+        setSelectedTargetCurrency(groupDetails!.groupCurrencies[0]);
         setPaymentCreation({
           ...paymentCreation,
           baseCurrency: currency,
@@ -67,10 +61,7 @@ export default function NewPaymentCurrencies() {
         });
       }
     } else {
-      setSelectedTargetCurrency({
-        value: { code: '' },
-        name: '',
-      });
+      setSelectedTargetCurrency({ code: '' });
       setPaymentCreation({
         ...paymentCreation,
         baseCurrency: currency,
@@ -80,7 +71,7 @@ export default function NewPaymentCurrencies() {
   }
 
   function setTargetCurrency(currency: Currency) {
-    setSelectedTargetCurrency({ value: currency, name: currency.code });
+    setSelectedTargetCurrency(currency);
     setPaymentCreation({
       ...paymentCreation,
       targetCurrency: currency,
@@ -115,7 +106,7 @@ export default function NewPaymentCurrencies() {
                     data={baseCurrencies()}
                   />
                 </View>
-                {isCurrencyNotInGroupCurrencies(selectedBaseCurrency.value) && (
+                {isCurrencyNotInGroupCurrencies(selectedBaseCurrency) && (
                   <View>
                     <SelectInput
                       onSelect={setTargetCurrency}

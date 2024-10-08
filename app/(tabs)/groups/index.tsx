@@ -8,12 +8,12 @@ import NavBar from '@/components/ui/bar/NavBar';
 import SafeView from '@/components/ui/box/SafeView';
 import CustomButton from '@/components/ui/button/CustomButton';
 import Loader from '@/components/ui/loader/Loader';
-import SelectInput from '@/components/ui/text-input/select/SelectInput';
+import GroupSelectInput from '@/components/ui/text-input/select/GroupSelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import useActivities from '@/hooks/activity/UseActivities';
-import useGroup from '@/hooks/group/UseGroup';
+import useGroup, { GroupDetails } from '@/hooks/group/UseGroup';
 import { IconSize } from '@/util/IconSize';
 
 export default function Index() {
@@ -22,17 +22,24 @@ export default function Index() {
   const { data: groupDetails } = useGroup(userData.currentGroupId);
   const { data: activities } = useActivities(userData.currentGroupId);
 
+  const getGroupsDetailsList = (groupDetails?: GroupDetails) => {
+    if (!groupDetails) return [];
+    return [
+      {
+        name: groupDetails.name,
+        value: groupDetails,
+      },
+    ];
+  };
+
   const currentGroupView = groupDetails ? (
     <View className="flex-1 space-y-3">
       <SingleClickTouchableOpacity onPress={() => router.push('/groups/list')}>
         <View pointerEvents="none">
-          <SelectInput
+          <GroupSelectInput
             label={t('Current group')}
-            value={{
-              name: groupDetails.name,
-              value: groupDetails.name,
-              isDisabled: false,
-            }}
+            value={groupDetails}
+            data={getGroupsDetailsList(groupDetails)}
           />
         </View>
       </SingleClickTouchableOpacity>

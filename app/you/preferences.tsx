@@ -15,7 +15,6 @@ import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { LANGUAGE_KEY, MODE_KEY } from '@/constants/Storage';
 import { GlobalContext } from '@/context/GlobalContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 
 export default function Preferences() {
   const { t } = useTranslation();
@@ -23,10 +22,7 @@ export default function Preferences() {
   const { preferences, setPreferences } = useContext(GlobalContext);
   const [isSwitchOn, setSwitchOn] = useState(colorScheme === 'dark');
   const [isCheckboxChecked, setCheckboxChecked] = useState(preferences.mode === 'system');
-  const [selectedLanguage, setSelectedLanguage] = useState<SelectInputData<string>>({
-    value: preferences.language,
-    name: t(preferences.language),
-  });
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(preferences.language);
 
   const navigation = useNavigation();
 
@@ -86,7 +82,7 @@ export default function Preferences() {
 
   async function setLanguage(language: string) {
     await i18n.changeLanguage(language);
-    setSelectedLanguage({ value: language, name: t(language) });
+    setSelectedLanguage(language);
     preferences.language = i18n.language;
     SecureStore.setItem(LANGUAGE_KEY, i18n.language);
   }

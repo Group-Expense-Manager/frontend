@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useState } from 'react';
 
 export interface SelectInputProps<T> {
-  selectedData: SelectInputData<T>[];
+  selectedData: T[];
   onSelect: (value: SelectInputData<T>) => void;
   data: SelectInputData<T>[];
   createRow: (item: SelectInputData<T>, selected: boolean) => ReactNode;

@@ -1,6 +1,7 @@
 import * as ImagePicker from 'expo-image-picker';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import isEqual from 'react-fast-compare';
 import { useTranslation } from 'react-i18next';
 import { BackHandler, View } from 'react-native';
 
@@ -18,7 +19,7 @@ import { GroupUpdateContext } from '@/context/group/GroupUpdateContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
 import useUpdateGroupPicture from '@/hooks/attachment/UseUpdateGroupPicture';
-import useAvailableCurrencies from '@/hooks/currency/UseAvailableCurrencies';
+import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useGroup from '@/hooks/group/UseGroup';
 import useUpdateGroup from '@/hooks/group/UseUpdateGroup';
 import { handleImageChoice } from '@/util/HandleImageChoice';
@@ -40,12 +41,8 @@ export default function Index() {
     groupDetails && groupPicture && !isFetchGroupPicture && !isFetchingGroupDetails;
 
   const { groupUpdate, setGroupUpdate } = useContext(GroupUpdateContext);
-  const [selectedCurrencies, setSelectedCurrencies] = useState<SelectInputData<string>[]>(
-    groupDetails?.groupCurrencies.map((currency) => ({
-      name: t(currency.code),
-      value: currency.code,
-      isDisabled: true,
-    })) || [],
+  const [selectedCurrencies, setSelectedCurrencies] = useState<Currency[]>(
+    groupDetails?.groupCurrencies ?? [],
   );
   const { data: availableCurrencies } = useAvailableCurrencies();
 
@@ -168,9 +165,7 @@ export default function Index() {
       selectedCurrencies.length !== groupDetails?.groupCurrencies.length ||
       selectedCurrencies.some(
         (currency) =>
-          !groupDetails?.groupCurrencies.some(
-            (groupCurrency) => groupCurrency.code === currency.value,
-          ),
+          !groupDetails?.groupCurrencies.some((groupCurrency) => isEqual(groupCurrency, currency)),
       )
     );
   }
@@ -189,10 +184,10 @@ export default function Index() {
     }
   }
 
-  const handleSelectedCurrencies = (values: string[]) => {
+  const handleSelectedCurrencies = (values: Currency[]) => {
     setGroupUpdate({
       ...groupUpdate,
-      groupCurrencies: values.map((elem) => ({ code: elem })),
+      groupCurrencies: values,
     });
   };
 
@@ -229,7 +224,6 @@ export default function Index() {
                 <MultiSelectInput
                   onSelect={handleSelectedCurrencies}
                   label={t('Group currencies')}
-                  type="normal"
                   onPress={() =>
                     router.navigate(`/groups/${params.groupId}/details/group-currencies`)
                   }
@@ -237,11 +231,11 @@ export default function Index() {
                   setValues={setSelectedCurrencies}
                   disabled={!isOwner}
                   data={availableCurrencies?.currencies.map(
-                    (currency): SelectInputData<string> => ({
+                    (currency): SelectInputData<Currency> => ({
                       name: t(currency.code),
-                      value: currency.code,
-                      isDisabled: groupDetails?.groupCurrencies?.some(
-                        (groupCurrency) => groupCurrency.code === currency.code,
+                      value: currency,
+                      isDisabled: groupDetails?.groupCurrencies?.some((groupCurrency) =>
+                        isEqual(groupCurrency, currency),
                       ),
                     }),
                   )}

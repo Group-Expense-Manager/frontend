@@ -16,7 +16,6 @@ import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { GlobalContext } from '@/context/GlobalContext';
 import { ProfileUpdateContext } from '@/context/userdetails/ProfileUpdateContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useProfilePicture from '@/hooks/attachment/UseProfilePicture';
 import useUpdateProfilePicture from '@/hooks/attachment/UseUpdateProfilePicture';
 import useUpdateUserDetails from '@/hooks/userdetails/UseUpdateUserDetails';
@@ -40,12 +39,9 @@ export default function Index() {
 
   const { profileUpdate, setProfileUpdate } = useContext(ProfileUpdateContext);
 
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
-    SelectInputData<PaymentMethod>
-  >({
-    value: profileUpdate.userDetails.preferredPaymentMethod,
-    name: t(profileUpdate.userDetails.preferredPaymentMethod),
-  });
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>(
+    profileUpdate.userDetails.preferredPaymentMethod,
+  );
 
   const [bothRunning, setBothRunning] = useState(false);
   const {
@@ -95,10 +91,7 @@ export default function Index() {
   useLayoutEffect(() => {
     if (dataPresentAndNoFetching) {
       setProfileUpdate({ ...profileUpdate, userDetails, profilePicture });
-      setSelectedPaymentMethod({
-        value: userDetails.preferredPaymentMethod,
-        name: t(userDetails.preferredPaymentMethod),
-      });
+      setSelectedPaymentMethod(userDetails.preferredPaymentMethod);
     }
   }, [dataPresentAndNoFetching]);
 
@@ -203,7 +196,7 @@ export default function Index() {
   }
 
   function setPaymentMethod(paymentMethod: PaymentMethod) {
-    setSelectedPaymentMethod({ value: paymentMethod, name: t(paymentMethod) });
+    setSelectedPaymentMethod(paymentMethod);
     setProfileUpdate({
       ...profileUpdate,
       userDetails: {

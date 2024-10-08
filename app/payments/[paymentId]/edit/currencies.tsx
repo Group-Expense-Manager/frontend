@@ -10,7 +10,6 @@ import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import { PaymentUpdateContext } from '@/context/payment/PaymentUpdateContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useAvailableCurrencies, { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useGroup from '@/hooks/group/UseGroup';
 import { ButtonType } from '@/util/ButtonType';
@@ -24,15 +23,13 @@ export default function EditPaymentCurrencies() {
   const { userData } = useContext(GlobalContext);
   const { data: groupDetails } = useGroup(userData.currentGroupId);
 
-  const [selectedBaseCurrency, setSelectedBaseCurrency] = useState<SelectInputData<Currency>>({
-    value: paymentUpdate.baseCurrency,
-    name: paymentUpdate.baseCurrency.code,
-  });
+  const [selectedBaseCurrency, setSelectedBaseCurrency] = useState<Currency>(
+    paymentUpdate.baseCurrency,
+  );
 
-  const [selectedTargetCurrency, setSelectedTargetCurrency] = useState<SelectInputData<Currency>>({
-    value: paymentUpdate.targetCurrency ?? { code: '' },
-    name: paymentUpdate.targetCurrency?.code ?? '',
-  });
+  const [selectedTargetCurrency, setSelectedTargetCurrency] = useState<Currency>(
+    paymentUpdate.targetCurrency ?? { code: '' },
+  );
 
   const isNextButtonDisabled = !paymentUpdate.baseCurrency.code;
 
@@ -51,19 +48,16 @@ export default function EditPaymentCurrencies() {
   };
 
   function setBaseCurrency(currency: Currency) {
-    setSelectedBaseCurrency({ value: currency, name: currency.code });
+    setSelectedBaseCurrency(currency);
 
     if (isCurrencyNotInGroupCurrencies(currency)) {
-      if (selectedTargetCurrency.name) {
+      if (selectedTargetCurrency.code) {
         setPaymentUpdate({
           ...paymentUpdate,
           baseCurrency: currency,
         });
       } else {
-        setSelectedTargetCurrency({
-          value: groupDetails!.groupCurrencies[0],
-          name: groupDetails!.groupCurrencies[0].code,
-        });
+        setSelectedTargetCurrency(groupDetails!.groupCurrencies[0]);
         setPaymentUpdate({
           ...paymentUpdate,
           baseCurrency: currency,
@@ -71,10 +65,7 @@ export default function EditPaymentCurrencies() {
         });
       }
     } else {
-      setSelectedTargetCurrency({
-        value: { code: '' },
-        name: '',
-      });
+      setSelectedTargetCurrency({ code: '' });
       setPaymentUpdate({
         ...paymentUpdate,
         baseCurrency: currency,
@@ -84,7 +75,7 @@ export default function EditPaymentCurrencies() {
   }
 
   function setTargetCurrency(currency: Currency) {
-    setSelectedTargetCurrency({ value: currency, name: currency.code });
+    setSelectedTargetCurrency(currency);
     setPaymentUpdate({
       ...paymentUpdate,
       targetCurrency: currency,
@@ -121,7 +112,7 @@ export default function EditPaymentCurrencies() {
                     data={baseCurrencies()}
                   />
                 </View>
-                {isCurrencyNotInGroupCurrencies(selectedBaseCurrency.value) && (
+                {isCurrencyNotInGroupCurrencies(selectedBaseCurrency) && (
                   <View>
                     <SelectInput
                       onSelect={setTargetCurrency}

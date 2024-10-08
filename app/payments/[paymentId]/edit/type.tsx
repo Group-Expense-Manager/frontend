@@ -9,7 +9,6 @@ import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentType } from '@/context/payment/PaymentCreationContext';
 import { PaymentUpdateContext } from '@/context/payment/PaymentUpdateContext';
-import { SelectInputData } from '@/context/utils/SelectInputContext';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
 
@@ -19,17 +18,14 @@ export default function EditPaymentType() {
 
   const { paymentUpdate, setPaymentUpdate } = useContext(PaymentUpdateContext);
 
-  const [selectedType, setSelectedType] = useState<SelectInputData<PaymentType>>({
-    value: paymentUpdate.type,
-    name: t(paymentUpdate.type),
-  });
+  const [selectedType, setSelectedType] = useState<PaymentType>(paymentUpdate.type);
 
   const paymentTypes = () => {
     return Object.values(PaymentType).map((type) => ({ value: type, name: t(type) }));
   };
 
   function setPaymentType(paymentType: PaymentType) {
-    setSelectedType({ value: paymentType, name: t(paymentType) });
+    setSelectedType(paymentType);
     setPaymentUpdate({
       ...paymentUpdate,
       type: paymentType,
