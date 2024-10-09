@@ -94,6 +94,8 @@ export default function Preferences() {
     ];
   };
 
+  const isSwitchDisabled = preferences.mode === 'system';
+
   return (
     <Box>
       <View className="py-[32px] w-full flex flex-col items-center ">
@@ -109,9 +111,9 @@ export default function Preferences() {
           delay={500}
           activeOpacity={1}
           onPress={() => setSwitchOn(!isSwitchOn)}
-          disabled={preferences.mode === 'system'}>
+          disabled={isSwitchDisabled}>
           <CustomTable title={t('Dark mode')}>
-            <CustomSwitch value={isSwitchOn} />
+            <CustomSwitch disabled={isSwitchDisabled} value={isSwitchOn} />
           </CustomTable>
         </SingleClickTouchableOpacity>
         <SelectInput
