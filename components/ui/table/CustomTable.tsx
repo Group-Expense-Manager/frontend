@@ -12,7 +12,7 @@ const CustomTable: React.FC<CustomTableProps> = ({ title, caption, children }) =
   const captionColor = 'text-ink-lighter dark:text-sky-dark';
 
   return (
-    <View className="w-full flex-row items-center justify-between h-16 px-6">
+    <View className="w-full flex-row items-center justify-between h-16">
       <View className="flex-col justify-center">
         <Text className={`text-small font-bold text-ink-darkest ${titleColor}`}>{title}</Text>
         {caption && <Text className={`text-tiny text-ink-lighter ${captionColor}`}>{caption}</Text>}
