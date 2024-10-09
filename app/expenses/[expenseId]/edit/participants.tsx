@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -10,7 +10,7 @@ import Loader from '@/components/ui/loader/Loader';
 import UserMultiSelectInput from '@/components/ui/text-input/select/UserMultiSelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
-import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
+import { ExpenseUpdateContext } from '@/context/expense/ExpenseUpdateContext';
 import useGroupMembersDetails, {
   GroupMemberDetails,
 } from '@/hooks/userdetails/UseGroupMembersDetails';
@@ -18,22 +18,25 @@ import { ButtonType } from '@/util/ButtonType';
 import { getFirstNameOrUsername } from '@/util/GetName';
 import { IconSize } from '@/util/IconSize';
 
-export default function NewExpenseParticipants() {
+export default function EditExpenseParticipants() {
   const { t } = useTranslation();
-  const { expenseCreation, setExpenseCreation } = useContext(ExpenseCreationContext);
-  const { data: groupMembersDetails } = useGroupMembersDetails(expenseCreation.groupId);
+  const { expenseUpdate, setExpenseUpdate } = useContext(ExpenseUpdateContext);
+  const { userData } = useContext(GlobalContext);
+  const { data: groupMembersDetails } = useGroupMembersDetails(userData.currentGroupId!);
+  const params = useLocalSearchParams<{ expenseId: string }>();
+  const hasMounted = useRef(false);
+
   const { authState } = useContext(GlobalContext);
 
   const [selectedMembers, setSelectedMembers] = useState<GroupMemberDetails[]>([]);
 
-  const isNextButtonDisabled = expenseCreation.expenseParticipants.length < 2;
-  const hasMounted = useRef(false);
+  const isNextButtonDisabled = expenseUpdate.expenseParticipants.length < 2;
 
   useLayoutEffect(() => {
     if (groupMembersDetails) {
       setSelectedMembers(
         groupMembersDetails.details.filter((details) =>
-          expenseCreation.expenseParticipants.some(
+          expenseUpdate.expenseParticipants.some(
             (participant) => participant.participantId === details.id,
           ),
         ),
@@ -53,8 +56,8 @@ export default function NewExpenseParticipants() {
 
   function setParticipants(membersDetails: GroupMemberDetails[]) {
     if (hasMounted.current) {
-      setExpenseCreation({
-        ...expenseCreation,
+      setExpenseUpdate({
+        ...expenseUpdate,
         divisionType: 'weight',
         expenseParticipants: membersDetails.map((details) => ({
           participantId: details.id,
@@ -77,7 +80,9 @@ export default function NewExpenseParticipants() {
             {groupMembersDetails ? (
               <UserMultiSelectInput
                 onSelect={setParticipants}
-                onPress={() => router.navigate('/expenses/new/participants-select')}
+                onPress={() =>
+                  router.navigate(`/expenses/${params.expenseId}/edit/participants-select`)
+                }
                 values={selectedMembers}
                 setValues={setSelectedMembers}
                 data={participants()}
@@ -92,7 +97,7 @@ export default function NewExpenseParticipants() {
         <View className="py-8 w-full flex flex-col justify-center items-center space-y-8">
           <View className="w-full">
             <CustomButton
-              onPress={() => router.push('/expenses/new/divided-cost')}
+              onPress={() => router.push(`/expenses/${params.expenseId}/edit/divided-cost`)}
               title={t('Next')}
               disabled={isNextButtonDisabled}
             />

@@ -2,6 +2,7 @@ import Decimal from 'decimal.js';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React, { useContext } from 'react';
 
+import Box from '@/components/ui/box/Box';
 import { ImageBase64 } from '@/components/ui/image/CustomImage';
 import Loader from '@/components/ui/loader/Loader';
 import { GlobalContext } from '@/context/GlobalContext';
@@ -45,7 +46,9 @@ const EditPaymentLayout = () => {
       </SelectInputProvider>
     </PaymentUpdateProvider>
   ) : (
-    <Loader />
+    <Box>
+      <Loader />
+    </Box>
   );
 };
 export default EditPaymentLayout;

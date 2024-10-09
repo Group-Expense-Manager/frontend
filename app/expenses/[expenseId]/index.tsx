@@ -165,7 +165,10 @@ export default function ExpenseView() {
               </View>
               {role() === 'creator' && (
                 <View>
-                  <CustomButton title={t('Edit expense')} onPress={() => {}} />
+                  <CustomButton
+                    title={t('Edit expense')}
+                    onPress={() => router.push(`/expenses/${params.expenseId}/edit/title`)}
+                  />
                 </View>
               )}
               {role() === 'creator' && (

@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -8,20 +8,21 @@ import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
 import CostTextInput from '@/components/ui/text-input/CostTextInput';
 import { LogoIcon } from '@/constants/Icon';
-import { ExpenseCreationContext } from '@/context/expense/ExpenseCreationContext';
+import { ExpenseUpdateContext } from '@/context/expense/ExpenseUpdateContext';
 import { ButtonType } from '@/util/ButtonType';
 import { IconSize } from '@/util/IconSize';
 import { numberToString, toDecimal } from '@/util/StringUtils';
 
-export default function NewExpenseTotalCost() {
+export default function EditExpenseTotalCost() {
   const { t } = useTranslation();
-  const { expenseCreation, setExpenseCreation } = useContext(ExpenseCreationContext);
+  const params = useLocalSearchParams<{ expenseId: string }>();
+  const { expenseUpdate, setExpenseUpdate } = useContext(ExpenseUpdateContext);
   const [totalCostString, setTotalCostString] = useState<string>(
-    numberToString(expenseCreation.totalCost),
+    numberToString(expenseUpdate.totalCost),
   );
 
   const isNextButtonDisabled =
-    expenseCreation.totalCost.isZero() || expenseCreation.totalCost.isNegative();
+    expenseUpdate.totalCost.isZero() || expenseUpdate.totalCost.isNegative();
 
   return (
     <Box>
@@ -32,16 +33,16 @@ export default function NewExpenseTotalCost() {
           </View>
           <View className="py-8 w-full flex flex-col space-y-8">
             <CostTextInput
-              label={`${t('Total cost')} (${expenseCreation.baseCurrency.code})`}
+              label={`${t('Total cost')} (${expenseUpdate.baseCurrency.code})`}
               onChangeText={(totalCost: string) => {
                 setTotalCostString(totalCost);
                 const totalCostNumber = toDecimal(totalCost);
-                if (!totalCostNumber.eq(expenseCreation.totalCost)) {
-                  setExpenseCreation({
-                    ...expenseCreation,
+                if (!totalCostNumber.eq(expenseUpdate.totalCost)) {
+                  setExpenseUpdate({
+                    ...expenseUpdate,
                     totalCost: totalCostNumber,
                     divisionType: 'weight',
-                    expenseParticipants: expenseCreation.expenseParticipants.map((participant) => ({
+                    expenseParticipants: expenseUpdate.expenseParticipants.map((participant) => ({
                       participantId: participant.participantId,
                       participantCost: new Decimal(1),
                     })),
@@ -56,7 +57,7 @@ export default function NewExpenseTotalCost() {
         <View className="py-8 w-full flex flex-col justify-center items-center space-y-8">
           <View className="w-full">
             <CustomButton
-              onPress={() => router.push('/expenses/new/participants')}
+              onPress={() => router.push(`/expenses/${params.expenseId}/edit/participants`)}
               title={t('Next')}
               disabled={isNextButtonDisabled}
             />
