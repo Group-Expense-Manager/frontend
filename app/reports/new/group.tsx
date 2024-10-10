@@ -79,7 +79,7 @@ export default function NewReportGroup() {
         <View className="py-8 w-full flex flex-col justify-center items-center space-y-8">
           <View className="w-full">
             <CustomButton
-              onPress={() => router.navigate('/reports/new/format')}
+              onPress={() => router.navigate('/reports/new/title')}
               title={t('Next')}
               disabled={!selectedGroup}
             />

@@ -7,7 +7,8 @@ export enum ReportFormat {
 
 export interface ReportCreation {
   groupId: string;
-  format?: ReportFormat;
+  title: string;
+  format: ReportFormat[];
 }
 
 interface ReportCreationContextProps {
@@ -17,6 +18,8 @@ interface ReportCreationContextProps {
 
 const defaultReportCreation: ReportCreation = {
   groupId: '',
+  title: '',
+  format: [],
 };
 
 export const ReportCreationContext = createContext<ReportCreationContextProps>({

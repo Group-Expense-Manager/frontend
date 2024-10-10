@@ -198,6 +198,7 @@
   "Report group": "Report group",
   "Report created": "Report created!",
   "Report created - description": "Report was successfully created and sent to your email address.",
-  "Report format": "Report format"
-
+  "Report format": "Report format",
+  "Report title": "Report title",
+  "Report title may contain at most 30 characters": "Report title may contain at most 30 characters"
 }

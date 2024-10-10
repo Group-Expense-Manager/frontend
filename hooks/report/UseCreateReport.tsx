@@ -14,8 +14,11 @@ export default function useCreateReport() {
   return useMutation({
     mutationFn: () => {
       return axios.post(
-        `${API_URL}${PATHS.EXTERNAL}/generate/groups/${reportCreation.groupId}?format=${reportCreation.format}`,
-        {},
+        `${API_URL}${PATHS.EXTERNAL}/generate/groups/${reportCreation.groupId}`,
+        {
+          title: reportCreation.title,
+          format: reportCreation.format,
+        },
         {
           headers: {
             host: HOST.REPORT_CREATOR,
