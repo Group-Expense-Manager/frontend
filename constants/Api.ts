@@ -9,6 +9,7 @@ export const HOST = {
   EXPENSE_MANAGER: 'gem.web.expense-manager.com',
   PAYMENT_MANAGER: 'gem.web.payment-manager.com',
   FINANCE_ADAPTER: 'gem.web.finance-adapter.com',
+  REPORT_CREATOR: 'gem.web.report-creator.com',
 };
 
 export const PATHS = {

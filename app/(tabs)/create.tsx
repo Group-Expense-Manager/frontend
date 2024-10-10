@@ -39,7 +39,7 @@ export default function Create() {
 
           <View>
             <CreationButton
-              onPress={() => {}}
+              onPress={() => router.push('/reports/new/group')}
               title={t('Create report')}
               icon={<FileIcon />}
               disabled={!groups.length}

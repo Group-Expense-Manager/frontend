@@ -194,5 +194,12 @@
   "Payment decide - description": "Akceptując tę płatność, potwierdzasz, że szczegóły są prawdziwe i zgadzasz się na udział w kosztach.",
   "Oops, you don't have any activities!": "Upss, nie masz żadnych aktywności!",
   "Edit expense": "Edytuj wydatek",
-  "Edit payment": "Edytuj płatność"
+  "Edit payment": "Edytuj płatność",
+  "Report group": "Grupa raportu",
+  "Report created": "Utworzono raport!",
+  "Report created - description": "Raport został pomyślnie utworzony i wysłany na Twój adres email.",
+  "Report format": "Format raportu",
+  "Report title": "Tytuł raportu",
+  "Report title may contain at most 30 characters": "Tytuł raportu może zawierać maksymalnie 30 znaków"
+
 }
