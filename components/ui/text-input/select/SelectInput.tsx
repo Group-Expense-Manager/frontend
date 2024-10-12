@@ -93,7 +93,7 @@ const SelectInput: React.FC<SelectInputComponentProps<any>> = ({
       />
       {showLoader && (
         <View className="absolute flex w-full justify-center content-center h-full">
-          <Loader />
+          <Loader size="small" />
         </View>
       )}
     </View>

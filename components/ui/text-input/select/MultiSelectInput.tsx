@@ -100,14 +100,14 @@ const MultiSelectInput: React.FC<MultiSelectInputComponentProps<any>> = ({
         />
         {showLoader && (
           <View className="absolute flex w-full justify-center content-center h-full">
-            <Loader />
+            <Loader size="small" />
           </View>
         )}
       </View>
       <ScrollView className="w-full">
         <View className="flex flex-row flex-wrap">
           {selectedValues.map((value) => (
-            <View key={uuid.v4()} className="m-1">
+            <View key={uuid.v4()} className="mx-0.5 my-1">
               <Chip text={value?.name ?? ''} type={type} />
             </View>
           ))}
