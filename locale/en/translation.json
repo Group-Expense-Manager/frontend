@@ -200,5 +200,9 @@
   "Report created - description": "Report was successfully created and sent to your email address.",
   "Report format": "Report format",
   "Report title": "Report title",
-  "Report title may contain at most 30 characters": "Report title may contain at most 30 characters"
+  "Report title may contain at most 30 characters": "Report title may contain at most 30 characters",
+  "Activities": "Activities",
+  "Balances": "Balances",
+  "Settlements": "Settlements",
+  "No suggested settlements!": "No suggested settlements!"
 }

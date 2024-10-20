@@ -1,26 +1,77 @@
 import { router } from 'expo-router';
-import React, { useContext } from 'react';
+import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, View } from 'react-native';
+import { FlatList, ScrollView, View } from 'react-native';
 
 import ActivityListItem from '@/components/modules/activity/ActivityListItem';
+import UserBalance from '@/components/modules/balance/UserBalance';
+import SettlementListItem from '@/components/modules/settlements/SettlementListItem';
 import NavBar from '@/components/ui/bar/NavBar';
 import SafeView from '@/components/ui/box/SafeView';
 import CustomButton from '@/components/ui/button/CustomButton';
+import Chip from '@/components/ui/chip/Chip';
 import Loader from '@/components/ui/loader/Loader';
+import CustomRefreshControl from '@/components/ui/refreshcontrol/CustomRefreshControl';
+import SegmentedControls from '@/components/ui/segmetedcontrols/SegmentedControls';
 import GroupSelectInput from '@/components/ui/text-input/select/GroupSelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
-import useActivities from '@/hooks/activity/UseActivities';
+import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
+import useActivities, { ActivityListElement } from '@/hooks/finance/UseActivities';
+import useBalances, { Balance } from '@/hooks/finance/UseBalances';
+import useSettlements, { Settlement } from '@/hooks/finance/UseSettlements';
 import useGroup, { GroupDetails } from '@/hooks/group/UseGroup';
+import useGroupMembersDetails, {
+  GroupMemberDetails,
+} from '@/hooks/userdetails/UseGroupMembersDetails';
 import { IconSize } from '@/util/IconSize';
 
 export default function Index() {
   const { t } = useTranslation();
-  const { userData } = useContext(GlobalContext);
+  const { authState, userData } = useContext(GlobalContext);
   const { data: groupDetails } = useGroup(userData.currentGroupId);
-  const { data: activities } = useActivities(userData.currentGroupId);
+
+  const { data: activities, refetch: refetchActivities } = useActivities(userData.currentGroupId);
+
+  const [refreshingActivities, setRefreshingActivities] = React.useState(false);
+
+  const onRefreshActivities = React.useCallback(() => {
+    setRefreshingActivities(true);
+    refetchActivities().then(() => setRefreshingActivities(false));
+  }, []);
+
+  const { data: balances, refetch: refetchBalances } = useBalances(userData.currentGroupId);
+
+  const [refreshingBalances, setRefreshingBalances] = React.useState(false);
+
+  const onRefreshBalances = React.useCallback(() => {
+    setRefreshingBalances(true);
+    refetchBalances().then(() => setRefreshingBalances(false));
+  }, []);
+
+  const { data: settlements, refetch: refetchSettlements } = useSettlements(
+    userData.currentGroupId,
+  );
+
+  const [refreshingSettlements, setRefreshingSettlements] = React.useState(false);
+
+  const onRefreshSettlements = React.useCallback(() => {
+    setRefreshingSettlements(true);
+    refetchSettlements().then(() => setRefreshingSettlements(false));
+  }, []);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const { data: groupMembersDetails } = useGroupMembersDetails(userData.currentGroupId!);
+
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>({ code: '' });
+
+  useEffect(() => {
+    if (groupDetails) {
+      setSelectedCurrency(groupDetails.groupCurrencies[0]);
+    }
+  }, [groupDetails]);
 
   const getGroupsDetailsList = (groupDetails?: GroupDetails) => {
     if (!groupDetails) return [];
@@ -32,56 +83,169 @@ export default function Index() {
     ];
   };
 
-  const currentGroupView = groupDetails ? (
-    <View className="flex-1 space-y-3">
-      <SingleClickTouchableOpacity onPress={() => router.push('/groups/list')}>
-        <View pointerEvents="none">
-          <GroupSelectInput
-            label={t('Current group')}
-            value={groupDetails}
-            data={getGroupsDetailsList(groupDetails)}
+  const handleActivityPress = (activity: ActivityListElement) => {
+    switch (activity.type) {
+      case 'EXPENSE': {
+        router.push(`/expenses/${activity.activityId}`);
+        break;
+      }
+      case 'PAYMENT': {
+        router.push(`/payments/${activity.activityId}`);
+        break;
+      }
+      default:
+        break;
+    }
+  };
+
+  const activitiesView = (
+    <View className="flex-1">
+      {activities && groupMembersDetails ? (
+        activities.activities.length > 0 ? (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <CustomRefreshControl
+                refreshing={refreshingActivities}
+                onRefresh={onRefreshActivities}
+              />
+            }
+            data={activities.activities.toReversed()}
+            keyExtractor={(item) => item.activityId}
+            renderItem={({ item: activity }) => (
+              <View className="mb-2">
+                <ActivityListItem
+                  activity={activity}
+                  onPress={() => handleActivityPress(activity)}
+                  groupMembersDetails={groupMembersDetails}
+                />
+              </View>
+            )}
+            initialNumToRender={7}
+            maxToRenderPerBatch={5}
           />
-        </View>
-      </SingleClickTouchableOpacity>
-      <View className="flex-1">
-        {activities ? (
-          activities.activities.length > 0 ? (
-            <ScrollView className="space-y-2" showsVerticalScrollIndicator={false}>
-              {activities.activities.toReversed().map((activity, index) => (
-                <View key={index}>
-                  <ActivityListItem
-                    groupId={activities.groupId}
-                    activity={activity}
-                    onPress={() => {
-                      switch (activity.type) {
-                        case 'EXPENSE': {
-                          router.push(`/expenses/${activity.activityId}`);
-                          break;
-                        }
-                        case 'PAYMENT': {
-                          router.push(`/payments/${activity.activityId}`);
-                          break;
-                        }
-                      }
-                    }}
-                  />
-                </View>
-              ))}
-              <View />
-            </ScrollView>
-          ) : (
-            <View className="py-8">
-              <NavBar title={t("Oops, you don't have any activities!")} type="normal" />
-            </View>
-          )
         ) : (
-          <Loader />
-        )}
-      </View>
+          <View className="py-8">
+            <NavBar title={t("Oops, you don't have any activities!")} type="normal" />
+          </View>
+        )
+      ) : (
+        <Loader />
+      )}
     </View>
-  ) : (
-    <Loader />
   );
+
+  const findUserDetails = (userId: string) =>
+    groupMembersDetails?.details.find((it) => it.id === userId);
+
+  const balancesWithDetails = balances?.balances
+    .find((it) => it.currency === selectedCurrency.code)
+    ?.userBalances.map(
+      (it: Balance) =>
+        [it, findUserDetails(it.userId)] as [Balance, GroupMemberDetails | undefined],
+    )
+    .filter(
+      (it: [Balance, GroupMemberDetails | undefined]): it is [Balance, GroupMemberDetails] =>
+        it[1] !== undefined,
+    );
+
+  const balancesView = (
+    <View className="flex-1">
+      {balancesWithDetails ? (
+        <ScrollView
+          className="space-y-2"
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <CustomRefreshControl refreshing={refreshingBalances} onRefresh={onRefreshBalances} />
+          }>
+          {balancesWithDetails.map((balanceWithDetails, index) => (
+            <View key={index}>
+              <UserBalance
+                balance={balanceWithDetails[0]}
+                userDetails={balanceWithDetails[1]}
+                currency={selectedCurrency.code}
+              />
+            </View>
+          ))}
+        </ScrollView>
+      ) : (
+        <Loader />
+      )}
+    </View>
+  );
+
+  const settlementsWithDetails = settlements?.settlements
+    .find((it) => it.currency === selectedCurrency.code)
+    ?.settlements.map(
+      (it: Settlement) =>
+        [it, findUserDetails(it.fromUserId), findUserDetails(it.toUserId)] as [
+          Settlement,
+          GroupMemberDetails | undefined,
+          GroupMemberDetails | undefined,
+        ],
+    )
+    .filter(
+      (
+        it: [Settlement, GroupMemberDetails | undefined, GroupMemberDetails | undefined],
+      ): it is [Settlement, GroupMemberDetails, GroupMemberDetails] =>
+        it[1] !== undefined && it[2] !== undefined,
+    );
+
+  const settlementsView = (
+    <View className="flex-1">
+      {settlementsWithDetails ? (
+        settlementsWithDetails.length > 0 ? (
+          <ScrollView
+            className="space-y-2"
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <CustomRefreshControl
+                refreshing={refreshingSettlements}
+                onRefresh={onRefreshSettlements}
+              />
+            }>
+            {settlementsWithDetails.map((settlementWithDetails, index) => (
+              <View key={index}>
+                <SettlementListItem
+                  fromUserDetails={settlementWithDetails[1]}
+                  toUserDetails={settlementWithDetails[2]}
+                  value={settlementWithDetails[0].value}
+                  currency={selectedCurrency.code}
+                  onPress={
+                    authState.userId === settlementWithDetails[1].id
+                      ? () => {
+                          router.push(
+                            `/payments/new/group?recipientId=${settlementWithDetails[2].id}&currency=${selectedCurrency.code}&value=${settlementWithDetails[0].value}`,
+                          );
+                        }
+                      : undefined
+                  }
+                />
+              </View>
+            ))}
+            <View />
+          </ScrollView>
+        ) : (
+          <View className="py-8">
+            <NavBar title={t('No suggested settlements!')} type="normal" />
+          </View>
+        )
+      ) : (
+        <Loader />
+      )}
+    </View>
+  );
+
+  function setView(index: number): ReactNode {
+    switch (index) {
+      case 0:
+        return activitiesView;
+      case 1:
+        return balancesView;
+      default:
+        return settlementsView;
+    }
+  }
 
   const noGroupView = (
     <View className="w-full h-full flex-col">
@@ -114,7 +278,38 @@ export default function Index() {
     <SafeView type="wide">
       <View className="w-full h-full pt-8">
         {userData.currentGroupId ? (
-          currentGroupView
+          groupDetails ? (
+            <View className="flex-1 space-y-3">
+              <SingleClickTouchableOpacity onPress={() => router.push('/groups/list')}>
+                <View pointerEvents="none">
+                  <GroupSelectInput
+                    label={t('Current group')}
+                    value={groupDetails}
+                    data={getGroupsDetailsList(groupDetails)}
+                  />
+                </View>
+              </SingleClickTouchableOpacity>
+              <View>
+                <SegmentedControls
+                  activeSegmentIndex={currentIndex}
+                  onValueChange={setCurrentIndex}
+                  segments={[
+                    { text: t('Activities') },
+                    { text: t('Balances') },
+                    { text: t('Settlements') },
+                  ]}
+                />
+              </View>
+              {currentIndex !== 0 && (
+                <View className=" items-start">
+                  <Chip text={selectedCurrency?.code} type="select" />
+                </View>
+              )}
+              {setView(currentIndex)}
+            </View>
+          ) : (
+            <Loader />
+          )
         ) : userData.currentGroupId === null ? (
           noGroupView
         ) : (

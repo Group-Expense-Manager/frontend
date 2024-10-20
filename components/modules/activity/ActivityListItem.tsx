@@ -2,25 +2,24 @@ import React from 'react';
 
 import GroupMemberImage from '@/components/modules/activity/GroupMemberImage';
 import TouchableActivity from '@/components/modules/activity/TouchableActivity';
-import { ActivityListElement } from '@/hooks/activity/UseActivities';
-import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
-import useGroupMembersDetails from '@/hooks/userdetails/UseGroupMembersDetails';
+import { ActivityListElement } from '@/hooks/finance/UseActivities';
+import { GroupMembersDetails } from '@/hooks/userdetails/UseGroupMembersDetails';
 import { getNameFromUserDetails } from '@/util/GetName';
 
 interface ActivityListItemProps {
-  groupId: string;
   activity: ActivityListElement;
+  groupMembersDetails: GroupMembersDetails;
   onPress: () => void;
 }
 
-const ActivityListItem: React.FC<ActivityListItemProps> = ({ groupId, activity, onPress }) => {
-  const { data: groupMembersDetails } = useGroupMembersDetails(groupId);
-
-  const { data: creatorDetails } = useGroupMemberDetails(groupId, activity.creatorId);
-
+const ActivityListItem: React.FC<ActivityListItemProps> = ({
+  activity,
+  onPress,
+  groupMembersDetails,
+}) => {
+  const creatorDetails = groupMembersDetails.details.find((it) => it.id === activity.creatorId);
   return (
-    creatorDetails &&
-    groupMembersDetails && (
+    creatorDetails && (
       <TouchableActivity
         type={activity.type}
         creatorName={getNameFromUserDetails(creatorDetails)}

@@ -2,32 +2,30 @@ import React from 'react';
 
 import UserValue from '@/components/ui/user-value/UserValue';
 import useProfilePicture from '@/hooks/attachment/UseProfilePicture';
+import { Balance } from '@/hooks/finance/UseBalances';
 import { GroupMemberDetails } from '@/hooks/userdetails/UseGroupMembersDetails';
 import { getFirstNameOrUsername } from '@/util/GetName';
 
-interface UserCostProps {
+interface UserBalanceProps {
   userDetails: GroupMemberDetails;
-  type: 'weight' | 'cost';
-  value: number;
-  currency?: string;
-  onPress?: () => void;
+  balance: Balance;
+  currency: string;
 }
 
-const UserCost: React.FC<UserCostProps> = ({ userDetails, type, value, currency, onPress }) => {
+const UserBalance: React.FC<UserBalanceProps> = ({ userDetails, balance, currency }) => {
   const { data: profilePicture } = useProfilePicture(userDetails.id, userDetails.attachmentId);
 
   const user = getFirstNameOrUsername(userDetails);
 
   return (
     <UserValue
-      type={type}
+      type="balance"
       user={user}
-      value={value}
+      value={balance.value}
       currency={currency}
-      onPress={onPress}
       image={profilePicture}
     />
   );
 };
 
-export default UserCost;
+export default UserBalance;

@@ -1,4 +1,5 @@
-import { router } from 'expo-router';
+import Decimal from 'decimal.js';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -16,6 +17,12 @@ import { IconSize } from '@/util/IconSize';
 
 export default function NewPaymentGroup() {
   const { t } = useTranslation();
+
+  const params = useLocalSearchParams<{
+    recipientId?: string;
+    currency?: string;
+    value?: string;
+  }>();
 
   const { paymentCreation, setPaymentCreation } = useContext(PaymentCreationContext);
 
@@ -41,10 +48,20 @@ export default function NewPaymentGroup() {
       const selected = groups.find((group) => group.groupId === userData.currentGroupId);
       if (selected) {
         setSelectedGroup(selected);
-        setPaymentCreation({
-          ...paymentCreation,
-          groupId: selected.groupId,
-        });
+        if (params.currency && params.recipientId && params.value) {
+          setPaymentCreation({
+            ...paymentCreation,
+            groupId: selected.groupId,
+            recipientId: params.recipientId,
+            baseCurrency: { code: params.currency },
+            value: new Decimal(params.value),
+          });
+        } else {
+          setPaymentCreation({
+            ...paymentCreation,
+            groupId: selected.groupId,
+          });
+        }
       }
     }
   }, [groups]);
