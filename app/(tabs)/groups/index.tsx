@@ -7,12 +7,12 @@ import ActivityListItem from '@/components/modules/activity/ActivityListItem';
 import UserBalance from '@/components/modules/balance/UserBalance';
 import SettlementListItem from '@/components/modules/settlements/SettlementListItem';
 import NavBar from '@/components/ui/bar/NavBar';
-import SafeView from '@/components/ui/box/SafeView';
+import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
-import Chip from '@/components/ui/chip/Chip';
 import Loader from '@/components/ui/loader/Loader';
 import CustomRefreshControl from '@/components/ui/refreshcontrol/CustomRefreshControl';
 import SegmentedControls from '@/components/ui/segmetedcontrols/SegmentedControls';
+import ChipSelectInput from '@/components/ui/text-input/select/ChipSelectInput';
 import GroupSelectInput from '@/components/ui/text-input/select/GroupSelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { LogoIcon } from '@/constants/Icon';
@@ -77,6 +77,12 @@ export default function Index() {
   const { data: groupMembersDetails } = useGroupMembersDetails(userData.currentGroupId!);
 
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>({ code: '' });
+
+  const groupCurrencies = () => {
+    return groupDetails?.groupCurrencies.map((currency) => {
+      return { value: currency, name: currency.code };
+    });
+  };
 
   useEffect(() => {
     if (groupDetails) {
@@ -280,8 +286,8 @@ export default function Index() {
   );
 
   return (
-    <SafeView type="wide">
-      <View className="w-full h-full pt-8">
+    <Box type="wide">
+      <View className="w-full h-full pt-4">
         {userData.currentGroupId ? (
           groupDetails ? (
             <View className="flex-1 space-y-3">
@@ -307,7 +313,12 @@ export default function Index() {
               </View>
               {currentIndex !== 0 && (
                 <View className=" items-start">
-                  <Chip text={selectedCurrency?.code} type="select" />
+                  <ChipSelectInput
+                    onSelect={setSelectedCurrency}
+                    onPress={() => router.navigate('/groups/group-currency-select')}
+                    value={selectedCurrency}
+                    data={groupCurrencies()}
+                  />
                 </View>
               )}
               {setView(currentIndex)}
@@ -321,6 +332,6 @@ export default function Index() {
           <Loader />
         )}
       </View>
-    </SafeView>
+    </Box>
   );
 }
