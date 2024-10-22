@@ -27,6 +27,17 @@ import useGroupMembersDetails, {
 } from '@/hooks/userdetails/UseGroupMembersDetails';
 import { IconSize } from '@/util/IconSize';
 
+type BalanceWithDetails = {
+  balance: Balance;
+  details: GroupMemberDetails;
+};
+
+type SettlementWithDetails = {
+  settlement: Settlement;
+  fromUserDetails: GroupMemberDetails;
+  toUserDetails: GroupMemberDetails;
+};
+
 export default function Index() {
   const { t } = useTranslation();
   const { authState, userData } = useContext(GlobalContext);
@@ -140,14 +151,13 @@ export default function Index() {
 
   const balancesWithDetails = balances?.balances
     .find((it) => it.currency === selectedCurrency.code)
-    ?.userBalances.map(
-      (it: Balance) =>
-        [it, findUserDetails(it.userId)] as [Balance, GroupMemberDetails | undefined],
-    )
-    .filter(
-      (it: [Balance, GroupMemberDetails | undefined]): it is [Balance, GroupMemberDetails] =>
-        it[1] !== undefined,
-    );
+    ?.userBalances.reduce<BalanceWithDetails[]>((acc, balance) => {
+      const details = findUserDetails(balance.userId);
+      if (details) {
+        acc.push({ balance, details });
+      }
+      return acc;
+    }, []);
 
   const balancesView = (
     <View className="flex-1">
@@ -161,8 +171,8 @@ export default function Index() {
           {balancesWithDetails.map((balanceWithDetails, index) => (
             <View key={index}>
               <UserBalance
-                balance={balanceWithDetails[0]}
-                userDetails={balanceWithDetails[1]}
+                balance={balanceWithDetails.balance}
+                userDetails={balanceWithDetails.details}
                 currency={selectedCurrency.code}
               />
             </View>
@@ -176,20 +186,15 @@ export default function Index() {
 
   const settlementsWithDetails = settlements?.settlements
     .find((it) => it.currency === selectedCurrency.code)
-    ?.settlements.map(
-      (it: Settlement) =>
-        [it, findUserDetails(it.fromUserId), findUserDetails(it.toUserId)] as [
-          Settlement,
-          GroupMemberDetails | undefined,
-          GroupMemberDetails | undefined,
-        ],
-    )
-    .filter(
-      (
-        it: [Settlement, GroupMemberDetails | undefined, GroupMemberDetails | undefined],
-      ): it is [Settlement, GroupMemberDetails, GroupMemberDetails] =>
-        it[1] !== undefined && it[2] !== undefined,
-    );
+    ?.settlements.reduce<SettlementWithDetails[]>((acc, settlement) => {
+      const fromUserDetails = findUserDetails(settlement.fromUserId);
+      const toUserDetails = findUserDetails(settlement.toUserId);
+
+      if (fromUserDetails && toUserDetails) {
+        acc.push({ settlement, fromUserDetails, toUserDetails });
+      }
+      return acc;
+    }, []);
 
   const settlementsView = (
     <View className="flex-1">
@@ -207,15 +212,15 @@ export default function Index() {
             {settlementsWithDetails.map((settlementWithDetails, index) => (
               <View key={index}>
                 <SettlementListItem
-                  fromUserDetails={settlementWithDetails[1]}
-                  toUserDetails={settlementWithDetails[2]}
-                  value={settlementWithDetails[0].value}
+                  fromUserDetails={settlementWithDetails.fromUserDetails}
+                  toUserDetails={settlementWithDetails.toUserDetails}
+                  value={settlementWithDetails.settlement.value}
                   currency={selectedCurrency.code}
                   onPress={
-                    authState.userId === settlementWithDetails[1].id
+                    authState.userId === settlementWithDetails.fromUserDetails.id
                       ? () => {
                           router.push(
-                            `/payments/new/group?recipientId=${settlementWithDetails[2].id}&currency=${selectedCurrency.code}&value=${settlementWithDetails[0].value}`,
+                            `/payments/new/group?recipientId=${settlementWithDetails.toUserDetails.id}&currency=${selectedCurrency.code}&value=${settlementWithDetails.settlement.value}`,
                           );
                         }
                       : undefined
