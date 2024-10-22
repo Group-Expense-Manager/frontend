@@ -30,7 +30,7 @@ export default function List() {
           <ScrollView showsVerticalScrollIndicator={false} className="flex flex-col space-y-2">
             {groups.map((group) => (
               <View key={group.groupId}>
-                <GroupInfoCard groupId={group.groupId} />
+                <GroupInfoCard group={group} />
               </View>
             ))}
           </ScrollView>
