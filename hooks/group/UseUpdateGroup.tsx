@@ -35,6 +35,15 @@ export default function (inParallel: boolean = false, groupId: string) {
     },
     onSuccess: (response: AxiosResponse<GroupDetails>) => {
       queryClient.invalidateQueries({
+        queryKey: [`/activities/groups/${groupId}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`/balances/groups/${groupId}`],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [`/settlements/groups/${groupId}`],
+      });
+      queryClient.invalidateQueries({
         queryKey: [`/groups`],
       });
       queryClient.setQueryData([`/groups/${groupId}`], (oldData: GroupDetails) => {
