@@ -11,29 +11,29 @@ import { GroupMemberDetails } from '@/hooks/userdetails/UseGroupMembersDetails';
 import { getFirstNameOrUsername } from '@/util/GetName';
 import { numberToString } from '@/util/StringUtils';
 
-interface AlignmentListItemProps {
-  payerDetails: GroupMemberDetails;
-  payeeDetails: GroupMemberDetails;
+interface SettlementListItemProps {
+  fromUserDetails: GroupMemberDetails;
+  toUserDetails: GroupMemberDetails;
   value: number;
   currency: string;
   onPress?: () => void;
 }
 
-const AlignmentListItem: React.FC<AlignmentListItemProps> = ({
-  payerDetails,
-  payeeDetails,
+const SettlementListItem: React.FC<SettlementListItemProps> = ({
+  fromUserDetails,
+  toUserDetails,
   value,
   currency,
   onPress,
 }) => {
   const { colorScheme } = useColorScheme();
   const { data: payerProfilePicture } = useProfilePicture(
-    payerDetails.id,
-    payerDetails.attachmentId,
+    fromUserDetails.id,
+    fromUserDetails.attachmentId,
   );
   const { data: payeeProfilePicture } = useProfilePicture(
-    payeeDetails.id,
-    payeeDetails.attachmentId,
+    toUserDetails.id,
+    toUserDetails.attachmentId,
   );
 
   return (
@@ -50,7 +50,7 @@ const AlignmentListItem: React.FC<AlignmentListItemProps> = ({
             numberOfLines={1}
             ellipsizeMode="tail"
             className="text-ink-darkest dark:text-sky-lightest text-small flex-1">
-            {getFirstNameOrUsername(payerDetails)}
+            {getFirstNameOrUsername(fromUserDetails)}
           </Text>
         </View>
         <View className="flex-row space-x-2 items-center ">
@@ -59,7 +59,7 @@ const AlignmentListItem: React.FC<AlignmentListItemProps> = ({
             numberOfLines={1}
             ellipsizeMode="tail"
             className="text-ink-darkest dark:text-sky-lightest text-small flex-1">
-            {getFirstNameOrUsername(payeeDetails)}
+            {getFirstNameOrUsername(toUserDetails)}
           </Text>
         </View>
       </View>
@@ -73,4 +73,4 @@ const AlignmentListItem: React.FC<AlignmentListItemProps> = ({
   );
 };
 
-export default AlignmentListItem;
+export default SettlementListItem;

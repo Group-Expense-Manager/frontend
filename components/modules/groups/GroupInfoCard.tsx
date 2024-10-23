@@ -7,21 +7,20 @@ import theme from '@/constants/Colors';
 import { SettingsIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
 import useGroupPicture from '@/hooks/attachment/UseGroupPicture';
-import useGroup from '@/hooks/group/UseGroup';
+import { Group } from '@/hooks/group/UseGroups';
 import useGroupMemberDetails from '@/hooks/userdetails/UseGroupMemberDetails';
 import { getNameFromUserDetails } from '@/util/GetName';
 
 interface GroupInfoCardProps {
-  groupId: string;
+  group: Group;
 }
 
-const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ groupId }) => {
+const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ group }) => {
   const { t } = useTranslation();
   const { userData, setUserData } = useContext(GlobalContext);
 
-  const { data: groupDetails } = useGroup(groupId);
-  const { data: ownerDetails } = useGroupMemberDetails(groupId, groupDetails?.ownerId);
-  const { data: groupPicture } = useGroupPicture(groupId, groupDetails?.attachmentId);
+  const { data: ownerDetails } = useGroupMemberDetails(group.groupId, group.ownerId);
+  const { data: groupPicture } = useGroupPicture(group.groupId, group.attachmentId);
 
   const [author, setAuthor] = useState('');
 
@@ -32,23 +31,21 @@ const GroupInfoCard: React.FC<GroupInfoCardProps> = ({ groupId }) => {
   }, [ownerDetails]);
 
   return (
-    groupDetails && (
-      <ListItemInfoCard
-        image={groupPicture}
-        title={groupDetails.name}
-        details={`${t('author')}: ${author}`}
-        iconProps={{
-          icon: <SettingsIcon />,
-          color: theme.ink.darkest,
-          darkModeColor: theme.sky.lightest,
-          onPress: () => router.push(`/groups/${groupId}`),
-        }}
-        onPress={() => {
-          setUserData({ ...userData, currentGroupId: groupId });
-          router.back();
-        }}
-      />
-    )
+    <ListItemInfoCard
+      image={groupPicture}
+      title={group.name}
+      details={`${t('author')}: ${author}`}
+      iconProps={{
+        icon: <SettingsIcon />,
+        color: theme.ink.darkest,
+        darkModeColor: theme.sky.lightest,
+        onPress: () => router.push(`/groups/${group.groupId}`),
+      }}
+      onPress={() => {
+        setUserData({ ...userData, currentGroupId: group.groupId });
+        router.back();
+      }}
+    />
   );
 };
 

@@ -200,6 +200,9 @@
   "Report created - description": "Raport został pomyślnie utworzony i wysłany na Twój adres email.",
   "Report format": "Format raportu",
   "Report title": "Tytuł raportu",
-  "Report title may contain at most 30 characters": "Tytuł raportu może zawierać maksymalnie 30 znaków"
-
+  "Report title may contain at most 30 characters": "Tytuł raportu może zawierać maksymalnie 30 znaków",
+  "Activities": "Aktywności",
+  "Balances": "Bilanse",
+  "Settlements": "Wyrównania",
+  "No suggested settlements!": "Brak sugerowanych wyrównań!"
 }
