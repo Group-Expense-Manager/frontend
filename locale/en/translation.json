@@ -204,5 +204,10 @@
   "Activities": "Activities",
   "Balances": "Balances",
   "Settlements": "Settlements",
-  "No suggested settlements!": "No suggested settlements!"
+  "No suggested settlements!": "No suggested settlements!",
+  "Delete group": "Delete group",
+  "Can not delete group!": "Can not delete group!",
+  "Can not delete group! - description": "To delete the group, all members must settle their financial obligations.",
+  "Delete group - title": "Delete this group?",
+  "Delete group - description": "Are you sure you want to delete this group? This action cannot be undone."
 }
