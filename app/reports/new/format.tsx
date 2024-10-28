@@ -6,7 +6,7 @@ import { View } from 'react-native';
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
 import FullViewLoader from '@/components/ui/loader/FullViewLoader';
-import MultiSelectInput from '@/components/ui/text-input/select/MultiSelectInput';
+import SelectInput from '@/components/ui/text-input/select/SelectInput';
 import { LogoIcon } from '@/constants/Icon';
 import { ReportCreationContext, ReportFormat } from '@/context/report/ReportCreationContext';
 import useCreateReport from '@/hooks/report/UseCreateReport';
@@ -18,17 +18,17 @@ export default function NewReportFormat() {
 
   const { reportCreation, setReportCreation } = useContext(ReportCreationContext);
 
-  const [selectedFormats, setSelectedFormats] = useState<ReportFormat[]>(reportCreation.format);
+  const [selectedFormat, setSelectedFormat] = useState<ReportFormat>();
 
   const { mutate: createReport, isPending: isReportCreationPending } = useCreateReport();
 
   useEffect(() => {
     if (reportCreation.format) {
-      setSelectedFormats(reportCreation.format);
+      setSelectedFormat(reportCreation.format);
     }
   }, [reportCreation.format]);
 
-  function setReportFormat(reportFormats: ReportFormat[]) {
+  function setReportFormat(reportFormats: ReportFormat) {
     setReportCreation({
       ...reportCreation,
       format: reportFormats,
@@ -48,12 +48,11 @@ export default function NewReportFormat() {
             <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
           </View>
           <View className="py-8 w-full flex flex-col space-y-8">
-            <MultiSelectInput
+            <SelectInput
               onSelect={setReportFormat}
               onPress={() => router.navigate('/reports/new/format-select')}
               label={t('Report format')}
-              values={selectedFormats}
-              setValues={setSelectedFormats}
+              value={selectedFormat}
               data={reportTypes()}
             />
           </View>
@@ -64,7 +63,7 @@ export default function NewReportFormat() {
             <CustomButton
               onPress={createReport}
               title={t('Create report')}
-              disabled={!reportCreation.format.length}
+              disabled={!reportCreation.format}
             />
           </View>
           <View className="w-full">
