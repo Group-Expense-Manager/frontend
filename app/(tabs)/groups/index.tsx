@@ -22,6 +22,7 @@ import useActivities, { ActivityListElement } from '@/hooks/finance/UseActivitie
 import useBalances, { Balance } from '@/hooks/finance/UseBalances';
 import useSettlements, { Settlement } from '@/hooks/finance/UseSettlements';
 import useGroup, { GroupDetails } from '@/hooks/group/UseGroup';
+import useGroups from '@/hooks/group/UseGroups';
 import useGroupMembersDetails, {
   GroupMemberDetails,
 } from '@/hooks/userdetails/UseGroupMembersDetails';
@@ -40,8 +41,17 @@ type SettlementWithDetails = {
 
 export default function Index() {
   const { t } = useTranslation();
-  const { authState, userData } = useContext(GlobalContext);
+  const { authState, userData, setUserData } = useContext(GlobalContext);
   const { data: groupDetails } = useGroup(userData.currentGroupId);
+  const { data: userGroups, status: userGroupsStatus } = useGroups();
+
+  useEffect(() => {
+    if (userGroupsStatus === 'success' && !userData.currentGroupId) {
+      setUserData({
+        currentGroupId: !userGroups.length ? null : userGroups[0].groupId,
+      });
+    }
+  }, [userGroupsStatus, userData.currentGroupId]);
 
   const { data: activities, refetch: refetchActivities } = useActivities(userData.currentGroupId);
 

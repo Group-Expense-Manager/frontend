@@ -204,5 +204,10 @@
   "Activities": "Aktywności",
   "Balances": "Bilanse",
   "Settlements": "Wyrównania",
-  "No suggested settlements!": "Brak sugerowanych wyrównań!"
+  "No suggested settlements!": "Brak sugerowanych wyrównań!",
+  "Delete group": "Usuń grupę",
+  "Can not delete group!": "Nie można usunąć grupy!",
+  "Can not delete group! - description": "Aby usunąć grupę, wszyscy członkowie muszą uregulować zobowiązania finansowe.",
+  "Delete group - title": "Czy usunąć tę grupę?",
+  "Delete group - description": "Czy na pewno chcesz usunąć tę grupę? Operacja jest nieodwracalna."
 }
