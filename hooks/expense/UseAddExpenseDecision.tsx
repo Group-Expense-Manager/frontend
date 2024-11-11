@@ -35,9 +35,9 @@ export default function useAddExpenseDecision(expenseDecision: ExpenseDecision) 
           return response.data;
         },
       );
-
-      await queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: [`/activities/groups/${expenseDecision.groupId}`],
+        exact: false,
       });
 
       router.back();

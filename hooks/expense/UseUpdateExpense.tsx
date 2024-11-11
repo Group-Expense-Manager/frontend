@@ -66,8 +66,9 @@ export default function useUpdateExpense(groupId: string, expenseId: string) {
       queryClient.setQueryData([`/expenses/${response.data.expenseId}/groups/${groupId}`], () => {
         return response.data;
       });
-      queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: [`/activities/groups/${groupId}`],
+        exact: false,
       });
       router.navigate(`/expenses/${expenseId}`);
     },

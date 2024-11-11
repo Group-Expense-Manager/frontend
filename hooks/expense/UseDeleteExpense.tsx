@@ -24,8 +24,9 @@ export default function useDeleteExpense(groupId: string, expenseId: string) {
       queryClient.removeQueries({
         queryKey: [`/expenses/${expenseId}/groups/${groupId}`],
       });
-      await queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: [`/activities/groups/${groupId}`],
+        exact: false,
       });
 
       router.navigate('/groups');

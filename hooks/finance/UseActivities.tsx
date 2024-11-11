@@ -22,18 +22,22 @@ export type Activities = {
   activities: ActivityListElement[];
 };
 
-export default function useActivities(groupId?: string | null) {
+export default function useActivities(groupId?: string | null, searchText?: string) {
   const { authState } = useContext(GlobalContext);
   return useQuery({
-    queryKey: [`/activities/groups/${groupId}`],
+    queryKey: [`/activities/groups/${groupId}`, searchText ?? `title=${searchText}`],
     queryFn: async (): Promise<Activities> => {
-      const { data } = await axios.get(`${API_URL}${PATHS.EXTERNAL}/activities/groups/${groupId}`, {
-        headers: {
-          host: HOST.FINANCE_ADAPTER,
-          accept: APPLICATION_JSON_INTERNAL_VER_1,
-          authorization: `Bearer ${authState.token}`,
+      const { data } = await axios.get(
+        `${API_URL}${PATHS.EXTERNAL}/activities/groups/${groupId}` +
+          (searchText ? `?title=${searchText}` : ''),
+        {
+          headers: {
+            host: HOST.FINANCE_ADAPTER,
+            accept: APPLICATION_JSON_INTERNAL_VER_1,
+            authorization: `Bearer ${authState.token}`,
+          },
         },
-      });
+      );
       return data;
     },
     enabled: !!groupId,

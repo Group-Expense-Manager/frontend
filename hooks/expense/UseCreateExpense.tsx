@@ -73,8 +73,9 @@ export default function useCreateExpense() {
         },
       );
 
-      queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: [`/activities/groups/${expenseCreation.groupId}`],
+        exact: false,
       });
       setUserData({ ...userData, currentGroupId: expenseCreation.groupId });
       router.navigate('/groups');

@@ -47,8 +47,9 @@ export default function useCreatePayment() {
           return response.data;
         },
       );
-      queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: [`/activities/groups/${paymentCreation.groupId}`],
+        exact: false,
       });
       setUserData({ ...userData, currentGroupId: paymentCreation.groupId });
       router.navigate('/groups');
