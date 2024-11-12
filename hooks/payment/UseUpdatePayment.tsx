@@ -43,8 +43,9 @@ export default function useUpdatePayment(groupId: string, paymentId: string) {
       queryClient.setQueryData([`/payments/${response.data.paymentId}/groups/${groupId}`], () => {
         return response.data;
       });
-      queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: [`/activities/groups/${groupId}`],
+        exact: false,
       });
       router.navigate(`/payments/${paymentId}`);
     },

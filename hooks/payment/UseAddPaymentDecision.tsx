@@ -36,8 +36,9 @@ export default function useAddPaymentDecision(paymentDecision: PaymentDecision) 
         },
       );
 
-      await queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: [`/activities/groups/${paymentDecision.groupId}`],
+        exact: false,
       });
 
       router.back();

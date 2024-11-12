@@ -24,8 +24,9 @@ export default function useDeletePayment(groupId: string, paymentId: string) {
       queryClient.removeQueries({
         queryKey: [`/payments/${paymentId}/groups/${groupId}`],
       });
-      await queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: [`/activities/groups/${groupId}`],
+        exact: false,
       });
 
       router.navigate('/groups');

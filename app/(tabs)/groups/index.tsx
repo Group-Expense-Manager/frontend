@@ -1,5 +1,5 @@
-import { router } from 'expo-router';
-import React, { ReactNode, useContext, useEffect, useState } from 'react';
+import { router, useFocusEffect } from 'expo-router';
+import React, { ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, ScrollView, View } from 'react-native';
 
@@ -12,6 +12,7 @@ import CustomButton from '@/components/ui/button/CustomButton';
 import Loader from '@/components/ui/loader/Loader';
 import CustomRefreshControl from '@/components/ui/refreshcontrol/CustomRefreshControl';
 import SegmentedControls from '@/components/ui/segmetedcontrols/SegmentedControls';
+import MultiTextInput from '@/components/ui/text-input/MultiTextInput';
 import ChipSelectInput from '@/components/ui/text-input/select/ChipSelectInput';
 import GroupSelectInput from '@/components/ui/text-input/select/GroupSelectInput';
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
@@ -45,6 +46,8 @@ export default function Index() {
   const { data: groupDetails } = useGroup(userData.currentGroupId);
   const { data: userGroups, status: userGroupsStatus } = useGroups();
 
+  const [searchText, setSearchText] = useState('');
+
   useEffect(() => {
     if (userGroupsStatus === 'success' && !userData.currentGroupId) {
       setUserData({
@@ -53,7 +56,16 @@ export default function Index() {
     }
   }, [userGroupsStatus, userData.currentGroupId]);
 
-  const { data: activities, refetch: refetchActivities } = useActivities(userData.currentGroupId);
+  const { data: activities, refetch: refetchActivities } = useActivities(
+    userData.currentGroupId,
+    searchText ?? undefined,
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      refetchActivities();
+    }, [refetchActivities]),
+  );
 
   const [refreshingActivities, setRefreshingActivities] = React.useState(false);
 
@@ -126,38 +138,40 @@ export default function Index() {
   };
 
   const activitiesView = (
-    <View className="flex-1">
+    <View className="flex-1 space-y-2">
+      <MultiTextInput label={t('Search')} value={searchText} onChangeText={setSearchText} />
       {activities && groupMembersDetails ? (
-        activities.activities.length > 0 ? (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            refreshControl={
-              <CustomRefreshControl
-                refreshing={refreshingActivities}
-                onRefresh={onRefreshActivities}
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <CustomRefreshControl
+              refreshing={refreshingActivities}
+              onRefresh={onRefreshActivities}
+            />
+          }
+          data={activities.activities.toReversed()}
+          keyExtractor={(item) => item.activityId}
+          renderItem={({ item: activity }) => (
+            <View className="mb-2">
+              <ActivityListItem
+                activity={activity}
+                onPress={() => handleActivityPress(activity)}
+                groupMembersDetails={groupMembersDetails}
               />
-            }
-            data={activities.activities.toReversed()}
-            keyExtractor={(item) => item.activityId}
-            renderItem={({ item: activity }) => (
-              <View className="mb-2">
-                <ActivityListItem
-                  activity={activity}
-                  onPress={() => handleActivityPress(activity)}
-                  groupMembersDetails={groupMembersDetails}
-                />
-              </View>
-            )}
-            initialNumToRender={7}
-            maxToRenderPerBatch={5}
-          />
-        ) : (
-          <View className="py-8">
-            <NavBar title={t("Oops, you don't have any activities!")} type="normal" />
-          </View>
-        )
+            </View>
+          )}
+          initialNumToRender={7}
+          maxToRenderPerBatch={5}
+          ListEmptyComponent={() => (
+            <View className="py-8">
+              <NavBar title={t("Oops, you don't have any activities!")} type="normal" />
+            </View>
+          )}
+        />
       ) : (
-        <Loader />
+        <View className="pt-4">
+          <Loader />
+        </View>
       )}
     </View>
   );
@@ -301,7 +315,11 @@ export default function Index() {
         {userData.currentGroupId ? (
           groupDetails ? (
             <View className="flex-1 space-y-3">
-              <SingleClickTouchableOpacity onPress={() => router.push('/groups/list')}>
+              <SingleClickTouchableOpacity
+                onPress={() => {
+                  router.push('/groups/list');
+                  setSearchText('');
+                }}>
                 <View pointerEvents="none">
                   <GroupSelectInput
                     label={t('Current group')}
