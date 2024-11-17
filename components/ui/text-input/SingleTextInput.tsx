@@ -18,6 +18,7 @@ export interface SingleTextInputProps {
   autoFocus?: boolean;
   onBlur?: () => void;
   showErrors?: boolean;
+  onPress?: () => void;
 }
 
 const SingleTextInput: React.FC<SingleTextInputProps> = ({
@@ -31,6 +32,7 @@ const SingleTextInput: React.FC<SingleTextInputProps> = ({
   autoFocus = false,
   onBlur = () => {},
   showErrors = false,
+  onPress = () => {},
 }) => {
   return (
     <BaseTextInput
@@ -47,6 +49,7 @@ const SingleTextInput: React.FC<SingleTextInputProps> = ({
       autoFocus={autoFocus}
       onBlur={onBlur}
       showErrors={showErrors}
+      onPress={onPress}
     />
   );
 };

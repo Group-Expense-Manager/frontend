@@ -1,11 +1,13 @@
 import { router } from 'expo-router';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
+import CalendarModal from '@/components/ui/calendar/CalendarModal';
 import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
+import { formatDateToDefaultFormat } from '@/constants/Date';
 import { LogoIcon } from '@/constants/Icon';
 import { PaymentCreationContext } from '@/context/payment/PaymentCreationContext';
 import { ButtonType } from '@/util/ButtonType';
@@ -14,8 +16,14 @@ import { IconSize } from '@/util/IconSize';
 export default function NewPaymentDate() {
   const { t } = useTranslation();
   const { paymentCreation, setPaymentCreation } = useContext(PaymentCreationContext);
+  const [isCalendarVisible, setCalendarVisible] = useState(false);
 
   const isNextButtonDisabled = paymentCreation.date === undefined;
+
+  const handleDateSelected = (date: Date) => {
+    setPaymentCreation({ ...paymentCreation, date });
+    setCalendarVisible(false);
+  };
 
   return (
     <Box>
@@ -27,10 +35,8 @@ export default function NewPaymentDate() {
           <View className="py-8 w-full flex flex-col space-y-8">
             <SingleTextInput
               label={t('Payment date')}
-              onChangeText={(date: string) =>
-                setPaymentCreation({ ...paymentCreation, date: new Date(date) })
-              }
-              value={paymentCreation.date.toDateString()}
+              onPress={() => setCalendarVisible(true)}
+              value={formatDateToDefaultFormat(paymentCreation.date)}
             />
           </View>
         </View>
@@ -47,6 +53,14 @@ export default function NewPaymentDate() {
             <CustomButton onPress={router.back} title={t('Back')} type={ButtonType.OUTLINED} />
           </View>
         </View>
+
+        <CalendarModal
+          title={t('Select Payment Date')}
+          onDateSelected={handleDateSelected}
+          initialDate={paymentCreation.date}
+          setCalendarVisible={setCalendarVisible}
+          isCalendarVisible={isCalendarVisible}
+        />
       </View>
     </Box>
   );

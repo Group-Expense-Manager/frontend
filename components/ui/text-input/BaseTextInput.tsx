@@ -21,6 +21,7 @@ interface BaseTextInputProps {
   rightSection?: React.ReactNode;
   autoFocus: boolean;
   onBlur: () => void;
+  onPress?: () => void;
   showErrors: boolean;
 }
 
@@ -66,6 +67,7 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
   autoFocus,
   onBlur,
   showErrors,
+  onPress = () => {},
 }) => {
   const { colorScheme } = useColorScheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -79,6 +81,7 @@ const BaseTextInput: React.FC<BaseTextInputProps> = ({
 
   const handlePress = () => {
     if (!disabled) {
+      onPress();
       setIsFocused(true);
       textInputRef.current?.focus();
     }
