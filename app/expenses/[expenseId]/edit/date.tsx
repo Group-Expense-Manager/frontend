@@ -1,12 +1,12 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
 import CalendarModal from '@/components/ui/calendar/CalendarModal';
-import SingleTextInput from '@/components/ui/text-input/SingleTextInput';
+import SingleTextLabel from '@/components/ui/text-input/SingleTextLabel';
 import { formatDateToDefaultFormat } from '@/constants/Date';
 import { LogoIcon } from '@/constants/Icon';
 import { ExpenseUpdateContext } from '@/context/expense/ExpenseUpdateContext';
@@ -17,14 +17,19 @@ export default function EditExpenseDate() {
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ expenseId: string }>();
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-
   const { expenseUpdate, setExpenseUpdate } = useContext(ExpenseUpdateContext);
-
+  const textInputRef = useRef<any>(null);
   const isNextButtonDisabled = expenseUpdate.expenseDate === undefined;
 
   const handleDateSelected = (date: Date) => {
+    textInputRef.current?.blur();
     setExpenseUpdate({ ...expenseUpdate, expenseDate: date });
     setCalendarVisible(false);
+  };
+
+  const handleShowCalendar = () => {
+    textInputRef.current?.focus();
+    setCalendarVisible(true);
   };
 
   return (
@@ -35,10 +40,11 @@ export default function EditExpenseDate() {
             <LogoIcon width={IconSize.COLOSSAL} height={IconSize.COLOSSAL} />
           </View>
           <View className="py-8 w-full flex flex-col space-y-8">
-            <SingleTextInput
+            <SingleTextLabel
+              ref={textInputRef}
               label={t('Expense date')}
               value={formatDateToDefaultFormat(expenseUpdate.expenseDate)}
-              onPress={() => setCalendarVisible(true)}
+              onPress={handleShowCalendar}
             />
           </View>
         </View>

@@ -80,7 +80,7 @@ const CalendarModal: React.FC<CalendarModalProps> = ({
           <View className="absolute w-full h-full opacity-70 bg-ink-darkest">
             <TouchableOpacity onPress={() => setCalendarVisible(false)} className="w-full h-full" />
           </View>
-          <View className="bg-sky-lightest dark:bg-ink-darker h-3/5 w-full p-4 rounded-t-2xl">
+          <View className="bg-sky-lightest dark:bg-ink-darker h-[500px] w-full p-4 rounded-t-2xl">
             <Text className="font-bold text-title3 text-ink-darkest dark:text-sky-lightest text-center my-2">
               {title}
             </Text>
