@@ -3,6 +3,10 @@ import HelpCircleIcon from '../assets/icons/activity-status/help-circle.svg';
 import XCircleIcon from '../assets/icons/activity-status/x-circle.svg';
 import ArrowLeftIcon from '../assets/icons/arrow-left.svg';
 import ArrowNarrowRight from '../assets/icons/arrow-narrow-right.svg';
+import ChevronLeftDouble from '../assets/icons/calendar/chevron-left-double.svg';
+import ChevronLeft from '../assets/icons/calendar/chevron-left.svg';
+import ChevronRightDouble from '../assets/icons/calendar/chevron-right-double.svg';
+import ChevronRight from '../assets/icons/calendar/chevron-right.svg';
 import DiamondIcon from '../assets/icons/card/diamond-02.svg';
 import SettingsIcon from '../assets/icons/card/settings-01.svg';
 import CheckIcon from '../assets/icons/check.svg';
@@ -56,4 +60,8 @@ export {
   ArrowNarrowRight,
   TrashIcon,
   CurvedArrowIcon,
+  ChevronLeft,
+  ChevronLeftDouble,
+  ChevronRight,
+  ChevronRightDouble,
 };

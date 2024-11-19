@@ -33,7 +33,7 @@ const defaultExpenseCreation: ExpenseCreation = {
   title: '',
   totalCost: new Decimal(0),
   baseCurrency: { code: '' },
-  expenseDate: new Date(),
+  expenseDate: new Date(new Date().setHours(0, 0, 0, 0)),
   expenseParticipants: [],
   divisionType: 'weight',
 };
