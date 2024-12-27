@@ -230,5 +230,21 @@
   "Sat": "Sat",
   "Sun": "Sun",
   "Select Expense Date": "Select Expense Date",
-  "Select Payment Date": "Select Payment Date"
+  "Select Payment Date": "Select Payment Date",
+  "Filters": "Filters",
+  "Search": "Search",
+  "TITLE_DESCENDING": "by title Z-A",
+  "TITLE_ASCENDING": "by title A-Z",
+  "DATE_DESCENDING": "by date desc.",
+  "DATE_ASCENDING": "by date asc.",
+  "created by me": "created by me",
+  "Created by me": "Created by me",
+
+  "ACCEPTED_FILTER": "accepted",
+  "REJECTED_FILTER": "rejected",
+  "PENDING_FILTER": "pending",
+  "EXPENSE_FILTER": "expenses",
+  "PAYMENT_FILTER": "payments",
+  "Type": "Type",
+  "Sorting": "Sorting"
 }

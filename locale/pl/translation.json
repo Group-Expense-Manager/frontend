@@ -230,5 +230,23 @@
   "Sat": "Sob",
   "Sun": "Nie",
   "Select Expense Date": "Wybierz datę wydatku",
-  "Select Payment Date": "Wybierz datę płatności"
+  "Select Payment Date": "Wybierz datę płatności",
+  "Filters": "Filtry",
+  "Search": "Wyszukaj",
+  "TITLE_DESCENDING": "po tytule Z-A",
+  "TITLE_ASCENDING": "po tytule A-Z",
+  "DATE_DESCENDING": "po dacie mal.",
+  "DATE_ASCENDING": "po dacie ros.",
+  "created by me": "moje",
+  "Created by me": "Tylko moje",
+
+  "ACCEPTED_FILTER": "potwierdzone",
+  "REJECTED_FILTER": "odrzucone",
+  "PENDING_FILTER": "w toku",
+  "EXPENSE_FILTER": "wydatki",
+  "PAYMENT_FILTER": "rozliczenia",
+  "Type": "Typ",
+  "Sorting": "Sortowanie"
+
+
 }

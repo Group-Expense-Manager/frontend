@@ -56,7 +56,7 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({ disabled = false, value }) 
       className={`flex-row ${thumbPosition} items-center px-[2px] w-[56px] h-[32px]  rounded-[32px] ${trackColor()}
         ${hasBorder ? 'border border-sky-light dark:border-ink-dark' : ''}
         `}>
-      <View className={`w-[28px] h-[28px]  rounded-[14px] ${thumbColor()}`} />
+      <View className={`w-[28px] h-[28px] rounded-[14px] ${thumbColor()}`} />
     </View>
   );
 };
