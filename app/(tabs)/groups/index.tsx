@@ -9,6 +9,7 @@ import SettlementListItem from '@/components/modules/settlements/SettlementListI
 import NavBar from '@/components/ui/bar/NavBar';
 import Box from '@/components/ui/box/Box';
 import CustomButton from '@/components/ui/button/CustomButton';
+import FilterChips from '@/components/ui/filter/FilterChips';
 import Loader from '@/components/ui/loader/Loader';
 import CustomRefreshControl from '@/components/ui/refreshcontrol/CustomRefreshControl';
 import SegmentedControls from '@/components/ui/segmetedcontrols/SegmentedControls';
@@ -18,6 +19,7 @@ import GroupSelectInput from '@/components/ui/text-input/select/GroupSelectInput
 import SingleClickTouchableOpacity from '@/components/ui/touchableopacity/SingleClickTouchableOpacity';
 import { LogoIcon } from '@/constants/Icon';
 import { GlobalContext } from '@/context/GlobalContext';
+import { FiltersContext } from '@/context/filter/FiltersContext';
 import { Currency } from '@/hooks/currency/UseAvailableCurrencies';
 import useActivities, { ActivityListElement } from '@/hooks/finance/UseActivities';
 import useBalances, { Balance } from '@/hooks/finance/UseBalances';
@@ -46,7 +48,7 @@ export default function Index() {
   const { data: groupDetails } = useGroup(userData.currentGroupId);
   const { data: userGroups, status: userGroupsStatus } = useGroups();
 
-  const [searchText, setSearchText] = useState('');
+  const { filters, setFilters } = useContext(FiltersContext);
 
   useEffect(() => {
     if (userGroupsStatus === 'success' && !userData.currentGroupId) {
@@ -57,8 +59,8 @@ export default function Index() {
   }, [userGroupsStatus, userData.currentGroupId]);
 
   const { data: activities, refetch: refetchActivities } = useActivities(
+    filters,
     userData.currentGroupId,
-    searchText ?? undefined,
   );
 
   useFocusEffect(
@@ -139,7 +141,23 @@ export default function Index() {
 
   const activitiesView = (
     <View className="flex-1 space-y-2">
-      <MultiTextInput label={t('Search')} value={searchText} onChangeText={setSearchText} />
+      <MultiTextInput
+        label={t('Search')}
+        value={filters.title}
+        onChangeText={(text: string) =>
+          setFilters({
+            ...filters,
+            title: text,
+          })
+        }
+      />
+      <View>
+        <FilterChips
+          activityFilters={filters}
+          setActivityFilters={setFilters}
+          onPress={() => router.push('/filters')}
+        />
+      </View>
       {activities && groupMembersDetails ? (
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -149,7 +167,7 @@ export default function Index() {
               onRefresh={onRefreshActivities}
             />
           }
-          data={activities.activities.toReversed()}
+          data={activities.activities}
           keyExtractor={(item) => item.activityId}
           renderItem={({ item: activity }) => (
             <View className="mb-2">
@@ -318,7 +336,7 @@ export default function Index() {
               <SingleClickTouchableOpacity
                 onPress={() => {
                   router.push('/groups/list');
-                  setSearchText('');
+                  setFilters({});
                 }}>
                 <View pointerEvents="none">
                   <GroupSelectInput
