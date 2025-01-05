@@ -98,6 +98,10 @@ export default function useActivities(activityFilters: ActivityFilters, groupId?
   return useQuery({
     queryKey: getKey(activityFilters, groupId),
     queryFn: async (): Promise<Activities> => {
+      if (!groupId) {
+        throw new Error('groupId is required');
+      }
+
       const { data } = await axios.get(getUrl(activityFilters, groupId), {
         headers: {
           host: HOST.FINANCE_ADAPTER,
@@ -107,6 +111,10 @@ export default function useActivities(activityFilters: ActivityFilters, groupId?
       });
       return data;
     },
-    enabled: !!groupId,
+    staleTime: 10 * 60 * 1000,
+    retry: 10,
+    retryDelay: (attempt) => {
+      return Math.pow(2, attempt) * 100;
+    },
   });
 }

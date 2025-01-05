@@ -26,6 +26,9 @@ export default function useSettlements(groupId?: string | null) {
   return useQuery({
     queryKey: [`/settlements/groups/${groupId}`],
     queryFn: async (): Promise<SettlementsList> => {
+      if (!groupId) {
+        throw new Error('groupId is required');
+      }
       const { data } = await axios.get(
         `${API_URL}${PATHS.EXTERNAL}/settlements/groups/${groupId}`,
         {
@@ -38,6 +41,10 @@ export default function useSettlements(groupId?: string | null) {
       );
       return data;
     },
-    enabled: !!groupId,
+    staleTime: 10 * 60 * 1000,
+    retry: 10,
+    retryDelay: (attempt) => {
+      return Math.pow(2, attempt) * 100;
+    },
   });
 }

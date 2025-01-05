@@ -25,6 +25,9 @@ function useGroup(groupId?: string | null) {
   return useQuery({
     queryKey: [`/groups/${groupId}`],
     queryFn: async (): Promise<GroupDetails> => {
+      if (!groupId) {
+        throw new Error('groupId is required');
+      }
       const { data } = await axios.get(`${API_URL}${PATHS.EXTERNAL}/groups/${groupId}`, {
         headers: {
           host: HOST.GROUP_MANAGER,
@@ -34,8 +37,11 @@ function useGroup(groupId?: string | null) {
       });
       return data;
     },
-    refetchOnMount: false,
-    enabled: !!groupId,
+    staleTime: 10 * 60 * 1000,
+    retry: 10,
+    retryDelay: (attempt) => {
+      return Math.pow(2, attempt) * 100;
+    },
   });
 }
 
