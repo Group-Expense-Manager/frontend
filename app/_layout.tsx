@@ -10,6 +10,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import theme from '@/constants/Colors';
 import { GlobalProvider } from '@/context/GlobalContext';
+import { FiltersProvider } from '@/context/filter/FiltersContext';
 
 const client = new QueryClient();
 
@@ -49,29 +50,32 @@ const RootLayout = () => {
     <QueryClientProvider client={client}>
       <GlobalProvider>
         <PaperProvider>
-          <SafeAreaProvider>
-            <View className="flex-1">
-              <StatusBar
-                backgroundColor={colorScheme === 'light' ? theme.sky.lightest : theme.ink.darkest}
-                style={colorScheme === 'light' ? 'dark' : 'light'}
-              />
-              <Stack>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-                <Stack.Screen name="you" options={{ headerShown: false }} />
-                <Stack.Screen name="groups" options={{ headerShown: false }} />
-                <Stack.Screen name="expenses" options={{ headerShown: false }} />
-                <Stack.Screen name="payments" options={{ headerShown: false }} />
-                <Stack.Screen name="reports/new" options={{ headerShown: false }} />
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="loading-user-data"
-                  options={{ headerShown: false, animation: 'none' }}
+          <FiltersProvider>
+            <SafeAreaProvider>
+              <View className="flex-1">
+                <StatusBar
+                  backgroundColor={colorScheme === 'light' ? theme.sky.lightest : theme.ink.darkest}
+                  style={colorScheme === 'light' ? 'dark' : 'light'}
                 />
-                <Stack.Screen name="welcome" options={{ headerShown: false }} />
-              </Stack>
-            </View>
-          </SafeAreaProvider>
+                <Stack>
+                  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                  <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                  <Stack.Screen name="you" options={{ headerShown: false }} />
+                  <Stack.Screen name="groups" options={{ headerShown: false }} />
+                  <Stack.Screen name="filters" options={{ headerShown: false }} />
+                  <Stack.Screen name="expenses" options={{ headerShown: false }} />
+                  <Stack.Screen name="payments" options={{ headerShown: false }} />
+                  <Stack.Screen name="reports/new" options={{ headerShown: false }} />
+                  <Stack.Screen name="index" options={{ headerShown: false }} />
+                  <Stack.Screen
+                    name="loading-user-data"
+                    options={{ headerShown: false, animation: 'none' }}
+                  />
+                  <Stack.Screen name="welcome" options={{ headerShown: false }} />
+                </Stack>
+              </View>
+            </SafeAreaProvider>
+          </FiltersProvider>
         </PaperProvider>
       </GlobalProvider>
     </QueryClientProvider>

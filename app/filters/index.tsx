@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, View } from 'react-native';
 
 import Box from '@/components/ui/box/Box';
+import CustomCheckbox from '@/components/ui/checkbox/CustomCheckbox';
 import CustomHeader from '@/components/ui/header/CustomHeader';
-import CustomSwitch from '@/components/ui/switch/CustomSwitch';
 import CustomTable from '@/components/ui/table/CustomTable';
 import ExpandableSelectList from '@/components/ui/text-input/select/ExpandableSelectList';
 import RadioButtonRow from '@/components/ui/text-input/select/row/RadioButtonRow';
@@ -15,7 +15,7 @@ import { FiltersContext } from '@/context/filter/FiltersContext';
 import { SelectInputData } from '@/context/utils/SelectInputContext';
 import useGroup from '@/hooks/group/UseGroup';
 
-export default function ExpenseBaseCurrencySelect() {
+export default function Filters() {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -59,7 +59,7 @@ export default function ExpenseBaseCurrencySelect() {
               });
             }}>
             <CustomTable title={t('Created by me')} textSize="large">
-              <CustomSwitch value={selectedData.isCreator === 'true'} />
+              <CustomCheckbox value={selectedData.isCreator === 'true'} />
             </CustomTable>
           </SingleClickTouchableOpacity>
           <ExpandableSelectList

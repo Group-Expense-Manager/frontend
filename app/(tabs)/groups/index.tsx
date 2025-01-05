@@ -155,7 +155,7 @@ export default function Index() {
         <FilterChips
           activityFilters={filters}
           setActivityFilters={setFilters}
-          onPress={() => router.push('/groups/filters')}
+          onPress={() => router.push('/filters')}
         />
       </View>
       {activities && groupMembersDetails ? (
