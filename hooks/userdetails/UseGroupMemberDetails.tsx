@@ -11,6 +11,9 @@ export default function useGroupMemberDetails(groupId: string, groupMemberId?: s
   return useQuery({
     queryKey: [`/user-details/${groupId}/members/${groupMemberId}`],
     queryFn: async (): Promise<UserDetails> => {
+      if (!groupMemberId) {
+        throw new Error('groupMemberId is required');
+      }
       const { data } = await axios.get(
         `${API_URL}${PATHS.EXTERNAL}/user-details/groups/${groupId}/members/${groupMemberId}`,
         {
@@ -23,7 +26,10 @@ export default function useGroupMemberDetails(groupId: string, groupMemberId?: s
       );
       return data;
     },
-    refetchOnMount: false,
-    enabled: !!groupMemberId,
+    staleTime: 10 * 60 * 1000,
+    retry: 10,
+    retryDelay: (attempt) => {
+      return Math.pow(2, attempt) * 100;
+    },
   });
 }

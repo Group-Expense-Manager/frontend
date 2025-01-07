@@ -52,5 +52,10 @@ export default function useExpense(expenseId: string) {
 
       return data;
     },
+    staleTime: 10 * 60 * 1000,
+    retry: 10,
+    retryDelay: (attempt) => {
+      return Math.pow(2, attempt) * 100;
+    },
   });
 }

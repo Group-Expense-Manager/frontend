@@ -37,6 +37,10 @@ export default function useUserDetails() {
       });
       return data;
     },
-    refetchOnMount: false,
+    staleTime: 10 * 60 * 1000,
+    retry: 10,
+    retryDelay: (attempt) => {
+      return Math.pow(2, attempt) * 100;
+    },
   });
 }

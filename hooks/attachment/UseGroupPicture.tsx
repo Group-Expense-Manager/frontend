@@ -11,6 +11,9 @@ export default function useGroupPicture(groupId: string, attachmentId?: string) 
   return useQuery({
     queryKey: [`/groups/${groupId}/attachments/${attachmentId}`],
     queryFn: async (): Promise<ImageBase64> => {
+      if (!attachmentId) {
+        throw new Error('attachmentId is required');
+      }
       const { data } = await axios.get(
         `${API_URL}${PATHS.EXTERNAL}/groups/${groupId}/attachments/${attachmentId}`,
         {
@@ -20,6 +23,9 @@ export default function useGroupPicture(groupId: string, attachmentId?: string) 
             authorization: `Bearer ${authState.token}`,
           },
           responseType: 'blob',
+          timeout: 2000,
+          maxContentLength: 10 * 1024 * 1024,
+          maxBodyLength: 10 * 1024 * 1024,
         },
       );
       const reader = new FileReader();
@@ -35,7 +41,10 @@ export default function useGroupPicture(groupId: string, attachmentId?: string) 
         uri: base64Data,
       };
     },
-    refetchOnMount: false,
-    enabled: !!attachmentId,
+    staleTime: 10 * 60 * 1000,
+    retry: 10,
+    retryDelay: (attempt) => {
+      return Math.pow(2, attempt) * 100;
+    },
   });
 }

@@ -25,6 +25,9 @@ export default function useBalances(groupId?: string | null) {
   return useQuery({
     queryKey: [`/balances/groups/${groupId}`],
     queryFn: async (): Promise<BalancesList> => {
+      if (!groupId) {
+        throw new Error('groupId is required');
+      }
       const { data } = await axios.get(`${API_URL}${PATHS.EXTERNAL}/balances/groups/${groupId}`, {
         headers: {
           host: HOST.FINANCE_ADAPTER,
@@ -34,6 +37,10 @@ export default function useBalances(groupId?: string | null) {
       });
       return data;
     },
-    enabled: !!groupId,
+    staleTime: 10 * 60 * 1000,
+    retry: 10,
+    retryDelay: (attempt) => {
+      return Math.pow(2, attempt) * 100;
+    },
   });
 }
